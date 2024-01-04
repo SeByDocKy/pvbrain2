@@ -1,0 +1,18 @@
+sensor:
+  - platform: bme280 
+    temperature:
+      name: ${name}_${bme_280_name}_temperature_${bme_280_sufix}
+      accuracy_decimals: 1
+      oversampling: 16x
+      id: ${bme_280_name}_temperature_${bme_280_sufix}
+    pressure:
+      name: ${name}_${bme_280_name}_pression_${bme_280_sufix}
+      accuracy_decimals: 1
+      id: ${bme_280_name}_pression_${bme_280_sufix}
+    humidity:
+      name: ${name}_${bme_280_name}_humidite_${bme_280_sufix}
+      accuracy_decimals: 1
+      id: ${bme_280_name}_humidite_${bme_280_sufix}
+    address: ${bme_280_address}
+    update_interval: ${bme_update_interval}
+    i2c_id: ${bme_280_i2c_bus}

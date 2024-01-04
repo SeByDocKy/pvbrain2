@@ -1,0 +1,631 @@
+# Version info, for full change log:- https://github.com/Uksa007/esphome-jk-bms-can/discussions/2
+# V1.13.3 Improve compatibility with Deye and other inverters
+# V1.13.2 Send Max Temperature of T1, T2 to inverter
+# V1.13.1 Fix compile issues with new version of ESPhome 2023.4.0, set rebulk offset to 2.5
+substitutions:
+# --------------------------
+# name that will appear in esphome and homeassistant.
+  name: jk-bms-can
+# --------------------------
+# Number of Battery modules max 8. Each LX U5.4-L battery is 5.4kWh, select the number closest to your capactiy eg 3.2V * 280Ah * 16 = 14.3kWh
+  batt_modules: "3"
+# --------------------------------------
+# Battery Charging setting:
+# This is max charging amps eg 50A, for Bulk - Constant Current charging(CC), should be at least 10A less than BMS change current protection, 0.5C max 
+  charge_a: "50"
+# Absorption Voltage for Constant Voltage charging(CV). This is Absorption voltage you want the inverter to change with 55.2 eg 3.45v/cell for 16 cells 48V battery. 
+  absorption_v: "55.2"
+# Absorption time in minutes to hold charge voltage after charge voltage is reached eg 30
+  absorption_time: "30"
+# Rebulk offset, x Volts below absorption voltage battery will request rebulk, eg 55.2-3 = 52.5v, roughly 90% SOC.
+  rebulk_offset: "2.5"
+# --------------------------------------
+# Battery Discharge setting:
+# Max discharge amps eg 100, should be at least 10A less than BMS over dischange current protection, 0.5C max
+  discharge_a: "100"
+# Minimum discharge voltage eg 48v/16 = 3V per cell
+  min_dischange_v: "48"
+# --------------------------------------
+# Battery State of Health (SOH) setting:
+# Maximum charging cycles is used to calculate the battery SOH, LF280K=6000.0 LF280=3000.0 (decimal is required)
+  max_cycles: "6000.0"
+# --------------------------------------
+# ESP32 CAN/Serial port pins:
+# GPIO pins your CAN bus transceiver(TJA1050) is connected to the ESP, note! TX->TX and RX->RX. 
+  can_tx_pin: GPIO23
+  can_rx_pin: GPIO22
+# GPIO pins your JK-BMS RS485(TTL) is connected to the ESP TX->RX and RX->TX. 
+  tx_pin: GPIO17
+  rx_pin: GPIO16
+# --------------------------------------
+#### Don't make changes below this ####
+  external_components_source: github://uksa007/esphome-jk-bms-can@main
+
+esphome:
+  name: ${name}
+  on_boot:
+    then:
+      - switch.turn_on: inverter_charging
+      - switch.turn_on: inverter_discharging
+
+esp32:
+  board: esp32doit-devkit-v1
+#  framework:
+#    type: esp-idf
+#    version: latest
+
+external_components:
+  - source: ${external_components_source}
+    refresh: 0s
+
+globals:
+  - id: can_305_rx
+    type: int
+    restore_value: no
+    initial_value: '0'
+  - id: charge_status
+    type: std::string
+    restore_value: no
+    initial_value: '"Startup"'
+
+button:
+  - platform: restart
+    name: "Restart button"
+    id: restart_button
+    internal: true
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  domain: !secret domain
+
+ota:
+logger:
+
+# Please use the native `api` component instead of the `mqtt` section
+# if you use Home Assistant. The native API is more lightweight.
+api:
+
+# mqtt:
+#  broker: !secret mqtt_host
+#  username: !secret mqtt_username
+#  password: !secret mqtt_password
+#  id: mqtt_client
+
+output:
+  - platform: gpio
+    pin: 2
+    id: led
+    inverted: true
+
+light:
+  - platform: binary
+    output: led
+    id: led_buitin
+    name: "Builtin LED"
+    internal: true
+
+uart:
+  id: uart_0
+  baud_rate: 115200
+  rx_buffer_size: 384
+  tx_pin: ${tx_pin}
+  rx_pin: ${rx_pin}
+
+jk_modbus:
+  id: modbus0
+  uart_id: uart_0
+
+jk_bms:
+  id: bms0
+  jk_modbus_id: modbus0
+#  enable_fake_traffic: true
+
+canbus:
+  - platform: esp32_can
+    tx_pin: ${can_tx_pin}
+    rx_pin: ${can_rx_pin}
+    can_id: 4
+    bit_rate: 500kbps
+    on_frame:
+    - can_id: 0x305 # SMA/LG/Pylon/Goodwe reply
+      then:
+        - light.toggle:
+            id: led_buitin
+        - lambda: |-
+            // ESP_LOGI("main", "received can id: 0x305 ACK");
+            id(can_305_rx) = 0;
+
+
+interval:
+  - interval: 1000ms
+    then:
+      - canbus.send: # Warning, Alarms
+          can_id: 0x359
+          data: !lambda |-
+            uint8_t can_mesg[] = {0, 0, 0, 0, 0, 0, 0, 0};
+            uint16_t jk_errormask = id(errors_bitmask).state;
+            int batt_mods = ${batt_modules};
+            // Alarms
+            if ((jk_errormask & 0x04) | (jk_errormask & 0x80) | (jk_errormask & 0x400)) { // Hight.Voltage.Alarm JK bit 2,7,10 
+               can_mesg[0] = 0x02; // bit 1
+            }
+            if ((jk_errormask & 0x08) | (jk_errormask & 0x800)) { // Low.Voltage.Alarm JK bit 3,11 
+               can_mesg[0] = can_mesg[0] | 0x04; // bit 2
+            }
+            if ((jk_errormask & 0x02) | (jk_errormask & 0x10) | (jk_errormask & 0x100)) { // Hight.Temp.Alarm JK bit 1,4,8
+               can_mesg[0] = can_mesg[0] | 0x08; // bit 3
+            }
+            if (jk_errormask & 0x200) { // Low.Temp.Alarm JK bit 9
+               can_mesg[0] = can_mesg[0] | 0x10; // bit 4
+            }
+            if (jk_errormask & 0x40) { // Discharge.Over.Current JK bit 6
+               can_mesg[0] = can_mesg[0] | 0x80; // bit 7
+            }
+            if (jk_errormask & 0x20) { // Charge.Over.Current JK bit 5
+               can_mesg[1] = 0x01; // bit 0
+            }
+            if ((jk_errormask & 0x1000) | (jk_errormask & 0x2000)) { // BMS Internal JK bit 12,13
+               can_mesg[1] = can_mesg[1] | 0x08; // bit 3
+            }
+            if (jk_errormask & 0x80) { // Cell Imbalance JK bit 7
+               can_mesg[1] = can_mesg[1] | 0x10; // bit 4 
+            }
+            /// Warnings
+            can_mesg[2] = 0x00;
+            can_mesg[3] = 0x00;
+            /// Flags
+            can_mesg[4] = batt_mods; // Module in parallel
+            can_mesg[5] = 0x00;
+            can_mesg[6] = 0x00;
+            can_mesg[7] = 0x00; // DIP switches 1,3 10000100 0x84
+            ESP_LOGI("main", "send can id: 0x359 hex: %x %x %x %x %x %x %x %x", can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5], can_mesg[6], can_mesg[7]);
+            return {can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5], can_mesg[6], can_mesg[7]};
+      - delay: 10ms
+
+      - canbus.send: # BMS instructs inverter: Charge Volts, Charge Amps, Discharge Amps, Min voltage
+          can_id: 0x351
+          data: !lambda |-
+            uint8_t can_mesg[7];
+            if ((!id(charging_switch).state) | (!id(inverter_charging).state)) {
+               id(charge_status) = "Disabled";
+            } else if (id(inverter_chg_on).state) {
+                id(charge_status) = "Bulk Manually";
+            } else if ((id(charging_switch).state) & (id(inverter_charging).state) & (id(charge_status) == "Disabled")) {
+               id(charge_status) = "Wait";
+            } else if ((!id(inverter_chg_on).state) & (id(charge_status) == "Bulk Manually")) {
+               id(charge_status) = "Wait";
+            } else if (id(total_voltage).state <= (id(charging_voltage).state - ${rebulk_offset})) { // Bulk Charge eg 53.6v 10% 
+                if (id(absorption_script).is_running()) id(absorption_script).stop();
+                id(charge_status) = "Bulk";
+            } else if ((id(total_voltage).state > (id(charging_voltage).state - ${rebulk_offset})) & (id(total_voltage).state < (id(charging_voltage).state - 0.05))) { // If in startup rebulk
+                     if (id(charge_status) == "Startup") {
+                        id(charge_status) = "Bulk"; // If in startup, 10% low rebulk
+                     }
+            } else if (id(total_voltage).state >= (id(charging_voltage).state  - 0.05)) { // 10 % from top start absorption timer
+                     if (id(charge_status) == "Bulk") {
+                        id(charge_status) = "Absorption";
+                        if (!id(absorption_script).is_running()) id(absorption_script).execute();
+                     }
+            } else {
+                id(charge_status) = "Wait";
+            }
+            if ((id(charge_status) == "Bulk") | (id(charge_status) == "Absorption") | (id(inverter_chg_on).state)) {
+               can_mesg[0] = uint16_t(id(charging_voltage).state * 10) & 0xff;
+               can_mesg[1] = uint16_t(id(charging_voltage).state * 10) >> 8 & 0xff;
+               can_mesg[2] = uint16_t(id(charging_current).state * 10) & 0xff;
+               can_mesg[3] = uint16_t(id(charging_current).state * 10) >> 8 & 0xff;
+            } else {
+               can_mesg[0] = uint16_t((id(charging_voltage).state - ${rebulk_offset}) * 10) & 0xff;
+               can_mesg[1] = uint16_t((id(charging_voltage).state - ${rebulk_offset}) * 10) >> 8 & 0xff;
+               can_mesg[2] = 0;
+               can_mesg[3] = 0;
+            }
+            if ((!id(charging_switch).state) | (!id(inverter_charging).state)) { // Overides to disable charging
+               can_mesg[0] = uint16_t((id(charging_voltage).state - ${rebulk_offset}) * 10) & 0xff;
+               can_mesg[1] = uint16_t((id(charging_voltage).state - ${rebulk_offset}) * 10) >> 8 & 0xff;
+               can_mesg[2] = 0;
+               can_mesg[3] = 0;
+            }
+            if ((id(discharging_switch).state) & (id(inverter_discharging).state)) {
+              can_mesg[4] = uint16_t(${discharge_a} * 10) & 0xff;
+              can_mesg[5] = uint16_t(${discharge_a} * 10) >> 8 & 0xff;
+            } else {
+               can_mesg[4] = 0x00;
+               can_mesg[5] = 0x00;
+            }
+            can_mesg[6] = uint16_t(${min_dischange_v} * 10) & 0xff;
+            can_mesg[7] = uint16_t(${min_dischange_v} * 10) >> 8 & 0xff;
+            id(charging_status).publish_state(id(charge_status));
+            ESP_LOGI("main", "send can id: 0x351 hex: %x %x %x %x %x %x %x %x", can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5], can_mesg[6], can_mesg[7]);
+            ESP_LOGI("main", "send can id: Charge Status %s", id(charge_status).c_str());
+            return {can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5], can_mesg[6], can_mesg[7]};
+      - delay: 10ms
+
+      - canbus.send: # Actual SOC, SOH
+          can_id: 0x355
+          data: !lambda |-
+            int soh = round(((id(charging_cycles).state/${max_cycles})-1)*-100);
+            uint8_t can_mesg[3];
+            can_mesg[0] = uint16_t(id(capacity_remaining).state) & 0xff;
+            can_mesg[1] = uint16_t(id(capacity_remaining).state) >> 8 & 0xff;
+            can_mesg[2] = soh & 0xff;
+            can_mesg[3] = soh >> 8 & 0xff;
+            ESP_LOGI("main", "send can id: 0x355 hex: %x %x %x %x", can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3]);
+            return {can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3]};
+      - delay: 10ms
+
+      - canbus.send: # Actual Volts, Amps, Temp
+          can_id: 0x356
+          data: !lambda |-
+            uint8_t can_mesg[5];
+            can_mesg[0] = uint16_t(id(total_voltage).state * 100) & 0xff;
+            can_mesg[1] = uint16_t(id(total_voltage).state * 100) >> 8 & 0xff;
+            can_mesg[2] = int16_t(id(current).state * 10) & 0xff;
+            can_mesg[3] = int16_t(id(current).state * 10) >> 8 & 0xff;
+            can_mesg[4] = int16_t(max(id(temperature_sensor_1).state, id(temperature_sensor_2).state)* 10) & 0xff;
+            can_mesg[5] = int16_t(max(id(temperature_sensor_1).state, id(temperature_sensor_2).state)* 10) >> 8 & 0xff;
+            ESP_LOGI("main", "send can id: 0x356 hex: %x %x %x %x %x %x", can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5]);
+            return {can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5]};
+      - delay: 10ms
+
+      - canbus.send: # Request flag to Enable/Disable: Charge, Discharge
+          can_id: 0x35C
+          data: !lambda |-
+            uint8_t can_mesg[1];
+            if ((id(charging_switch).state) & (id(inverter_charging).state)) {
+               can_mesg[0] = 0x80;
+            } else {
+               can_mesg[0] = 0x00;
+            }
+            if ((id(discharging_switch).state) & (id(inverter_discharging).state)) {
+               can_mesg[0] = can_mesg[0] | 0x40;
+            }
+            can_mesg[1] = 0x00;
+            ESP_LOGI("main", "send can id: 0x35C hex: %x %x", can_mesg[0], can_mesg[1]);
+            return {can_mesg[0], can_mesg[1]};
+      - delay: 10ms
+
+      - canbus.send: # Actual Max Cell Temp, Min Cell Temp, Max Cell V, Min Cell V
+          can_id: 0x70
+          data: !lambda |-
+            int max_cell_voltage_i = id(max_cell_voltage).state * 100.0;
+            int min_cell_voltage_i = id(min_cell_voltage).state * 100.0;
+            uint8_t can_mesg[7];
+            can_mesg[0] = int16_t(max(id(temperature_sensor_1).state, id(temperature_sensor_2).state)* 10) & 0xff;
+            can_mesg[1] = int16_t(max(id(temperature_sensor_1).state, id(temperature_sensor_2).state)* 10) >> 8 & 0xff;
+            can_mesg[2] = int16_t(min(id(temperature_sensor_1).state, id(temperature_sensor_2).state)* 10) & 0xff;
+            can_mesg[3] = int16_t(min(id(temperature_sensor_1).state, id(temperature_sensor_2).state)* 10) >> 8 & 0xff;
+            can_mesg[4] = max_cell_voltage_i & 0xff;
+            can_mesg[5] = max_cell_voltage_i >> 8 & 0xff;
+            can_mesg[6] = min_cell_voltage_i & 0xff;
+            can_mesg[7] = min_cell_voltage_i >> 8 & 0xff;
+            ESP_LOGI("main", "send can id: 0x70 hex: %x %x %x %x %x %x %x %x", can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5], can_mesg[6], can_mesg[7]);
+            return {can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5], can_mesg[6], can_mesg[7]};
+      - delay: 10ms
+
+      - canbus.send: # Actual Max Cell Temp ID, Min Cell Temp ID, Max Cell V ID, Min Cell ID
+          can_id: 0x371
+          data: !lambda |-
+            uint8_t can_mesg[7];
+            can_mesg[0] = 0x01;
+            can_mesg[1] = 0x00;
+            can_mesg[2] = 0x02;
+            can_mesg[3] = 0x00;
+            can_mesg[4] = uint16_t(id(max_voltage_cell).state) & 0xff;
+            can_mesg[5] = uint16_t(id(max_voltage_cell).state) >> 8 & 0xff;
+            can_mesg[6] = uint16_t(id(min_voltage_cell).state) & 0xff;
+            can_mesg[7] = uint16_t(id(min_voltage_cell).state) >> 8 & 0xff;
+            ESP_LOGI("main", "send can id: 0x371 hex: %x %x %x %x %x %x %x %x", can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5], can_mesg[6], can_mesg[7]);
+            return {can_mesg[0], can_mesg[1], can_mesg[2], can_mesg[3], can_mesg[4], can_mesg[5], can_mesg[6], can_mesg[7]};
+      - delay: 10ms
+
+      - canbus.send: # GOODWE
+          can_id: 0x35E
+          data: [0x47, 0x4F, 0x4F, 0x44, 0x57, 0x45, 0x20, 0x20]
+      - delay: 10ms
+
+      - lambda: |- # Detect no CAN reply
+           if (id(can_305_rx) > 30) {
+             ESP_LOGI("main", "No rx can 0x305 reply, Inverter not connected/responding, Rebooting...");
+             id(restart_button).press();
+           } else {
+             id(can_305_rx) ++;
+           }
+
+binary_sensor:
+  - platform: jk_bms
+    balancing:
+      name: "${name} balancing"
+    balancing_switch:
+      name: "${name} balancing switch"
+    charging:
+      name: "${name} charging"
+    charging_switch:
+      id: charging_switch
+      name: "${name} charging switch"
+    discharging:
+      name: "${name} discharging"
+    discharging_switch:
+      id: discharging_switch
+      name: "${name} discharging switch"
+    dedicated_charger_switch:
+      name: "${name} dedicated charger switch"
+
+sensor:
+  - platform: jk_bms
+    min_cell_voltage:
+      id: min_cell_voltage
+      name: "${name} min cell voltage"
+    max_cell_voltage:
+      id: max_cell_voltage
+      name: "${name} max cell voltage"
+    min_voltage_cell:
+      id: min_voltage_cell
+      name: "${name} min voltage cell"
+    max_voltage_cell:
+      id: max_voltage_cell
+      name: "${name} max voltage cell"
+    delta_cell_voltage:
+      name: "${name} delta cell voltage"
+    average_cell_voltage:
+      name: "${name} average cell voltage"
+    cell_voltage_1:
+      name: "${name} cell voltage 1"
+    cell_voltage_2:
+      name: "${name} cell voltage 2"
+    cell_voltage_3:
+      name: "${name} cell voltage 3"
+    cell_voltage_4:
+      name: "${name} cell voltage 4"
+    cell_voltage_5:
+      name: "${name} cell voltage 5"
+    cell_voltage_6:
+      name: "${name} cell voltage 6"
+    cell_voltage_7:
+      name: "${name} cell voltage 7"
+    cell_voltage_8:
+      name: "${name} cell voltage 8"
+    cell_voltage_9:
+      name: "${name} cell voltage 9"
+    cell_voltage_10:
+      name: "${name} cell voltage 10"
+    cell_voltage_11:
+      name: "${name} cell voltage 11"
+    cell_voltage_12:
+      name: "${name} cell voltage 12"
+    cell_voltage_13:
+      name: "${name} cell voltage 13"
+    cell_voltage_14:
+      name: "${name} cell voltage 14"
+    cell_voltage_15:
+      name: "${name} cell voltage 15"
+    cell_voltage_16:
+      name: "${name} cell voltage 16"
+#    cell_voltage_17:
+#      name: "${name} cell voltage 17"
+#    cell_voltage_18:
+#      name: "${name} cell voltage 18"
+#    cell_voltage_19:
+#      name: "${name} cell voltage 19"
+#    cell_voltage_20:
+#      name: "${name} cell voltage 20"
+#    cell_voltage_21:
+#      name: "${name} cell voltage 21"
+#    cell_voltage_22:
+#      name: "${name} cell voltage 22"
+#    cell_voltage_23:
+#      name: "${name} cell voltage 23"
+#    cell_voltage_24:
+#      name: "${name} cell voltage 24"
+    power_tube_temperature:
+      id: power_tube_temperature
+      name: "${name} power tube temperature"
+    temperature_sensor_1:
+      id: temperature_sensor_1
+      name: "${name} temperature sensor 1"
+    temperature_sensor_2:
+      id: temperature_sensor_2
+      name: "${name} temperature sensor 2"
+    total_voltage:
+      id: total_voltage
+      name: "${name} total voltage"
+    current:
+      id: current
+      name: "${name} current"
+    power:
+      name: "${name} power"
+    charging_power:
+      name: "${name} charging power"
+    discharging_power:
+      name: "${name} discharging power"
+    capacity_remaining:
+      id: capacity_remaining
+      name: "${name} capacity remaining"
+    capacity_remaining_derived:
+      name: "${name} capacity remaining derived"
+    temperature_sensors:
+      name: "${name} temperature sensors"
+    charging_cycles:
+      name: "${name} charging cycles"
+      id: charging_cycles
+    total_charging_cycle_capacity:
+      name: "${name} total charging cycle capacity"
+    battery_strings:
+      name: "${name} battery strings"
+    errors_bitmask:
+      id: errors_bitmask
+      name: "${name} errors bitmask"
+    operation_mode_bitmask:
+      name: "${name} operation mode bitmask"
+    total_voltage_overvoltage_protection:
+      name: "${name} total voltage overvoltage protection"
+    total_voltage_undervoltage_protection:
+      id: total_voltage_undervoltage_protection
+      name: "${name} total voltage undervoltage protection"
+    cell_voltage_overvoltage_protection:
+      name: "${name} cell voltage overvoltage protection"
+    cell_voltage_overvoltage_recovery:
+      name: "${name} cell voltage overvoltage recovery"
+    cell_voltage_overvoltage_delay:
+      name: "${name} cell voltage overvoltage delay"
+    cell_voltage_undervoltage_protection:
+      name: "${name} cell voltage undervoltage protection"
+    cell_voltage_undervoltage_recovery:
+      name: "${name} cell voltage undervoltage recovery"
+    cell_voltage_undervoltage_delay:
+      name: "${name} cell voltage undervoltage delay"
+    cell_pressure_difference_protection:
+      name: "${name} cell pressure difference protection"
+    discharging_overcurrent_protection:
+      id: discharging_overcurrent_protection
+      name: "${name} discharging overcurrent protection"
+    discharging_overcurrent_delay:
+      name: "${name} discharging overcurrent delay"
+    charging_overcurrent_protection:
+      id: charging_overcurrent_protection
+      name: "${name} charging overcurrent protection"
+    charging_overcurrent_delay:
+      name: "${name} charging overcurrent delay"
+    balance_starting_voltage:
+      name: "${name} balance starting voltage"
+    balance_opening_pressure_difference:
+      name: "${name} balance opening pressure difference"
+    power_tube_temperature_protection:
+      name: "${name} power tube temperature protection"
+    power_tube_temperature_recovery:
+      name: "${name} power tube temperature recovery"
+    temperature_sensor_temperature_protection:
+      name: "${name} temperature sensor temperature protection"
+    temperature_sensor_temperature_recovery:
+      name: "${name} temperature sensor temperature recovery"
+    temperature_sensor_temperature_difference_protection:
+      name: "${name} temperature sensor temperature difference protection"
+    charging_high_temperature_protection:
+      name: "${name} charging high temperature protection"
+    discharging_high_temperature_protection:
+      name: "${name} discharging high temperature protection"
+    charging_low_temperature_protection:
+      name: "${name} charging low temperature protection"
+    charging_low_temperature_recovery:
+      name: "${name} charging low temperature recovery"
+    discharging_low_temperature_protection:
+      name: "${name} discharging low temperature protection"
+    discharging_low_temperature_recovery:
+      name: "${name} discharging low temperature recovery"
+    total_battery_capacity_setting:
+      name: "${name} total battery capacity setting"
+    current_calibration:
+      name: "${name} current calibration"
+    device_address:
+      name: "${name} device address"
+    sleep_wait_time:
+      name: "${name} sleep wait time"
+    alarm_low_volume:
+      name: "${name} alarm low volume"
+    manufacturing_date:
+      name: "${name} manufacturing date"
+    total_runtime:
+      name: "${name} total runtime"
+#    start_current_calibration:
+#      name: "${name} start current calibration"
+    actual_battery_capacity:
+      name: "${name} actual battery capacity"
+#    protocol_version:
+#      name: "${name} protocol version"
+# Uptime sensor
+  - platform: uptime
+    name: ${name} Uptime Sensor
+    id: uptime_sensor
+    update_interval: 60s
+    on_raw_value:
+      then:
+        - text_sensor.template.publish:
+            id: uptime_human
+            state: !lambda |-
+              int seconds = round(id(uptime_sensor).raw_state);
+              int days = seconds / (24 * 3600);
+              seconds = seconds % (24 * 3600);
+              int hours = seconds / 3600;
+              seconds = seconds % 3600;
+              int minutes = seconds /  60;
+              seconds = seconds % 60;
+              return (
+                (days ? to_string(days) + "d " : "") +
+                (hours ? to_string(hours) + "h " : "") +
+                (minutes ? to_string(minutes) + "m " : "") +
+                (to_string(seconds) + "s")
+              ).c_str();
+
+text_sensor:
+  - platform: jk_bms
+    errors:
+      name: "${name} errors"
+    operation_mode:
+      name: "${name} operation mode"
+    battery_type:
+      name: "${name} battery type"
+    password:
+      name: "${name} password"
+    device_type:
+      name: "${name} device type"
+    software_version:
+      name: "${name} software version"
+    manufacturer:
+      name: "${name} manufacturer"
+    total_runtime_formatted:
+      name: "${name} total runtime formatted"
+# Template text sensors
+  - platform: template
+    name: ${name} Uptime Human Readable
+    id: uptime_human
+    icon: mdi:clock-start
+  - platform: template
+    name: "${name} Charging Status"
+    id: charging_status
+
+# Slider
+number:
+  - platform: template
+    name: "${name} Absorption voltage"
+    id: "charging_voltage"
+    step: 0.1
+    min_value: 52.8
+    max_value: 57.6
+    mode: slider
+    initial_value: "${absorption_v}"
+    unit_of_measurement: V
+    icon: mdi:battery-charging
+    optimistic: true
+  - platform: template
+    name: "${name} Charging current max"
+    id: "charging_current"
+    step: 1
+    min_value: 2
+    max_value: 100
+    mode: slider
+    initial_value: "${charge_a}"
+    unit_of_measurement: A
+    icon: mdi:current-dc
+    optimistic: true
+
+script:
+  - id: absorption_script
+    then:
+      - lambda: id(charge_status) = "Absorption";
+      - delay: ${absorption_time}min
+      - lambda: id(charge_status) = "Wait";
+
+switch:
+  - platform: template
+    name: ${name} Charging enabled
+    id: inverter_charging
+    optimistic: true
+  - platform: template
+    name: ${name} Discharge enabled
+    id: inverter_discharging
+    optimistic: true
+  - platform: template
+    name: ${name} Charging manually (top bal)
+    id: inverter_chg_on
+    optimistic: true

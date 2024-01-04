@@ -1,0 +1,59 @@
+external_components:
+  - source: github://pr#5218
+    components: [wk2132, wk2132_i2c]
+    refresh: 0s
+    
+i2c:
+  - id: i2c0_bus
+    sda: GPIO41 
+    scl: GPIO40
+    frequency: 800kHz
+    
+wk2132_i2c:
+  - address: 0x10
+    id: uart_bridge0
+    i2c_id: i2c0_bus
+    uart:
+      - uart_id: uart_i2C_0
+        channel: 0
+        baud_rate: 2400
+        # parity: even
+      - uart_id: uart_i2C_1
+        channel: 1
+        baud_rate: 38400
+
+  - address: 0x30
+    id: uart_bridge1
+    i2c_id: i2c0_bus
+    uart:
+      - uart_id: uart_i2C_2
+        channel: 0
+        baud_rate: 115200
+        # parity: even
+      - uart_id: uart_i2C_3
+        channel: 1
+        baud_rate: 115200
+
+  - address: 0x50
+    id: uart_bridge2
+    i2c_id: i2c0_bus
+    uart:
+      - uart_id: uart_i2C_4
+        channel: 0
+        baud_rate: 19200
+        # parity: even
+      - uart_id: uart_i2C_5
+        channel: 1
+        baud_rate: 115200
+
+  - address: 0x70
+    id: uart_bridge3
+    i2c_id: i2c0_bus
+    uart:
+      - uart_id: uart_i2C_6
+        channel: 0
+        baud_rate: 19200
+        # parity: even
+      - uart_id: uart_i2C_7
+        channel: 1
+        baud_rate: 9600    

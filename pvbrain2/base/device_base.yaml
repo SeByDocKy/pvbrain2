@@ -1,0 +1,60 @@
+ 
+packages:
+  physical_uart: !include device_physical_uart.yaml    
+  i2c1: !include device_i2c1.yaml
+  # device_wk2132_i2c: !include device_wk2132_i2c.yaml
+  device_wk2132_spi: !include device_wk2132_spi.yaml
+  device_sx1509: !include device_sx1509.yaml
+  device_dallas: !include device_dallas.yaml
+  device_ws2812b: !include device_ws2812b.yaml
+              
+binary_sensor:       
+  - platform: status
+    name: ${name}_status   
+   
+light:  
+  - platform: status_led
+    name: ${name}_led_light_1
+    id: led_light_1
+    pin: GPIO01
+
+  - platform: status_led
+    name: ${name}_led_light_2
+    id: led_light_2
+    pin: GPIO02    
+    
+switch:
+  - platform: restart
+    name: ${name}_restart
+    id: ${name}_restart    
+    
+sensor:    
+  - platform: wifi_signal
+    name: ${name}_wifi_power
+    update_interval: 10s
+    
+  - platform: uptime
+    id: uptime_sec
+    
+text_sensor:
+  - platform: template
+    name: ${name}_uptime
+    lambda: |-
+      int seconds = (id(uptime_sec).state);
+      int days = seconds / (24 * 3600);
+      seconds = seconds % (24 * 3600); 
+      int hours = seconds / 3600;
+      seconds = seconds % 3600;
+      int minutes = seconds /  60;
+      seconds = seconds % 60;
+      if ( days ) {
+        return { (std::to_string(days) +"d " + std::to_string(hours) +"h " + std::to_string(minutes) +"m "+ std::to_string(seconds) +"s ").c_str() };
+      } else if ( hours ) {
+        return { (std::to_string(hours) +"h " + std::to_string(minutes) +"m "+ std::to_string(seconds) +"s ").c_str() };
+      } else if ( minutes ) {
+        return { (std::to_string(minutes) +"m "+ std::to_string(seconds) +"s ").c_str() };
+      } else {
+        return { (std::to_string(seconds) +"s ").c_str() };
+      }
+    icon: mdi:clock-start
+    update_interval: 113s    

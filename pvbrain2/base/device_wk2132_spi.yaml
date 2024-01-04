@@ -1,0 +1,64 @@
+external_components:
+  - source: github://pr#5218
+    components: [wk2132, wk2132_spi]
+    refresh: 0s
+    
+spi:
+  - id: spi0_bus
+    mosi_pin: GPIO11  #11
+    miso_pin: GPIO41
+    clk_pin: GPIO40
+    
+wk2132_spi:
+  - id: uart_bridge0
+    spi_id: spi0_bus
+    cs_pin: GPIO06
+    data_rate: 4MHz
+    #test_mode: 1
+    uart:
+      - uart_id: uart_i2C_0
+        channel: 0
+        baud_rate: 2400
+        #parity: even
+      - uart_id: uart_i2C_1
+        channel: 1
+        baud_rate: 38400 
+
+  - id: uart_bridge1
+    spi_id: spi0_bus
+    cs_pin: GPIO21
+    data_rate: 4MHz
+    uart:
+      - uart_id: uart_i2C_2
+        channel: 0
+        baud_rate: 115200
+        #parity: even
+      - uart_id: uart_i2C_3
+        channel: 1
+        baud_rate: 115200
+        
+  - id: uart_bridge2
+    spi_id: spi0_bus
+    cs_pin: GPIO19
+    data_rate: 4MHz
+    uart:
+      - uart_id: uart_i2C_4
+        channel: 0
+        baud_rate: 19200
+        #parity: even
+      - uart_id: uart_i2C_5
+        channel: 1
+        baud_rate: 115200
+        
+  - id: uart_bridge3
+    spi_id: spi0_bus
+    cs_pin: GPIO20
+    data_rate: 4MHz
+    uart:
+      - uart_id: uart_i2C_6
+        channel: 0
+        baud_rate: 19200
+        #parity: even
+      - uart_id: uart_i2C_7
+        channel: 1
+        baud_rate: 9600

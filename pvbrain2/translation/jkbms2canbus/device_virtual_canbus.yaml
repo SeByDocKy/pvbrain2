@@ -1,0 +1,35 @@
+external_components:
+  - source: github://syssi/esphome-virtual-can-bms@main
+    refresh: 0s
+
+spi:
+  - id: spi0_bus
+    mosi_pin: GPIO11
+    miso_pin: GPIO12
+    clk_pin: GPIO13    
+    
+canbus:
+  - platform: mcp2515
+    id: canbus_id0
+    spi_id: spi0_bis
+    cs_pin: GPIO10
+    can_id: ${virtual_canbus_can_id}
+    bit_rate: 500kbps
+    
+virtual_can_bms:
+  canbus_id: ${virtual_canbus_bus_id}
+  update_interval: ${virtual_canbus_update_interval}
+
+  charge_voltage_id: charge_voltage_sensor
+  charge_current_limit_id: charge_current_limit_sensor
+  discharge_current_limit_id: discharge_current_limit_sensor
+  discharge_voltage_limit_id: discharge_voltage_limit_sensor
+  state_of_charge_id: state_of_charge_sensor
+  state_of_health_id: state_of_health_sensor
+  hires_state_of_charge_id: hires_state_of_charge_sensor
+  battery_voltage_id: battery_voltage_sensor
+  battery_current_id: battery_current_sensor
+  battery_temperature_id: battery_temperature_sensor
+  
+sensor: 
+  -platform: template

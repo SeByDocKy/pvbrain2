@@ -1,0 +1,5 @@
+i2c:  
+  - id: i2c1_bus
+    sda: GPIO08 
+    scl: GPIO09
+    frequency: 50kHz    

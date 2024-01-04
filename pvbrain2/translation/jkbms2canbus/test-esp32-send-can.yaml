@@ -1,0 +1,81 @@
+esphome:
+  name: test-esp32-send-can
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: esp-idf
+    version: latest
+
+output:
+  - platform: gpio
+    id: led
+    pin: 2
+    inverted: true
+
+light:
+  - platform: binary
+    output: led
+    id: led_buitin
+    name: "Builtin LED"
+    internal: true
+
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+canbus:
+  - platform: esp32_can
+    tx_pin: GPIO23
+    rx_pin: GPIO22
+    can_id: 4
+    bit_rate: 500kbps
+    on_frame:
+# SMA/LG/Pylon/Goodwe reply
+    - can_id: 0x305
+      then:
+        - light.toggle:
+            id: led_buitin
+
+interval:
+  - interval: 950ms
+    then:
+      - canbus.send: # Warn Alarm
+          can_id: 0x359
+          data: [0x00, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x22]
+      - delay: 10ms
+      - canbus.send: # BMS limits
+          can_id: 0x351 
+          data: [0x28, 0x02, 0xE8, 0x03, 0xE8, 0x03, 0xF7, 0x01]
+      - delay: 10ms
+      - canbus.send: # SOC SOH
+          can_id: 0x355
+          data: [0x1A, 0x00, 0x64, 0x00] #, 0x10, 0x27
+      - delay: 10ms
+      - canbus.send: # Volts Amps Temp
+          can_id: 0x356
+          data: [0x00, 0x00, 0x00, 0x00, 0xFA, 0x00]
+      - delay: 10ms
+      - canbus.send: # Request flag
+          can_id: 0x35C
+          data: [0x00]
+      - delay: 10ms
+      - canbus.send: # Max Cell Temp, Min Cell Temp, Max Cell V, Min Cell V
+          can_id: 0x70
+          data: [0xFA, 0x00, 0xF9, 0x00, 0x5E, 0x01, 0x54, 0x01]
+      - delay: 10ms
+      - canbus.send: # Max Cell Temp ID, Min Cell Temp ID, Max Cell V ID, Min Cell ID
+          can_id: 0x371
+          data: [0x05, 0x00, 0x09, 0x00, 0x04, 0x00, 0x0A, 0x00] #
+      - canbus.send: # Energy
+          can_id: 0x35E
+          data: [0x45, 0x6E, 0x65, 0x72, 0x67, 0x79] #0x50, 0x59, 0x4C, 0x4F, 0x4E, 0x20, 0x20, 0x20

@@ -1,0 +1,9 @@
+binary_sensor:
+
+  - platform: gpio
+    pin: ${opto_gpio}
+    name: ${name}_${opto_name}_${opto_sufix}
+    id: ${opto_name}_${opto_sufix}
+    filters:
+      - invert:
+      - delayed_off: 100ms

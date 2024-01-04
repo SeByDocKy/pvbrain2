@@ -1,0 +1,125 @@
+# Will receive CAN packets for SMA CAN protocol testing
+esphome:
+  name: test-esp32-receiver-can.yaml
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: arduino
+#    type: esp-idf
+#    version: latest
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+canbus:
+  - platform: esp32_can
+    tx_pin: GPIO5
+    rx_pin: GPIO4
+    can_id: 4
+    bit_rate: 500kbps
+    on_frame:
+    - can_id: 0x351
+      then:
+      - lambda: |-
+              int val0 = int(x[0]);
+              int val1 = int(x[1]);
+              int val2 = int(x[2]);
+              int val3 = int(x[3]);
+              int val4 = int(x[4]);
+              int val5 = int(x[5]);
+              int val6 = int(x[6]);
+              int val7 = int(x[7]);
+              ESP_LOGI("main", "received can id: 0x351 hex: %x %x %x %x %x %x %x %x", val0, val1, val2, val3, val4, val5, val6, val7);
+    - can_id: 0x355
+      then:
+      - lambda: |-
+              int val0 = int(x[0]);
+              int val1 = int(x[1]);
+              int val2 = int(x[2]);
+              int val3 = int(x[3]);
+              int val4 = int(x[4]);
+              int val5 = int(x[5]);
+              ESP_LOGI("main", "received can id: 0x355 hex: %x %x %x %x %x %x", val0, val1, val2, val3, val4, val5);
+    - can_id: 0x356
+      then:
+      - lambda: |-
+              int val0 = int(x[0]);
+              int val1 = int(x[1]);
+              int val2 = int(x[2]);
+              int val3 = int(x[3]);
+              int val4 = int(x[4]);
+              int val5 = int(x[5]);
+              ESP_LOGI("main", "received can id: 0x356 hex: %x %x %x %x %x %x", val0, val1, val2, val3, val4, val5);
+    - can_id: 0x35A
+      then:
+      - lambda: |-
+              int val0 = int(x[0]);
+              int val1 = int(x[1]);
+              int val2 = int(x[2]);
+              int val3 = int(x[3]);
+              int val4 = int(x[4]);
+              int val5 = int(x[5]);
+              int val6 = int(x[6]);
+              int val7 = int(x[7]);
+              ESP_LOGI("main", "received can id: 0x35A hex: %x %x %x %x %x %x %x %x", val0, val1, val2, val3, val4, val5, val6, val7);
+
+    - can_id: 0x35E
+      then:
+      - lambda: |-
+          std::string b(x.begin(), x.end());
+          ESP_LOGI("main", "received can id: 0x35E ascii: %s", &b[0] );
+
+    - can_id: 0x00F
+      then:
+      - lambda: |-
+              int val0 = int(x[0]);
+              int val1 = int(x[1]);
+              int val2 = int(x[2]);
+              int val3 = int(x[3]);
+              int val4 = int(x[4]);
+              int val5 = int(x[5]);
+              int val6 = int(x[6]);
+              int val7 = int(x[7]);
+              ESP_LOGI("main", "received can id: 0x00F hex: %x %x %x %x %x %x %x %x", val0, val1, val2, val3, val4, val5, val6, val7);
+
+sensor:
+# Uptime sensor
+  - platform: uptime
+    name: ${name} Uptime Sensor
+    id: uptime_sensor
+    update_interval: 60s
+    on_raw_value:
+      then:
+        - text_sensor.template.publish:
+            id: uptime_human
+            state: !lambda |-
+              int seconds = round(id(uptime_sensor).raw_state);
+              int days = seconds / (24 * 3600);
+              seconds = seconds % (24 * 3600);
+              int hours = seconds / 3600;
+              seconds = seconds % 3600;
+              int minutes = seconds /  60;
+              seconds = seconds % 60;
+              return (
+                (days ? to_string(days) + "d " : "") +
+                (hours ? to_string(hours) + "h " : "") +
+                (minutes ? to_string(minutes) + "m " : "") +
+                (to_string(seconds) + "s")
+              ).c_str();
+
+text_sensor:
+# Uptime Sensor
+  - platform: template
+    name: ${name} Uptime Human Readable
+    id: uptime_human
+    icon: mdi:clock-start
