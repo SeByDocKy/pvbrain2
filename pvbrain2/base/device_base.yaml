@@ -2,8 +2,8 @@
 packages:
   physical_uart: !include device_physical_uart.yaml    
   i2c1: !include device_i2c1.yaml
-  # device_wk2132_i2c: !include device_wk2132_i2c.yaml
-  device_wk2132_spi: !include device_wk2132_spi.yaml
+  device_wk2132_i2c: !include device_wk2132_i2c.yaml
+  #device_wk2132_spi: !include device_wk2132_spi.yaml
   device_sx1509: !include device_sx1509.yaml
   device_dallas: !include device_dallas.yaml
   device_ws2812b: !include device_ws2812b.yaml
