@@ -3,7 +3,7 @@ external_components:
     refresh: 0s
 
 pipsolar:
-  - uart_id: ${inverter_uartid}
+  - uart_id: ${inverter_uart_id}
     id: ${inverter_name}_pip8048_${inverter_sufix}
     update_interval: ${inverter_update_interval}
         

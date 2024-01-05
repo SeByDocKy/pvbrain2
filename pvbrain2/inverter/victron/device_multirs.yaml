@@ -3,9 +3,9 @@ external_components:
     refresh: 0s
 
 victron:
-  uart_id: ${inverter_uartid}
-  id: ${inverter_name}_${inverter_sufix}
-  throttle: ${inverter_throttle}
+  - uart_id: ${inverter_uart_id}
+    id: ${inverter_name}_${inverter_sufix}
+    throttle: ${inverter_throttle}
   
 sensor:
   - platform: victron
@@ -49,8 +49,9 @@ sensor:
       name: ${name}_${inverter_name}_soc_${inverter_sufix}
     ac_out_apparent_power:
       name: ${name}_${inverter_name}_ac_output_apparent_power_${inverter_sufix}
-      
-
+    tracking_mode_id:
+      name: ${name}_${inverter_name}_tracking_mode_id
+   
   - platform: template
     name: ${name}_${inverter_name}_ac_output_active_power_${inverter_sufix}
     lambda: |-
@@ -78,6 +79,9 @@ binary_sensor:
 text_sensor:
   - platform: victron
     victron_id: ${inverter_name}_${inverter_sufix}
+    # update_interval: ${inverter_text_update}
+    alarm_reason:
+      name: ${inverter_name}_alarm_reason_${inverter_sufix}   
     device_type:
       name: ${name}_${inverter_name}_device_type_${inverter_sufix}
     serial_number:
@@ -86,9 +90,6 @@ text_sensor:
       name: ${name}_${inverter_name}_firmware_version_24bit_${inverter_sufix}
     charging_mode:
       name: ${name}_${inverter_name}_charging_mode_${inverter_sufix}
-    error:
-      name: ${name}_${inverter_name}_error_${inverter_sufix}
     device_mode:
       name: ${name}_${inverter_name}_device mode_${inverter_sufix}
 
-  

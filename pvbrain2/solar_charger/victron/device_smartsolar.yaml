@@ -1,0 +1,92 @@
+external_components:
+  - source: github://KinDR007/VictronMPPT-ESPHOME@main
+    refresh: 0s
+
+victron:
+  - uart_id: ${solar_charger_uart_id}
+    id: ${solar_charger_name}_${solar_charger_sufix}
+    throttle: ${solar_charger_throttle}
+    
+sensor:
+  - platform: victron
+    victron_id: ${solar_charger_name}_${solar_charger_sufix}
+    # update_interval: ${solar_charger_update_interval}
+    charging_mode_id:
+      name: ${name}_${solar_charger_name}_charging_mode_id_${solar_charger_sufix}
+    error_code:
+      name: ${name}_${solar_charger_name}_error_code_${solar_charger_sufix}
+    ac_out_current:
+      name: ${name}_${solar_charger_name}_ac_output_current_${solar_charger_sufix}
+      id: ${solar_charger_name}_ac_output_current_${solar_charger_sufix}
+    ac_out_voltage:
+      name: ${name}_${solar_charger_name}_ac_out_voltage_${solar_charger_sufix}
+      id: ${solar_charger_name}_ac_output_voltage_${solar_charger_sufix}
+    yield_total:
+      name: ${name}_${solar_charger_name}_yield_total_${solar_charger_sufix}
+    yield_today:
+      name: ${name}_${solar_charger_name}_yield_today_${solar_charger_sufix}
+    max_power_today:
+      name: ${name}_${solar_charger_name}_max_power_today_${solar_charger_sufix}
+    yield_yesterday:
+      name: ${name}_${solar_charger_name}_yield yesterday_${solar_charger_sufix}
+    max_power_yesterday:
+      name: ${name}_${solar_charger_name}_max_power_yesterday_${solar_charger_sufix}
+    day_number:
+      name: ${name}_${solar_charger_name}_day_number_${solar_charger_sufix}
+    battery_current:
+      name: ${name}_${solar_charger_name}_battery_current_${solar_charger_sufix}
+    panel_power:
+      name: ${name}_${solar_charger_name}_pv_power_${solar_charger_sufix}
+      id: ${solar_charger_name}_pv_power_${solar_charger_sufix}
+    battery_voltage:
+      name: ${name}_${solar_charger_name}_battery_voltage_${solar_charger_sufix}
+    panel_voltage:
+      name: ${name}_${solar_charger_name}_pv_voltage_${solar_charger_sufix}
+      id: ${solar_charger_name}_pv_voltage_${solar_charger_sufix}
+    load_current:
+      name: ${name}_${solar_charger_name}_load_current_${solar_charger_sufix}
+    state_of_charge:
+      name: ${name}_${solar_charger_name}_soc_${solar_charger_sufix}
+    ac_out_apparent_power:
+      name: ${name}_${solar_charger_name}_ac_output_apparent_power_${solar_charger_sufix}
+    tracking_mode_id:
+      name: ${name}_${solar_charger_name}_tracking_mode_id
+      
+  - platform: template
+    name: ${name}_${solar_charger_name}_ac_output_active_power_${solar_charger_sufix}
+    lambda: |-
+       auto val = id(${solar_charger_name}_ac_output_voltage_${solar_charger_sufix}).state * id(${solar_charger_name}_ac_output_current_${solar_charger_sufix}).state;
+       if (isnan(val))
+          return {};
+       return val;
+    update_interval: ${solar_charger_template_update}
+    
+  - platform: template
+    name: ${name}_${solar_charger_name}_pv_current_${solar_charger_sufix}
+    lambda: |-
+       auto val = id(${solar_charger_name}_pv_power_${solar_charger_sufix}).state / id(${solar_charger_name}_pv_voltage_${solar_charger_sufix}).state;
+       if (isnan(val))
+          return {};
+       return val;
+    update_interval: ${solar_charger_template_update}
+
+text_sensor:
+  - platform: victron
+    victron_id: ${solar_charger_name}_${solar_charger_sufix}
+    # update_interval: ${solar_charger_text_update}
+    alarm_reason:
+      name: ${solar_charger_name}_alarm_reason_${solar_charger_sufix}
+    device_type:
+      name: ${name}_${solar_charger_name}_device_type_${solar_charger_sufix}
+    serial_number:
+      name: ${name}_${solar_charger_name}_serial_number_${solar_charger_sufix}
+    firmware_version_24bit:
+      name: ${name}_${solar_charger_name}_firmware_version_24bit_${solar_charger_sufix}
+    charging_mode:
+      name: ${name}_${solar_charger_name}_charging_mode_${solar_charger_sufix}
+    error:
+      name: ${name}_${solar_charger_name}_error_${solar_charger_sufix}
+    device_mode:
+      name: ${name}_${solar_charger_name}_device mode_${solar_charger_sufix}
+
+    
