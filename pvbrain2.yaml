@@ -11,7 +11,8 @@ substitutions:
   uart5_baudrate: '115200'
   uart6_baudrate: '19200'
   uart7_baudrate: '9600'
-  uart_hub_bus: 'i2c'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub
+  uart8_baudrate: '1200'    # Linky #1200 if historique >> #9600 if standard
+  uart_hub_bus: 'i2c'       # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub
 
  ###### For builtin UART ports ###
  
@@ -75,29 +76,21 @@ packages:
       relays_channel3: '3'
       relays_channel3_pin: '3'
 
-  relays_2: !include
-    file: pvbrain2/addons/fil_pilote/device_fil_pilote.yaml
+  fil_pilote: !include
+    file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REMPLACE "x8" LOCATION BY NOMBRE OF CHAUFFAGE ZONES : 1 to 8
+#   file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
     vars:
-      relays_name: 'relay'
-      relays_hub: 'sx1509_hub2'
-      relays_sufix: '2'
-      relays_channel0: 'fp1_alternance_positive'
-      relays_channel0_pin: '0'
-      relays_channel1: 'fp1_alternance_negative'
-      relays_channel1_pin: '1'
-      relays_channel2: 'fp2_alternance_positive'
-      relays_channel2_pin: '2'
-      relays_channel3: 'fp2_alternance_negative'
-      relays_channel3_pin: '3'
-      relays_channel4: 'fp3_alternance_positive'
-      relays_channel4_pin: '4'
-      relays_channel5: 'fp3_alternance_negative'
-      relays_channel5_pin: '5'
-      relays_channel6: 'fp4_alternance_positive'
-      relays_channel6_pin: '6'
-      relays_channel7: 'fp4_alternance_negative'
-      relays_channel7_pin: '7'    
-  
+      fpilote_bus: ${sx1509_fp_bus}
+      fpilote_name: 'chauffage_zone'
+
+  teleinfo: !include 
+    file: pvbrain2/addons/teleinfo/historique.yaml     # Si compteur en mode Historique
+#    file: pvbrain2/addons/teleinfo/standard.yaml      # Si compteur en mode Standard
+    vars:
+      linky_name: 'myteleinfo'
+      linky_uartid: uart_${uart_hub_bus}_8
+      linky_update_interval: '5s'
+      
   # ac_dimmer_1: !include
   #   file: pvbrain2/ac_dimmer/device_robotdyn.yaml
   #   vars:
