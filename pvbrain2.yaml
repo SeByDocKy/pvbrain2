@@ -1,5 +1,8 @@
 substitutions:
   name: 'pvbrain2'
+
+  ###### For extended UART ports ###
+
   uart0_baudrate: '2400'
   uart1_baudrate: '38400'
   uart2_baudrate: '115200'
@@ -10,6 +13,8 @@ substitutions:
   uart7_baudrate: '9600'
   uart_hub_bus: 'spi'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub
 
+ ###### For builtin UART ports ###
+ 
   uart8_baudrate: '115200'
   uart9_baudrate: '9600'
   uart10_baudrate: '9600'
