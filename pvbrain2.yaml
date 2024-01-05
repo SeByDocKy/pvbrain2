@@ -9,6 +9,11 @@ substitutions:
   uart6_baudrate: '19200'
   uart7_baudrate: '9600'
   uart_hub_bus: 'spi'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub
+
+  uart8_baudrate: '115200'
+  uart9_baudrate: '9600'
+  uart10_baudrate: '9600'
+
 esphome:
   name: ${name}
   friendly_name: ${name}
@@ -162,6 +167,17 @@ packages:
       powermeter_update_interval: '1s'
       powermeter_template_update: '2s'
       powermeter_modbus_send_wait_time: '200ms'
+
+  powermeter_2: !include
+    file: pvbrain2/powermeter/ac/peacefair/device_pzem004tv3.yaml
+    vars:
+      powermeter_uart_id: uart_esp_0     # uart_${uart_hub_bus}_1
+      powermeter_name: 'pzem'
+      powermeter_modbus_address: '1'
+      powermeter_sufix: 'solar'
+      powermeter_update_interval: '1s'
+      powermeter_template_update: '2s'
+      powermeter_modbus_send_wait_time: '200ms'       
 
   # powermeter_2: !include
   #   file: pvbrain2/powermeter/ac/jsy/device_jsy194.yaml
