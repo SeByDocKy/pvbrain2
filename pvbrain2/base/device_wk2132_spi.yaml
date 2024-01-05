@@ -16,49 +16,49 @@ wk2132_spi:
     data_rate: 4MHz
     #test_mode: 1
     uart:
-      - uart_id: uart_i2C_0
+      - uart_id: uart_spi_0
         channel: 0
-        baud_rate: 2400
+        baud_rate: ${uart0_baudrate}
         #parity: even
-      - uart_id: uart_i2C_1
+      - uart_id: uart_spi_1
         channel: 1
-        baud_rate: 38400 
+        baud_rate: ${uart1_baudrate} 
 
   - id: uart_bridge1
     spi_id: spi0_bus
     cs_pin: GPIO21
     data_rate: 4MHz
     uart:
-      - uart_id: uart_i2C_2
+      - uart_id: uart_spi_2
         channel: 0
-        baud_rate: 115200
+        baud_rate: ${uart2_baudrate}
         #parity: even
-      - uart_id: uart_i2C_3
+      - uart_id: uart_spi_3
         channel: 1
-        baud_rate: 115200
+        baud_rate: ${uart3_baudrate}
         
   - id: uart_bridge2
     spi_id: spi0_bus
     cs_pin: GPIO19
     data_rate: 4MHz
     uart:
-      - uart_id: uart_i2C_4
+      - uart_id: uart_spi_4
         channel: 0
-        baud_rate: 19200
+        baud_rate: ${uart4_baudrate}
         #parity: even
-      - uart_id: uart_i2C_5
+      - uart_id: uart_spi_5
         channel: 1
-        baud_rate: 115200
+        baud_rate: ${uart5_baudrate}
         
   - id: uart_bridge3
     spi_id: spi0_bus
     cs_pin: GPIO20
     data_rate: 4MHz
     uart:
-      - uart_id: uart_i2C_6
+      - uart_id: uart_spi_6
         channel: 0
-        baud_rate: 19200
+        baud_rate: ${uart6_baudrate}
         #parity: even
-      - uart_id: uart_i2C_7
+      - uart_id: uart_spi_7
         channel: 1
-        baud_rate: 9600
+        baud_rate: ${uart7_baudrate}
