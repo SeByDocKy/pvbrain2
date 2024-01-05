@@ -161,6 +161,17 @@ packages:
       inverter_template_update: '2s'
       inverter_text_update: '5s'
 
+  # inverter_2: !include
+  #   file: pvbrain2/inverter/victron/device_multirs.yaml
+  #   vars:
+  #     inverter_uartid: uart_${uart_hub_bus}_6  # 'uart_i2c_6'
+  #     inverter_name: 'multirs'
+  #     inverter_sufix: '1'
+  #     inverter_throttle: '10s'
+  #     inverter_update_interval: '3s'
+  #     inverter_template_update: '5s'
+  #     inverter_text_update: '5s'    
+
   powermeter_1: !include
     file: pvbrain2/powermeter/ac/jsy/device_jsy193.yaml
     vars:

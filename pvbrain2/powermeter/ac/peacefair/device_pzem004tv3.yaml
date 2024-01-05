@@ -14,7 +14,7 @@ time:
       then:  
         - globals.set:
                 id: ${powermeter_name}_active_power_yesteday_global_${powermeter_sufix}
-                value: !lambda return ( id(${powermeter_name}_active_power_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_active_power_day_${powermeter_sufix}).state) );         
+                value: !lambda return ( id(${powermeter_name}_active_power_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_active_power_today_${powermeter_sufix}).state) );         
  
 modbus:
    - id: ${powermeter_name}_modbus_${powermeter_sufix}
@@ -33,7 +33,7 @@ sensor:
   - platform: pzemac
     address: ${powermeter_modbus_address}
     current:
-      name: ${name}_${powermeter_name}_courent_${powermeter_sufix}
+      name: ${name}_${powermeter_name}_current_${powermeter_sufix}
       accuracy_decimals: 2
     voltage:
       name: ${name}_${powermeter_name}_voltage_${powermeter_sufix}
@@ -69,8 +69,8 @@ sensor:
     lambda: return (( (id(${powermeter_name}_energy_${powermeter_sufix}).state)/1000.0));
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_active_power_day_${powermeter_sufix}
-    id: ${powermeter_name}_active_power_day_${powermeter_sufix}
+    name: ${name}_${powermeter_name}_active_power_today_${powermeter_sufix}
+    id: ${powermeter_name}_active_power_today_${powermeter_sufix}
     power_id: ${powermeter_name}_active_power_${powermeter_sufix}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 2
