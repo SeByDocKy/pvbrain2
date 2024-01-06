@@ -46,7 +46,6 @@ modbus:
   
 modbus_controller:
   - id: ${solar_charger_name}_modbus_controller_${solar_charger_sufix}
-    ## the Modbus device addr
     address: ${solar_charger_modbus_address}
     modbus_id: ${solar_charger_name}_modbus_${solar_charger_sufix}
     command_throttle: ${solar_charger_modbus_throttle}

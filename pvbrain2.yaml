@@ -171,7 +171,20 @@ packages:
   #     inverter_update_interval: '3s'
   #     inverter_template_update: '5s'
   #     inverter_text_update: '5s'    
-
+  
+  # inverter_3: !include
+  #   file: pvbrain2/inverter/deye/device_deye.yaml
+  #   vars:
+  #     inverter_uart_id: uart_${uart_hub_bus}_7  # 'uart_i2c_1'
+  #     inverter_name: 'deye'
+  #     inverter_sufix: '1'
+  #     inverter_modbus_address: '1'
+  #     inverter_modbus_send_wait_time: '200ms'
+  #     inverter_modbus_throttle: '50ms'
+  #     inverter_update_interval: '1s'
+  #     inverter_template_update: '2s'
+  #     inverter_text_update: '5s'
+  
   powermeter_1: !include
     file: pvbrain2/powermeter/ac/jsy/device_jsy193.yaml
     vars:
@@ -220,18 +233,18 @@ packages:
       solar_charger_modbus_send_wait_time: '200ms'
       solar_charger_modbus_throttle: '200ms'
 
-  solar_charger_2: !include
-    file: pvbrain2/solar_charger/srne/device_srne.yaml
-    vars:
-      solar_charger_uart_id: uart_${uart_hub_bus}_2
-      solar_charger_name: 'srne'
-      solar_charger_modbus_address: '2'
-      solar_charger_sufix: '2'
-      solar_charger_update_interval: '1s'
-      solar_charger_template_update: '2s'
-      solar_charger_text_update: '5s'
-      solar_charger_modbus_send_wait_time: '200ms'
-      solar_charger_modbus_throttle: '200ms'
+  # solar_charger_2: !include
+  #   file: pvbrain2/solar_charger/srne/device_srne.yaml
+  #   vars:
+  #     solar_charger_uart_id: uart_${uart_hub_bus}_2
+  #     solar_charger_name: 'srne'
+  #     solar_charger_modbus_address: '2'
+  #     solar_charger_sufix: '2'
+  #     solar_charger_update_interval: '1s'
+  #     solar_charger_template_update: '2s'
+  #     solar_charger_text_update: '5s'
+  #     solar_charger_modbus_send_wait_time: '200ms'
+  #     solar_charger_modbus_throttle: '200ms'
 
   # solar_charger_3: !include
   #   file: pvbrain2/solar_charger/victron/device_smartsolar.yaml
@@ -244,14 +257,14 @@ packages:
   #     solar_charger_template_update: '2s'
   #     solar_charger_text_update: '5s'
  
-  smartshunt_1: !include
-    file: pvbrain2/powermeter/dc/device_smartshunt.yaml
-    vars:
-      smartshunt_uart_id: uart_${uart_hub_bus}_3
-      smartshunt_name: 'smartshunt'
-      smartshunt_sufix: '1'
-      smartshunt_update_interval: '1s'
-      smartshunt_template_update: '2s'
+  # smartshunt_1: !include
+  #   file: pvbrain2/powermeter/dc/device_smartshunt.yaml
+  #   vars:
+  #     smartshunt_uart_id: uart_${uart_hub_bus}_3
+  #     smartshunt_name: 'smartshunt'
+  #     smartshunt_sufix: '1'
+  #     smartshunt_update_interval: '1s'
+  #     smartshunt_template_update: '2s'
 
   bms_1: !include
     file: pvbrain2/bms/jkbms/device_jkbms.yaml
@@ -297,18 +310,18 @@ packages:
       
     ########################   Actions/Automations  ######################
 
-  ats_control_1: !include
-    file: pvbrain2/actions/ats_control/action_ats_control.yaml
-    vars:
-      ats_control_name: ats_control
-      ats_control_sufix: '1'
-      ats_control_id: 'ats_automatic_control_1'
-      ats_control_voltage_id: 'smartshunt_battery_voltage_1'
-      ats_control_relay_inverter_id: 'relay_inverter_1'
-      ats_control_relay_ats_id: 'relay_ats_control_1'
-      ats_control_solar_to_grid_voltage_threshold_id: 'ats_voltage_solar_to_grid_number_1'
-      ats_control_grid_to_solar_voltage_threshold_id: 'ats_voltage_grid_to_solar_number_1'
-      ats_control_grid_input: 'axpert_grid_input_1'
-      ats_control_inverter_switch: 'axpert_switch_on_1'
-      ats_control_grid: 'opto_grid_230V'
-      ats_control_solar: 'opto_solar_230V'
+  # ats_control_1: !include
+  #   file: pvbrain2/actions/ats_control/action_ats_control.yaml
+  #   vars:
+  #     ats_control_name: ats_control
+  #     ats_control_sufix: '1'
+  #     ats_control_id: 'ats_automatic_control_1'
+  #     ats_control_voltage_id: 'smartshunt_battery_voltage_1'
+  #     ats_control_relay_inverter_id: 'relay_inverter_1'
+  #     ats_control_relay_ats_id: 'relay_ats_control_1'
+  #     ats_control_solar_to_grid_voltage_threshold_id: 'ats_voltage_solar_to_grid_number_1'
+  #     ats_control_grid_to_solar_voltage_threshold_id: 'ats_voltage_grid_to_solar_number_1'
+  #     ats_control_grid_input: 'axpert_grid_input_1'
+  #     ats_control_inverter_switch: 'axpert_switch_on_1'
+  #     ats_control_grid: 'opto_grid_230V'
+  #     ats_control_solar: 'opto_solar_230V'
