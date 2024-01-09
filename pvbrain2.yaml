@@ -184,7 +184,17 @@ packages:
   #     inverter_update_interval: '1s'
   #     inverter_template_update: '2s'
   #     inverter_text_update: '5s'
-  
+
+  # inverter_4: !include
+  #   file: pvbrain2/inverter/growatt/device_growatt.yaml
+  #   vars:
+  #     inverter_uart_id: uart_${uart_hub_bus}_7  # 'uart_i2c_1'
+  #     inverter_name: 'growatt'
+  #     inverter_sufix: '1'
+  #     inverter_modbus_address: '1'
+  #     inverter_modbus_send_wait_time: '200ms'
+  #     inverter_update_interval: '1s'
+   
   powermeter_1: !include
     file: pvbrain2/powermeter/ac/jsy/device_jsy193.yaml
     vars:
@@ -198,6 +208,18 @@ packages:
       powermeter_modbus_send_wait_time: '200ms'
 
   # powermeter_2: !include
+  #   file: pvbrain2/powermeter/ac/jsy/device_jsy194.yaml
+  #   vars:
+  #     powermeter_uart_id: uart_${uart_hub_bus}_1
+  #     powermeter_name: 'jsy194'
+  #     powermeter_modbus_address: '2'
+  #     powermeter_sufix1: 'solar'
+  #     powermeter_sufix2: 'grid'
+  #     powermeter_update_interval: '1s'
+  #     powermeter_template_update: '2s'
+  #     powermeter_modbus_send_wait_time: '200ms' 
+
+  # powermeter_3: !include
   #   file: pvbrain2/powermeter/ac/peacefair/device_pzem004tv3.yaml
   #   vars:
   #     powermeter_uart_id: uart_esp_0     # uart_${uart_hub_bus}_1
@@ -208,17 +230,6 @@ packages:
   #     powermeter_template_update: '2s'
   #     powermeter_modbus_send_wait_time: '200ms'       
 
-  # powermeter_2: !include
-  #   file: pvbrain2/powermeter/ac/jsy/device_jsy194.yaml
-  #   vars:
-  #     powermeter_uart_id: uart_${uart_hub_bus}_1
-  #     powermeter_name: 'jsy194'
-  #     powermeter_modbus_address: '2'
-  #     powermeter_sufix1: 'solar'
-  #     powermeter_sufix2: 'grid'
-  #     powermeter_update_interval: '1s'
-  #     powermeter_template_update: '2s'
-  #     powermeter_modbus_send_wait_time: '200ms'    
 
   solar_charger_1: !include
     file: pvbrain2/solar_charger/srne/device_srne.yaml
@@ -256,7 +267,15 @@ packages:
   #     solar_charger_update_interval: '1s'
   #     solar_charger_template_update: '2s'
   #     solar_charger_text_update: '5s'
- 
+
+  # solar_charger_4: !include
+  #   file: pvbrain2/solar_charger/esmart3/device_esmart3.yaml
+  #   vars:
+  #     solar_charger_uart_id: uart_${uart_hub_bus}_6
+  #     solar_charger_name: 'esmart3'
+  #     solar_charger_sufix: '1'
+  #     solar_charger_update_interval: '1s'
+
   # smartshunt_1: !include
   #   file: pvbrain2/powermeter/dc/device_smartshunt.yaml
   #   vars:
