@@ -1,6 +1,6 @@
 external_components:
   - source: github://pr#5218
-    components: [wk2132, wk2132_spi]
+    components: [wk_base, wk2132_spi]
     refresh: 0s
     
 spi:

@@ -1,0 +1,45 @@
+external_components:
+  - source:
+      type: git
+      url: https://github.com/ssieb/custom_components
+    components: [ esmart3 ]
+    refresh: 0s
+    
+sensor:
+  - platform: esmart3
+    uart_id: ${solar_charger_uart_id}
+    update_interval: ${solar_charger_update_interval}
+    charge_mode:
+      id: ${solar_charger_name}_charge_mode_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_charge_mode_${solar_charger_sufix}
+    input_voltage:
+      id: ${solar_charger_name}_pv_voltage_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_pv_voltage_${solar_charger_sufix}
+    charging_current:
+      id: ${solar_charger_name}_battery_charging_current_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_battery_charging_current_${solar_charger_sufix}
+    charging_power:
+      id: ${solar_charger_name}_battery_charging_power_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_battery_charging_power_${solar_charger_sufix}
+    load_voltage:
+      id: ${solar_charger_name}_load_voltage_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_load_voltage_${solar_charger_sufix}
+    load_current:
+      id: ${solar_charger_name}_load_current_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_load_current_${solar_charger_sufix}
+    load_power:
+      id: ${solar_charger_name}_load_power_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_load_power_${solar_charger_sufix}
+    battery_voltage:
+      id: ${solar_charger_name}_battery_voltage_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_battery_voltage_${solar_charger_sufix}    
+    battery_temp:
+      id: ${solar_charger_name}_battery_temperature_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_battery_temperature_${solar_charger_sufix}
+    battery_level:
+      id: ${solar_charger_name}_battery_level_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_battery_level_${solar_charger_sufix}
+    internal_temp:
+      id: ${solar_charger_name}_internal_temperature_${solar_charger_sufix}
+      name: ${name}_${solar_charger_name}_internal_temperature_${solar_charger_sufix}
+      

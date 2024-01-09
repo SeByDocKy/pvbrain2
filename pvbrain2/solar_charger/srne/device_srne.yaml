@@ -1,5 +1,4 @@
 time:
-
   - platform: sntp
     id: my_time
     # id: ${solar_charger_name}_time   
@@ -7,17 +6,17 @@ time:
     # servers: "de.pool.ntp.org"
 
     on_time:
-    - seconds: 50
+    - seconds: 59
       minutes: 59
       hours: 23
       then:  
         - globals.set:
-                id: ${solar_charger_name}_pv_power_total_yesteday_global_${solar_charger_sufix}
-                value: !lambda return ( id(${solar_charger_name}_pv_power_total_yesteday_global_${solar_charger_sufix}) =  float( id(${solar_charger_name}_pv_power_total_today_${solar_charger_sufix}).state) );         
+                id: ${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_sufix}
+                value: !lambda return ( id(${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_sufix}) =  float( id(${solar_charger_name}_pv_energy_today_${solar_charger_sufix}).state) );         
                 
         - globals.set:
-                id: ${solar_charger_name}_charging_power_total_yesteday_global_${solar_charger_sufix}
-                value: !lambda return ( id(${solar_charger_name}_charging_power_total_yesteday_global_${solar_charger_sufix}) =  float( id(${solar_charger_name}_charging_power_total_today_${solar_charger_sufix}).state) );        
+                id: ${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_sufix}
+                value: !lambda return ( id(${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_sufix}) =  float( id(${solar_charger_name}_battery_charging_energy_today_${solar_charger_sufix}).state) );        
 
 globals:
 
@@ -31,11 +30,11 @@ globals:
   - id: ${solar_charger_name}_current_load_charging_mode_global_${solar_charger_sufix}
     type: int  
 
-  - id: ${solar_charger_name}_pv_power_total_yesteday_global_${solar_charger_sufix}
+  - id: ${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_sufix}
     type: float
     restore_value: yes
     
-  - id: ${solar_charger_name}_charging_power_total_yesteday_global_${solar_charger_sufix}
+  - id: ${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_sufix}
     type: float
     restore_value: yes
  
@@ -210,26 +209,25 @@ sensor:
       }
 
   - platform: total_daily_energy
-    id: ${solar_charger_name}_charging_power_total_today_${solar_charger_sufix}
-    name: ${name}_${solar_charger_name}_charging_power_total_today_${solar_charger_sufix}
+    id: ${solar_charger_name}_battery_charging_energy_today_${solar_charger_sufix}
+    name: ${name}_${solar_charger_name}_battery_charging_energy_today_${solar_charger_sufix}
     power_id: ${solar_charger_name}_charging_power_${solar_charger_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     method: trapezoid
     filters:
-        # Multiplication factor from W to kW is 0.001
       - multiply: 0.001
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${solar_charger_name}_charging_power_total_yesteday_template_${solar_charger_sufix}
-    id: ${solar_charger_name}_charging_power_total_yesteday_template_${solar_charger_sufix}
+    name: ${name}_${solar_charger_name}_battery_charging_energy_yesteday_template_${solar_charger_sufix}
+    id: ${solar_charger_name}_battery_charging_energy_yesteday_${solar_charger_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${solar_charger_template_update}
     lambda: |-
-      return (id(${solar_charger_name}_charging_power_total_yesteday_template_${solar_charger_sufix}).state = id(${solar_charger_name}_charging_power_total_yesteday_global_${solar_charger_sufix}));
+      return (id(${solar_charger_name}_battery_charging_energy_yesteday_${solar_charger_sufix}).state = id(${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_sufix}));
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_sufix}
@@ -338,11 +336,11 @@ sensor:
     unit_of_measurement: 'W'
 
   - platform: total_daily_energy
-    id: ${solar_charger_name}_pv_power_total_today_${solar_charger_sufix}
-    name: ${name}_${solar_charger_name}_pv_power_total_today_${solar_charger_sufix}
+    id: ${solar_charger_name}_pv_energy_today_${solar_charger_sufix}
+    name: ${name}_${solar_charger_name}_pv_energy_today_${solar_charger_sufix}
     power_id: ${solar_charger_name}_solar_panel_power_${solar_charger_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     method: trapezoid
     filters:
         # Multiplication factor from W to kW is 0.001
@@ -350,14 +348,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    id: ${solar_charger_name}_pv_power_total_yesteday_template_${solar_charger_sufix}
-    name: ${name}_${solar_charger_name}_pv_power_total_yesteday_${solar_charger_sufix}
+    id: ${solar_charger_name}_pv_energy_yesteday_${solar_charger_sufix}
+    name: ${name}_${solar_charger_name}_pv_energy_yesteday_${solar_charger_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${solar_charger_template_update}
     lambda: |-
-      return (id( ${solar_charger_name}_pv_power_total_yesteday_template_${solar_charger_sufix}).state = id( ${solar_charger_name}_pv_power_total_yesteday_global_${solar_charger_sufix} ));
+      return (id( ${solar_charger_name}_pv_energy_yesteday_${solar_charger_sufix}).state = id( ${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_sufix} ));
     
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_sufix}
@@ -455,13 +453,13 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_sufix}
-    id: ${solar_charger_name}_power_generation_current_today_${solar_charger_sufix}
-    name: ${name}_${solar_charger_name}_power_generation_current_today_${solar_charger_sufix}
+    id: ${solar_charger_name}_energy_generation_today_${solar_charger_sufix}
+    name: ${name}_${solar_charger_name}_energy_generation_today_today_${solar_charger_sufix}
     address: 0x0113
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'kWh'
     filters:
@@ -469,13 +467,13 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_sufix}
-    id: ${solar_charger_name}_power_consumption_current_today_${solar_charger_sufix}
-    name: ${name}_${solar_charger_name}_power_consumption_current_today_${solar_charger_sufix}
+    id: ${solar_charger_name}_energy_consumption_today_${solar_charger_sufix}
+    name: ${name}_${solar_charger_name}_energy_consumption_today_${solar_charger_sufix}
     address: 0x0114
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'kWh'
     filters:
@@ -542,13 +540,13 @@ sensor:
     
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_sufix}
-    id: ${solar_charger_name}_power_generation_total_${solar_charger_sufix}
-    name: ${name}_${solar_charger_name}_power_generation_total_${solar_charger_sufix}
+    id: ${solar_charger_name}_energy_generation_total_${solar_charger_sufix}
+    name: ${name}_${solar_charger_name}_energy_generation_total_${solar_charger_sufix}
     address: 0x011C
     register_type: holding
     value_type: U_DWORD
     skip_updates: 1 
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'kWh'
     filters:
@@ -556,13 +554,13 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_sufix}
-    id: ${solar_charger_name}_power_consumption_total_${solar_charger_sufix}
-    name: ${name}_${solar_charger_name}_power_consumption_total_${solar_charger_sufix}
+    id: ${solar_charger_name}_energy_consumption_total_${solar_charger_sufix}
+    name: ${name}_${solar_charger_name}_energy_consumption_total_${solar_charger_sufix}
     address: 0x011E
     register_type: holding
     value_type: U_DWORD
     skip_updates: 1 
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'kWh'
     filters:
