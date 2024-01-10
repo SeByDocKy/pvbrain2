@@ -1,5 +1,5 @@
 globals:
-  - id: ${powermeter_name}_active_power_yesteday_global_${powermeter_sufix}
+  - id: ${powermeter_name}_energy_yesteday_global_${powermeter_sufix}
     type: float
     restore_value: yes
     
@@ -13,8 +13,8 @@ time:
       hours: 23
       then:  
         - globals.set:
-                id: ${powermeter_name}_active_power_yesteday_global_${powermeter_sufix}
-                value: !lambda return ( id(${powermeter_name}_active_power_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_active_power_today_${powermeter_sufix}).state) );         
+                id: ${powermeter_name}_energy_yesteday_global_${powermeter_sufix}
+                value: !lambda return ( id(${powermeter_name}_energy_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_energy_today_${powermeter_sufix}).state) );         
  
 modbus:
    - id: ${powermeter_name}_modbus_${powermeter_sufix}
@@ -39,8 +39,8 @@ sensor:
       name: ${name}_${powermeter_name}_voltage_${powermeter_sufix}
       accuracy_decimals: 2
     power:
-      name: ${name}_${powermeter_name}_active_power_${powermeter_sufix}
-      id: ${powermeter_name}_active_power_${powermeter_sufix}
+      name: ${name}_${powermeter_name}_power_${powermeter_sufix}
+      id: ${powermeter_name}_power_${powermeter_sufix}
       unit_of_measurement: 'W'
       accuracy_decimals: 1
     frequency:
@@ -61,7 +61,7 @@ sensor:
     id: ${powermeter_name}_pzem_${powermeter_sufix}
     
   - platform: template
-    name: ${name}_${powermeter_name}_total_energy_${powermeter_sufix}
+    name: ${name}_${powermeter_name}_energy_total_${powermeter_sufix}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
@@ -69,9 +69,9 @@ sensor:
     lambda: return (( (id(${powermeter_name}_energy_${powermeter_sufix}).state)/1000.0));
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_active_power_today_${powermeter_sufix}
-    id: ${powermeter_name}_active_power_today_${powermeter_sufix}
-    power_id: ${powermeter_name}_active_power_${powermeter_sufix}
+    name: ${name}_${powermeter_name}_energy_today_${powermeter_sufix}
+    id: ${powermeter_name}_energy_today_${powermeter_sufix}
+    power_id: ${powermeter_name}_power_${powermeter_sufix}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 2
     method: trapezoid
@@ -81,14 +81,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_active_power_yesteday_${powermeter_sufix}
-    id: ${powermeter_name}_template_active_power_yesteday_${powermeter_sufix}
+    name: ${name}_${powermeter_name}_energy_yesteday_${powermeter_sufix}
+    id: ${powermeter_name}_energy_yesteday_${powermeter_sufix}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 2
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(${powermeter_name}_template_active_power_yesteday_${powermeter_sufix}).state = id(${powermeter_name}_active_power_yesteday_global_${powermeter_sufix}));
+      return (id(${powermeter_name}_energy_yesteday_${powermeter_sufix}).state = id(${powermeter_name}_energy_yesteday_global_${powermeter_sufix}));
     
   - platform: template
     name: ${name}_${powermeter_name}_apparent_power_${powermeter_sufix}
@@ -99,10 +99,10 @@ sensor:
     icon: mdi:power
     lambda: |-
       if (float(id(${powermeter_name}_power_factor_${powermeter_sufix}).state) != 0.0){
-        return ( (id(${powermeter_name}_active_power_${powermeter_sufix}).state/id(${powermeter_name}_power_factor_${powermeter_sufix}).state));
+        return ( (id(${powermeter_name}_power_${powermeter_sufix}).state/id(${powermeter_name}_power_factor_${powermeter_sufix}).state));
       }
       else{
-        return id(${powermeter_name}_active_power_${powermeter_sufix}).state;
+        return id(${powermeter_name}_power_${powermeter_sufix}).state;
       }
     
   - platform: template

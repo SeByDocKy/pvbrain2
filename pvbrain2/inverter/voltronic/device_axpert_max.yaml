@@ -8,19 +8,19 @@ pipsolar:
     update_interval: ${inverter_update_interval}
         
 globals:  
-  - id: ${inverter_name}_pv_power_total_yesteday_global_${inverter_sufix}
+  - id: ${inverter_name}_pv_energy_total_yesteday_global_${inverter_sufix}
     type: float
     restore_value: yes
     
-  - id: ${inverter_name}_ac_output_active_power_yesteday_global_${inverter_sufix}
+  - id: ${inverter_name}_ac_output_energy_yesteday_global_${inverter_sufix}
     type: float
     restore_value: yes
 
-  - id: ${inverter_name}_battery_charging_power_yesteday_global_${inverter_sufix}
+  - id: ${inverter_name}_battery_charging_energy_yesteday_global_${inverter_sufix}
     type: float
     restore_value: yes
  
-  - id: ${inverter_name}_battery_discharging_power_yesteday_global_${inverter_sufix}
+  - id: ${inverter_name}_battery_discharging_energy_yesteday_global_${inverter_sufix}
     type: float
     restore_value: yes
 
@@ -34,20 +34,20 @@ time:
       hours: 23
       then:           
         - globals.set:
-                id: ${inverter_name}_pv_power_total_yesteday_global_${inverter_sufix}
-                value: !lambda return ( id(${inverter_name}_pv_power_total_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_pv_power_total_today_${inverter_sufix}).state) );                    
+                id: ${inverter_name}_pv_energy_total_yesteday_global_${inverter_sufix}
+                value: !lambda return ( id(${inverter_name}_pv_energy_total_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_pv_energy_total_today_${inverter_sufix}).state) );                    
   
         - globals.set:
-                id: ${inverter_name}_ac_output_active_power_yesteday_global_${inverter_sufix}
-                value: !lambda return ( id(${inverter_name}_ac_output_active_power_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_ac_output_active_power_total_today_${inverter_sufix}).state) );
+                id: ${inverter_name}_ac_output_energy_yesteday_global_${inverter_sufix}
+                value: !lambda return ( id(${inverter_name}_ac_output_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_ac_output_energy_today_${inverter_sufix}).state) );
 
         - globals.set:
-                id: ${inverter_name}_battery_charging_power_yesteday_global_${inverter_sufix}
-                value: !lambda return ( id(${inverter_name}_battery_charging_power_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_battery_charging_power_total_today_${inverter_sufix}).state) ); 
+                id: ${inverter_name}_battery_charging_energy_yesteday_global_${inverter_sufix}
+                value: !lambda return ( id(${inverter_name}_battery_charging_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_battery_charging_energy_today_${inverter_sufix}).state) ); 
                 
         - globals.set:
-                id: ${inverter_name}_battery_discharging_power_yesteday_global_${inverter_sufix}
-                value: !lambda return ( id(${inverter_name}_battery_discharging_power_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_battery_discharging_power_total_today_${inverter_sufix}).state) ); 
+                id: ${inverter_name}_battery_discharging_energy_yesteday_global_${inverter_sufix}
+                value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_battery_discharging_energy_today_${inverter_sufix}).state) ); 
  
 output:
   - platform: pipsolar
@@ -335,8 +335,8 @@ sensor:
       id: ${inverter_name}_ac_output_apparent_power_${inverter_sufix}
       name: ${name}_${inverter_name}_ac_output_apparent_power_${inverter_sufix}
     ac_output_active_power:
-      id: ${inverter_name}_ac_output_active_power_${inverter_sufix}
-      name: ${name}_${inverter_name}_ac_output_active_power_${inverter_sufix}
+      id: ${inverter_name}_ac_output_power_${inverter_sufix}
+      name: ${name}_${inverter_name}_ac_output_power_${inverter_sufix}
     bus_voltage:
       id: ${inverter_name}_bus_voltage_${inverter_sufix}
       name: ${name}_${inverter_name}_bus_voltage_${inverter_sufix}
@@ -391,11 +391,11 @@ sensor:
       
   
   - platform: total_daily_energy
-    name: ${name}_${inverter_name}_pv1_power_total_today_${inverter_sufix}
+    name: ${name}_${inverter_name}_pv1_energy_today_${inverter_sufix}
+    id: ${inverter_name}_pv1_energy_today_${inverter_sufix}
     power_id: ${inverter_name}_pv1_charging_power_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
-    id: ${inverter_name}_pv1_power_total_today_${inverter_sufix}
+    accuracy_decimals: 1
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
@@ -403,11 +403,11 @@ sensor:
     icon: mdi:counter
     
   - platform: total_daily_energy
-    name: ${name}_${inverter_name}_pv2_power_total_today_${inverter_sufix}
+    name: ${name}_${inverter_name}_pv2_energy_today_${inverter_sufix}
+    id: ${inverter_name}_pv2_energy_today_${inverter_sufix}
     power_id: ${inverter_name}_pv2_charging_power_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
-    id: ${inverter_name}_pv2_power_total_today_${inverter_sufix}
+    accuracy_decimals: 1
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
@@ -424,11 +424,11 @@ sensor:
     lambda: return ( (id(${inverter_name}_pv1_charging_power_${inverter_sufix}).state) + (id(${inverter_name}_pv2_charging_power_${inverter_sufix}).state) );     
     
   - platform: total_daily_energy
-    name: ${name}_${inverter_name}_pv_power_total_today_${inverter_sufix}
+    name: ${name}_${inverter_name}_pv_energy_total_today_${inverter_sufix}
+    id: ${inverter_name}_pv_energy_total_today_${inverter_sufix}
     power_id: ${inverter_name}_pv_power_total_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
-    id: ${inverter_name}_pv_power_total_today_${inverter_sufix}
+    accuracy_decimals: 1
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
@@ -436,21 +436,22 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${inverter_name}_pv_power_total_yesteday_${inverter_sufix}
-    id: template_${inverter_name}_pv_power_total_yesteday_${inverter_sufix}
+    name: ${name}_${inverter_name}_pv_enery_total_yesteday_${inverter_sufix}
+    id: template_${inverter_name}_pv_energy_total_yesteday_${inverter_sufix}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 2
     icon: mdi:power
     update_interval: ${inverter_template_update}
     lambda: |-
-      return ( id(template_${inverter_name}_pv_power_total_yesteday_${inverter_sufix}).state = id(${inverter_name}_pv_power_total_yesteday_global_${inverter_sufix}) );
+      return ( id(template_${inverter_name}_pv_energy_total_yesteday_${inverter_sufix}).state = id(${inverter_name}_pv_energy_total_yesteday_global_${inverter_sufix}) );
 
   - platform: total_daily_energy
-    name: ${name}_${inverter_name}_ac_output_active_power_total_today_${inverter_sufix}
-    power_id: ${inverter_name}_ac_output_active_power_${inverter_sufix}
+    name: ${name}_${inverter_name}_ac_output_energy_today_${inverter_sufix}
+    id: ${inverter_name}_ac_output_energy_today_${inverter_sufix}
+    power_id: ${inverter_name}_ac_output_power_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
-    id: ${inverter_name}_ac_output_active_power_total_today_${inverter_sufix}
+    accuracy_decimals: 1
+    
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
@@ -458,14 +459,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${inverter_name}_ac_output_active_power_yesteday_${inverter_sufix}
-    id: template_${inverter_name}_ac_output_active_power_yesteday_${inverter_sufix}
+    name: ${name}_${inverter_name}_ac_output_energy_yesteday_${inverter_sufix}
+    id: template_${inverter_name}_ac_output_energy_yesteday_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${inverter_template_update}
     lambda: |-
-      return ( id(template_${inverter_name}_ac_output_active_power_yesteday_${inverter_sufix}).state = id(${inverter_name}_ac_output_active_power_yesteday_global_${inverter_sufix}) );
+      return ( id(template_${inverter_name}_ac_output_energy_yesteday_${inverter_sufix}).state = id(${inverter_name}_ac_output_energy_yesteday_global_${inverter_sufix}) );
     
   - platform: template
     name: ${name}_${inverter_name}_battery_charging_power_${inverter_sufix}
@@ -477,11 +478,11 @@ sensor:
     lambda: return ( (id(${inverter_name}_battery_voltage_${inverter_sufix}).state) * (id(${inverter_name}_battery_charging_current_${inverter_sufix}).state) );   
 
   - platform: total_daily_energy
-    name: ${name}_${inverter_name}_battery_charging_power_total_today_${inverter_sufix}
+    name: ${name}_${inverter_name}_battery_charging_energy_today_${inverter_sufix}
+    id: ${inverter_name}_battery_charging_energy_today_${inverter_sufix}
     power_id: ${inverter_name}_battery_charging_power_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
-    id: ${inverter_name}_battery_charging_power_total_today_${inverter_sufix}
+    accuracy_decimals: 1
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
@@ -489,14 +490,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${inverter_name}_battery_charging_power_yesteday_${inverter_sufix}
-    id: template_${inverter_name}_battery_charging_power_yesteday_${inverter_sufix}
+    name: ${name}_${inverter_name}_battery_charging_energy_yesteday_${inverter_sufix}
+    id: template_${inverter_name}_battery_charging_energy_yesteday_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${inverter_template_update}
     lambda: |-
-      return ( id(template_${inverter_name}_battery_charging_power_yesteday_${inverter_sufix}).state = id(${inverter_name}_battery_charging_power_yesteday_global_${inverter_sufix}) );    
+      return ( id(template_${inverter_name}_battery_charging_energy_yesteday_${inverter_sufix}).state = id(${inverter_name}_battery_charging_energy_yesteday_global_${inverter_sufix}) );    
        
   - platform: template
     name: ${name}_${inverter_name}_battery_discharging_power_${inverter_sufix}
@@ -508,11 +509,12 @@ sensor:
     lambda: return ( (id(${inverter_name}_battery_voltage_${inverter_sufix}).state) * (id(${inverter_name}_battery_discharge_current_${inverter_sufix}).state) );       
 
   - platform: total_daily_energy
-    name: ${name}_${inverter_name}_battery_discharging_power_total_today_${inverter_sufix}
+    name: ${name}_${inverter_name}_battery_discharging_power_today_${inverter_sufix}
+    id: ${inverter_name}_battery_discharging_energy_today_${inverter_sufix}
     power_id: ${inverter_name}_battery_discharging_power_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
-    id: ${inverter_name}_battery_discharging_power_total_today_${inverter_sufix}
+    accuracy_decimals: 1
+    
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
@@ -520,14 +522,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${inverter_name}_battery_discharging_power_yesteday_${inverter_sufix}
-    id: template_${inverter_name}_battery_discharging_power_yesteday_${inverter_sufix}
+    name: ${name}_${inverter_name}_battery_discharging_energy_yesteday_${inverter_sufix}
+    id: template_${inverter_name}_battery_discharging_energy_yesteday_${inverter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${inverter_template_update}
     lambda: |-
-      return ( id(template_${inverter_name}_battery_discharging_power_yesteday_${inverter_sufix}).state = id(${inverter_name}_battery_discharging_power_yesteday_global_${inverter_sufix}) );        
+      return ( id(template_${inverter_name}_battery_discharging_energy_yesteday_${inverter_sufix}).state = id(${inverter_name}_battery_discharging_energy_yesteday_global_${inverter_sufix}) );        
   
 text_sensor:
         

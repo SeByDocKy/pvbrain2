@@ -1,0 +1,73 @@
+external_components:
+  - source:
+      type: git
+      url: https://github.com/ssieb/custom_components
+    components: [ growatt ]
+    refresh: 0s
+    
+# external_components:
+  # - source: "github://SeByDocKy/myESPhome/"
+    # components: [growatt]
+    # refresh: 0s    
+     
+modbus:
+ - id: ${inverter_name}_modbus_${inverter_sufix}
+   uart_id: ${inverter_uart_id}
+   send_wait_time: ${inverter_modbus_send_wait_time}
+   
+sensor:
+  - platform: growatt
+    id: ${name}_${inverter_name}_${inverter_sufix}
+    address: ${inverter_modbus_address}
+    modbus_id: ${inverter_name}_modbus_${inverter_sufix}
+    input_power:
+      name: ${name}_${inverter_name}_input_power_${inverter_sufix}
+      id: ${inverter_name}_input_power_${inverter_sufix}
+    pv1_voltage:
+      name: ${name}_${inverter_name}_pv1_voltage_${inverter_sufix}
+      id: ${inverter_name}_pv1_voltage_${inverter_sufix}
+    pv1_current:
+      name: ${name}_${inverter_name}_pv1_current_${inverter_sufix}
+      id: ${inverter_name}_pv1_current_${inverter_sufix}
+    pv1_power:
+      name: ${name}_${inverter_name}_pv1_power_${inverter_sufix}
+      id: ${inverter_name}_pv1_power_${inverter_sufix}
+    pv2_voltage:
+      name: ${name}_${inverter_name}_pv2_voltage_${inverter_sufix}
+      id: ${inverter_name}_pv2_voltage_${inverter_sufix}
+    pv2_current:
+      name: ${name}_${inverter_name}_pv2_current_${inverter_sufix}
+      id: ${inverter_name}_pv2_current_${inverter_sufix}
+    pv2_power:
+      name: ${name}_${inverter_name}_pv2_power_${inverter_sufix}
+      id: ${inverter_name}_pv2_power_${inverter_sufix}
+    output_power:
+      name: ${name}_${inverter_name}_output_power_${inverter_sufix} 
+      id: ${inverter_name}_output_power_${inverter_sufix} 
+    grid_frequency:
+      name: ${name}_${inverter_name}_grid_frequency_${inverter_sufix}
+      id: ${inverter_name}_grid_frequency_${inverter_sufix}
+    ac_voltage:
+      name: ${name}_${inverter_name}_ac_voltage_${inverter_sufix}
+      id: ${inverter_name}_ac_voltage_${inverter_sufix}
+    ac_current:
+      name: ${name}_${inverter_name}_ac_current_${inverter_sufix}
+      id: ${inverter_name}_ac_current_${inverter_sufix}
+    ac_power:
+      name: ${name}_${inverter_name}_ac_power_${inverter_sufix}
+      id: ${inverter_name}_ac_power_${inverter_sufix}
+    today_gen:
+      name: ${name}_${inverter_name}_pv_energy_generated_today_${inverter_sufix}
+      id: ${inverter_name}_pv_energy_generated_today_${inverter_sufix}
+    total_gen:
+      name: ${name}_${inverter_name}_pv_energy_generated_total_${inverter_sufix}
+      id: ${inverter_name}_pv_energy_generated_total_${inverter_sufix}
+    temperature:
+      name: ${name}_${inverter_name}_temperature_${inverter_sufix}
+      id: ${inverter_name}_temperature_${inverter_sufix}
+    today_grid:
+      name: ${name}_${inverter_name}_grid_energy_imported_today_${inverter_sufix}
+      id: ${inverter_name}_grid_energy_imported_today_${inverter_sufix}
+    total_grid:
+      name: ${name}_${inverter_name}_grid_energy_imported_total_${inverter_sufix}
+      id: ${inverter_name}_grid_energy_imported_total_${inverter_sufix}      

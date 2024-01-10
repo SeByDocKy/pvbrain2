@@ -7,11 +7,19 @@ external_components:
     refresh: 0s
     
 globals:
-  - id: ${powermeter_name}_yesteday_power_global_${powermeter_sufix1}
+  - id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}
     type: float
     restore_value: yes
     
-  - id: ${powermeter_name}_yesteday_power_global_${powermeter_sufix2}
+  - id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}
+    type: float
+    restore_value: yes    
+    
+  - id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}
+    type: float
+    restore_value: yes
+    
+  - id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}
     type: float
     restore_value: yes    
    
@@ -25,12 +33,20 @@ time:
       hours: 23
       then:  
         - globals.set:
-                id: ${powermeter_name}_yesteday_power_global_${powermeter_sufix1}
-                value: !lambda return ( id(${powermeter_name}_yesteday_power_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_today_power_${powermeter_sufix1}).state) );         
+                id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}
+                value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_sufix1}).state) );
+
+        - globals.set:
+                id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}
+                value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_sufix1}).state) );                
                 
         - globals.set:
-                id: ${powermeter_name}_yesteday_power_global_${powermeter_sufix2}
-                value: !lambda return ( id(${powermeter_name}_yesteday_power_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_today_power_${powermeter_sufix2}).state) );        
+                id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}
+                value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_sufix2}).state) );
+
+        - globals.set:
+                id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}
+                value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_sufix2}).state) );                
     
 modbus:
    - id: ${powermeter_name}_modbus_${powermeter_sufix1}
@@ -186,63 +202,158 @@ sensor:
       accuracy_decimals: 1     
     update_interval: ${powermeter_update_interval}
     
+    ##### Positive energy1 ####
+    
   - platform: template
-    name: ${name}_${powermeter_name}_puissance_cumulee_${powermeter_sufix1}
-    unit_of_measurement: "kWh"
+    name: ${name}_${powermeter_name}_pos_power_${powermeter_sufix1}
+    id: ${powermeter_name}_pos_power_${powermeter_sufix1}
+    unit_of_measurement: 'W'
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
-    lambda: return ( (id(${powermeter_name}_power_${powermeter_sufix1}).state)/1000.0);
+    lambda: |-
+      if(id(${powermeter_name}_power_${powermeter_sufix1}).state > 0.0){
+        return (id(${powermeter_name}_power_${powermeter_sufix1}).state);
+      }
+      else{
+        return 0.0;
+      }
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_today_power_${powermeter_sufix1}
-    power_id: ${powermeter_name}_power_${powermeter_sufix1}
-    unit_of_measurement: "kWh"
-    accuracy_decimals: 2
-    id: ${powermeter_name}_today_power_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_pos_energy_today_${powermeter_sufix1}
+    id: ${powermeter_name}_pos_energy_today_${powermeter_sufix1}
+    power_id: ${powermeter_name}_pos_power_${powermeter_sufix1}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
     method: trapezoid
     filters:
-       # Multiplication factor from W to kW is 0.001
       - multiply: 0.001
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_yesteday_power_${powermeter_sufix1}
-    id: template_${powermeter_name}_yesteday_power_${powermeter_sufix1}
-    unit_of_measurement: "kWh"
-    accuracy_decimals: 2
+    name: ${name}_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix1}
+    id: template_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix1}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_yesteday_power_${powermeter_sufix1}).state = id(${powermeter_name}_yesteday_power_global_${powermeter_sufix1}));  
-      
-  # - platform: template
-    # name: ${name}_${powermeter_name}_puissance_cumulee_${powermeter_sufix2}
-    # unit_of_measurement: "kWh"
-    # accuracy_decimals: 1
-    # update_interval: ${powermeter_template_update}
-    # icon: mdi:power
-    # lambda: return (( (id(${powermeter_name}_power_${powermeter_sufix2}).state)/1000.0));
+      return (id(template_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix1}).state = id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}));  
+ 
+    ##### Negative energy1 ####
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_neg_power_${powermeter_sufix1}
+    id: ${powermeter_name}_neg_power_${powermeter_sufix1}
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${powermeter_template_update}
+    icon: mdi:power
+    lambda: |-
+      if(id(${powermeter_name}_power_${powermeter_sufix1}).state <= 0.0){
+        return (id(${powermeter_name}_power_${powermeter_sufix1}).state);
+      }
+      else{
+        return 0.0;
+      }
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_today_power_${powermeter_sufix2}
-    power_id: ${powermeter_name}_power_${powermeter_sufix2}
-    unit_of_measurement: "kWh"
-    accuracy_decimals: 2
-    id: ${powermeter_name}_today_power_${powermeter_sufix2}
+    name: ${name}_${powermeter_name}_neg_energy_today_${powermeter_sufix1}
+    id: ${powermeter_name}_neg_energy_today_${powermeter_sufix1}
+    power_id: ${powermeter_name}_neg_power_${powermeter_sufix1}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
     method: trapezoid
     filters:
-       # Multiplication factor from W to kW is 0.001
       - multiply: 0.001
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_yesteday_power_${powermeter_sufix2}
-    id: template_${powermeter_name}_yesteday_power_${powermeter_sufix2}
-    unit_of_measurement: "kWh"
-    accuracy_decimals: 2
+    name: ${name}_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix1}
+    id: template_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix1}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_yesteday_power_${powermeter_sufix2}).state = id(${powermeter_name}_yesteday_power_global_${powermeter_sufix2}));        
+      return (id(template_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix1}).state = id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}));  
+ 
+ 
+ 
+    ##### Positive energy2 ####
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_pos_power_${powermeter_sufix2}
+    id: ${powermeter_name}_pos_power_${powermeter_sufix2}
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${powermeter_template_update}
+    icon: mdi:power
+    lambda: |-
+      if(id(${powermeter_name}_power_${powermeter_sufix2}).state > 0){
+        return (id(${powermeter_name}_power_${powermeter_sufix2}).state);
+      }
+      else{
+        return 0.0;
+      }
+    
+  - platform: total_daily_energy
+    name: ${name}_${powermeter_name}_pos_energy_today_${powermeter_sufix2}
+    id: ${powermeter_name}_pos_energy_today_${powermeter_sufix2}
+    power_id: ${powermeter_name}_pos_power_${powermeter_sufix2}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix2}
+    id: template_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix2}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${powermeter_template_update}
+    lambda: |-
+      return (id(template_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix2}).state = id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}));  
+ 
+    ##### Negative energy2 ####
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_neg_power_${powermeter_sufix2}
+    id: ${powermeter_name}_neg_power_${powermeter_sufix2}
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${powermeter_template_update}
+    icon: mdi:power
+    lambda: |-
+      if(id(${powermeter_name}_power_${powermeter_sufix2}).state <= 0.0){
+        return (id(${powermeter_name}_power_${powermeter_sufix2}).state);
+      }
+      else{
+        return 0.0;
+      }
+    
+  - platform: total_daily_energy
+    name: ${name}_${powermeter_name}_neg_energy_today_${powermeter_sufix2}
+    id: ${powermeter_name}_neg_energy_today_${powermeter_sufix2}
+    power_id: ${powermeter_name}_neg_power_${powermeter_sufix2}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix2}
+    id: template_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix2}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${powermeter_template_update}
+    lambda: |-
+      return (id(template_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix2}).state = id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}));
+        
     
