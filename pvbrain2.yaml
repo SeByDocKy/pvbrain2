@@ -82,21 +82,29 @@ packages:
       relays_channel2_pin: '2'
       relays_channel3: '3'
       relays_channel3_pin: '3'
+      relays_channel4: '4'
+      relays_channel4_pin: '4'
+      relays_channel5: '5'
+      relays_channel5_pin: '5'
+      relays_channel6: '6'
+      relays_channel6_pin: '6'
+      relays_channel7: '7'
+      relays_channel7_pin: '7'
 
-  fil_pilote: !include
-    file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REMPLACE "x8" LOCATION BY NOMBRE OF CHAUFFAGE ZONES : 1 to 8
-#   file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
-    vars:
-      fpilote_bus: sx1509_hub1
-      fpilote_name: 'chauffage_zone'
+#   fil_pilote: !include
+#     file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REMPLACE "x8" LOCATION BY NOMBRE OF CHAUFFAGE ZONES : 1 to 8
+# #   file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
+#     vars:
+#       fpilote_bus: sx1509_hub1
+#       fpilote_name: 'chauffage_zone'
 
-  teleinfo: !include 
-    file: pvbrain2/addons/teleinfo/historique.yaml      # Si compteur en mode Historique
-#    file: pvbrain2/addons/teleinfo/standard.yaml       # Si compteur en mode Standard
-    vars:
-      linky_name: 'myteleinfo'
-      linky_uartid: uart_esp_0 #uart_${uart_hub_bus}_8
-      linky_update_interval: '5s'
+#   teleinfo: !include 
+#     file: pvbrain2/addons/teleinfo/historique.yaml      # Si compteur en mode Historique
+# #    file: pvbrain2/addons/teleinfo/standard.yaml       # Si compteur en mode Standard
+#     vars:
+#       linky_name: 'myteleinfo'
+#       linky_uartid: uart_esp_0 #uart_${uart_hub_bus}_8
+#       linky_update_interval: '5s'
     
   
   # ac_dimmer_1: !include
@@ -230,7 +238,6 @@ packages:
   #     powermeter_update_interval: '1s'
   #     powermeter_template_update: '2s'
   #     powermeter_modbus_send_wait_time: '200ms'       
-
 
   solar_charger_1: !include
     file: pvbrain2/solar_charger/srne/device_srne.yaml

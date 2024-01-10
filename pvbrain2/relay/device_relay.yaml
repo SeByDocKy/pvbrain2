@@ -1,7 +1,6 @@
-switch:
+output:
   - platform: gpio
-    id: ${relays_name}_${relays_channel0}_${relays_sufix}
-    name: ${name}_${relays_name}_${relays_channel0}_${relays_sufix}
+    id: ${relays_name}_output0_${relays_sufix}
     pin:
       sx1509: ${relays_hub}
       number: ${relays_channel0_pin}
@@ -10,8 +9,7 @@ switch:
       inverted: true
       
   - platform: gpio
-    id: ${relays_name}_${relays_channel1}_${relays_sufix}
-    name: ${name}_${relays_name}_${relays_channel1}_${relays_sufix}
+    id: ${relays_name}_output1_${relays_sufix}
     pin:
       sx1509: ${relays_hub}
       number: ${relays_channel1_pin}
@@ -20,21 +18,138 @@ switch:
       inverted: true
       
   - platform: gpio
-    id: ${relays_name}_${relays_channel2}_${relays_sufix}
-    name: ${name}_${relays_name}_${relays_channel2}_${relays_sufix}
+    id: ${relays_name}_output2_${relays_sufix}
     pin:
       sx1509: ${relays_hub}
       number: ${relays_channel2_pin}
       mode:
         output: true
       inverted: true
-      
+ 
   - platform: gpio
-    id: ${relays_name}_${relays_channel3}_${relays_sufix}
-    name: ${name}_${relays_name}_${relays_channel3}_${relays_sufix}
+    id: ${relays_name}_output3_${relays_sufix}
     pin:
       sx1509: ${relays_hub}
       number: ${relays_channel3_pin}
       mode:
         output: true
+      inverted: true 
+
+  - platform: gpio
+    id: ${relays_name}_output4_${relays_sufix}
+    pin:
+      sx1509: ${relays_hub}
+      number: ${relays_channel4_pin}
+      mode:
+        output: true
       inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output5_${relays_sufix}
+    pin:
+      sx1509: ${relays_hub}
+      number: ${relays_channel5_pin}
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output6_${relays_sufix}
+    pin:
+      sx1509: ${relays_hub}
+      number: ${relays_channel6_pin}
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output7_${relays_sufix}
+    pin:
+      sx1509: ${relays_hub}
+      number: ${relays_channel7_pin}
+      mode:
+        output: true
+      inverted: true
+       
+switch:
+  - platform: output
+    name: ${name}_${relays_name}_${relays_channel0}_${relays_sufix}
+    id: ${relays_name}_${relays_channel0}_${relays_sufix}
+    output: ${relays_name}_output0_${relays_sufix}
+    
+  - platform: output
+    name: ${name}_${relays_name}_${relays_channel1}_${relays_sufix}
+    id: ${relays_name}_${relays_channel1}_${relays_sufix}
+    output: ${relays_name}_output1_${relays_sufix}  
+  
+  - platform: output
+    name: ${name}_${relays_name}_${relays_channel2}_${relays_sufix}
+    id: ${relays_name}_${relays_channel2}_${relays_sufix}
+    output: ${relays_name}_output2_${relays_sufix}
+
+  - platform: output
+    name: ${name}_${relays_name}_${relays_channel3}_${relays_sufix}
+    id: ${relays_name}_${relays_channel3}_${relays_sufix}
+    output: ${relays_name}_output3_${relays_sufix}
+
+  - platform: output
+    name: ${name}_${relays_name}_${relays_channel4}_${relays_sufix}
+    id: ${relays_name}_${relays_channel4}_${relays_sufix}
+    output: ${relays_name}_output4_${relays_sufix}
+
+  - platform: output
+    name: ${name}_${relays_name}_${relays_channel5}_${relays_sufix}
+    id: ${relays_name}_${relays_channel5}_${relays_sufix}
+    output: ${relays_name}_output5_${relays_sufix}
+
+  - platform: output
+    name: ${name}_${relays_name}_${relays_channel6}_${relays_sufix}
+    id: ${relays_name}_${relays_channel6}_${relays_sufix}
+    output: ${relays_name}_output6_${relays_sufix}
+
+  - platform: output
+    name: ${name}_${relays_name}_${relays_channel7}_${relays_sufix}
+    id: ${relays_name}_${relays_channel7}_${relays_sufix}
+    output: ${relays_name}_output7_${relays_sufix}    
+
+
+# switch:
+  # - platform: gpio
+    # id: ${relays_name}_${relays_channel0}_${relays_sufix}
+    # name: ${name}_${relays_name}_${relays_channel0}_${relays_sufix}
+    # pin:
+      # sx1509: ${relays_hub}
+      # number: ${relays_channel0_pin}
+      # mode:
+        # output: true
+      # inverted: true
+      
+  # - platform: gpio
+    # id: ${relays_name}_${relays_channel1}_${relays_sufix}
+    # name: ${name}_${relays_name}_${relays_channel1}_${relays_sufix}
+    # pin:
+      # sx1509: ${relays_hub}
+      # number: ${relays_channel1_pin}
+      # mode:
+        # output: true
+      # inverted: true
+      
+  # - platform: gpio
+    # id: ${relays_name}_${relays_channel2}_${relays_sufix}
+    # name: ${name}_${relays_name}_${relays_channel2}_${relays_sufix}
+    # pin:
+      # sx1509: ${relays_hub}
+      # number: ${relays_channel2_pin}
+      # mode:
+        # output: true
+      # inverted: true
+      
+  # - platform: gpio
+    # id: ${relays_name}_${relays_channel3}_${relays_sufix}
+    # name: ${name}_${relays_name}_${relays_channel3}_${relays_sufix}
+    # pin:
+      # sx1509: ${relays_hub}
+      # number: ${relays_channel3_pin}
+      # mode:
+        # output: true
+      # inverted: true
