@@ -12,7 +12,7 @@ spi:
 wk2132_spi:
   - id: uart_bridge0
     spi_id: spi0_bus
-    cs_pin: GPIO06
+    cs_pin: GPIO19
     data_rate: 4MHz
     #test_mode: 1
     uart:

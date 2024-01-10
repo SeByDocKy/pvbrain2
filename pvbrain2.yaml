@@ -1,5 +1,6 @@
 substitutions:
   name: 'pvbrain2'
+  friendly_name: 'pvbrain2'
 
   ###### For extended UART ports ###
 
@@ -11,18 +12,20 @@ substitutions:
   uart5_baudrate: '115200'
   uart6_baudrate: '19200'
   uart7_baudrate: '9600'
-  uart8_baudrate: '1200'     # Linky #1200 if historique >> #9600 if standard
-  uart_hub_bus: 'i2c'        # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub
+  uart_hub_bus: 'i2c'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub
 
  ###### For builtin UART ports ###
  
-  uart8_baudrate: '115200'
+  uart8_baudrate: '1200'  # Linky #1200 if historique >> #9600 if standard
   uart9_baudrate: '9600'
   uart10_baudrate: '9600'
 
 esphome:
   name: ${name}
   friendly_name: ${name}
+  project:
+    name: esphome.pvbrain2
+    version: "1.0"
 
 esp32:
   board: esp32-s3-devkitc-1
@@ -43,6 +46,10 @@ api:
 
 ota:
   # password: "b82b9faf767e862e00fd6aba6c360b7f"
+
+dashboard_import:
+  package_import_url: github://SeByDocKy/pvbrain2/pvbrain2.yaml@main
+
 
 wifi:
   ssid: !secret wifi_ssid
@@ -65,7 +72,7 @@ packages:
     file: pvbrain2/relay/device_relay.yaml
     vars:
       relays_name: 'relay'
-      relays_hub: 'sx1509_hub1'
+      relays_hub: 'sx1509_hub0'
       relays_sufix: '1'
       relays_channel0: 'inverter'
       relays_channel0_pin: '0'
@@ -80,7 +87,7 @@ packages:
     file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REMPLACE "x8" LOCATION BY NOMBRE OF CHAUFFAGE ZONES : 1 to 8
 #   file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
     vars:
-      fpilote_bus: ${sx1509_fp_bus}
+      fpilote_bus: sx1509_hub1
       fpilote_name: 'chauffage_zone'
 
   teleinfo: !include 
@@ -88,8 +95,9 @@ packages:
 #    file: pvbrain2/addons/teleinfo/standard.yaml       # Si compteur en mode Standard
     vars:
       linky_name: 'myteleinfo'
-      linky_uartid: uart_${uart_hub_bus}_8
+      linky_uartid: uart_esp_0 #uart_${uart_hub_bus}_8
       linky_update_interval: '5s'
+    
   
   # ac_dimmer_1: !include
   #   file: pvbrain2/ac_dimmer/device_robotdyn.yaml

@@ -2,12 +2,10 @@
  ############# Physical UART ############    
 
 uart:
-  - id: uart_esp_0                 #USE FOR LINKY TELEINFORMATION
+  - id: uart_esp_0
     tx_pin: GPIO43
     rx_pin: GPIO44
     baud_rate: ${uart8_baudrate}
-    parity: EVEN
-    data_bits: 7
 
   - id: uart_esp_1
     tx_pin: GPIO17
