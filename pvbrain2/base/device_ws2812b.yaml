@@ -1,8 +1,0 @@
-light:
-  - platform: fastled_clockless
-    chipset: WS2812B
-    pin: GPIO14
-    num_leds: 2
-    rgb_order: GRB #BRG
-    name: ${name}_ws2812b_light
-    id: ws2812b_light 
