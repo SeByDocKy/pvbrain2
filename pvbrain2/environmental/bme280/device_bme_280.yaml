@@ -1,5 +1,5 @@
 sensor:
-  - platform: bme280 
+  - platform: bme280_i2c
     temperature:
       name: ${name}_${bme_280_name}_temperature_${bme_280_sufix}
       accuracy_decimals: 1

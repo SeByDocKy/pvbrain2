@@ -1,0 +1,551 @@
+modbus:
+  - id: ${bms_name}_modbus_${bms_sufix}
+    uart_id: ${bms_uart_id}
+    send_wait_time: ${bms_modbus_send_wait_time}
+  
+modbus_controller:
+  - id: ${bms_name}_modbus_controller_${bms_sufix}
+    address: ${bms_modbus_address}
+    modbus_id: ${bms_name}_modbus_${bms_sufix}
+    command_throttle: ${bms_modbus_throttle}
+    setup_priority: -10
+    update_interval: ${bms_update_interval}
+
+sensor:
+  # 1000    Pack Voltage                R    UINT16    2    10mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_battery_voltage_${bms_sufix}
+    address: 0x1000
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  # 1001    Current                     R     INT16    2    10mA
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_battery_current_${bms_sufix}
+    address: 0x1001
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: 'A'
+    device_class: current
+    state_class: measurement
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  # 1002    Remaining capacity          R    UINT16    2    10mAH
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_battery_remaining_capacity_${bms_sufix}
+    address: 0x1002
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'Ah'
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.01
+
+  # 1003    Total Capacity              R    UINT16    2    10mAH
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_battery_capacity_${bms_sufix}
+    address: 0x1003
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'Ah'
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.01
+
+  # 1004    Total Discharge Capacity    R    UINT16    2    10AH
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_battery_discharged_capacity_${bms_sufix}
+    address: 0x1004
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'Ah'
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.01
+
+  # 1005    SOC                         R    UINT16    2    0.1%
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_soc_${bms_sufix}
+    address: 0x1005
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: '%'
+    device_class: battery
+    state_class: measurement
+    accuracy_decimals: 0
+
+  # 1006    SOH                         R    UINT16    2    0.1%
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_soh_${bms_sufix}
+    address: 0x1006
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: '%'
+    state_class: measurement
+    accuracy_decimals: 0
+
+  # 1007    Cycle                       R    UINT16    2    1
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_battery_cycle_${bms_sufix}
+    address: 0x1007
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: ""
+    state_class: measurement
+    accuracy_decimals: 0
+
+  # 1008    Averag of Cell Votage       R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_average_cell_voltage_${bms_sufix}
+    address: 0x1008
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1009    Averag of Cell Temperature  R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_average_cell_temperature_${bms_sufix}
+    address: 0x1009
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # 100A    Max Cell Voltage            R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_max_cell_voltage_${bms_sufix}
+    address: 0x100A
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 100B    Min Cell Voltage            R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_min_cell_voltage_${bms_sufix}
+    address: 0x100B
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 100C    Max Cell Temperature        R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_max_cell_temperature_${bms_sufix}
+    address: 0x100C
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # 100D    Min Cell Temperature        R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_min_cell_temperature_${bms_sufix}
+    address: 0x100D
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # 100F    MaxDisCurt                  R    UINT16    2    1A
+  #         Max Discharging Current
+  # 1010    MaxChgCurt                  R    UINT16    2    1A
+  #         Max Charging Current
+
+  # 1100    Cell1 Voltage               R    UINT16    2    1mV
+  
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_1_${bms_sufix}
+    address: 0x1100
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1101    Cell2 Voltage               R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_2_${bms_sufix}
+    address: 0x1101
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1102    Cell3 Voltage               R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_3_${bms_sufix}
+    address: 0x1102
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1103    Cell4 Voltage               R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_4_${bms_sufix}
+    address: 0x1103
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1104    Cell5 Voltage               R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_5_${bms_sufix}
+    address: 0x1104
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1105    Cell6 Voltage               R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_6_${bms_sufix}
+    address: 0x1105
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1106    Cell7 Voltage               R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_7_${bms_sufix}
+    address: 0x1106
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1107    Cell8 Voltage               R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_8_${bms_sufix}
+    address: 0x1107
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1108    Cell9 Voltage               R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_9_${bms_sufix}
+    address: 0x1108
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1109    Cell10 Voltage              R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_10_${bms_sufix}
+    address: 0x1109
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 110A    Cell11 Voltage              R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_11_${bms_sufix}
+    address: 0x110A
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 110B    Cell12 Voltage              R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_12_${bms_sufix}
+    address: 0x110B
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 110C    Cell13 Voltage              R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_13_${bms_sufix}
+    address: 0x110C
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 110D    Cell14 Voltage              R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_14_${bms_sufix}
+    address: 0x110D
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 110E    Cell15 Voltage              R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_15_${bms_sufix}
+    address: 0x110E
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 110F    Cell16 Voltage              R    UINT16    2    1mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_voltage_16_${bms_sufix}
+    address: 0x110F
+    register_type: read
+    value_type: U_WORD
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 1110    Cell temperature 1          R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_temperature_1_${bms_sufix}
+    address: 0x1110
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # 1111    Cell temperature 2          R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_temperature_2_${bms_sufix}
+    address: 0x1111
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # 1112    Cell temperature 3          R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_temperature_3_${bms_sufix}
+    address: 0x1112
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # 1113    Cell temperature 4          R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_cell_temperature_4_${bms_sufix}
+    address: 0x1113
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # 1118    Environment Temperature     R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_environment_temperature_${bms_sufix}
+    address: 0x1118
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # 1119    Power temperature           R    UINT16    2    0.1K
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller_${bms_sufix}
+    name: ${name}_${bms_name}_mosfet_temperature_${bms_sufix}
+    address: 0x1119
+    register_type: read
+    value_type: S_WORD
+    unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    accuracy_decimals: 1
+    filters:
+      - offset: -27315.0
+      - multiply: 0.01
+
+  # Pack Info C
+  #
+  # 1200    Cells voltage 08-01low alarm state       R    HEX    1    1:alarm
+  # 1208    Cells voltage 16-09low alarm state       R    HEX    1    1:alarm
+  # 1210    Cells voltage 08-01high alarm state      R    HEX    1    1:alarm
+  # 1218    Cells voltage 16-09high alarm state      R    HEX    1    1:alarm
+  # 1220    Cell 08-01 temperature Tlow alarm state  R    HEX    1    1:alarm
+  # 1228    Cell 08-01 temperature high alarm state  R    HEX    1    1:alarm
+  # 1230    Cell 08-01 equalization event code       R    HEX    1    1:on 0:off
+  # 1238    Cell 16-09 equalization event code       R    HEX    1    1:on 0:off
+  # 1240    System state code                        R    HEX    1    See TB09
+  # 1248    Voltage event code                       R    HEX    1    See TB02
+  # 1250    Cells Temperature event code             R    HEX    1    See TB03
+  # 1258    Environment and power Temperature event code          R    HEX    1    See TB04
+  # 1260    Current event code1                      R    HEX    1    See TB05
+  # 1268    Current event code2                      R    HEX    1    See TB16
+  # 1270     The residual capacity code              R    HEX    1    See TB06
+
+  # System Parameter    reg. 1300...1367
+  # System Function     reg. 1400...1448
+  # System Control      reg. 1500...1519
+  # History Info        reg. 1600...1627
+  # Version Info        reg. 1700...1724
+  # PCS Control         reg. 1800...1823
+  # EMS Info A          reg. 2000...2019
+  # EMS Info B          reg. 2100...2115
+  # EMS Info C          reg. 2200...2248
+  #
+  # See docs/XZH BMS Modbus-RTU Protocol.pdf

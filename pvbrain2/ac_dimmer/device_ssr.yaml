@@ -2,10 +2,10 @@ output:
   - platform: sx1509
     sx1509_id: ${ssr_hub}
     id: ${ssr_name}_output_${ssr_sufix}
-    # Use pin number 2 on the SX1509
     pin: ${ssr_pin}
+    inverted: true
 
-############ Power diverter controllled by SSR with a fan or light object #########"
+############ Power diverter controlled by SSR with a fan or light object #########"
     
     
 # light:

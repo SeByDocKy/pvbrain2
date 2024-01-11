@@ -30,7 +30,9 @@ esphome:
 esp32:
   board: esp32-s3-devkitc-1
   framework:
-    #type: esp-idf
+    # type: esp-idf
+    # platform_version: 6.5.0
+    # version: 4.4.6
     type: arduino
     version: 2.0.14 #2.0.5 2.0.9
     platform_version: 6.5.0 #4.4.0 6.2.0
@@ -50,7 +52,6 @@ ota:
 dashboard_import:
   package_import_url: github://SeByDocKy/pvbrain2/pvbrain2.yaml@main
 
-
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
@@ -67,6 +68,14 @@ packages:
   ########################   Devices  ######################
   
   device_base: !include pvbrain2/base/device_base.yaml
+
+  light_1: !include 
+    file: pvbrain2/environmental/light/device_ws2812b.yaml
+    vars:
+      light_name: ws2812b
+      light_sufix: '1'
+      light_num_leds: '2'
+      light_order: 'GRB'
 
   relays_1: !include
     file: pvbrain2/relay/device_relay.yaml
@@ -146,7 +155,7 @@ packages:
       opto_sufix: 'solar_230V'    
   
   bme_280_1: !include
-    file: pvbrain2/environmental/device_bme_280.yaml
+    file: pvbrain2/environmental/bme280/device_bme_280.yaml
     vars:
       bme_280_name: 'bme280'
       bme_280_address: '0x76'
@@ -231,24 +240,25 @@ packages:
   # powermeter_3: !include
   #   file: pvbrain2/powermeter/ac/peacefair/device_pzem004tv3.yaml
   #   vars:
-  #     powermeter_uart_id: uart_esp_0     # uart_${uart_hub_bus}_1
+  #     powermeter_uart_id: uart_${uart_hub_bus}_1     # uart_${uart_hub_bus}_1
   #     powermeter_name: 'pzem'
   #     powermeter_modbus_address: '1'
   #     powermeter_sufix: 'solar'
   #     powermeter_update_interval: '1s'
   #     powermeter_template_update: '2s'
-  #     powermeter_modbus_send_wait_time: '200ms'       
+  #     powermeter_modbus_send_wait_time: '200ms'
 
   # powermeter_4: !include
   #   file: pvbrain2/powermeter/dc/peacefair/device_pzemdc.yaml
   #   vars:
-  #     powermeter_uart_id: uart_esp_0     # uart_${uart_hub_bus}_1
+  #     powermeter_uart_id: uart_${uart_hub_bus}_1     # uart_${uart_hub_bus}_1
   #     powermeter_name: 'pzemdc'
   #     powermeter_modbus_address: '1'
   #     powermeter_sufix: 'solar'
   #     powermeter_update_interval: '1s'
   #     powermeter_template_update: '2s'
   #     powermeter_modbus_send_wait_time: '200ms'     
+
 
   solar_charger_1: !include
     file: pvbrain2/solar_charger/srne/device_srne.yaml
@@ -296,7 +306,7 @@ packages:
   #     solar_charger_update_interval: '1s'
 
   # smartshunt_1: !include
-  #   file: pvbrain2/powermeter/dc/device_smartshunt.yaml
+  #   file: pvbrain2/powermeter/dc/victron/device_smartshunt.yaml
   #   vars:
   #     smartshunt_uart_id: uart_${uart_hub_bus}_3
   #     smartshunt_name: 'smartshunt'
@@ -314,15 +324,51 @@ packages:
       bms_template_update: '2s'
       bms_text_update: '5s'
 
-  bms_2: !include
-    file: pvbrain2/bms/jkbms/device_jkbms.yaml
-    vars:
-      bms_uart_id: uart_${uart_hub_bus}_5
-      bms_name: 'jkbms'
-      bms_sufix: '2'
-      bms_update_interval: '1s'
-      bms_template_update: '2s'
-      bms_text_update: '5s'
+  # bms_2: !include
+  #   file: pvbrain2/bms/jkbms/device_jkbms.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_5
+  #     bms_name: 'jkbms'
+  #     bms_sufix: '2'
+  #     bms_update_interval: '1s'
+  #     bms_template_update: '2s'
+  #     bms_text_update: '5s'
+
+  # bms_3: !include
+  #   file: pvbrain2/bms/seplos/device_seplosbmsv3.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_4
+  #     bms_name: 'seplosv3'
+  #     bms_modbus_address: '1'
+  #     bms_sufix: '1'
+  #     bms_update_interval: '1s'
+  #     bms_template_update: '2s'
+  #     bms_text_update: '5s'
+  #     bms_modbus_send_wait_time: '200ms'
+  #     bms_modbus_throttle: '200ms'
+
+  # bms_4: !include
+  #   file: pvbrain2/bms/seplos/device_seplosbms.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_7
+  #     bms_name: 'seplos'
+  #     bms_modbus_address: '0'
+  #     bms_protocol: '0x20'  # 0x20 (Seplos), 0x26 (Boqiang)
+  #     bms_sufix: '1'
+  #     bms_update_interval: '5s'
+  #     bms_template_update: '5s'
+  #     bms_rx_timeout: '150ms'
+
+  # bms_5: !include
+  #   file: pvbrain2/bms/ant/device_antbms.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_4
+  #     bms_name: 'antbms'
+  #     bms_sufix: '1'
+  #     bms_update_interval: '5s'
+  #     bms_rx_timeout: '50ms'
+  #     bms_password: "12345678"
+
 
   # virtual_canbus_1: !include
   #   file: pvbrain2/translation/jkbms2canbus/device_virtual_canbus.yaml
