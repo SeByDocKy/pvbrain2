@@ -6,7 +6,6 @@ packages:
   #device_wk2132_spi: !include device_wk2132_spi.yaml
   device_sx1509: !include device_sx1509.yaml
   device_dallas: !include device_dallas.yaml
-  #device_ws2812b: !include device_ws2812b.yaml
               
 binary_sensor:       
   - platform: status
