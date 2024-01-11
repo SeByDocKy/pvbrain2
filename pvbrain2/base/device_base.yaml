@@ -37,6 +37,20 @@ sensor:
     id: uptime_sec
     
 text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: ${name}_ip_address
+    ssid:
+      name: ${name}_connected_ssid
+    bssid:
+      name: ${name}_connected_bssid
+    mac_address:
+      name: ${name}_mac_wifi_address
+    scan_results:
+      name: ${name}_latest_scan_results
+    dns_address:
+      name: ${name}_dns_address
+      
   - platform: template
     name: ${name}_uptime
     lambda: |-
