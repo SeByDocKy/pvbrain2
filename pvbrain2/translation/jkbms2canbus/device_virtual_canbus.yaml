@@ -2,7 +2,6 @@ external_components:
   - source: github://syssi/esphome-virtual-can-bms@main
     refresh: 0s
 
-    
 spi:
   - id: spi1_bus
     mosi_pin: GPIO10  #11
@@ -13,8 +12,8 @@ spi:
     
 canbus:
   - platform: mcp2515
-    id: canbus_id0
-    spi_id: spi1_bis
+    id: can0_bus
+    spi_id: spi1_bus
     cs_pin: GPIO21
     can_id: ${virtual_canbus_can_id}
     bit_rate: 500kbps

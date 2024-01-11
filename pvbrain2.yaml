@@ -316,7 +316,7 @@ packages:
   # virtual_canbus_1: !include
   #   file: pvbrain2/translation/jkbms2canbus/device_virtual_canbus.yaml
   #   vars:
-  #     virtual_canbus_bus_id: 'canbus_id0'
+  #     virtual_canbus_bus_id: 'can0_bus'
   #     virtual_canbus_can_id: '4'
   #     virtual_canbus_name: 'mcp2515'
   #     virtual_canbus_sufix: '1'
