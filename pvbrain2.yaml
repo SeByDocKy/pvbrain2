@@ -313,6 +313,42 @@ packages:
       bms_template_update: '2s'
       bms_text_update: '5s'
 
+  # bms_3: !include
+  #   file: pvbrain2/bms/seplos/device_seplosbmsv3.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_4
+  #     bms_name: 'seplosv3'
+  #     bms_modbus_address: '1'
+  #     bms_sufix: '1'
+  #     bms_update_interval: '1s'
+  #     bms_template_update: '2s'
+  #     bms_text_update: '5s'
+  #     bms_modbus_send_wait_time: '200ms'
+  #     bms_modbus_throttle: '200ms'
+
+  # bms_4: !include
+  #   file: pvbrain2/bms/seplos/device_seplosbms.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_7
+  #     bms_name: 'seplos'
+  #     bms_modbus_address: '0'
+  #     bms_protocol: '0x20'  # 0x20 (Seplos), 0x26 (Boqiang)
+  #     bms_sufix: '1'
+  #     bms_update_interval: '5s'
+  #     bms_template_update: '5s'
+  #     bms_rx_timeout: '150ms'
+
+  # bms_5: !include
+  #   file: pvbrain2/bms/ant/device_antbms.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_4
+  #     bms_name: 'antbms'
+  #     bms_sufix: '1'
+  #     bms_update_interval: '5s'
+  #     bms_rx_timeout: '50ms'
+  #     bms_password: "12345678"
+
+
   # virtual_canbus_1: !include
   #   file: pvbrain2/translation/jkbms2canbus/device_virtual_canbus.yaml
   #   vars:

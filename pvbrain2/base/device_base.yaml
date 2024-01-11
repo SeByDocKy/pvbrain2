@@ -30,11 +30,26 @@ switch:
     
 sensor:    
   - platform: wifi_signal
+    id: ${name}_wifi_power
     name: ${name}_wifi_power
     update_interval: 10s
-    
+  
+  - platform: copy # Reports the WiFi signal strength in %
+    source_id: ${name}_wifi_power
+    name: ${name}_wifi_power_percent
+    filters:
+      - lambda: 'return min(max(2 * (x + 100.0), 0.0), 100.0);'
+    unit_of_measurement: '%'
+    entity_category: diagnostic
+  
+  - platform: internal_temperature
+    name: ${name}_internal_temperature
+    entity_category: diagnostic
+   
   - platform: uptime
     id: uptime_sec
+    
+    
     
 text_sensor:
   - platform: template
