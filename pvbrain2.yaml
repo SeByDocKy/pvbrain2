@@ -1,6 +1,6 @@
 substitutions:
   name: 'pvbrain2'
-  friendly_name: 'pvbrain2'
+  # friendly_name: 'pvbrain2'
 
   ###### For extended UART ports ###
 
@@ -12,7 +12,7 @@ substitutions:
   uart5_baudrate: '115200'
   uart6_baudrate: '19200'
   uart7_baudrate: '9600'
-  uart_hub_bus: 'i2c'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub
+  uart_hub_bus: 'i2c'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub file
 
  ###### For builtin UART ports ###
  
@@ -258,7 +258,6 @@ packages:
   #     powermeter_update_interval: '1s'
   #     powermeter_template_update: '2s'
   #     powermeter_modbus_send_wait_time: '200ms'     
-
 
   solar_charger_1: !include
     file: pvbrain2/solar_charger/srne/device_srne.yaml
