@@ -37,6 +37,7 @@ sensor:
   #   filters:
   #     - multiply: 0.001
   #   teleinfo_id: ${linky_name}
+  #   icon: mdi:gauge
   # - platform: teleinfo
   #   tag_name: "HCHP"
   #   name: ${name}_${linky_name}_index_hp
@@ -47,6 +48,7 @@ sensor:
   #   filters:
   #     - multiply: 0.001
   #   teleinfo_id: ${linky_name}
+  #   icon: mdi:gauge
   
   # # Index option EJP
   # - platform: teleinfo
@@ -140,6 +142,7 @@ sensor:
   #   device_class: current
   #   state_class: measurement
   #   teleinfo_id: ${linky_name}
+  #  icon: mdi:current-ac
   # Intensité Instantanée, (triphasé) phase 1
   - platform: teleinfo
     tag_name: "IINST1"
@@ -148,6 +151,7 @@ sensor:
     device_class: current
     state_class: measurement
     teleinfo_id: ${linky_name}
+    icon: mdi:current-ac
   # Intensité Instantanée, (triphasé) phase 2
   - platform: teleinfo
     tag_name: "IINST2"
@@ -156,6 +160,7 @@ sensor:
     device_class: current
     state_class: measurement
     teleinfo_id: ${linky_name}
+    icon: mdi:current-ac
   # Intensité Instantanée, (triphasé) phase 3
   - platform: teleinfo
     tag_name: "IINST3"
@@ -164,6 +169,7 @@ sensor:
     device_class: current
     state_class: measurement
     teleinfo_id: ${linky_name}
+    icon: mdi:current-ac
     
   # # Avertissement de Dépassement De Puissance Souscrite
   # - platform: teleinfo
@@ -215,6 +221,7 @@ sensor:
     state_class: measurement
     device_class: apparent_power
     teleinfo_id: ${linky_name}
+    icon: mdi:flash
     
   # Puissance maximale atteinte
   - platform: teleinfo
@@ -249,6 +256,7 @@ text_sensor:
     tag_name: "PTEC"
     name: ${name}_${linky_name}_période_tarifaire
     teleinfo_id: ${linky_name}
+    icon: mdi:clock-time-nine-outline
     
   # Couleur du lendemain
   - platform: teleinfo
