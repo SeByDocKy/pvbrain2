@@ -69,13 +69,13 @@ packages:
   
   device_base: !include pvbrain2/base/device_base.yaml
 
-  light_1: !include 
-    file: pvbrain2/environmental/light/device_ws2812b.yaml
-    vars:
-      light_name: ws2812b
-      light_sufix: '1'
-      light_num_leds: '2'
-      light_order: 'GRB'
+  # light_1: !include 
+  #   file: pvbrain2/environmental/light/device_ws2812b.yaml
+  #   vars:
+  #     light_name: ws2812b
+  #     light_sufix: '1'
+  #     light_num_leds: '2'
+  #     light_order: 'GRB'
 
   relays_1: !include
     file: pvbrain2/relay/device_relay.yaml
@@ -211,6 +211,17 @@ packages:
   #     inverter_sufix: '1'
   #     inverter_modbus_address: '1'
   #     inverter_modbus_send_wait_time: '200ms'
+  #     inverter_update_interval: '1s'
+
+  # inverter_5: !include
+  #   file: pvbrain2/inverter/sofar/device_sofar.yaml
+  #   vars:
+  #     inverter_uart_id: uart_${uart_hub_bus}_7  # 'uart_i2c_1'
+  #     inverter_name: 'sofar'
+  #     inverter_sufix: '1'
+  #     inverter_modbus_address: '1'
+  #     inverter_modbus_send_wait_time: '200ms'
+  #     inverter_modbus_throttle: '100ms'
   #     inverter_update_interval: '1s'
    
   powermeter_1: !include
