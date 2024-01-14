@@ -24,29 +24,28 @@ globals:
     restore_value: yes    
    
 time:
-  platform: sntp
-  id: my_time
-  
-  on_time:
-    - seconds: 59
-      minutes: 59
-      hours: 23
-      then:  
-        - globals.set:
-                id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}
-                value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_sufix1}).state) );
+  - platform: sntp
+    id: my_time
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:  
+          - globals.set:
+              id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}
+              value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_sufix1}).state) );
 
-        - globals.set:
-                id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}
-                value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_sufix1}).state) );                
+          - globals.set:
+              id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}
+              value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_sufix1}).state) );                
                 
-        - globals.set:
-                id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}
-                value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_sufix2}).state) );
+          - globals.set:
+              id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}
+              value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_sufix2}).state) );
 
-        - globals.set:
-                id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}
-                value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_sufix2}).state) );                
+          - globals.set:
+              id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}
+              value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_sufix2}).state) );                
     
 modbus:
    - id: ${powermeter_name}_modbus_${powermeter_sufix1}

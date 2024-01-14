@@ -25,29 +25,29 @@ globals:
     restore_value: yes
 
 time:
-  platform: sntp
-  id: my_time
+  - platform: sntp
+    id: my_time
   
-  on_time:
-    - seconds: 59
-      minutes: 59
-      hours: 23
-      then:           
-        - globals.set:
-                id: ${inverter_name}_pv_energy_total_yesteday_global_${inverter_sufix}
-                value: !lambda return ( id(${inverter_name}_pv_energy_total_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_pv_energy_total_today_${inverter_sufix}).state) );                    
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:           
+          - globals.set:
+              id: ${inverter_name}_pv_energy_total_yesteday_global_${inverter_sufix}
+              value: !lambda return ( id(${inverter_name}_pv_energy_total_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_pv_energy_total_today_${inverter_sufix}).state) );                    
   
-        - globals.set:
-                id: ${inverter_name}_ac_output_energy_yesteday_global_${inverter_sufix}
-                value: !lambda return ( id(${inverter_name}_ac_output_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_ac_output_energy_today_${inverter_sufix}).state) );
+          - globals.set:
+              id: ${inverter_name}_ac_output_energy_yesteday_global_${inverter_sufix}
+              value: !lambda return ( id(${inverter_name}_ac_output_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_ac_output_energy_today_${inverter_sufix}).state) );
 
-        - globals.set:
-                id: ${inverter_name}_battery_charging_energy_yesteday_global_${inverter_sufix}
-                value: !lambda return ( id(${inverter_name}_battery_charging_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_battery_charging_energy_today_${inverter_sufix}).state) ); 
+          - globals.set:
+              id: ${inverter_name}_battery_charging_energy_yesteday_global_${inverter_sufix}
+              value: !lambda return ( id(${inverter_name}_battery_charging_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_battery_charging_energy_today_${inverter_sufix}).state) ); 
                 
-        - globals.set:
-                id: ${inverter_name}_battery_discharging_energy_yesteday_global_${inverter_sufix}
-                value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_battery_discharging_energy_today_${inverter_sufix}).state) ); 
+          - globals.set:
+              id: ${inverter_name}_battery_discharging_energy_yesteday_global_${inverter_sufix}
+              value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesteday_global_${inverter_sufix}) =  float( id(${inverter_name}_battery_discharging_energy_today_${inverter_sufix}).state) ); 
  
 output:
   - platform: pipsolar

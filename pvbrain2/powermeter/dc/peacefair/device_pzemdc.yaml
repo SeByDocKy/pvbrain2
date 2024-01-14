@@ -4,17 +4,16 @@ globals:
     restore_value: yes
     
 time:
-  platform: sntp
-  id: my_time
-  
-  on_time:
-    - seconds: 59
-      minutes: 59
-      hours: 23
-      then:  
-        - globals.set:
-                id: ${powermeter_name}_energy_yesteday_global_${powermeter_sufix}
-                value: !lambda return ( id(${powermeter_name}_energy_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_energy_today_${powermeter_sufix}).state) );         
+  - platform: sntp
+    id: my_time
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:  
+          - globals.set:
+              id: ${powermeter_name}_energy_yesteday_global_${powermeter_sufix}
+              value: !lambda return ( id(${powermeter_name}_energy_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_energy_today_${powermeter_sufix}).state) );         
  
 modbus:
    - id: ${powermeter_name}_modbus_${powermeter_sufix}
@@ -67,7 +66,7 @@ sensor:
     id: ${powermeter_name}_energy_today_${powermeter_sufix}
     power_id: ${powermeter_name}_power_${powermeter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     method: trapezoid
     filters:
         # Multiplication factor from W to kW is 0.001
@@ -78,7 +77,7 @@ sensor:
     name: ${name}_${powermeter_name}_energy_yesteday_${powermeter_sufix}
     id: ${powermeter_name}_energy_yesteday_${powermeter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-

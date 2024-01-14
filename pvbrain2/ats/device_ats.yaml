@@ -1,6 +1,6 @@
 number:
 
-  ######### Automatic Switch Transfert  thresholds  ########            
+  ######### Automatic Switch Transfert thresholds  ########            
             
   - platform: template
     name: ${name}_${ats_name}_voltage_solar_to_grid_number_${ats_sufix}
@@ -29,9 +29,7 @@ number:
     mode: 'slider'
 
 switch:
-
   - platform: template
     name: ${name}_${ats_name}_automatic_control_${ats_sufix}
     id: ${ats_name}_automatic_control_${ats_sufix}
     optimistic: true    
-    

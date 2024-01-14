@@ -168,7 +168,7 @@ packages:
     vars:
       ats_name: 'ats'
       ats_sufix: '1'
-
+  
   inverter_1: !include
     file: pvbrain2/inverter/voltronic/device_axpert_max.yaml
     vars:

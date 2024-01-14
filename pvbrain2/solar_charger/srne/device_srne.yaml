@@ -6,20 +6,19 @@ time:
     # servers: "de.pool.ntp.org"
 
     on_time:
-    - seconds: 59
-      minutes: 59
-      hours: 23
-      then:  
-        - globals.set:
-                id: ${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_sufix}
-                value: !lambda return ( id(${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_sufix}) =  float( id(${solar_charger_name}_pv_energy_today_${solar_charger_sufix}).state) );         
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:  
+          - globals.set:
+              id: ${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_sufix}
+              value: !lambda return ( id(${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_sufix}) =  float( id(${solar_charger_name}_pv_energy_today_${solar_charger_sufix}).state) );         
                 
-        - globals.set:
-                id: ${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_sufix}
-                value: !lambda return ( id(${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_sufix}) =  float( id(${solar_charger_name}_battery_charging_energy_today_${solar_charger_sufix}).state) );        
+          - globals.set:
+              id: ${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_sufix}
+              value: !lambda return ( id(${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_sufix}) =  float( id(${solar_charger_name}_battery_charging_energy_today_${solar_charger_sufix}).state) );        
 
 globals:
-
   - id: ${solar_charger_name}_battery_coefficient_${solar_charger_sufix}
     type: int
     restore_value: yes

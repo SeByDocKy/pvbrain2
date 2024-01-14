@@ -4,17 +4,16 @@ globals:
     restore_value: yes
     
 time:
-  platform: sntp
-  id: my_time
-  
-  on_time:
-    - seconds: 59
-      minutes: 59
-      hours: 23
-      then:  
-        - globals.set:
-                id: ${powermeter_name}_energy_yesteday_global_${powermeter_sufix}
-                value: !lambda return ( id(${powermeter_name}_energy_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_energy_today_${powermeter_sufix}).state) );         
+  - platform: sntp
+    id: my_time
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:  
+          - globals.set:
+              id: ${powermeter_name}_energy_yesteday_global_${powermeter_sufix}
+              value: !lambda return ( id(${powermeter_name}_energy_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_energy_today_${powermeter_sufix}).state) );         
  
 modbus:
    - id: ${powermeter_name}_modbus_${powermeter_sufix}
