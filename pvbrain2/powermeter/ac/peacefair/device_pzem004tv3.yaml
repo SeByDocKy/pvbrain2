@@ -31,6 +31,8 @@ button:
    
 sensor:
   - platform: pzemac
+    id: ${powermeter_name}_pzem_${powermeter_sufix}
+    modbus_id: ${powermeter_name}_modbus_${powermeter_sufix}
     address: ${powermeter_modbus_address}
     current:
       name: ${name}_${powermeter_name}_current_${powermeter_sufix}
@@ -57,8 +59,7 @@ sensor:
       accuracy_decimals: 1
       id: ${powermeter_name}_energy_${powermeter_sufix}
     update_interval: ${powermeter_update_interval}
-    modbus_id: ${powermeter_name}_modbus_${powermeter_sufix}
-    id: ${powermeter_name}_pzem_${powermeter_sufix}
+
     
   - platform: template
     name: ${name}_${powermeter_name}_energy_total_${powermeter_sufix}
@@ -73,7 +74,7 @@ sensor:
     id: ${powermeter_name}_energy_today_${powermeter_sufix}
     power_id: ${powermeter_name}_power_${powermeter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     method: trapezoid
     filters:
         # Multiplication factor from W to kW is 0.001
@@ -84,7 +85,7 @@ sensor:
     name: ${name}_${powermeter_name}_energy_yesteday_${powermeter_sufix}
     id: ${powermeter_name}_energy_yesteday_${powermeter_sufix}
     unit_of_measurement: 'kWh'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
