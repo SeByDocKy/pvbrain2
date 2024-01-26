@@ -1,9 +1,11 @@
+# https://esphome.io/components/sensor/teleinfo.html
 teleinfo:
   - uart_id: ${linky_uartid}
     id: ${linky_name}
     update_interval: ${linky_update_interval}
     historical_mode: true
-    
+
+# https://esphome.io/components/sensor/index.html
 sensor:
   # Intensité souscrite
   - platform: teleinfo
@@ -12,67 +14,104 @@ sensor:
     unit_of_measurement: A
     device_class: current
     state_class: measurement
-    teleinfo_id: ${linky_name}
-    
-  # # Index option Base
-  # - platform: teleinfo
-  #   tag_name: "BASE"
-  #   name: ${name}_${linky_name}_index_base
-  #   unit_of_measurement: kWh
-  #   device_class: energy
-  #   state_class: total_increasing
-  #   accuracy_decimals: 3
-  #   filters:
-  #     - multiply: 0.001
-  #   teleinfo_id: ${linky_name}
+  # Avertissement de Dépassement De Puissance Souscrite
+  - platform: teleinfo
+    tag_name: "ADPS"
+    name: ${name}_${linky_name}_intensité_instantanée_dépassement
+    unit_of_measurement: A
+    device_class: current
+    state_class: measurement
+  # Puissance apparente
+  - platform: teleinfo
+    tag_name: "PAPP"
+    name: ${name}_${linky_name}_puissance_apparente
+    unit_of_measurement: VA
+    state_class: measurement
+    device_class: apparent_power
+    icon: mdi:flash
+  # Puissance maximale atteinte
+  - platform: teleinfo
+    tag_name: "PMAX"
+    name: ${name}_${linky_name}_puissance_maximale
+    unit_of_measurement: W
+    state_class: measurement
+    device_class: power
+
+#------------------------#
+# MODE HISTORIQUE - BASE #
+#------------------------#
+
+  # Index option Base
+  - platform: teleinfo
+    tag_name: "BASE"
+    name: ${name}_${linky_name}_index_base
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 3
+    icon: mdi:gauge
+    filters:
+      - multiply: 0.001
+
+#-------------------------#
+# MODE HISTORIQUE - HP/HC #
+#-------------------------#
+
+  # Index HC
+  - platform: teleinfo
+    tag_name: "HCHC"
+    name: ${name}_${linky_name}_index_hc
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 3
+    icon: mdi:gauge
+    filters:
+      - multiply: 0.001
+  # Index HP
+  - platform: teleinfo
+    tag_name: "HCHP"
+    name: ${name}_${linky_name}_index_hp
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 3
+    icon: mdi:gauge
+    filters:
+      - multiply: 0.001
   
-  # # Index option HP/HC
-  # - platform: teleinfo
-  #   tag_name: "HCHC"
-  #   name: ${name}_${linky_name}_index_hc
-  #   unit_of_measurement: kWh
-  #   device_class: energy
-  #   state_class: total_increasing
-  #   accuracy_decimals: 3
-  #   filters:
-  #     - multiply: 0.001
-  #   teleinfo_id: ${linky_name}
-  #   icon: mdi:gauge
-  # - platform: teleinfo
-  #   tag_name: "HCHP"
-  #   name: ${name}_${linky_name}_index_hp
-  #   unit_of_measurement: kWh
-  #   device_class: energy
-  #   state_class: total_increasing
-  #   accuracy_decimals: 3
-  #   filters:
-  #     - multiply: 0.001
-  #   teleinfo_id: ${linky_name}
-  #   icon: mdi:gauge
-  
-  # # Index option EJP
-  # - platform: teleinfo
-  #   tag_name: "EJPHN"
-  #   name: ${name}_${linky_name}_index_ejp_normal
-  #   unit_of_measurement: kWh
-  #   device_class: energy
-  #   state_class: total_increasing
-  #   accuracy_decimals: 3
-  #   filters:
-  #     - multiply: 0.001
-  #   teleinfo_id: ${linky_name}
-  # - platform: teleinfo
-  #   tag_name: "EJPHPM"
-  #   name: ${name}_${linky_name}_index_ejp_pointe
-  #   unit_of_measurement: kWh
-  #   device_class: energy
-  #   state_class: total_increasing
-  #   accuracy_decimals: 3
-  #   filters:
-  #     - multiply: 0.001
-  #   teleinfo_id: ${linky_name}
-  
-  # Index option Tempo
+#-----------------------#
+# MODE HISTORIQUE - EJP #
+#-----------------------#
+
+  # Index EJP Normal
+  - platform: teleinfo
+    tag_name: "EJPHN"
+    name: ${name}_${linky_name}_index_ejp_normal
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 3
+    icon: mdi:gauge
+    filters:
+      - multiply: 0.001
+  # Index EJP Pointe
+  - platform: teleinfo
+    tag_name: "EJPHPM"
+    name: ${name}_${linky_name}_index_ejp_pointe
+    unit_of_measurement: kWh
+    device_class: energy
+    state_class: total_increasing
+    accuracy_decimals: 3
+    icon: mdi:gauge
+    filters:
+      - multiply: 0.001
+      
+#-------------------------#
+# MODE HISTORIQUE - Tempo #
+#-------------------------#
+
+  # Index Tempo Jour Bleu HC
   - platform: teleinfo
     tag_name: "BBRHCJB"
     name: ${name}_${linky_name}_index_tempo_bleu_hc
@@ -80,9 +119,10 @@ sensor:
     device_class: energy
     state_class: total_increasing
     accuracy_decimals: 3
+    icon: mdi:gauge
     filters:
       - multiply: 0.001
-    teleinfo_id: ${linky_name}
+  # Index Tempo Jour Bleu HP
   - platform: teleinfo
     tag_name: "BBRHPJB"
     name: ${name}_${linky_name}_index_tempo_bleu_hp
@@ -90,9 +130,10 @@ sensor:
     device_class: energy
     state_class: total_increasing
     accuracy_decimals: 3
+    icon: mdi:gauge
     filters:
       - multiply: 0.001
-    teleinfo_id: ${linky_name}
+  # Index Tempo Jour Blanc HC
   - platform: teleinfo
     tag_name: "BBRHCJW"
     name: ${name}_${linky_name}_index_tempo_blanc_hc
@@ -100,9 +141,10 @@ sensor:
     device_class: energy
     state_class: total_increasing
     accuracy_decimals: 3
+    icon: mdi:gauge
     filters:
       - multiply: 0.001
-    teleinfo_id: ${linky_name}
+  # Index Tempo Jour Blanc HP
   - platform: teleinfo
     tag_name: "BBRHPJW"
     name: ${name}_${linky_name}_index_tempo_blanc_hp
@@ -110,9 +152,10 @@ sensor:
     device_class: energy
     state_class: total_increasing
     accuracy_decimals: 3
+    icon: mdi:gauge
     filters:
       - multiply: 0.001
-    teleinfo_id: ${linky_name}
+  # Index Tempo Jour Rouge HC
   - platform: teleinfo
     tag_name: "BBRHCJR"
     name: ${name}_${linky_name}_index_tempo_rouge_hc
@@ -120,9 +163,10 @@ sensor:
     device_class: energy
     state_class: total_increasing
     accuracy_decimals: 3
+    icon: mdi:gauge
     filters:
       - multiply: 0.001
-    teleinfo_id: ${linky_name}
+  # Index Tempo Jour Rouge HP
   - platform: teleinfo
     tag_name: "BBRHPJR"
     name: ${name}_${linky_name}_index_tempo_rouge_hp
@@ -130,19 +174,34 @@ sensor:
     device_class: energy
     state_class: total_increasing
     accuracy_decimals: 3
+    icon: mdi:gauge
     filters:
       - multiply: 0.001
-    teleinfo_id: ${linky_name}
     
-  # # Intensité Instantanée (monophasé)
-  # - platform: teleinfo
-  #   tag_name: "IINST"
-  #   name: ${name}_${linky_name}_intensité_instantanée
-  #   unit_of_measurement: A
-  #   device_class: current
-  #   state_class: measurement
-  #   teleinfo_id: ${linky_name}
-  #  icon: mdi:current-ac
+#-----------------------------#
+# MODE HISTORIQUE - Monophasé #
+#-----------------------------#
+
+  # Intensité Instantanée (monophasé)
+  - platform: teleinfo
+    tag_name: "IINST"
+    name: ${name}_${linky_name}_intensité_instantanée
+    unit_of_measurement: A
+    device_class: current
+    state_class: measurement
+    icon: mdi:current-ac
+  # Intensité maximale appelée (monophasé)
+  - platform: teleinfo
+    tag_name: "IMAX"
+    name: ${name}_${linky_name}_intensité_maximale
+    unit_of_measurement: A
+    device_class: current
+    state_class: measurement
+
+#----------------------------#
+# MODE HISTORIQUE - Triphasé #
+#----------------------------#
+
   # Intensité Instantanée, (triphasé) phase 1
   - platform: teleinfo
     tag_name: "IINST1"
@@ -150,7 +209,6 @@ sensor:
     unit_of_measurement: A
     device_class: current
     state_class: measurement
-    teleinfo_id: ${linky_name}
     icon: mdi:current-ac
   # Intensité Instantanée, (triphasé) phase 2
   - platform: teleinfo
@@ -159,7 +217,6 @@ sensor:
     unit_of_measurement: A
     device_class: current
     state_class: measurement
-    teleinfo_id: ${linky_name}
     icon: mdi:current-ac
   # Intensité Instantanée, (triphasé) phase 3
   - platform: teleinfo
@@ -168,26 +225,7 @@ sensor:
     unit_of_measurement: A
     device_class: current
     state_class: measurement
-    teleinfo_id: ${linky_name}
     icon: mdi:current-ac
-    
-  # # Avertissement de Dépassement De Puissance Souscrite
-  # - platform: teleinfo
-  #   tag_name: "ADPS"
-  #   name: ${name}_${linky_name}_intensité_instantanée_dépassement
-  #   unit_of_measurement: A
-  #   device_class: current
-  #   state_class: measurement
-  #   teleinfo_id: ${linky_name}
-  
-  # # Intensité maximale appelée (monophasé)
-  # - platform: teleinfo
-  #   tag_name: "IMAX"
-  #   name: ${name}_${linky_name}_intensité_maximale
-  #   unit_of_measurement: A
-  #   device_class: current
-  #   state_class: measurement
-  #   teleinfo_id: ${linky_name}
   # Intensité maximale appelée, (triphasé) phase 1
   - platform: teleinfo
     tag_name: "IMAX1"
@@ -195,7 +233,6 @@ sensor:
     unit_of_measurement: A
     device_class: current
     state_class: measurement
-    teleinfo_id: ${linky_name}
   # Intensité maximale appelée, (triphasé) phase 2
   - platform: teleinfo
     tag_name: "IMAX2"
@@ -203,7 +240,6 @@ sensor:
     unit_of_measurement: A
     device_class: current
     state_class: measurement
-    teleinfo_id: ${linky_name}
   # Intensité maximale appelée, (triphasé) phase 3
   - platform: teleinfo
     tag_name: "IMAX3"
@@ -211,73 +247,43 @@ sensor:
     unit_of_measurement: A
     device_class: current
     state_class: measurement
-    teleinfo_id: ${linky_name}
-  
-  # Puissance apparente
-  - platform: teleinfo
-    tag_name: "PAPP"
-    name: ${name}_${linky_name}_puissance_apparente
-    unit_of_measurement: VA
-    state_class: measurement
-    device_class: apparent_power
-    teleinfo_id: ${linky_name}
-    icon: mdi:flash
-    
-  # Puissance maximale atteinte
-  - platform: teleinfo
-    tag_name: "PMAX"
-    name: ${name}_${linky_name}_puissance_maximale
-    unit_of_measurement: W
-    state_class: measurement
-    device_class: power
-    teleinfo_id: ${linky_name}
 
+# https://esphome.io/components/text_sensor/index.html
 text_sensor:
   # Adresse du compteur
   - platform: teleinfo
     tag_name: "ADCO"
     name: ${name}_${linky_name}_adresse
-    teleinfo_id: ${linky_name}
-    
   # Option tarifaire choisie
   - platform: teleinfo
     tag_name: "OPTARIF"
     name: ${name}_${linky_name}_option_tarifaire
-    teleinfo_id: ${linky_name}
-    
-  # # Préavis Début EJP (30 min)
-  # - platform: teleinfo
-  #   tag_name: "PEJP"
-  #   name: ${name}_${linky_name}_préavis_ejp
-  #   teleinfo_id: ${linky_name}
-  
   # Période Tarifaire en cours
   - platform: teleinfo
     tag_name: "PTEC"
     name: ${name}_${linky_name}_période_tarifaire
-    teleinfo_id: ${linky_name}
     icon: mdi:clock-time-nine-outline
+  # Mot d'état du compteur
+  - platform: teleinfo
+    tag_name: "MOTDETAT"
+    name: ${name}_${linky_name}_mot_d_état
+  # Présence des potentiels
+  - platform: teleinfo
+    tag_name: "PPOT"
+    name: ${name}_${linky_name}_présence_potentiels
     
+  # Préavis Début EJP (30 min)
+  - platform: teleinfo
+    tag_name: "PEJP"
+    name: ${name}_${linky_name}_préavis_ejp
+  
   # Couleur du lendemain
   - platform: teleinfo
     tag_name: "DEMAIN"
     name: ${name}_${linky_name}_couleur_demain
-    teleinfo_id: ${linky_name}
     
   # Horaire Heures Pleines Heures Creuses
   - platform: teleinfo
     tag_name: "HHPHC"
     name: ${name}_${linky_name}_horaire_hp_hc
-    teleinfo_id: ${linky_name}
-    
-  # Mot d'état du compteur
-  - platform: teleinfo
-    tag_name: "MOTDETAT"
-    name: ${name}_${linky_name}_mot_d_état
-    teleinfo_id: ${linky_name}
-    
-  # Présence des potentiels
-  - platform: teleinfo
-    tag_name: "PPOT"
-    name: ${name}_${linky_name}_présence_potentiels
-    teleinfo_id: ${linky_name}
+
