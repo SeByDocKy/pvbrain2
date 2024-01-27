@@ -16,9 +16,9 @@ substitutions:
 
  ###### For builtin UART ports ###
  
-  uart8_baudrate: '1200'  # Linky #1200 if historique >> #9600 if standard
-  uart9_baudrate: '9600'
-  uart10_baudrate: '9600'
+  uart_esp0_baudrate: '1200'  # Linky #1200 if historique >> #9600 if standard
+  uart_esp1_baudrate: '9600'
+  uart_esp2_baudrate: '9600'
 
 esphome:
   name: ${name}
