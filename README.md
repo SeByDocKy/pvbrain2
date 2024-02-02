@@ -2,7 +2,7 @@
 
 __PVbrainV2__ is an open source/openhardware project to monitor/control __simultaneously__ multiple inverters (PIPsolar/Voltronic, Deye, Growatt, Sofar, Victron)  and multiple BMS (JKBMS/AntBMS/DalyBMS). It also adds the possibility of controlling up to 32 relays allowing for example to control an Automatic Transfer Switch (ATS) (Offgrid<=>return to the network). The PCB uses only crossover components or pluggable components in order to have easy setup/maintenance. The MCU used is an ESP32S3 running ESPhome allowing communication over WiFi to Home Assistant (HA) natively (but MQTT can be added easily). The main features are:
 
-- Direct communication and control with voltronic/pipsolar inverters via direct Ethernet cable __ (pvbrain has a built-in RS232 => TTL). The VEdirect for VICTRON models with an insulated adapter provided. RS485 communication is available for DEYE, SOFAR, GROWATT models. Important settings can be set directly from HA (or the web server if enabled)
+- Direct communication and control with Voltronic/Pipsolar, DEYE, SOFAR, GROWATT inverters via direct Ethernet cable __ (pvbrain has a built-in RS232 and RS485  => TTL). The VEdirect for VICTRON models with an insulated adapter provided. . Important settings can be set directly from HA (or the web server if enabled)
 - Monitor multiple BMS (tested with JKBMS but should work with antBMS or daly)
 - Detect up to 3 AC sources (solar/network/other) (in order for example to do soft switching for the ATS part)
 - Monitor _via_ a JSY193 module (modbus) solar and network production
