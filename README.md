@@ -23,4 +23,15 @@ The PVbrain represents a joint work between e-2-nomy [https://www.youtube.com/c/
 __Gerber files__:
 
 Please find all gerber files required for the PCB into the following zip file:
-[[https://github.com/SeByDocKy/pvbrain2/tree/main/Gerber]]
+[https://github.com/SeByDocKy/pvbrain2/tree/main/Gerber](https://github.com/SeByDocKy/pvbrain2/tree/main/Gerber)
+
+## __additional daughter board addons__:
+
+An optional addon card can be plugged to added more uarts 
+
+## __Additional Additions to Daughterboard #2__:
+
+Another complementary card was created by Dackara to allow the control of the heating radiator pilot wire
+
+[https://github.com/Dackara/Fil_Pilote?tab=readme-ov-file](https://github.com/Dackara/Fil_Pilote?tab=readme-ov-file)
+![alt text](https://github.com/Dackara/Fil_Pilote/blob/main/Image/Photo/IMG_3848.JPG)
