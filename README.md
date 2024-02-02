@@ -4,15 +4,15 @@ __PVbrainV2__ is an open source/openhardware project to monitor/control __simult
 
 - Direct communication and control with Voltronic/Pipsolar, DEYE, SOFAR, GROWATT inverters via direct Ethernet cable __ (pvbrain has a built-in RS232 and RS485  => TTL). The VEdirect for VICTRON models with an insulated adapter provided. . Important settings can be set directly from HA (or the web server if enabled)
 - Monitor multiple BMS (tested with JKBMS but should work with antBMS or daly)
-- Detect up to 3 AC sources (solar/network/other) (in order for example to do soft switching for the ATS part)
-- Monitor _via_ a JSY193 module (modbus) solar and network production
-- Control up to 32xrelays, _that is_ for ATS control or the reversing mode of a modern voltronic inverter (Axpert max I & II for example)
+- Detect multiple AC sources  (solar/network/other) (in order for example to do soft switching for the ATS part)
+- Monitor _via_ a JSY193,JSY194 module (modbus) solar and network production
+- Control up to 32xrelays, _that is_ for ATS control or the reversing mode of a modern inverter (Axpert max I & II for example)
 - Monitor your basement temperature/humidity/pressure (you can set up alarms just in case)
 - Free I2C ports available for plugging in additional I2C sensors
-- SPI ports are available too
+- SPI port is also available
 
 This PCB uses the excellent ESPhome integrations done by @syssi available at [https://github.com/syssi](https://github.com/syssi).
-The PVbrain represents a joint work between e-2-nomy [https://www.youtube.com/c/e2nomy/](https://www.youtube.com/c/e2nomy/) and Bandit-17.
+The PVbrain represents a joint work between e-2-nomy [https://www.youtube.com/c/e2nomy/](https://www.youtube.com/c/e2nomy/) and Bandit-17 with the help of several members of the DISCORD group [https://reseautono.me/](https://reseautono.me/).
 
 ## __Main PCB Layout__:
 
