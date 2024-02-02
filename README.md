@@ -23,4 +23,4 @@ The PVbrain represents a joint work between e-2-nomy [https://www.youtube.com/c/
 __Gerber files__:
 
 Please find all gerber files required for the PCB into the following zip file:
-[[https://github.com/Bandit-17/PVBRAIN/blob/main/Gerber_PCB_PV%20BRAIN%20V1.0.zip](https://github.com/Bandit-17/PVBRAIN/blob/main/Gerber_PCB_PV%20BRAIN%20V1.0.zip](https://github.com/SeByDocKy/pvbrain2/blob/main/Gerber/Gerber_PCB_PVbrain%20V2%20with%20wk2168.zip)https://github.com/SeByDocKy/pvbrain2/blob/main/Gerber/Gerber_PCB_PVbrain%20V2%20with%20wk2168.zip)
+[[https://github.com/SeByDocKy/pvbrain2/tree/main/Gerber]]
