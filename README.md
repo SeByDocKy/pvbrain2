@@ -52,7 +52,7 @@ Please find all gerber files required for the PCB into the following zip file:
 An optional addon card can be plugged to added more UARTs 
 | 3D View |
 | :-----------------------: |
-|<img src="https://github.com/SeByDocKy/pvbrain2/blob/main/pictures/UART%20EXTENSION%20MODULE.PNG" width="480" /> |
+|<img src="https://github.com/SeByDocKy/pvbrain2/blob/main/pictures/UART%20EXTENSION%20MODULE.png" width="480" /> |
 
 ## Fil_Pilote:
 Another complementary card was created by [![Static Badge](https://img.shields.io/badge/Dackara-black?logo=git&style=flat)](https://github.com/Dackara) to allow the control of the heating radiator pilot wire and communication with Linky meters.
