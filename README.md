@@ -14,7 +14,7 @@ __PVbrainV2__ is an open source/openhardware project to monitor/control __simult
 
 This PCB uses the excellent ESPhome integrations done by
 - @syssi available at [https://github.com/syssi](https://github.com/syssi)
-- @DrCoolZic. expansion cards (WK2132 and WK2168)  [https://github.com/DrCoolzic].
+- @DrCoolZic. expansion cards (WK2132 and WK2168)  [https://github.com/DrCoolzic](https://github.com/DrCoolzic).
 
 The PVbrain represents a joint work between e-2-nomy [https://www.youtube.com/c/e2nomy/](https://www.youtube.com/c/e2nomy/) and Bandit-17
 - with the help of several members of the DISCORD group [https://reseautono.me/](https://reseautono.me/).
