@@ -7,7 +7,7 @@ __PVbrainV2__ is an open source/openhardware project to monitor/control __simult
 - Detect multiple AC sources  (solar/network/other) (in order for example to do soft switching for the ATS part)
 - Monitor _via_ a [JSY193](https://a.aliexpress.com/_EyMD1XJ),[JSY194T](https://a.aliexpress.com/_EHWOhZb) module (modbus) solar and network production
 - Control up to 32xrelays with two i2c extension [SX1509](https://esphome.io/components/sx1509), _that is_ for ATS control or the reversing mode of a modern inverter (Axpert max I & II for example)
-- The solar router function with [ROBOTDYN](https://a.aliexpress.com/_EwiP2jL) or [SSR](https://fr.aliexpress.com/item/32606816346.html?spm=a2g0o.productlist.main.1.618d9ylQ9ylQo5&algo_pvid=d05e6bee-80e5-4507-9ca7-49602b00091a&algo_exp_id=d05e6bee-80e5-4507-9ca7-49602b00091a-0&pdp_npi=4%40dis%21EUR%2131.97%2131.97%21%21%2133.95%2133.95%21%402103277f17069212491575469e35f0%2159218062991%21sea%21FR%210%21AB&curPageLogUid=drJcjzHxOehG&utparam-url=scene%3Asearch%7Cquery_from%3A) controlled in PWM
+- The solar router function with [ROBOTDYN](https://a.aliexpress.com/_EwiP2jL) or [SSR](https://a.aliexpress.com/_EyikzBP) controlled in PWM
 - Monitor your basement temperature/humidity/pressure with [BME280](https://esphome.io/components/sensor/bme280) (you can set up alarms just in case)
 - Free I2C ports available for plugging in additional I2C sensors
 - SPI port is also available
