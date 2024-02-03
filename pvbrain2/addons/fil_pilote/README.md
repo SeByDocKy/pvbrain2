@@ -8,11 +8,11 @@ Le "Fil Pilote" est un système Français inventé dans les années 80/90 pour p
 
 A la suite d'une concertation entre les grandes marques françaises d'appareils de chauffage, cette technologie est devenue un "standard de marché" pour les logements neufs construits à partir de 1995.
 
-À l’aube des années 2000, la norme RT2000, rend sa présence obligatoire (par la réception de 4 ordres de contrôle) dans les logement neuf.
+À l’aube des années 2000, la norme RT2000, rend sa présence obligatoire (par la réception de 4 ordres de contrôle) dans les logements neuf.
 
 Peut de temps après, le protocole d'origine à 4 ordres évoluera pour un contrôle à 6 ordres, les deux dernier n'étant eux, pas obligatoire.
 
-Le Fil Pilote permet ainsi, d'adapter au mieux, la production de chaleur, au moment d'occupation du logement. Une économie d'énergie d'environ 20% étant alors génralement constaté.
+Le Fil Pilote permet ainsi, d'adapter au mieux, la production de chaleur, au moment d'occupation du logement. Une économie d'énergie d'environ 20% étant alors généralement constaté.
 
 ## Mais alors ? Comment ça fonctionne ?
 Le principe est simple : Par un fil dédié à cet usage, les radiateurs électriques, reçoivent sous forme de signaux électriques de faible intensité, des ordres simples pour contrôler leur état.
