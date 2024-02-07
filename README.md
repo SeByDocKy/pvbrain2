@@ -59,3 +59,9 @@ Link to the Github Page: [![Static Badge](https://img.shields.io/badge/Dackara-F
 | 3D View | Photography |
 | :-----------------------: | :-----------------------: |
 | <img src="https://github.com/Dackara/Fil_Pilote/blob/main/Image/3D_View.png" width="1068" /> | <img src="https://github.com/Dackara/Fil_Pilote/blob/main/Image/Photo/IMG_3848.JPG" width="1068" /> |
+
+## 3D print DIN mount:
+[3D Files](https://github.com/Dackara/Fil_Pilote/blob/main/Hardware/3D_Print) to print, created by [![Static Badge](https://img.shields.io/badge/Dackara-black?logo=git&style=flat)](https://github.com/Dackara), for mounting addon cards on DIN rail (electrical panel)
+| Face avant                | Face arrière              |
+| :-----------------------: | :-----------------------: |
+| ![alt text](https://github.com/Dackara/Fil_Pilote/blob/main/Hardware/3D_Print/3D_front.png) | ![alt text](https://github.com/Dackara/Fil_Pilote/blob/main/Hardware/3D_Print/3D_back.png) |
