@@ -16,9 +16,9 @@ substitutions:
 
  ###### For builtin UART ports ###
  
-  uart8_baudrate: '1200'  # Linky #1200 if historique >> #9600 if standard
-  uart9_baudrate: '9600'
-  uart10_baudrate: '9600'
+  uart_esp0_baudrate: '1200'  # Linky #1200 if historique >> #9600 if standard
+  uart_esp1_baudrate: '9600'
+  uart_esp2_baudrate: '9600'
 
 esphome:
   name: ${name}
@@ -101,15 +101,15 @@ packages:
       relays_channel7_pin: '7'
 
 #   fil_pilote: !include
-#     file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REMPLACE "x8" LOCATION BY NOMBRE OF CHAUFFAGE ZONES : 1 to 8
+#     file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REPLACE THE LOCATION OF "x8" BY NUMBER OF HEATER ZONES : 1 to 8
 # #   file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
 #     vars:
 #       fpilote_bus: sx1509_hub1
 #       fpilote_name: 'chauffage_zone'
 
 #   teleinfo: !include 
-#     file: pvbrain2/addons/teleinfo/historique.yaml      # Si compteur en mode Historique
-# #    file: pvbrain2/addons/teleinfo/standard.yaml       # Si compteur en mode Standard
+#     file: pvbrain2/addons/teleinfo/historique.yaml      # IF COUNTER IN MODE "Historique"
+# #    file: pvbrain2/addons/teleinfo/standard.yaml       # IF COUNTER IN MODE "Standard"
 #     vars:
 #       linky_name: 'myteleinfo'
 #       linky_uartid: uart_esp_0 #uart_${uart_hub_bus}_8
