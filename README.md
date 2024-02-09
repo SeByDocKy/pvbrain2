@@ -1,3 +1,4 @@
+![Static Badge](https://img.shields.io/badge/Work_In_Progress-Project_still_in_development-red?logo=adblock&logoColor=red&style=plastic)
 [![Static Badge](https://img.shields.io/badge/Realease-Beta-blue?style=plastic)](https://github.com/SeByDocKy/pvbrain2)
 
 # PVbrainV2
