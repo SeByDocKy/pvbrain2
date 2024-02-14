@@ -41,6 +41,7 @@ select:
      - "Confort -2" #Alternance pleine temporisé (4'53"off/7"on/..)
     initial_option: "Confort"
     optimistic: true
+    icon: mdi:radiator
     set_action:
       - logger.log:
           format: "Chosen option: %s"
