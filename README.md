@@ -4,7 +4,7 @@
 # PVbrainV2
 
 > [!IMPORTANT]
-> [![Static Badge](https://img.shields.io/badge/PvBrain-v2.0-black?style=social&logo=quasar)](https://github.com/SeByDocKy/pvbrain2) is an open source/openhardware project to monitor/control __`SIMULTANEOUSLY`__ multiple inverters (PIPsolar/Voltronic, Deye, Growatt, Sofar, Victron) and multiple BMS (JKBMS/AntBMS/DalyBMS). 
+> [![Static Badge](https://img.shields.io/badge/PvBrain-v2.0-black?style=social&logo=quasar)](https://github.com/SeByDocKy/pvbrain2) is an open source/openhardware project to monitor/control __`SIMULTANEOUSLY`__ multiple inverters (PIPsolar/Voltronic, Deye, Growatt, Sofar, Victron) and multiple BMS (JKBMS/AntBMS/DalyBMS/SeplosBMS). In theory any inverter or BMS with ESPhome support can be used with the PVbrain2  
 > 
 > It also adds the possibility of controlling up to 32 relays allowing for example to control an Automatic Transfer Switch (ATS) (Offgrid<=>return to the network). 
 > 
