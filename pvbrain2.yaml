@@ -391,6 +391,15 @@ packages:
   #     bms_rx_timeout: '50ms'
   #     bms_password: "12345678"
 
+  # bms_6: !include
+  #   file: pvbrain2/bms/pylontech/device_pylotech.yaml
+  #   vars:
+  #     pylon_uart_id: uart_${uart_hub_bus}_4
+  #     pylon_name: pylontech
+  #     pylon_number: '1'
+  #     pylon_id: 'pylcom_id'
+  #     pylon_update_interval: '5s'
+
 
   # virtual_canbus_1: !include
   #   file: pvbrain2/translation/jkbms2canbus/device_virtual_canbus.yaml
