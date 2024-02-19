@@ -42,7 +42,7 @@
 
 | 3D View                   | Copper Area               |
 | :-----------------------: | :-----------------------: |
-|<img src="../main/hardware/pvbrain_v2/pvbrain_v2_3d_view.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_circuit_copper_area.png" width="380" /> |
+|<img src="../main/hardware/pvbrain_v2/pvbrain_v2_3d_view.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_circuit_copper_area.png" width="490" /> |
 
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
