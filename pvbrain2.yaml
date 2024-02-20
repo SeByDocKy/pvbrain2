@@ -163,6 +163,15 @@ packages:
       bme_280_i2c_bus: i2c1_bus
       bme_update_interval: '5s'
 
+  bmp_280_1: !include
+    file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
+    vars:
+      bmp_280_name: 'bmp280'
+      bmp_280_address: '0x77'
+      bmp_280_sufix: '1'
+      bmp_280_i2c_bus: i2c1_bus
+      bmp_update_interval: '5s'
+
   ats_1: !include
     file: pvbrain2/ats/device_ats.yaml
     vars:

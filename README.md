@@ -74,7 +74,7 @@ Before discovering the WK2168 module which allowed the creation of the card abov
 Its cost is a little lower than its big brother the WK2168, but it only allows 2 additional UARTs.
 | 3D View                   | Schematic                 |
 | :-----------------------: | :-----------------------: |
-|<img src="../main/hardware/module_wk_2132/wk2132_3d_view.png" width="700" /> | <img src="../main/hardware/module_wk_2132/wk2132_schematic.png" width="1068" /> |
+|<img src="../main/hardware/module_wk_2132/wk2132_3d_view.png" width="650" /> | <img src="../main/hardware/module_wk_2132/wk2132_schematic.png" width="1068" /> |
 
 ## [UART Isolator :](../main/hardware/module_uart_isolator)
 TTL isolator, originally designed for VictronVE direct.
@@ -99,11 +99,14 @@ Simple Shunt for Direct UART output.
 
 ## [UART Extension Module :](../main/hardware/addon_carte_uart_extension)
 An optional addon card can be plugged to allowing 4 additional UART outputs.
-| Front                     | Back                      |
+
+| 3D View                   | Schematic                 |
 | :-----------------------: | :-----------------------: |
-| <img src="../main/hardware/addon_carte_uart_extension/uart_extension_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_back.png" width="1068" /> |
-| 3D View                   | Circuit                   |
-|<img src="../main/hardware/addon_carte_uart_extension/uart_extension_3d_view.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_circuit.png" width="1068" /> |
+| <img src="../main/hardware/addon_carte_uart_extension/uart_extension_3d_view.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_schematic.png" width="1068" /> |
+
+| Front                     | Back                      | Circuit                   |
+| :-----------------------: | :-----------------------: | :-----------------------: |
+| <img src="../main/hardware/addon_carte_uart_extension/uart_extension_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_circuit.png" width="1068" /> |
 
 ## [PV Monitor :](../main/hardware/addon_carte_pv_monitor)
 Addon card created for [PVbrain V1](https://github.com/Bandit-17/PVBRAIN) by <sub>[![Bandit-17](https://img.shields.io/badge/Bandit--17-black?logo=git&style=flat)](https://github.com/Bandit-17)</sub> and re-designed by <sub>[![Dackara](https://img.shields.io/badge/Dackara-black?logo=git&style=flat)](https://github.com/Dackara)</sub> in this __V2__.
