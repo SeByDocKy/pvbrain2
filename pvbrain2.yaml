@@ -7,8 +7,8 @@ substitutions:
   uart0_baudrate: '2400'
   uart1_baudrate: '38400'
   uart2_baudrate: '115200'
-  uart3_baudrate: '115200'
-  uart4_baudrate: '19200'
+  uart3_baudrate: '9600'
+  uart4_baudrate: '115200'
   uart5_baudrate: '115200'
   uart6_baudrate: '19200'
   uart7_baudrate: '9600'
@@ -294,7 +294,7 @@ packages:
   solar_charger_1: !include
     file: pvbrain2/solar_charger/srne/device_srne.yaml
     vars:
-      solar_charger_uart_id: uart_${uart_hub_bus}_2
+      solar_charger_uart_id: uart_${uart_hub_bus}_3
       solar_charger_name: 'srne'
       solar_charger_modbus_address: '1'
       solar_charger_sufix: '1'
@@ -307,7 +307,7 @@ packages:
   # solar_charger_2: !include
   #   file: pvbrain2/solar_charger/srne/device_srne.yaml
   #   vars:
-  #     solar_charger_uart_id: uart_${uart_hub_bus}_2
+  #     solar_charger_uart_id: uart_${uart_hub_bus}_3
   #     solar_charger_name: 'srne'
   #     solar_charger_modbus_address: '2'
   #     solar_charger_sufix: '2'
