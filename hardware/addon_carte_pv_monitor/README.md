@@ -5,8 +5,8 @@ The card offers the possibility of securely monitoring the voltage of two DC inp
 
 | 3D View                   | Schematic                 |
 | :-----------------------: | :-----------------------: |
-|<img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_3d_view.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_schematic.png" width="980" /> |
+|<img src="../addon_carte_pv_monitor/pv_monitor_3d_view.png" width="1068" /> | <img src="../addon_carte_pv_monitor/pv_monitor_schematic.png" width="980" /> |
 
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
-| <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_circuit.png" width="1068" /> |
+| <img src="../addon_carte_pv_monitor/pv_monitor_front.png" width="1068" /> | <img src="../addon_carte_pv_monitor/pv_monitor_back.png" width="1068" /> | <img src="../addon_carte_pv_monitor/pv_monitor_circuit.png" width="1068" /> |
