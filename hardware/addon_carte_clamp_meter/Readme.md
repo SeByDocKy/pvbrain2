@@ -15,4 +15,4 @@ Link to the Github Page: <sub>[![Dackara-Clamp_Meter](https://img.shields.io/bad
 
 | 3D View                   | Circuit                   |
 | :-----------------------: | :-----------------------: |
-|<img src="../main/hardware/addon_carte_clamp_meter/clamp_meter_3d_view.png" width="1068" /> | <img src="../main/hardware/addon_carte_clamp_meter/clamp_meter_circuit.png" width="1068" /> |
+|<img src="../addon_carte_clamp_meter/clamp_meter_3d_view.png" width="1068" /> | <img src="../addon_carte_clamp_meter/clamp_meter_circuit.png" width="1068" /> |
