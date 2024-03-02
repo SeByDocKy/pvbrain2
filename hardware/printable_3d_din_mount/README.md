@@ -3,4 +3,4 @@
 A plastic card in the same format as the addon cards which can, for example, allow circuit isolation, is also available.
 | Front View                | Back View                 |
 | :-----------------------: | :-----------------------: |
-| <img src="../main/hardware/printable_3d_din_mount/3d_din_mount_front.png" width="880" /> | <img src="../main/hardware/printable_3d_din_mount/3d_din_mount_back.png" width="1068" /> |
+| <img src="../printable_3d_din_mount/3d_din_mount_front.png" width="880" /> | <img src="../printable_3d_din_mount/3d_din_mount_back.png" width="1068" /> |
