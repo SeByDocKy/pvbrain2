@@ -4,8 +4,8 @@ TTL isolator, originally designed for Victron VEdirect.
 
 | 3D View                   | Schematic                 |
 | :-----------------------: | :-----------------------: |
-|<img src="../main/hardware/module_uart_isolator/uart_isolator_3d_view.png" width="780" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_schematic.png" width="480" /> |
+|<img src="../module_uart_isolator/uart_isolator_3d_view.png" width="780" /> | <img src="../module_uart_isolator/uart_isolator_schematic.png" width="480" /> |
 
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
-| <img src="../main/hardware/module_uart_isolator/uart_isolator_front.png" width="1068" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_back.png" width="1068" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_circuit.png" width="1068" /> |
+| <img src="../module_uart_isolator/uart_isolator_front.png" width="1068" /> | <img src="../module_uart_isolator/uart_isolator_back.png" width="1068" /> | <img src="../module_uart_isolator/uart_isolator_circuit.png" width="1068" /> |
