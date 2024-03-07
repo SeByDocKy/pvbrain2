@@ -3,7 +3,7 @@ external_components:
     # components: [wk_base]
     # refresh: 0s
   - source: github://pr#5218 
-    components: [weikai, wk2168_i2c]
+    components: [weikai, weika_i2c, wk2168_i2c]
     refresh: 0s
     
 i2c:
