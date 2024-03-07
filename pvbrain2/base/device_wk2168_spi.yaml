@@ -3,7 +3,7 @@ external_components:
     # components: [wk_base]
     # refresh: 0s
   - source: github://pr#5218 
-    components: [weikai, wk2168_spi]
+    components: [weikai, weika_spi, wk2168_spi]
     refresh: 0s
     
 spi:
