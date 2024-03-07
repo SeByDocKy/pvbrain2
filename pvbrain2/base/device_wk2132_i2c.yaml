@@ -1,6 +1,6 @@
 external_components:
   - source: github://pr#5218
-    components: [wk_base, wk2132_i2c]
+    components: [weikai, weikai_i2c, wk2132_i2c]
     refresh: 0s
     
 i2c:
