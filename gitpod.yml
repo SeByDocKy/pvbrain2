@@ -1,0 +1,14 @@
+tasks:
+  - name: esphome_install
+    init: >
+      pyenv install 3.9.0 &&
+      pyenv local 3.9.0 &&
+      pip install --upgrade pip &&
+      pip install voluptuous &&
+      pip install --upgrade pyyaml &&
+      pip install colorama &&
+      pip install tornado &&
+      pip install git+https://github.com/esphome/esphome.git &&
+      pip install esphome_dashboard &&
+      gp sync-done bundle # 'bundle' is an arbitrary name
+    command: esphome dashboard code/
