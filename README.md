@@ -39,8 +39,9 @@
 > - With the help of several members of the <sub>[![Static Badge](https://img.shields.io/badge/DISCORD-Reseautonome-black?style=social&logo=discord)](https://reseautono.me/)</sub>.
 > -
 
-# Release PVbrain 2 Live event:
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/e8uBhS54MFE/0.jpg)](https://www.youtube.com/watch?v=e8uBhS54MFE)
+# Release PVbrain 2 Youtube Live event:
+[![youtube_live](https://github.com/SeByDocKy/pvbrain2/assets/82636574/b1cb5f1d-b5ad-48e0-927c-dcc7093ea610)](https://www.youtube.com/watch?v=e8uBhS54MFE)
+<br/>_Video in French._
 
 # Main PCB Layout :
 
