@@ -38,7 +38,8 @@
 > The __PVbrain 2.0__ represents a joint work between <sub>[![Static Badge](https://img.shields.io/badge/SeByDocKy-black?logo=git&style=flat)](https://github.com/SeByDocKy)</sub> of the <sub>[![Static Badge](https://img.shields.io/badge/Youtube-e--2--nomy-black?style=social&logo=youtube)](https://www.youtube.com/@e2nomy)</sub> and <sub>[![Static Badge](https://img.shields.io/badge/Bandit--17-black?logo=git&style=flat)](https://github.com/Bandit-17)</sub>.
 > - With the help of several members of the <sub>[![Static Badge](https://img.shields.io/badge/DISCORD-Reseautonome-black?style=social&logo=discord)](https://reseautono.me/)</sub>.
 > -
-__Release PVbrain 2 Live event__:
+
+# Release PVbrain 2 Live event:
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/e8uBhS54MFE/0.jpg)](https://www.youtube.com/watch?v=e8uBhS54MFE)
 
 # Main PCB Layout :
