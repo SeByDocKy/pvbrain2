@@ -1,0 +1,254 @@
+substitutions:
+  name: bms
+  friendly_name: BMS
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: false
+  project:
+    name: esphome.bms-proxy
+    version: "1.1"
+
+esp32:
+  board: esp32thing_plus
+  framework:
+    type: esp-idf
+    #type: arduino
+
+
+external_components:
+#  - source: gh://clydebarrow/esphome@charger
+#    components: [ bms_charger,canbus_bms,canbus ]
+#  - source: github://pr#5311
+#    components: [ spi ]
+
+wifi: !include wifi.yaml
+
+web_server:
+  port: 80
+
+
+api:
+  encryption:
+    key: !secret encryption_key
+
+logger:
+  level: DEBUG
+  logs:
+    canbus: INFO
+    sensor: INFO
+
+ota:
+
+uart:
+  - id: rs485_uart
+    baud_rate: 9600
+    tx_pin: 23
+    rx_pin: 22
+    debug:
+      direction: BOTH
+      dummy_receiver: true
+
+
+button:
+- platform: safe_mode
+  name: Safe Mode Boot
+  entity_category: diagnostic
+
+
+# Canbus stuff for battery monitoring
+
+spi:
+  clk_pin:
+    number: GPIO5
+    ignore_strapping_warning: true
+  mosi_pin: GPIO18
+  miso_pin: GPIO19
+
+canbus:
+  - id: can0
+    platform: mcp2515
+    cs_pin: GPIO4
+    can_id: 0x35E
+    bit_rate: 500kbps
+    clock: 16MHZ
+  - id: can1
+    platform: mcp2515
+    cs_pin: GPIO16
+    can_id: 0x35E
+    bit_rate: 500kbps
+    clock: 16MHZ
+  - id: can2
+    platform: mcp2515
+    cs_pin: GPIO27
+    clock: 12MHZ
+    bit_rate: 500kbps
+    can_id: 0x35E
+
+canbus_bms:
+  - id: byd_bms
+    canbus_id: can0
+    debug: false
+    name: BYD Battery
+    throttle: 10s
+    timeout: 30s
+  - id: jakiper_bms
+    canbus_id: can1
+    name: Jakiper Battery
+    debug: false
+    throttle: 10s
+    timeout: 30s
+
+binary_sensor:
+  - platform: canbus_bms
+    bms_id: jakiper_bms
+    charge_enable:
+      name: Jakiper Charge Enable
+    discharge_enable:
+      name: Jakiper Discharge Enable
+    force_charge_1:
+      name: Jakiper Force Charge 1
+    force_charge_2:
+      name: Jakiper Force Charge 2
+    full_charge:
+      name: Jakiper Request Full Charge
+    warnings:
+      name: Jakiper Warnings
+    alarms:
+      name: Jakiper Alarms
+
+  - platform: canbus_bms
+    bms_id: byd_bms
+    warnings:
+      name: BYD Warnings
+    alarms:
+      name: BYD Alarms
+
+  - platform: bms_charger
+    connected:
+      name: "Inverter comms"
+
+sensor:
+  - platform: uptime
+    name: Uptime Sensor
+    id: uptime_sensor
+    update_interval: 60s
+    disabled_by_default: true
+
+  - platform: canbus_bms
+    bms_id: byd_bms
+    temperature:
+      name: BYD Temperature
+    voltage:
+      name: BYD Voltage
+    current:
+      name: BYD Current
+    charge:
+      name: BYD Charge
+    health:
+      name: BYD Health
+    max_charge_voltage:
+      name: BYD Max Charge Voltage
+    max_charge_current:
+      name: BYD Max Charge Current
+    max_discharge_current:
+      name: BYD Max Discharge Current
+    min_discharge_voltage:
+      name: BYD Min Discharge Voltage
+
+  - platform: canbus_bms
+    bms_id: jakiper_bms
+    temperature:
+      name: Jakiper Temperature
+    voltage:
+      name: Jakiper Voltage
+    current:
+      name: Jakiper Current
+    charge:
+      name: Jakiper Charge
+    health:
+      name: Jakiper Health
+    max_charge_voltage:
+      name: Jakiper Max Charge Voltage
+    max_charge_current:
+      name: Jakiper Max Charge Current
+    max_discharge_current:
+      name: Jakiper Max Discharge Current
+    min_discharge_voltage:
+      name: Jakiper Min Discharge Voltage
+
+text_sensor:
+  - platform: canbus_bms
+    bms_id: byd_bms
+    bms_name:
+      name: BYD BMS Name
+    warnings:
+      name: BYD Warnings
+    alarms:
+      name: BYD Alarms
+
+  - platform: canbus_bms
+    bms_id: jakiper_bms
+    bms_name:
+      name: Jakiper BMS Name
+    warnings:
+      name: Jakiper Warnings
+    alarms:
+      name: Jakiper Alarms
+
+number:
+  - platform: bms_charger
+    max_charge_current:
+      name: "Max charge current"
+      max_value: 150
+      restore_value: true
+    max_discharge_current:
+      name: "Max discharge current"
+      max_value: 150
+      restore_value: true
+    max_charge_voltage:
+      name: "Max charge voltage"
+      max_value: 58
+      restore_value: true
+      
+    
+bms_charger:
+  id: goodwe
+  canbus_id: can2
+  debug: true
+  protocol: sma
+  charge_profile:
+    - 0% -> 20
+    - 10% -> 100
+    - 85% -> 100
+    - 95% -> 50
+    - 100% -> 20
+  batteries:
+    - bms_id: byd_bms
+      heartbeat_id: 0x308
+      heartbeat_text: "GW5048ES"
+    - bms_id: jakiper_bms
+
+switch:
+  - platform: bms_charger
+    charger_id: goodwe
+    name: "Force Full Charge"
+    type: full_charge
+  - platform: bms_charger
+    charger_id: goodwe
+    name: "No Charge"
+    type: no_charge
+  - platform: bms_charger
+    charger_id: goodwe
+    name: "No Discharge"
+    type: no_discharge
+  - platform: bms_charger
+    charger_id: goodwe
+    name: "Force Charge"
+    type: force_charge
+  - platform: bms_charger
+    charger_id: goodwe
+    name: "Suppress OVP"
+    type: suppress_ovp
+    restore_mode: RESTORE_DEFAULT_OFF
