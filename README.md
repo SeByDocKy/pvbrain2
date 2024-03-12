@@ -19,6 +19,7 @@
 > 
 > __The main features are :__
 > - [x] Direct communication and control with Voltronic/Pipsolar, DEYE, SOFAR, GROWATT inverters via direct Ethernet cable.<br/> <sup>_(pvbrain has a built-in [RS232](https://a.aliexpress.com/_EzMcqvP) and [RS485](https://a.aliexpress.com/_EzS7TkZ)  => TTL)_</sup>
+> - [x] CANbus support. Possibility to translate informations from old generation BMS into modern CANbus protocols (Pylontech 1.2, Pylontech +, SMA, Victron)
 > - [x] The VEdirect for <sub>![VICTRON](https://img.shields.io/badge/VICTRON-_-black?logo=victronenergy&style=social)</sub> models with an insulated adapter provided. 
 > - [x] Important settings can be set directly from HA <sup>_(or the web server if enabled)_</sup>.
 > - [x] Monitor multiple BMS <sup>_(tested with JKBMS but should work with antBMS, DalyBMS PaceBMS or SeplosBMS)_</sup> with an insulated adapter provided.
