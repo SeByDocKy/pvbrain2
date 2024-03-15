@@ -38,7 +38,6 @@
 > 
 > The __PVbrain 2.0__ represents a joint work between <sub>[![Static Badge](https://img.shields.io/badge/SeByDocKy-black?logo=git&style=flat)](https://github.com/SeByDocKy)</sub> of the <sub>[![Static Badge](https://img.shields.io/badge/Youtube-e--2--nomy-black?style=social&logo=youtube)](https://www.youtube.com/@e2nomy)</sub> and <sub>[![Static Badge](https://img.shields.io/badge/Bandit--17-black?logo=git&style=flat)](https://github.com/Bandit-17)</sub>.
 > - With the help of several members of the <sub>[![Static Badge](https://img.shields.io/badge/DISCORD-Reseautonome-black?style=social&logo=discord)](https://reseautono.me/)</sub>.
-> -
 
 # Release PVbrain 2 Youtube Live event:
 [![youtube_live](https://github.com/SeByDocKy/pvbrain2/assets/82636574/b1cb5f1d-b5ad-48e0-927c-dcc7093ea610)](https://www.youtube.com/watch?v=e8uBhS54MFE)
@@ -113,11 +112,12 @@ An optional addon card can be plugged to allowing 4 additional UART outputs.
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_circuit.png" width="1068" /> |
+
 ## [MULTI-CAN :](../main/hardware/addon_MULTI-CAN)
 An optional addon card can be plugged to allowing 4 additional CAN MODULE SPI.
 | 3D View                   | 
 | :-----------------------: |
-| <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_3d.PNG" width="256" /> |
+| <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_3d.PNG" width="456" /> |
 
 | Front                     | Back                      |
 | :-----------------------: | :-----------------------: |
@@ -151,12 +151,9 @@ Another option card created by <sub>[![Dackara](https://img.shields.io/badge/Dac
 - 1 to 4 pre-addressed [ADS1115](https://s.click.aliexpress.com/e/_DF9geSz).
 - 1 [TCA9548A](https://s.click.aliexpress.com/e/_DDACktb) <sup>(optional - bridging if not used)</sup> to multiplex the I2C <sup>(useful in the event of more than 4 ADS or I2C address conflict)</sup> with all its outputs remote for external use.
 - 1 ESP possible at input for non-PVbrain users or other reasons... 6 assembly possible: <sup>(offset of all outputs and recovery of i2c via bridging)</sup>.
-  - [ESP8266 D1 Mini](https://s.click.aliexpress.com/e/_DmbvqH7)
-  - [ESP32 D1 Mini](https://s.click.aliexpress.com/e/_DEU8tVB)
-  - [ESP32 S2 Mini](https://s.click.aliexpress.com/e/_DdgwMVF)
-  - [ESP32 C3](https://s.click.aliexpress.com/e/_DFystRx)
-  - [ESP32 C3 Zero](https://s.click.aliexpress.com/e/_DeIlFtn)
-  - [ESP32 S3 Zero](https://s.click.aliexpress.com/e/_DeIlFtn)
+
+| [ESP8266 D1 Mini](https://s.click.aliexpress.com/e/_DmbvqH7) | [ESP32 D1 Mini](https://s.click.aliexpress.com/e/_DEU8tVB) | [ESP32 S2 Mini](https://s.click.aliexpress.com/e/_DdgwMVF) | [ESP32 C3](https://s.click.aliexpress.com/e/_DFystRx) | [ESP32 C3 Zero](https://s.click.aliexpress.com/e/_DeIlFtn) | [ESP32 S3 Zero](https://s.click.aliexpress.com/e/_DeIlFtn) |
+| :---| :---: | :---: | :---: | :---: |---: |
   
 Link to the Github Page: <sub>[![Dackara-Clamp_Meter](https://img.shields.io/badge/Dackara-Clamp__Meter-black?style=social&logo=Github)](https://github.com/Dackara/Clamp_Meter)</sub> <sup>(Still in development)</sup>
 
