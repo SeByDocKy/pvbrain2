@@ -49,6 +49,9 @@
 | :-----------------------: | :-----------------------: |
 |<img src="../main/hardware/pvbrain_v2/pvbrain_v2_3d_view.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_circuit_copper_area.png" width="490" /> |
 
+<details>
+<summary>Click here for show other views and schematic.</summary>
+
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_front.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_back.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_circuit.png" width="1068" /> |
@@ -56,8 +59,9 @@
 | Schematic 1               | Schematic 2               |
 | :-----------------------: | :-----------------------: |
 |<img src="../main/hardware/pvbrain_v2/pvbrain_v2_schematic_sheet1.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_schematic_sheet2.png" width="1068" /> |
+</details>
 
-## Gerber files :
+## [Gerber files :](../main/hardware)
 
 Please find all Gerber files required for the PCB in the following folder : [__Hardware__](../main/hardware).
 
@@ -70,9 +74,13 @@ Module to extend the number of uarts on an esp32 <sup>_(4 Uarts per card)_</sup>
 | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/module_wk_2168/wk2168_3d_view.png" width="700" /> | <img src="../main/hardware/module_wk_2168/wk2168_schematic.png" width="1068" /> |
 
+<details>
+<summary>Click here for show other views.</summary>
+
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 |<img src="../main/hardware/module_wk_2168/wk2168_front.png" width="1068" /> | <img src="../main/hardware/module_wk_2168/wk2168_back.png" width="1068" /> | <img src="../main/hardware/module_wk_2168/wk2168_circuit.png" width="1068" /> |
+</details>
 
 ## [WK 2132 :](../main/hardware/module_wk_2132)
 Before discovering the WK2168 module which allowed the creation of the card above, a DIY version of the DFRobot [DFR0627](https://www.dfrobot.com/product-2001.html) had been designed.<br/>
@@ -89,9 +97,13 @@ TTL isolator, originally designed for Victron VEdirect.
 | :-----------------------: | :-----------------------: |
 |<img src="../main/hardware/module_uart_isolator/uart_isolator_3d_view.png" width="780" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_schematic.png" width="480" /> |
 
+<details>
+<summary>Click here for show other views.</summary>
+
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/module_uart_isolator/uart_isolator_front.png" width="1068" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_back.png" width="1068" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_circuit.png" width="1068" /> |
+</details>
 
 ## [Shunt TTL :](../main/hardware/module_shunt_ttl)
 Simple Shunt for Direct UART output.
@@ -109,9 +121,13 @@ An optional addon card can be plugged to allowing 4 additional UART outputs.
 | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_3d_view.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_schematic.png" width="1068" /> |
 
+<details>
+<summary>Click here for show other views.</summary>
+
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_circuit.png" width="1068" /> |
+</details>
 
 ## [MULTI-CAN :](../main/hardware/addon_MULTI-CAN)
 An optional addon card can be plugged to allowing 4 additional CAN MODULE SPI.
@@ -119,9 +135,13 @@ An optional addon card can be plugged to allowing 4 additional CAN MODULE SPI.
 | :-----------------------: |
 | <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_3d.PNG" width="456" /> |
 
+<details>
+<summary>Click here for show other views.</summary>
+
 | Front                     | Back                      |
 | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_front.PNG" width="256" /> | <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_back.PNG" width="256" /> |
+</details>
 
 ## [PV Monitor :](../main/hardware/addon_carte_pv_monitor)
 Addon card created for [PVbrain V1](https://github.com/Bandit-17/PVBRAIN) by <sub>[![Bandit-17](https://img.shields.io/badge/Bandit--17-black?logo=git&style=flat)](https://github.com/Bandit-17)</sub> and re-designed by <sub>[![Dackara](https://img.shields.io/badge/Dackara-black?logo=git&style=flat)](https://github.com/Dackara)</sub> in this __V2__.
@@ -132,9 +152,13 @@ The card offers the possibility of securely monitoring the voltage of two DC inp
 | :-----------------------: | :-----------------------: |
 |<img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_3d_view.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_schematic.png" width="980" /> |
 
+<details>
+<summary>Click here for show other views.</summary>
+
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_circuit.png" width="1068" /> |
+</details>
 
 ## [Fil_Pilote :](../main/hardware/addon_carte_fil_pilote)
 An additional card was created by <sub>[![Dackara](https://img.shields.io/badge/Dackara-black?logo=git&style=flat)](https://github.com/Dackara)</sub> to allow control of the heating radiator pilot wire from the I2C port <sup>(4 output heating zones, control of 6 orders, possible to pair 2 cards and three-phase operation possible)</sup> and as an option , communication with Linky meters.
