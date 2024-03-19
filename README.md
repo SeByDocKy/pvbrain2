@@ -61,15 +61,16 @@
 |<img src="../main/hardware/pvbrain_v2/pvbrain_v2_schematic_sheet1.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_schematic_sheet2.png" width="1068" /> |
 </details>
 
-## [Gerber files :](../main/hardware)
+## [Gerber files and BOM :](../main/hardware)
 
-Please find all Gerber files required for the PCB in the following folder : [__Hardware__](../main/hardware).
+Please find all Gerber files required for the PCB in the following folder : [__Hardware__](../main/hardware).<br/>
+Also, find all BOM and some extra information in this <sub>[![Google Docs](https://img.shields.io/badge/Google_Docs-_-black?logo=google&style=social)](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqTCFvosqLe3oL8kCYauC0Lip-PFoYXdSaXtiM5O0mfbqNR286LAmPG_ngkzn3vveCUbP-QugC6HAZ/pubhtml#)</sub> <sup>*(in French)*</sup>.
 
 # DIY module :
 Special clip-on modules were created by <sub>[![Static Badge](https://img.shields.io/badge/Bandit--17-black?logo=git&style=flat)](https://github.com/Bandit-17)</sub> for use <sup>_(or not)_</sup> with the PVbrain.
 
 ## [WK 2168 :](../main/hardware/module_wk_2168)
-Module to extend the number of uarts on an esp32 <sup>_(4 Uarts per card)_</sup> possibility of communicating in I2C or SPI.
+Module to extend the number of uarts on an esp32 <sup>_(4 Uarts per card)_</sup> an 8 GPIO, possibility of communicating in I2C or SPI.
 | 3D View                   | Schematic                 |
 | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/module_wk_2168/wk2168_3d_view.png" width="700" /> | <img src="../main/hardware/module_wk_2168/wk2168_schematic.png" width="1068" /> |
