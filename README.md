@@ -64,7 +64,7 @@
 ## [Gerber files and BOM :](../main/hardware)
 
 Please find all Gerber files required for the PCB in the following folder : [__Hardware__](../main/hardware).<br/>
-Also, find all BOM and some extra information in this <sub>[![Google Docs](https://img.shields.io/badge/Google_Docs-_-black?logo=google&style=social)](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqTCFvosqLe3oL8kCYauC0Lip-PFoYXdSaXtiM5O0mfbqNR286LAmPG_ngkzn3vveCUbP-QugC6HAZ/pubhtml#)</sub> <sup>*(in French)*</sup>.
+Also, find all BOM <sup>_(Aliexpress and Amzon links)_</sup> and some extra information in this <sub>[![Google Docs](https://img.shields.io/badge/Google_Docs-_-black?logo=google&style=social)](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqTCFvosqLe3oL8kCYauC0Lip-PFoYXdSaXtiM5O0mfbqNR286LAmPG_ngkzn3vveCUbP-QugC6HAZ/pubhtml#)</sub> <sup>_(in French)_</sup>.
 
 # DIY module :
 Special clip-on modules were created by <sub>[![Static Badge](https://img.shields.io/badge/Bandit--17-black?logo=git&style=flat)](https://github.com/Bandit-17)</sub> for use <sup>_(or not)_</sup> with the PVbrain.
