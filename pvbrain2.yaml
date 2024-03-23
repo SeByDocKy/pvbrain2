@@ -2,7 +2,13 @@ substitutions:
   name: 'pvbrain2'
   # friendly_name: 'pvbrain2'
 
-  ###### For extended UART ports ###
+  ###### For builtin ESP32 S3 UART ports ###
+  
+  art_esp0_baudrate: '1200'
+  uart_esp1_baudrate: '9600'
+  uart_esp2_baudrate: '9600'
+ 
+  ###### For extended UART ports with the 2 WK2168###
 
   uart0_baudrate: '2400'
   uart1_baudrate: '38400'
@@ -12,13 +18,18 @@ substitutions:
   uart5_baudrate: '115200'
   uart6_baudrate: '19200'
   uart7_baudrate: '9600'
-  uart_hub_bus: 'spi'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub file
 
- ###### For builtin UART ports ###
- 
-  uart8_baudrate: '1200'  # Linky #1200 if historique >> #9600 if standard
-  uart9_baudrate: '9600'
-  uart10_baudrate: '9600'
+  ##### With uart extender addon board
+
+  uart8_baudrate: '2400'
+  uart9_baudrate: '38400'
+  uart10_baudrate: '19200'
+  uart11_baudrate: '9600'
+  
+  uart_hub_bus: 'spi'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub file
+  
+
+#######
 
 esphome:
   name: ${name}
@@ -76,6 +87,8 @@ packages:
   ########################   Devices  ######################
   
   device_base: !include pvbrain2/base/device_base.yaml
+
+  device_uart_extender_addon: !include pvbrain2/addons/uart_extender_addon/device_wk2168_addon_spi.yaml
 
   # light_1: !include 
   #   file: pvbrain2/environmental/light/device_ws2812b.yaml
