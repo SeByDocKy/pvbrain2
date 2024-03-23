@@ -4,67 +4,67 @@ external_components:
 
 victron:
   - uart_id: ${inverter_uart_id}
-    id: ${inverter_name}_${inverter_sufix}
+    id: ${inverter_name}_${inverter_suffix}
     throttle: ${inverter_throttle}
   
 sensor:
   - platform: victron
-    victron_id: ${inverter_name}_${inverter_sufix}
+    victron_id: ${inverter_name}_${inverter_suffix}
     # update_interval: ${inverter_update_interval}
     charging_mode_id:
-      name: ${name}_${inverter_name}_charging_mode_id_${inverter_sufix}
+      name: ${name}_${inverter_name}_charging_mode_id_${inverter_suffix}
     error_code:
-      name: ${name}_${inverter_name}_error_code_${inverter_sufix}
+      name: ${name}_${inverter_name}_error_code_${inverter_suffix}
     ac_out_current:
-      name: ${name}_${inverter_name}_ac_output_current_${inverter_sufix}
-      id: ${inverter_name}_ac_output_current_${inverter_sufix}
+      name: ${name}_${inverter_name}_ac_output_current_${inverter_suffix}
+      id: ${inverter_name}_ac_output_current_${inverter_suffix}
     ac_out_voltage:
-      name: ${name}_${inverter_name}_ac_out_voltage_${inverter_sufix}
-      id: ${inverter_name}_ac_output_voltage_${inverter_sufix}
+      name: ${name}_${inverter_name}_ac_out_voltage_${inverter_suffix}
+      id: ${inverter_name}_ac_output_voltage_${inverter_suffix}
     yield_total:
-      name: ${name}_${inverter_name}_yield_total_${inverter_sufix}
+      name: ${name}_${inverter_name}_yield_total_${inverter_suffix}
     yield_today:
-      name: ${name}_${inverter_name}_yield_today_${inverter_sufix}
+      name: ${name}_${inverter_name}_yield_today_${inverter_suffix}
     max_power_today:
-      name: ${name}_${inverter_name}_max_power_today_${inverter_sufix}
+      name: ${name}_${inverter_name}_max_power_today_${inverter_suffix}
     yield_yesterday:
-      name: ${name}_${inverter_name}_yield yesterday_${inverter_sufix}
+      name: ${name}_${inverter_name}_yield yesterday_${inverter_suffix}
     max_power_yesterday:
-      name: ${name}_${inverter_name}_max_power_yesterday_${inverter_sufix}
+      name: ${name}_${inverter_name}_max_power_yesterday_${inverter_suffix}
     day_number:
-      name: ${name}_${inverter_name}_day_number_${inverter_sufix}
+      name: ${name}_${inverter_name}_day_number_${inverter_suffix}
     battery_current:
-      name: ${name}_${inverter_name}_battery_current_${inverter_sufix}
+      name: ${name}_${inverter_name}_battery_current_${inverter_suffix}
     panel_power:
-      name: ${name}_${inverter_name}_pv_power_${inverter_sufix}
-      id: ${inverter_name}_pv_power_${inverter_sufix}
+      name: ${name}_${inverter_name}_pv_power_${inverter_suffix}
+      id: ${inverter_name}_pv_power_${inverter_suffix}
     battery_voltage:
-      name: ${name}_${inverter_name}_battery_voltage_${inverter_sufix}
+      name: ${name}_${inverter_name}_battery_voltage_${inverter_suffix}
     panel_voltage:
-      name: ${name}_${inverter_name}_pv_voltage_${inverter_sufix}
-      id: ${inverter_name}_pv_voltage_${inverter_sufix}
+      name: ${name}_${inverter_name}_pv_voltage_${inverter_suffix}
+      id: ${inverter_name}_pv_voltage_${inverter_suffix}
     load_current:
-      name: ${name}_${inverter_name}_load_current_${inverter_sufix}
+      name: ${name}_${inverter_name}_load_current_${inverter_suffix}
     state_of_charge:
-      name: ${name}_${inverter_name}_soc_${inverter_sufix}
+      name: ${name}_${inverter_name}_soc_${inverter_suffix}
     ac_out_apparent_power:
-      name: ${name}_${inverter_name}_ac_output_apparent_power_${inverter_sufix}
+      name: ${name}_${inverter_name}_ac_output_apparent_power_${inverter_suffix}
     tracking_mode_id:
       name: ${name}_${inverter_name}_tracking_mode_id
    
   - platform: template
-    name: ${name}_${inverter_name}_ac_output_active_power_${inverter_sufix}
+    name: ${name}_${inverter_name}_ac_output_active_power_${inverter_suffix}
     lambda: |-
-       auto val = id(${inverter_name}_ac_output_voltage_${inverter_sufix}).state * id(${inverter_name}_ac_output_current_${inverter_sufix}).state;
+       auto val = id(${inverter_name}_ac_output_voltage_${inverter_suffix}).state * id(${inverter_name}_ac_output_current_${inverter_suffix}).state;
        if (isnan(val))
           return {};
        return val;
     update_interval: ${inverter_template_update}
     
   - platform: template
-    name: ${name}_${inverter_name}_pv_current_${inverter_sufix}
+    name: ${name}_${inverter_name}_pv_current_${inverter_suffix}
     lambda: |-
-       auto val = id(${inverter_name}_pv_power_${inverter_sufix}).state / id(${inverter_name}_pv_voltage_${inverter_sufix}).state;
+       auto val = id(${inverter_name}_pv_power_${inverter_suffix}).state / id(${inverter_name}_pv_voltage_${inverter_suffix}).state;
        if (isnan(val))
           return {};
        return val;
@@ -72,24 +72,24 @@ sensor:
 
 binary_sensor:
   - platform: victron
-    victron_id: ${inverter_name}_${inverter_sufix}
+    victron_id: ${inverter_name}_${inverter_suffix}
     relay_state:
       name: ${name}_${inverter_name}_relay_state    
     
 text_sensor:
   - platform: victron
-    victron_id: ${inverter_name}_${inverter_sufix}
+    victron_id: ${inverter_name}_${inverter_suffix}
     # update_interval: ${inverter_text_update}
     alarm_reason:
-      name: ${inverter_name}_alarm_reason_${inverter_sufix}   
+      name: ${inverter_name}_alarm_reason_${inverter_suffix}   
     device_type:
-      name: ${name}_${inverter_name}_device_type_${inverter_sufix}
+      name: ${name}_${inverter_name}_device_type_${inverter_suffix}
     serial_number:
-      name: ${name}_${inverter_name}_serial_number_${inverter_sufix}
+      name: ${name}_${inverter_name}_serial_number_${inverter_suffix}
     firmware_version_24bit:
-      name: ${name}_${inverter_name}_firmware_version_24bit_${inverter_sufix}
+      name: ${name}_${inverter_name}_firmware_version_24bit_${inverter_suffix}
     charging_mode:
-      name: ${name}_${inverter_name}_charging_mode_${inverter_sufix}
+      name: ${name}_${inverter_name}_charging_mode_${inverter_suffix}
     device_mode:
-      name: ${name}_${inverter_name}_device mode_${inverter_sufix}
+      name: ${name}_${inverter_name}_device mode_${inverter_suffix}
 

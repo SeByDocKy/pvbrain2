@@ -1,6 +1,6 @@
 light:
   - platform: fastled_clockless
-    name: ${name}_${light_name}_${light_sufix}
+    name: ${name}_${light_name}_${light_suffix}
     id: ${light_name}_${light_sufix} 
     chipset: WS2812B
     pin: GPIO14

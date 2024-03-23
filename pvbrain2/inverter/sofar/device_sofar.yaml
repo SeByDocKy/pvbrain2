@@ -3,23 +3,23 @@ substitutions:
   balance_loop_delay: '5s'
 
 modbus:
-  - id: ${inverter_name}_modbus_${inverter_sufix}
+  - id: ${inverter_name}_modbus_${inverter_suffix}
     uart_id: ${inverter_uart_id}
     send_wait_time: ${inverter_modbus_send_wait_time}
   
 modbus_controller:
-  - id: ${inverter_name}_modbus_controller_${inverter_sufix}
+  - id: ${inverter_name}_modbus_controller_${inverter_suffix}
     address: ${inverter_modbus_address}
-    modbus_id: ${inverter_name}_modbus_${inverter_sufix}
+    modbus_id: ${inverter_name}_modbus_${inverter_suffix}
     command_throttle: ${inverter_modbus_throttle}
     setup_priority: -10
     update_interval: ${inverter_update_interval}
     
 text_sensor:
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_state_${inverter_sufix}
-    id: ${inverter_name}_state_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_state_${inverter_suffix}
+    id: ${inverter_name}_state_${inverter_suffix}
     address: 0x0200
     register_type: holding
     raw_encode: HEXBYTES
@@ -40,9 +40,9 @@ text_sensor:
 
 sensor:
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_battery_power_${inverter_sufix}
-    id: ${inverter_name}_battery_power_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_battery_power_${inverter_suffix}
+    id: ${inverter_name}_battery_power_${inverter_suffix}
     address: 0x020D
     register_type: holding
     value_type: S_WORD
@@ -52,9 +52,9 @@ sensor:
     icon: "mdi:lightning-bolt"
     
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_battery_voltage_${inverter_sufix}
-    id: ${inverter_name}_battery_voltage_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_battery_voltage_${inverter_suffix}
+    id: ${inverter_name}_battery_voltage_${inverter_suffix}
     address: 0x020E
     register_type: holding
     value_type: S_WORD
@@ -64,9 +64,9 @@ sensor:
     icon: "mdi:sine-wave"
 
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_battery_current_${inverter_sufix}
-    id: ${inverter_name}_battery_current_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_battery_current_${inverter_suffix}
+    id: ${inverter_name}_battery_current_${inverter_suffix}
     address: 0x020F
     register_type: holding
     value_type: S_WORD
@@ -76,9 +76,9 @@ sensor:
     icon: "mdi:current-dc"    
 
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_soc_${inverter_sufix}
-    id: ${inverter_name}_soc_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_soc_${inverter_suffix}
+    id: ${inverter_name}_soc_${inverter_suffix}
     address: 0x0210
     register_type: holding
     value_type: U_WORD
@@ -93,9 +93,9 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_battery_temperature_${inverter_sufix}
-    id: ${inverter_name}_battery_temperature_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_battery_temperature_${inverter_suffix}
+    id: ${inverter_name}_battery_temperature_${inverter_suffix}
     address: 0x0211
     register_type: holding
     value_type: S_WORD
@@ -108,9 +108,9 @@ sensor:
     icon: "mdi:thermometer-lines"
 
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_grid_power_${inverter_sufix}
-    id: ${inverter_name}_grid_power_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_grid_power_${inverter_suffix}
+    id: ${inverter_name}_grid_power_${inverter_suffix}
     address: 0x0212
     register_type: holding
     value_type: S_WORD
@@ -120,9 +120,9 @@ sensor:
     icon: "mdi:lightning-bolt"
 
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_ac_output_power_${inverter_sufix}
-    id: ${inverter_name}_ac_output_power_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_ac_output_power_${inverter_suffix}
+    id: ${inverter_name}_ac_output_power_${inverter_suffix}
     address: 0x0213
     register_type: holding
     value_type: U_WORD
@@ -132,9 +132,9 @@ sensor:
     icon: "mdi:lightning-bolt"
     
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_pv_power_${inverter_sufix}
-    id: ${inverter_name}_pv_power_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_pv_power_${inverter_suffix}
+    id: ${inverter_name}_pv_power_${inverter_suffix}
     address: 0x0215
     register_type: holding
     value_type: U_WORD
@@ -144,9 +144,9 @@ sensor:
     icon: "mdi:lightning-bolt"
     
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_pv_energy_generated_today_${inverter_sufix}
-    id: ${inverter_name}_pv_energy_generated_today_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_pv_energy_generated_today_${inverter_suffix}
+    id: ${inverter_name}_pv_energy_generated_today_${inverter_suffix}
     address: 0x0218
     register_type: holding
     value_type: U_WORD
@@ -159,9 +159,9 @@ sensor:
     state_class: total_increasing
 
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_energy_exported_today_${inverter_sufix}
-    id: ${inverter_name}_energy_exported_today_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_energy_exported_today_${inverter_suffix}
+    id: ${inverter_name}_energy_exported_today_${inverter_suffix}
     address: 0x0219
     register_type: holding
     value_type: U_WORD
@@ -174,9 +174,9 @@ sensor:
     state_class: total_increasing
     
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_energy_imported_today_${inverter_sufix}
-    id: ${inverter_name}_energy_imported_today_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_energy_imported_today_${inverter_suffix}
+    id: ${inverter_name}_energy_imported_today_${inverter_suffix}
     address: 0x021A
     register_type: holding
     value_type: U_WORD
@@ -189,9 +189,9 @@ sensor:
     state_class: total_increasing
     
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_pv_energy_consumed_today_${inverter_sufix}
-    id: ${inverter_name}_pv_energy_consumed_today_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_pv_energy_consumed_today_${inverter_suffix}
+    id: ${inverter_name}_pv_energy_consumed_today_${inverter_suffix}
     address: 0x021B
     register_type: holding
     value_type: U_WORD
@@ -204,9 +204,9 @@ sensor:
     state_class: total_increasing
         
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_battery_charging_energy_today_${inverter_sufix}
-    id: ${inverter_name}_battery_charging_energy_today_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_battery_charging_energy_today_${inverter_suffix}
+    id: ${inverter_name}_battery_charging_energy_today_${inverter_suffix}
     address: 0x0224
     register_type: holding
     value_type: U_WORD
@@ -219,9 +219,9 @@ sensor:
     state_class: total_increasing
     
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_battery_discharging_energy_today_${inverter_sufix}
-    id: ${inverter_name}_battery_discharging_energy_today_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_battery_discharging_energy_today_${inverter_suffix}
+    id: ${inverter_name}_battery_discharging_energy_today_${inverter_suffix}
     address: 0x0225
     register_type: holding
     value_type: U_WORD
@@ -234,9 +234,9 @@ sensor:
     state_class: total_increasing
 
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_internal_temperature_${inverter_sufix}
-    id: ${inverter_name}_internal_temperature_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_internal_temperature_${inverter_suffix}
+    id: ${inverter_name}_internal_temperature_${inverter_suffix}
     address: 0x0238
     register_type: holding
     value_type: S_WORD
@@ -249,9 +249,9 @@ sensor:
     icon: "mdi:thermometer-lines"
     
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_inverter_heatsink_temperature_${inverter_sufix}
-    id: ${inverter_name}_inverter_heatsink_temperature_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_inverter_heatsink_temperature_${inverter_suffix}
+    id: ${inverter_name}_inverter_heatsink_temperature_${inverter_suffix}
     address: 0x0239
     register_type: holding
     value_type: S_WORD
@@ -264,9 +264,9 @@ sensor:
     icon: "mdi:thermometer-lines"
       
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_sufix}
-    name: ${name}_${inverter_name}_battery_cycle_${inverter_sufix}
-    id: ${inverter_name}_battery_cycle_${inverter_sufix}
+    modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    name: ${name}_${inverter_name}_battery_cycle_${inverter_suffix}
+    id: ${inverter_name}_battery_cycle_${inverter_suffix}
     address: 0x022C
     register_type: holding
     value_type: U_WORD
@@ -276,8 +276,8 @@ sensor:
 
 select:
   - platform: template
-    name: ${name}_${inverter_name}_solar_mode_${inverter_sufix}
-    id: ${inverter_name}_solar_mode_${inverter_sufix}
+    name: ${name}_${inverter_name}_solar_mode_${inverter_suffix}
+    id: ${inverter_name}_solar_mode_${inverter_suffix}
     options:
       - auto
       - battery_save
@@ -288,30 +288,30 @@ select:
     restore_value: true
     on_value:
       - lambda: |-
-          if (id(${inverter_name}_solar_mode_${inverter_sufix}).state == "auto") {
+          if (id(${inverter_name}_solar_mode_${inverter_suffix}).state == "auto") {
             ESP_LOGI("mode", "Mode set to auto");
-            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_sufix});
+            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_suffix});
             std::vector<uint8_t> payload = {0x1, 0x42, 0x01, 0x03, 0x00, 0x00};
             modbus_controller::ModbusCommandItem command = modbus_controller::ModbusCommandItem::create_custom_command(controller, payload);
             controller->queue_command(command);
           } 
-          else if (id(${inverter_name}_solar_mode_${inverter_sufix}).state == "battery_save") {
+          else if (id(${inverter_name}_solar_mode_${inverter_suffix}).state == "battery_save") {
             ESP_LOGI("mode", "Mode set to battery_save");
           } 
-          else if (id(${inverter_name}_solar_mode_${inverter_sufix}).state == "charge") {
+          else if (id(${inverter_name}_solar_mode_${inverter_suffix}).state == "charge") {
             ESP_LOGI("mode", "Mode set to charge");
-            int rate = min(${max_power}, (int) id(${inverter_name}_maximum_charging_power_${inverter_sufix}).state);
+            int rate = min(${max_power}, (int) id(${inverter_name}_maximum_charging_power_${inverter_suffix}).state);
             ESP_LOGI("charging", "Forcing charge at %d W", rate);
-            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_sufix});
+            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_suffix});
             std::vector<uint8_t> payload = {0x1, 0x42, 0x01, 0x02, (rate >> 8) & 0xFF, rate & 0xFF};
             modbus_controller::ModbusCommandItem command = modbus_controller::ModbusCommandItem::create_custom_command(controller, payload);
             controller->queue_command(command);
           } 
-          else if (id(${inverter_name}_solar_mode_${inverter_sufix}).state == "discharge") {
+          else if (id(${inverter_name}_solar_mode_${inverter_suffix}).state == "discharge") {
             ESP_LOGI("mode", "Mode set to discharge");
-            int rate = min(${max_power}, (int) id(${inverter_name}_maximum_discharging_power_${inverter_sufix}).state);
+            int rate = min(${max_power}, (int) id(${inverter_name}_maximum_discharging_power_${inverter_suffix}).state);
             ESP_LOGI("discharging", "Forcing discharge at %d W", rate);
-            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_sufix});
+            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_suffix});
             std::vector<uint8_t> payload = {0x1, 0x42, 0x01, 0x1, (rate >> 8) & 0xFF, rate & 0xFF};
             modbus_controller::ModbusCommandItem command = modbus_controller::ModbusCommandItem::create_custom_command(controller, payload);
             controller->queue_command(command);
@@ -319,8 +319,8 @@ select:
 
 number:
   - platform: template
-    name: ${name}_${inverter_name}_maximum_charging_power_${inverter_sufix}
-    id: ${inverter_name}_maximum_charging_power_${inverter_sufix}
+    name: ${name}_${inverter_name}_maximum_charging_power_${inverter_suffix}
+    id: ${inverter_name}_maximum_charging_power_${inverter_suffix}
     icon: "mdi:lightning-bolt"
     unit_of_measurement: 'W'
     device_class: power 
@@ -332,19 +332,19 @@ number:
     step: 1
     on_value:
       - lambda: |-
-          if (id(${inverter_name}_solar_mode_${inverter_sufix}).state == "charge") {
+          if (id(${inverter_name}_solar_mode_${inverter_suffix}).state == "charge") {
             ESP_LOGI("charging", "Changing charge rate to %d", x);
             int rate = min(${max_power}, (int) x);
             ESP_LOGI("charging", "Forcing charge at %d W", rate);
-            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_sufix});
+            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_suffix});
             std::vector<uint8_t> payload = {0x1, 0x42, 0x01, 0x02, (rate >> 8) & 0xFF, rate & 0xFF};
             modbus_controller::ModbusCommandItem command = modbus_controller::ModbusCommandItem::create_custom_command(controller, payload);
             controller->queue_command(command);
           }
           
   - platform: template
-    name: ${name}_${inverter_name}_maximum_discharging_power_${inverter_sufix}
-    id: ${inverter_name}_maximum_discharging_power_${inverter_sufix}
+    name: ${name}_${inverter_name}_maximum_discharging_power_${inverter_suffix}
+    id: ${inverter_name}_maximum_discharging_power_${inverter_suffix}
     icon: "mdi:lightning-bolt"
     unit_of_measurement: 'W'
     device_class: power 
@@ -356,11 +356,11 @@ number:
     step: 1
     on_value:
       - lambda: |-
-          if (id(${inverter_name}_solar_mode_${inverter_sufix}).state == "discharge") {
+          if (id(${inverter_name}_solar_mode_${inverter_suffix}).state == "discharge") {
             ESP_LOGI("discharging", "Changing discharge rate to %d", x);
             int rate = min(${max_power}, (int) x);
             ESP_LOGI("discharging", "Forcing discharge at %d W", rate);
-            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_sufix});
+            modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_suffix});
             std::vector<uint8_t> payload = {0x1, 0x42, 0x01, 0x1, (rate >> 8) & 0xFF, rate & 0xFF};
             modbus_controller::ModbusCommandItem command = modbus_controller::ModbusCommandItem::create_custom_command(controller, payload);
             controller->queue_command(command);
@@ -370,14 +370,14 @@ interval:
   - interval: ${balance_loop_delay}
     then:
         - lambda: |-
-            if (id(${inverter_name}_solar_mode_${inverter_sufix}).state == "battery_save") {
-              float balance_power = id(${inverter_name}_pv_power_${inverter_sufix}).state - id(${inverter_name}_ac_output_power_${inverter_sufix}).state;
+            if (id(${inverter_name}_solar_mode_${inverter_suffix}).state == "battery_save") {
+              float balance_power = id(${inverter_name}_pv_power_${inverter_suffix}).state - id(${inverter_name}_ac_output_power_${inverter_suffix}).state;
               ESP_LOGD("balance", "solar power - load power =  %.2f", balance_power);
               // prevent discharge
               int rate = max(0, (int) (balance_power));
               rate = min(${max_power}, rate);
               ESP_LOGD("balancing", "Charging at rate of %d W", rate);
-              modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_sufix});
+              modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller_${inverter_suffix});
               std::vector<uint8_t> payload = {0x1, 0x42, 0x01, 0x02, (rate >> 8) & 0xFF, rate & 0xFF};
               modbus_controller::ModbusCommandItem command = modbus_controller::ModbusCommandItem::create_custom_command(controller, payload);
               controller->queue_command(command);

@@ -41,7 +41,6 @@ select:
      - "Confort -2" #Alternance pleine temporisé (4'53"off/7"on/..)
     initial_option: "Confort"
     optimistic: true
-    icon: mdi:radiator
     set_action:
       - logger.log:
           format: "Chosen option: %s"
@@ -69,15 +68,15 @@ select:
               - lambda: |- 
                   return id(${fpilote_id}_${fpilote_mode}).state == "Hors-gel" ;
             then:
-              - switch.turn_on: ${fpilote_id}_${fpilote_pos_pin}
-              - switch.turn_off: ${fpilote_id}_${fpilote_neg_pin}
+              - switch.turn_off: ${fpilote_id}_${fpilote_pos_pin}
+              - switch.turn_on: ${fpilote_id}_${fpilote_neg_pin}
         - if:
             condition:
               - lambda: |- 
                   return id(${fpilote_id}_${fpilote_mode}).state == "Arrêt" ;
             then:
-              - switch.turn_off: ${fpilote_id}_${fpilote_pos_pin}
-              - switch.turn_on: ${fpilote_id}_${fpilote_neg_pin}
+              - switch.turn_on: ${fpilote_id}_${fpilote_pos_pin}
+              - switch.turn_off: ${fpilote_id}_${fpilote_neg_pin}
         - while:
             condition:
               - lambda: |- 

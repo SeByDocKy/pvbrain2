@@ -1,5 +1,5 @@
 globals:
-  - id: ${powermeter_name}_energy_yesteday_global_${powermeter_sufix}
+  - id: ${powermeter_name}_energy_yesteday_global_${powermeter_suffix}
     type: float
     restore_value: yes
     
@@ -12,59 +12,59 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${powermeter_name}_energy_yesteday_global_${powermeter_sufix}
-              value: !lambda return ( id(${powermeter_name}_energy_yesteday_global_${powermeter_sufix}) =  float( id(${powermeter_name}_energy_today_${powermeter_sufix}).state) );         
+              id: ${powermeter_name}_energy_yesteday_global_${powermeter_suffix}
+              value: !lambda return ( id(${powermeter_name}_energy_yesteday_global_${powermeter_suffix}) =  float( id(${powermeter_name}_energy_today_${powermeter_suffix}).state) );         
  
 modbus:
-   - id: ${powermeter_name}_modbus_${powermeter_sufix}
+   - id: ${powermeter_name}_modbus_${powermeter_suffix}
      uart_id: ${powermeter_uart_id}
      send_wait_time: ${powermeter_modbus_send_wait_time}
    
 button:
   - platform: template
-    name: ${name}_${powermeter_name}_reset_energy_${powermeter_sufix}
+    name: ${name}_${powermeter_name}_reset_energy_${powermeter_suffix}
     on_press:
       then:
-        - pzemdc.reset_energy: ${powermeter_name}_pzem_${powermeter_sufix}
+        - pzemdc.reset_energy: ${powermeter_name}_pzem_${powermeter_suffix}
    
    
 sensor:
   - platform: pzemdc
     address: ${powermeter_modbus_address}
     current:
-      name: ${name}_${powermeter_name}_current_${powermeter_sufix}
+      name: ${name}_${powermeter_name}_current_${powermeter_suffix}
       unit_of_measurement: 'A'
       accuracy_decimals: 2
     voltage:
-      name: ${name}_${powermeter_name}_voltage_${powermeter_sufix}
+      name: ${name}_${powermeter_name}_voltage_${powermeter_suffix}
       unit_of_measurement: "V"
       accuracy_decimals: 2
     power:
-      name: ${name}_${powermeter_name}_power_${powermeter_sufix}
-      id: ${powermeter_name}_power_${powermeter_sufix}
+      name: ${name}_${powermeter_name}_power_${powermeter_suffix}
+      id: ${powermeter_name}_power_${powermeter_suffix}
       unit_of_measurement: 'W'
       accuracy_decimals: 1
     energy:
-      name: ${name}_${powermeter_name}_energy_${powermeter_sufix}
+      name: ${name}_${powermeter_name}_energy_${powermeter_suffix}
       unit_of_measurement: 'Wh'
       accuracy_decimals: 1
-      id: ${powermeter_name}_energy_${powermeter_sufix}
+      id: ${powermeter_name}_energy_${powermeter_suffix}
     update_interval: ${powermeter_update_interval}
-    modbus_id: ${powermeter_name}_modbus_${powermeter_sufix}
-    id: ${powermeter_name}_pzem_${powermeter_sufix}
+    modbus_id: ${powermeter_name}_modbus_${powermeter_suffix}
+    id: ${powermeter_name}_pzem_${powermeter_suffix}
     
   - platform: template
-    name: ${name}_${powermeter_name}_energy_total_${powermeter_sufix}
+    name: ${name}_${powermeter_name}_energy_total_${powermeter_suffix}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
-    lambda: return (( (id(${powermeter_name}_energy_${powermeter_sufix}).state)/1000.0));
+    lambda: return (( (id(${powermeter_name}_energy_${powermeter_suffix}).state)/1000.0));
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_energy_today_${powermeter_sufix}
-    id: ${powermeter_name}_energy_today_${powermeter_sufix}
-    power_id: ${powermeter_name}_power_${powermeter_sufix}
+    name: ${name}_${powermeter_name}_energy_today_${powermeter_suffix}
+    id: ${powermeter_name}_energy_today_${powermeter_suffix}
+    power_id: ${powermeter_name}_power_${powermeter_suffix}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -74,11 +74,11 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_energy_yesteday_${powermeter_sufix}
-    id: ${powermeter_name}_energy_yesteday_${powermeter_sufix}
+    name: ${name}_${powermeter_name}_energy_yesteday_${powermeter_suffix}
+    id: ${powermeter_name}_energy_yesteday_${powermeter_suffix}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(${powermeter_name}_energy_yesteday_${powermeter_sufix}).state = id(${powermeter_name}_energy_yesteday_global_${powermeter_sufix}));
+      return (id(${powermeter_name}_energy_yesteday_${powermeter_suffix}).state = id(${powermeter_name}_energy_yesteday_global_${powermeter_suffix}));

@@ -7,19 +7,19 @@ external_components:
     refresh: 0s
     
 globals:
-  - id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}
+  - id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix1}
     type: float
     restore_value: yes
     
-  - id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}
+  - id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix1}
     type: float
     restore_value: yes    
     
-  - id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}
+  - id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix2}
     type: float
     restore_value: yes
     
-  - id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}
+  - id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix2}
     type: float
     restore_value: yes    
    
@@ -32,81 +32,81 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}
-              value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_sufix1}).state) );
+              id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix1}
+              value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix1}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_suffix1}).state) );
 
           - globals.set:
-              id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}
-              value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_sufix1}).state) );                
+              id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix1}
+              value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix1}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_suffix1}).state) );                
                 
           - globals.set:
-              id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}
-              value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_sufix2}).state) );
+              id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix2}
+              value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix2}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_suffix2}).state) );
 
           - globals.set:
-              id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}
-              value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_sufix2}).state) );                
+              id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix2}
+              value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix2}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_suffix2}).state) );                
     
 modbus:
-   - id: ${powermeter_name}_modbus_${powermeter_sufix1}
+   - id: ${powermeter_name}_modbus_${powermeter_suffix1}
      uart_id: ${powermeter_uart_id}
      send_wait_time: ${powermeter_modbus_send_wait_time}
    
 button:
   - platform: template
-    name: ${name}_${powermeter_name}_reset_energy_${powermeter_sufix1}
-    id: ${powermeter_name}_reset_energy_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_reset_energy_${powermeter_suffix1}
+    id: ${powermeter_name}_reset_energy_${powermeter_suffix1}
     icon: "mdi:button-pointer"
     on_press:
       then:
         - jsy193.reset_energy1: 
-           id: ${powermeter_name}_${powermeter_sufix1}
+           id: ${powermeter_name}_${powermeter_suffix1}
 
   - platform: template
-    name: ${name}_${powermeter_name}_reset_energy_${powermeter_sufix2}
-    id: ${powermeter_name}_reset_energy_${powermeter_sufix2}
+    name: ${name}_${powermeter_name}_reset_energy_${powermeter_suffix2}
+    id: ${powermeter_name}_reset_energy_${powermeter_suffix2}
     icon: "mdi:button-pointer"
     on_press:
       then:
         - jsy193.reset_energy2: 
-           id: ${powermeter_name}_${powermeter_sufix1}
+           id: ${powermeter_name}_${powermeter_suffix1}
 
   - platform: template
-    name: ${name}_${powermeter_name}_write_register04_${powermeter_sufix1}
-    id: ${powermeter_name}_write_register04_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_write_register04_${powermeter_suffix1}
+    id: ${powermeter_name}_write_register04_${powermeter_suffix1}
     icon: "mdi:button-pointer"
     on_press:
       then:
         - jsy193.write_com_setting:
-            id: ${powermeter_name}_${powermeter_sufix1}
-            new_address: !lambda 'return stoi(id(${powermeter_name}_new_address_${powermeter_sufix1}).state);'
+            id: ${powermeter_name}_${powermeter_suffix1}
+            new_address: !lambda 'return stoi(id(${powermeter_name}_new_address_${powermeter_suffix1}).state);'
             new_baudrate: !lambda |-
-              auto index = id(${powermeter_name}_new_baudrate_${powermeter_sufix1}).active_index();
+              auto index = id(${powermeter_name}_new_baudrate_${powermeter_suffix1}).active_index();
               return uint8_t( index.value() + ${offset_select}  );
           
   - platform: template
-    name: ${name}_${powermeter_name}_read_register04_${powermeter_sufix1}
-    id: ${powermeter_name}_read_register04_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_read_register04_${powermeter_suffix1}
+    id: ${powermeter_name}_read_register04_${powermeter_suffix1}
     icon: "mdi:button-pointer"
     on_press:
       then:
         - lambda: |-
            uint8_t current_address, current_baudrate;
-           esphome::jsy193::JSY193 *sen =  id(${powermeter_name}_${powermeter_sufix1});
+           esphome::jsy193::JSY193 *sen =  id(${powermeter_name}_${powermeter_suffix1});
            sen->read_register04();
            current_address = sen->get_address();
-           auto address = id(${powermeter_name}_new_address_${powermeter_sufix1}).make_call();
+           auto address = id(${powermeter_name}_new_address_${powermeter_suffix1}).make_call();
            address.set_value(std::to_string(current_address));
            address.perform();
            current_baudrate = sen->get_baudrate();
-           auto baudrate = id(${powermeter_name}_new_baudrate_${powermeter_sufix1}).make_call();
+           auto baudrate = id(${powermeter_name}_new_baudrate_${powermeter_suffix1}).make_call();
            baudrate.set_index(current_baudrate - ${offset_select});
            baudrate.perform();        
 
 text:
   - platform: template
-    name: ${name}_${powermeter_name}_new_address_${powermeter_sufix1}
-    id: ${powermeter_name}_new_address_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_new_address_${powermeter_suffix1}
+    id: ${powermeter_name}_new_address_${powermeter_suffix1}
     optimistic: true
     min_length: 0
     max_length: 3
@@ -116,8 +116,8 @@ text:
 
 select:
   - platform: template
-    name: ${name}_${powermeter_name}_new_baudrate_${powermeter_sufix1}
-    id: ${powermeter_name}_new_baudrate_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_new_baudrate_${powermeter_suffix1}
+    id: ${powermeter_name}_new_baudrate_${powermeter_suffix1}
     optimistic: true
     options:
       - '              '
@@ -132,78 +132,78 @@ select:
 
 sensor:
   - platform: jsy193
-    id: ${powermeter_name}_${powermeter_sufix1}
-    modbus_id: ${powermeter_name}_modbus_${powermeter_sufix1}
+    id: ${powermeter_name}_${powermeter_suffix1}
+    modbus_id: ${powermeter_name}_modbus_${powermeter_suffix1}
     address: ${powermeter_modbus_address}
     current1:
-      name: ${name}_${powermeter_name}_current_${powermeter_sufix1}
+      name: ${name}_${powermeter_name}_current_${powermeter_suffix1}
       accuracy_decimals: 2
     voltage1:
-      name: ${name}_${powermeter_name}_voltage_${powermeter_sufix1}
+      name: ${name}_${powermeter_name}_voltage_${powermeter_suffix1}
       accuracy_decimals: 2
     power1:
-      name: ${name}_${powermeter_name}_power_${powermeter_sufix1}
-      id: ${powermeter_name}_power_${powermeter_sufix1}
+      name: ${name}_${powermeter_name}_power_${powermeter_suffix1}
+      id: ${powermeter_name}_power_${powermeter_suffix1}
       accuracy_decimals: 2
     frequency1:
-      name: ${name}_${powermeter_name}_frequency_${powermeter_sufix1}
+      name: ${name}_${powermeter_name}_frequency_${powermeter_suffix1}
       accuracy_decimals: 2
     power_factor1:
-      name: ${name}_${powermeter_name}_power_factor_${powermeter_sufix1}
+      name: ${name}_${powermeter_name}_power_factor_${powermeter_suffix1}
       accuracy_decimals: 2
     pos_energy1:
-      name: ${name}_${powermeter_name}_pos_energy_${powermeter_sufix1}
+      name: ${name}_${powermeter_name}_pos_energy_${powermeter_suffix1}
       accuracy_decimals: 1
     neg_energy1:
-      name: ${name}_${powermeter_name}_neg_energy_${powermeter_sufix1}
+      name: ${name}_${powermeter_name}_neg_energy_${powermeter_suffix1}
       accuracy_decimals: 1
 
     current2:
-      name: ${name}_${powermeter_name}_current_${powermeter_sufix2}
+      name: ${name}_${powermeter_name}_current_${powermeter_suffix2}
       accuracy_decimals: 2
     voltage2:
-      name: ${name}_${powermeter_name}_voltage_${powermeter_sufix2}
+      name: ${name}_${powermeter_name}_voltage_${powermeter_suffix2}
       accuracy_decimals: 2
     power2:
-      name: ${name}_${powermeter_name}_power_${powermeter_sufix2}
-      id: ${powermeter_name}_power_${powermeter_sufix2}
+      name: ${name}_${powermeter_name}_power_${powermeter_suffix2}
+      id: ${powermeter_name}_power_${powermeter_suffix2}
       unit_of_measurement: W
       accuracy_decimals: 2
     frequency2:
-      name: ${name}_${powermeter_name}_frequency_${powermeter_sufix2}
+      name: ${name}_${powermeter_name}_frequency_${powermeter_suffix2}
       accuracy_decimals: 2
     power_factor2:
-      name: ${name}_${powermeter_name}_power_factor_${powermeter_sufix2}
+      name: ${name}_${powermeter_name}_power_factor_${powermeter_suffix2}
       accuracy_decimals: 2
     pos_energy2:
-      name: ${name}_${powermeter_name}_pos_energy_${powermeter_sufix2}
+      name: ${name}_${powermeter_name}_pos_energy_${powermeter_suffix2}
       accuracy_decimals: 1
     neg_energy2:
-      name: ${name}_${powermeter_name}_neg_energy_${powermeter_sufix2}
+      name: ${name}_${powermeter_name}_neg_energy_${powermeter_suffix2}
       accuracy_decimals: 1     
     update_interval: ${powermeter_update_interval}
     
     ##### Positive energy1 ####
     
   - platform: template
-    name: ${name}_${powermeter_name}_pos_power_${powermeter_sufix1}
-    id: ${powermeter_name}_pos_power_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_pos_power_${powermeter_suffix1}
+    id: ${powermeter_name}_pos_power_${powermeter_suffix1}
     unit_of_measurement: 'W'
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
     lambda: |-
-      if(id(${powermeter_name}_power_${powermeter_sufix1}).state > 0.0){
-        return (id(${powermeter_name}_power_${powermeter_sufix1}).state);
+      if(id(${powermeter_name}_power_${powermeter_suffix1}).state > 0.0){
+        return (id(${powermeter_name}_power_${powermeter_suffix1}).state);
       }
       else{
         return 0.0;
       }
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_pos_energy_today_${powermeter_sufix1}
-    id: ${powermeter_name}_pos_energy_today_${powermeter_sufix1}
-    power_id: ${powermeter_name}_pos_power_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_pos_energy_today_${powermeter_suffix1}
+    id: ${powermeter_name}_pos_energy_today_${powermeter_suffix1}
+    power_id: ${powermeter_name}_pos_power_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -212,36 +212,36 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix1}
-    id: template_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix1}
+    id: template_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix1}).state = id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix1}));  
+      return (id(template_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix1}).state = id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix1}));  
  
     ##### Negative energy1 ####
     
   - platform: template
-    name: ${name}_${powermeter_name}_neg_power_${powermeter_sufix1}
-    id: ${powermeter_name}_neg_power_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_neg_power_${powermeter_suffix1}
+    id: ${powermeter_name}_neg_power_${powermeter_suffix1}
     unit_of_measurement: 'W'
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
     lambda: |-
-      if(id(${powermeter_name}_power_${powermeter_sufix1}).state <= 0.0){
-        return (id(${powermeter_name}_power_${powermeter_sufix1}).state);
+      if(id(${powermeter_name}_power_${powermeter_suffix1}).state <= 0.0){
+        return (id(${powermeter_name}_power_${powermeter_suffix1}).state);
       }
       else{
         return 0.0;
       }
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_neg_energy_today_${powermeter_sufix1}
-    id: ${powermeter_name}_neg_energy_today_${powermeter_sufix1}
-    power_id: ${powermeter_name}_neg_power_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_neg_energy_today_${powermeter_suffix1}
+    id: ${powermeter_name}_neg_energy_today_${powermeter_suffix1}
+    power_id: ${powermeter_name}_neg_power_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -250,38 +250,38 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix1}
-    id: template_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix1}
+    name: ${name}_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix1}
+    id: template_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix1}).state = id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix1}));  
+      return (id(template_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix1}).state = id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix1}));  
  
  
  
     ##### Positive energy2 ####
     
   - platform: template
-    name: ${name}_${powermeter_name}_pos_power_${powermeter_sufix2}
-    id: ${powermeter_name}_pos_power_${powermeter_sufix2}
+    name: ${name}_${powermeter_name}_pos_power_${powermeter_suffix2}
+    id: ${powermeter_name}_pos_power_${powermeter_suffix2}
     unit_of_measurement: 'W'
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
     lambda: |-
-      if(id(${powermeter_name}_power_${powermeter_sufix2}).state > 0){
-        return (id(${powermeter_name}_power_${powermeter_sufix2}).state);
+      if(id(${powermeter_name}_power_${powermeter_suffix2}).state > 0){
+        return (id(${powermeter_name}_power_${powermeter_suffix2}).state);
       }
       else{
         return 0.0;
       }
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_pos_energy_today_${powermeter_sufix2}
-    id: ${powermeter_name}_pos_energy_today_${powermeter_sufix2}
-    power_id: ${powermeter_name}_pos_power_${powermeter_sufix2}
+    name: ${name}_${powermeter_name}_pos_energy_today_${powermeter_suffix2}
+    id: ${powermeter_name}_pos_energy_today_${powermeter_suffix2}
+    power_id: ${powermeter_name}_pos_power_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -290,36 +290,36 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix2}
-    id: template_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix2}
+    name: ${name}_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix2}
+    id: template_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_pos_energy_yesteday_${powermeter_sufix2}).state = id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_sufix2}));  
+      return (id(template_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix2}).state = id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix2}));  
  
     ##### Negative energy2 ####
     
   - platform: template
-    name: ${name}_${powermeter_name}_neg_power_${powermeter_sufix2}
-    id: ${powermeter_name}_neg_power_${powermeter_sufix2}
+    name: ${name}_${powermeter_name}_neg_power_${powermeter_suffix2}
+    id: ${powermeter_name}_neg_power_${powermeter_suffix2}
     unit_of_measurement: 'W'
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
     lambda: |-
-      if(id(${powermeter_name}_power_${powermeter_sufix2}).state <= 0.0){
-        return (id(${powermeter_name}_power_${powermeter_sufix2}).state);
+      if(id(${powermeter_name}_power_${powermeter_suffix2}).state <= 0.0){
+        return (id(${powermeter_name}_power_${powermeter_suffix2}).state);
       }
       else{
         return 0.0;
       }
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_neg_energy_today_${powermeter_sufix2}
-    id: ${powermeter_name}_neg_energy_today_${powermeter_sufix2}
-    power_id: ${powermeter_name}_neg_power_${powermeter_sufix2}
+    name: ${name}_${powermeter_name}_neg_energy_today_${powermeter_suffix2}
+    id: ${powermeter_name}_neg_energy_today_${powermeter_suffix2}
+    power_id: ${powermeter_name}_neg_power_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -328,12 +328,12 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix2}
-    id: template_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix2}
+    name: ${name}_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix2}
+    id: template_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_neg_energy_yesteday_${powermeter_sufix2}).state = id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_sufix2}));
+      return (id(template_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix2}).state = id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix2}));
     

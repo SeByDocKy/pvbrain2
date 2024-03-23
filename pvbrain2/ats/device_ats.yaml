@@ -3,8 +3,8 @@ number:
   ######### Automatic Switch Transfert thresholds  ########            
             
   - platform: template
-    name: ${name}_${ats_name}_voltage_solar_to_grid_number_${ats_sufix}
-    id: ${ats_name}_voltage_solar_to_grid_number_${ats_sufix}
+    name: ${name}_${ats_name}_voltage_solar_to_grid_number_${ats_suffix}
+    id: ${ats_name}_voltage_solar_to_grid_number_${ats_suffix}
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -16,8 +16,8 @@ number:
     mode: 'slider'
 
   - platform: template
-    name: ${name}_${ats_name}_voltage_grid_to_solar_number_${ats_sufix}
-    id: ${ats_name}_voltage_grid_to_solar_number_${ats_sufix}
+    name: ${name}_${ats_name}_voltage_grid_to_solar_number_${ats_suffix}
+    id: ${ats_name}_voltage_grid_to_solar_number_${ats_suffix}
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -30,6 +30,6 @@ number:
 
 switch:
   - platform: template
-    name: ${name}_${ats_name}_automatic_control_${ats_sufix}
-    id: ${ats_name}_automatic_control_${ats_sufix}
+    name: ${name}_${ats_name}_automatic_control_${ats_suffix}
+    id: ${ats_name}_automatic_control_${ats_suffix}
     optimistic: true    

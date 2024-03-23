@@ -1,7 +1,7 @@
 sensor:
   - platform: copy
     source_id: ${ats_control_voltage_id}
-    id: ${ats_control_name}_${ats_control_sufix}
+    id: ${ats_control_name}_${ats_control_suffix}
     on_value:
        - if:  ##### if battery voltage < low battery threshold    ######
           condition:
