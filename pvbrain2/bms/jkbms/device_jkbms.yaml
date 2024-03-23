@@ -10,11 +10,11 @@ jk_bms:
     jk_modbus_id: ${bms_name}_modbus_${bms_sufix}
     
 globals:    
-  - id: ${bms_name}_battery_charging_power_veille_global_${bms_sufix}
+  - id: ${bms_name}_battery_charging_energy_yesteday_global_${bms_sufix}
     type: float
     restore_value: yes
     
-  - id: ${bms_name}_battery_discharging_power_veille_global_${bms_sufix}
+  - id: ${bms_name}_battery_discharging_energy_yesteday_global_${bms_sufix}
     type: float
     restore_value: yes
 
@@ -28,12 +28,12 @@ time:
       hours: 23
       then:  
         - globals.set:
-                id: ${bms_name}_battery_charging_power_veille_global_${bms_sufix}
-                value: !lambda return ( id(${bms_name}_battery_charging_power_veille_global_${bms_sufix}) =  float( id(${bms_name}_battery_charging_power_total_du_jour_${bms_sufix}).state) ); 
+                id: ${bms_name}_battery_charging_energy_yesteday_global_${bms_sufix}
+                value: !lambda return ( id(${bms_name}_battery_charging_energy_yesteday_global_${bms_sufix}) =  float( id(${bms_name}_battery_charging_energy_day_${bms_sufix}).state) ); 
                 
         - globals.set:
-                id: ${bms_name}_battery_discharging_power_veille_global_${bms_sufix}
-                value: !lambda return ( id(${bms_name}_battery_discharging_power_veille_global_${bms_sufix}) =  float( id(${bms_name}_battery_discharging_power_total_du_jour_${bms_sufix}).state) );     
+                id: ${bms_name}_battery_discharging_energy_yesteday_global_${bms_sufix}
+                value: !lambda return ( id(${bms_name}_battery_discharging_energy_yesteday_global_${bms_sufix}) =  float( id(${bms_name}_battery_discharging_energy_day_${bms_sufix}).state) );     
 switch:
   - platform: jk_bms
     jk_bms_id: ${bms_name}_bms_${bms_sufix}
@@ -174,11 +174,11 @@ sensor:
         # return 0.0;
       # }
   - platform: total_daily_energy
-    name: ${bms_name}_battery_charging_power_total_du_jour_${bms_sufix}
+    name: ${bms_name}_battery_charging_energy_day_${bms_sufix}
     power_id: ${bms_name}_battery_charging_power_${bms_sufix}
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
-    id: ${bms_name}_battery_charging_power_total_du_jour_${bms_sufix}
+    id: ${bms_name}_battery_charging_energy_day_${bms_sufix}
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
@@ -186,14 +186,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${bms_name}_battery_charging_power_veille_${bms_sufix}
-    id: template_${bms_name}_battery_charging_power_veille_${bms_sufix}
+    name: ${name}_${bms_name}_battery_charging_energy_yesteday_${bms_sufix}
+    id: template_${bms_name}_battery_charging_energy_yesteday_${bms_sufix}
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
     icon: mdi:power
     update_interval: ${bms_template_update}
     lambda: |-
-      return ( id(template_${bms_name}_battery_charging_power_veille_${bms_sufix}).state = id(${bms_name}_battery_charging_power_veille_global_${bms_sufix}) );    
+      return ( id(template_${bms_name}_battery_charging_energy_yesteday_${bms_sufix}).state = id(${bms_name}_battery_charging_energy_yesteday_global_${bms_sufix}) );    
 
   - platform: template
     name: ${name}_${bms_name}_battery_discharging_current_${bms_sufix}
@@ -226,11 +226,11 @@ sensor:
       # }
       
   - platform: total_daily_energy
-    name: ${name}_${bms_name}_battery_discharging_power_total_du_jour_${bms_sufix}
+    name: ${name}_${bms_name}_battery_discharging_energy_day_${bms_sufix}
     power_id: ${bms_name}_battery_discharging_power_${bms_sufix}
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
-    id: ${bms_name}_battery_discharging_power_total_du_jour_${bms_sufix}
+    id: ${bms_name}_battery_discharging_energy_day_${bms_sufix}
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
@@ -238,14 +238,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${bms_name}_battery_discharging_power_veille_${bms_sufix}
-    id: template_${bms_name}_battery_discharging_power_veille_${bms_sufix}
+    name: ${name}_${bms_name}_battery_discharging_energy_yesteday_${bms_sufix}
+    id: template_${bms_name}_battery_discharging_energy_yesteday_${bms_sufix}
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
     icon: mdi:power
     update_interval: ${bms_template_update}
     lambda: |-
-      return ( id(template_${bms_name}_battery_discharging_power_veille_${bms_sufix}).state = id(${bms_name}_battery_discharging_power_veille_global_${bms_sufix}) );
+      return ( id(template_${bms_name}_battery_discharging_energy_yesteday_${bms_sufix}).state = id(${bms_name}_battery_discharging_energy_yesteday_global_${bms_sufix}) );
 
   - platform: template
     name: ${name}_${bms_name}_c_values_${bms_sufix}
