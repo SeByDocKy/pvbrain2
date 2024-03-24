@@ -50,7 +50,7 @@ Classic procedure:
 
 > - i) Retrieve the [PVbrain 2.0](https://github.com/SeByDocKy/pvbrain2/archive/refs/heads/main.zip) zip (by right clicking) and save it into a new created folder, eg. /pvbrain2 
 > - ii) Uncompress the zip file into your local folder (/pvbrain2) or into your/config/esphome folder
-> - iii) Open your esphome's secrets.yaml file and check if wifi_ssid, wifi_password and ap_password are correctly defined with your local WiFi informations
+> - iii) Open your esphome's secrets.yaml file and check if wifi_ssid, wifi_password and ap_password variables are correctly corresponding with your local WiFi informations
 > - iv) Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup.
 > - v) Compile and upload the code on your ESP32 S3 device
 
@@ -63,7 +63,7 @@ Dummy procedure (for newbabies):
 > - v) Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup and save the file
 > - vi) Clik on "install" then on "manual install" to compile the firmware. It can be a long processus (several minutes)!!!. At the end, a popup menu will ask you how you want to save the file. Select "modern format" and save the file to a known location
 > - vii) Open the [web flash tool](https://web.esphome.io/) link. Plug the ESP32 S3 with a USB data cable (often the S3 left USB port when USB ports are located botton). Click on connect. A popup menu will appear to ask you to select the COM port... When done, click on "install". You will have to browse to the location where you saved previously the firmware (.bin file). Wait a couple of minutes to flash the ESP32 S3 (after a couples of seconds, you should see a progression bar running)
-> - viii) You finished the flashing procedure. If you entered correctly your WiFi information into the secrets.yaml, you should see a notification in Home Assistant asking you to accept a new ESPhome device. Accept it... You finished.
+> - viii) You finished the flashing procedure. If you entered correctly your WiFi information into the secrets.yaml, you should see a notification in Home Assistant asking you to accept a new ESPhome device. Accept it... You finished!!!!.
 
 # Main PCB Layout :
 
