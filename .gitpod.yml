@@ -1,8 +1,8 @@
 tasks:
   - name: esphome_install
     init: >
-      pyenv install 3.9.0 &&
-      pyenv local 3.9.0 &&
+      pyenv install 3.9.15 &&
+      pyenv local 3.9.15 &&
       pip install --upgrade pip &&
       pip install voluptuous &&
       pip install --upgrade pyyaml &&
