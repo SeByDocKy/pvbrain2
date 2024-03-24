@@ -48,8 +48,8 @@
 
 Classic procedure:
 
-> - i) Retrieve the[PVbrain 2.0](https://github.com/SeByDocKy/pvbrain2/archive/refs/heads/main.zip) zip by right clicking and save it into a new created folder, eg. /pvbrain2 
-> - ii) Uncompress the zip file into your local folder or into your/config/esphome folder
+> - i) Retrieve the [PVbrain 2.0](https://github.com/SeByDocKy/pvbrain2/archive/refs/heads/main.zip) zip (by right clicking) and save it into a new created folder, eg. /pvbrain2 
+> - ii) Uncompress the zip file into your local folder (/pvbrain2) or into your/config/esphome folder
 > - iii) Open your esphome's secrets.yaml file and check if wifi_ssid, wifi_password and ap_password are correctly defined with your local WiFi informations
 > - iv) Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup.
 > - v) Compile and upload the code on your ESP32 S3 device
