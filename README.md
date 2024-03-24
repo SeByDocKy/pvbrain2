@@ -56,8 +56,8 @@ Classic procedure:
 
 Dummy procedure (for newbabies):
 
-> - i) Create/sign in a [github](https://github.com/) accompt. You can create it faster with OAuth2 procedure via your google account for example
-> - ii) Open the following [gitpod](https://gitpod.io/#https://github.com/SeByDocKy/pvbrain2/tree/main) link. The first time you will need also to sign in into gitpod framework for example with your previously created github accont.
+> - i) Create/sign in a [Github](https://github.com/) accompt. You can create it faster with OAuth2 procedure via your google account for example
+> - ii) Open the following [Gitpod](https://gitpod.io/#https://github.com/SeByDocKy/pvbrain2/tree/main) link. The first time you will need also to sign in into gitpod framework for example with your previously created github account.
 > - iii) When logged into Gitpod, you will see during the ESPhome installation, some log lines printed in the terminal. Wait a couples of minutes to finish it. When done press the "open browser" located at the botton right of the Gitpod page. It should open a new webpage with the ESPhome Dashboard
 > - iv) Click on "secret" located at the top right corner. Replace "xxxxxxxxx", "yyyyyyyy" and "zzzzzzzzz" with your own WiFi SSID/password and AP informations. Click on save and quit the secret page by clicking on the top left cross.
 > - v) Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup and save the file
