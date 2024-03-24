@@ -11,4 +11,4 @@ tasks:
       pip install git+https://github.com/esphome/esphome.git &&
       pip install esphome_dashboard &&
       gp sync-done bundle # 'bundle' is an arbitrary name
-    command: esphome dashboard code/
+    command: esphome dashboard ./
