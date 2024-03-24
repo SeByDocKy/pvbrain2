@@ -61,8 +61,8 @@ Dummy procedure (for newbabies):
 > - iii) When logged into Gitpod, you will see during the ESPhome installation, some log lines printed in the terminal. Wait a couples of minutes to let finish the processus. When done press the "open browser" located at the botton right of the Gitpod page. It should open a new webpage with the ESPhome Dashboard
 > - iv) On this new webpage, click on "secret" located at the top right corner. Replace "xxxxxxxx", "yyyyyyyy" and "zzzzzzzz" with your own WiFi SSID/password and AP informations. Be aware, WiFi password must be minimum of 8 caractars. If not, you will need to change your WiFi password correspondly. Click on save and quit the secret page by clicking on the top left cross.
 > - v) Click on "Edit" for the PVbrain2 model. Comment and/or uncomment each package according to your own solar setup and save the file. (Tip, you can comment/uncomment several lines simultaneously by selecting the lines and press on CTRL + /)
-> - vi) Clik on the three vertical dot and then choose "Install" then on "Plug into this computer" to compile the firmware. It can be a long processus (several minutes)!!!. Wait a couple of minutes (it first compile the code in backstage during 3-4min) then start the flashing state. You should see a progression bar running when flashing
-> - vii) You finished the flashing procedure. If you entered correctly your WiFi information into the secrets.yaml, you should see a notification in Home Assistant asking you to accept a new ESPhome device. Accept it... You finished!!!!.
+> - vi) Clik on the three vertical dot and then choose "Install" then on "Plug into this computer" to compile the firmware. It can be a long processus !!!. Wait a couple of minutes (it first compile the code at background during 3-4min) then it starts the flashing part. You should see a progression bar running when flashing.
+> - vii) You finished the flashing procedure. If you entered correctly your WiFi informations in the secrets.yaml file, you should see a notification in Home Assistant asking you to accept a new ESPhome device. Accept it... You finished!!!!.
 
 # Main PCB Layout :
 
