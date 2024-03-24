@@ -44,7 +44,7 @@
 <br/>_Video in French._
 
 # Installation steps:
-> First of all be sure you have installed on your machine the ESP32 S3 driver from Sillicon Labs (https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).
+> First of all be sure you have installed on your machine the ESP32 S3 driver from [Sillicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).
 
 Classic procedure:
 
