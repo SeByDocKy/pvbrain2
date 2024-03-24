@@ -44,7 +44,7 @@
 <br/>_Video in French._
 
 # Installation steps:
-> step0: First of all be sure you have installed on your machine the ESP32 S3 driver from Sillicon Labs (https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).
+> First of all be sure you have installed on your machine the ESP32 S3 driver from Sillicon Labs (https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).
 
 Classic procedure:
 
@@ -53,6 +53,16 @@ Classic procedure:
 > - iii) Open your esphome's secrets.yaml file and check if wifi_ssid, wifi_password and ap_password are correctly defined with your local WiFi informations
 > - iv) Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup.
 > - v) Compile and upload the code on your ESP32 S3 device
+
+Dummy procedure:
+
+> - i) Create/sign in a [github](https://github.com/) accompt. You can create it faster with OAuth2 procedure via your google account for example
+> - ii) Open the following [gitpod](https://gitpod.io/#https://github.com/SeByDocKy/pvbrain2/tree/main) link. The first time you will need also to sign in into gitpod framework for exemple with your previously created github accont.
+> - iii) When logged into Gitpod, you will see the ESPhome installation log lines. Wait a couples of minutes to finish it. When done press the "open browser" located at the botton right of the Gitpod page. It should open a new webpage with the ESPhome Dashboard
+> - iv) Click on "secret" located at the top right corner. Replace "xxxxxxxxx", "yyyyyyyy" and "zzzzzzzzz" with your own WiFi SSID/password and AP informations. Click on save and quit the secret page by clicking on the top left cross.
+> - v) Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup and save the file
+> - vi) Clik on "install" then on "manual install" to compile the firmware. It can be a long processus (several minutes)!!!. At the end, a popup menu will ask you how you want to save the file. Select "modern format" and save the file to a known location
+> - vii) Open the [web flash tool](https://web.esphome.io/) link. Plug the ESP32 S3 with a USB data cable (often the left USB port when USB ports are located botton). Click on connect. A popup menu will appear to select the right COM port... then click on "install". You will have to browse to the location where you saved the firmware. Wait a couple of minutes to flash the ESP32 S3 (after a couples of seconds, you should see a progression bar running)
 
 # Main PCB Layout :
 
