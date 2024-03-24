@@ -48,7 +48,7 @@
 
 Classic procedure:
 
-> - i) retrieve the PVbrain 2 zip by right clicking and save as (https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads)
+> - i) retrieve the PVbrain 2 zip by right clicking and save as (https://github.com/SeByDocKy/pvbrain2/archive/refs/heads/main.zip)
 > - ii) Uncompress into your local folder or into your/config/esphome folder the zip file
 
 # Main PCB Layout :
