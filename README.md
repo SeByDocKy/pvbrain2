@@ -45,7 +45,9 @@
 
 # Installation steps:
 > step0: First of all be sure you have installed on your machine the ESP32 S3 driver from Sillicon Labs (https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).
+
 Classic procedure:
+
 > i) retrieve the PVbrain 2 zip by right clicking and save as : https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads
 > ii) Uncompress into your local folder or into your/config/esphome folder the zip file
 
