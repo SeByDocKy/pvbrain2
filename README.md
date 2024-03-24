@@ -54,7 +54,7 @@ Classic procedure:
 > - iv) Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup.
 > - v) Compile and upload the code on your ESP32 S3 device
 
-Dummy procedure:
+Dummy procedure (for newbabies):
 
 > - i) Create/sign in a [github](https://github.com/) accompt. You can create it faster with OAuth2 procedure via your google account for example
 > - ii) Open the following [gitpod](https://gitpod.io/#https://github.com/SeByDocKy/pvbrain2/tree/main) link. The first time you will need also to sign in into gitpod framework for example with your previously created github accont.
