@@ -85,8 +85,8 @@ __Dummy procedure (for newbabies) :__
 > - :seven: :heavy_minus_sign: You finished the flashing procedure. 
 >   - If you entered correctly your WiFi informations in the secrets.yaml file, you should see a notification in Home Assistant asking you to accept a new ESPhome device. 
 >   - Accept it... __You finished!!!!__
-> [![youtube_live](https://github.com/SeByDocKy/pvbrain2/assets/82636574/b1cb5f1d-b5ad-48e0-927c-dcc7093ea610)](https://www.youtube.com/watch?v=R9PXNV0ayU4)
-<br/>_Video in French._
+> [![youtube]((https://img.youtube.com/vi/R9PXNV0ayU4)](https://www.youtube.com/watch?v=R9PXNV0ayU4)
+> <br/>_Video in French._
 
 > </details>
 
