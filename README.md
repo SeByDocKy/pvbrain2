@@ -44,12 +44,12 @@
 <br/>_Video in French._
 
 # Installation steps:
-__First of all be sure you have installed on your machine the ESP32 S3 driver from [Sillicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).__
+- __First of all be sure you have installed on your machine the ESP32 S3 driver from [Sillicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).__
 
-Classic procedure :
+__Classic procedure :__
 
 > <details>
-><summary>Click here for show the Dummy procedure. :arrow_heading_down:</summary>
+><summary>Click here for show the Classic procedure. :arrow_heading_down:</summary>
 > 
 > :back:
 > - :one: :heavy_minus_sign: Retrieve the [PVbrain 2.0](https://github.com/SeByDocKy/pvbrain2/archive/refs/heads/main.zip) zip (by right clicking) and save it into a new created folder, eg. /pvbrain2
@@ -59,7 +59,7 @@ Classic procedure :
 > - :five: :heavy_minus_sign: Compile and upload the code on your ESP32 S3 device.
 > </details>
 
-Dummy procedure (for newbabies):
+__Dummy procedure (for newbabies) :__
 
 > <details>
 ><summary>Click here for show the Dummy procedure. :arrow_heading_down:</summary>
