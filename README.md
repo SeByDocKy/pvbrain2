@@ -44,25 +44,48 @@
 <br/>_Video in French._
 
 # Installation steps:
-> First of all be sure you have installed on your machine the ESP32 S3 driver from [Sillicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).
+__First of all be sure you have installed on your machine the ESP32 S3 driver from [Sillicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).__
 
-Classic procedure:
+Classic procedure :
 
-> - i) Retrieve the [PVbrain 2.0](https://github.com/SeByDocKy/pvbrain2/archive/refs/heads/main.zip) zip (by right clicking) and save it into a new created folder, eg. /pvbrain2 
-> - ii) Uncompress the zip file into your local folder (/pvbrain2) or into your/config/esphome folder of HASSIO (use samba share to transfer the uncompressed files)
-> - iii) Open your esphome's secrets.yaml file and check if wifi_ssid, wifi_password and ap_password variables are correctly corresponding with your local WiFi informations
-> - iv) Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup.
-> - v) Compile and upload the code on your ESP32 S3 device
+> <details>
+><summary>Click here for show the Dummy procedure. :arrow_heading_down:</summary>
+> 
+> :back:
+> - :one: :heavy_minus_sign: Retrieve the [PVbrain 2.0](https://github.com/SeByDocKy/pvbrain2/archive/refs/heads/main.zip) zip (by right clicking) and save it into a new created folder, eg. /pvbrain2
+> - :two: :heavy_minus_sign: Uncompress the zip file into your local folder (/pvbrain2) or into your/config/esphome folder of HASSIO (use samba share to transfer the uncompressed files).
+> - :three: :heavy_minus_sign: Open your esphome's secrets.yaml file and check if wifi_ssid, wifi_password and ap_password variables are correctly corresponding with your local WiFi informations. 
+> - :four: :heavy_minus_sign: Edit the PVbrain2.yaml and comment/uncomment each package according to your own solar setup. 
+> - :five: :heavy_minus_sign: Compile and upload the code on your ESP32 S3 device.
+> </details>
 
 Dummy procedure (for newbabies):
 
-> - i) Create/sign in a [Github](https://github.com/) accompt. You can create it faster with OAuth2 via your google account for example
-> - ii) Open the following [Gitpod](https://gitpod.io/#https://github.com/SeByDocKy/pvbrain2/tree/main) link. The first time you will need also to sign in into gitpod framework for example with your previously created Github account.
-> - iii) When logged into Gitpod, you will see during the ESPhome installation, some log lines printed in the terminal. Wait a couples of minutes to let finish the processus. When done, press the "Open Browser" located at the botton right of the Gitpod page. It should open a new webpage with the ESPhome Dashboard
-> - iv) On the ESPhome Dashboard, click first on "secret" button located at the top right corner. Replace "xxxxxxxx", "yyyyyyyy" and "zzzzzzzz" with your own WiFi SSID/password and AP informations (AP password will allow to access to your PVbrain2 if your WiFi/LAN is down). Be aware, WiFi password must be a minimum of 8 caractars. If not, you will need to change your WiFi password correspondly. Click on "save" and quit the secret page by clicking on the top left cross.
-> - v) Click on "Edit" for the PVbrain2 model. Comment and/or uncomment each package according to your own solar setup and save the file. (Tip: you can comment/uncomment several lines simultaneously by selecting the lines and press on CTRL + /)
-> - vi) Plug your ESP32-S3 with a USB data cable first then the on top right corner, choose "Install" then on "Plug into this computer" to compile the firmware. It can be a long processus !!!. Wait a couple of minutes (it first compile the code at background during 3-4min) then it starts the flashing part. You should see a progression bar running when flashing.
-> - vii) You finished the flashing procedure. If you entered correctly your WiFi informations in the secrets.yaml file, you should see a notification in Home Assistant asking you to accept a new ESPhome device. Accept it... You finished!!!!.
+> <details>
+><summary>Click here for show the Dummy procedure. :arrow_heading_down:</summary>
+>
+> :back:
+> - :one: :heavy_minus_sign: Create/sign in a [Github](https://github.com/) accompt. You can create it faster with OAuth2 via your google account for example. 
+> - :two: :heavy_minus_sign: Open the following [Gitpod](https://gitpod.io/#https://github.com/SeByDocKy/pvbrain2/tree/main) link. 
+>   - The first time you will need also to sign in into gitpod framework for example with your previously created Github account.
+> - :three: :heavy_minus_sign: When logged into Gitpod, you will see during the ESPhome installation, some log lines printed in the terminal. 
+>   - Wait a couples of minutes to let finish the processus. 
+>   - When done, press the "Open Browser" located at the botton right of the Gitpod page. 
+>   - It should open a new webpage with the ESPhome Dashboard.
+> - :four: :heavy_minus_sign: On the ESPhome Dashboard, click first on "secret" button located at the top right corner. 
+>   - Replace "xxxxxxxx", "yyyyyyyy" and "zzzzzzzz" with your own WiFi SSID/password and AP informations (AP password will allow to access to your PVbrain2 if your WiFi/LAN is down). 
+>   - Be aware, WiFi password must be a minimum of 8 caractars. 
+>     - If not, you will need to change your WiFi password correspondly. 
+>   - Click on "save" and quit the secret page by clicking on the top left cross.
+> - :five: :heavy_minus_sign: Click on "Edit" for the PVbrain2 model. 
+>   - Comment and/or uncomment each package according to your own solar setup and save the file. (Tip: you can comment/uncomment several lines simultaneously by selecting the lines and press on CTRL + /)
+> - :six: :heavy_minus_sign: Plug your ESP32-S3 with a USB data cable first then the on top right corner, choose "Install" then on "Plug into this computer" to compile the firmware. It can be a long processus !!!. 
+>   - Wait a couple of minutes (it first compile the code at background during 3-4min) then it starts the flashing part. 
+>     - You should see a progression bar running when flashing.
+> - :seven: :heavy_minus_sign: You finished the flashing procedure. 
+>   - If you entered correctly your WiFi informations in the secrets.yaml file, you should see a notification in Home Assistant asking you to accept a new ESPhome device. 
+>   - Accept it... __You finished!!!!__
+> </details>
 
 # Main PCB Layout :
 
@@ -71,8 +94,9 @@ Dummy procedure (for newbabies):
 |<img src="../main/hardware/pvbrain_v2/pvbrain_v2_3d_view.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_circuit_copper_area.png" width="490" /> |
 
 <details>
-<summary>Click here for show other views and schematic.</summary>
+<summary>Click here for show other views and schematic. :arrow_heading_down:</summary>
 
+:back:
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_front.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_back.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_circuit.png" width="1068" /> |
@@ -97,8 +121,9 @@ Module to extend the number of uarts on an esp32 <sup>_(4 Uarts per card)_</sup>
 | <img src="../main/hardware/module_wk_2168/wk2168_3d_view.png" width="700" /> | <img src="../main/hardware/module_wk_2168/wk2168_schematic.png" width="1068" /> |
 
 <details>
-<summary>Click here for show other views.</summary>
+<summary>Click here for show other views. :arrow_heading_down:</summary>
 
+:back:
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 |<img src="../main/hardware/module_wk_2168/wk2168_front.png" width="1068" /> | <img src="../main/hardware/module_wk_2168/wk2168_back.png" width="1068" /> | <img src="../main/hardware/module_wk_2168/wk2168_circuit.png" width="1068" /> |
@@ -120,8 +145,9 @@ TTL isolator, originally designed for Victron VEdirect.
 |<img src="../main/hardware/module_uart_isolator/uart_isolator_3d_view.png" width="780" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_schematic.png" width="480" /> |
 
 <details>
-<summary>Click here for show other views.</summary>
+<summary>Click here for show other views. :arrow_heading_down:</summary>
 
+:back:
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/module_uart_isolator/uart_isolator_front.png" width="1068" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_back.png" width="1068" /> | <img src="../main/hardware/module_uart_isolator/uart_isolator_circuit.png" width="1068" /> |
@@ -144,8 +170,9 @@ An optional addon card can be plugged to allowing 4 additional UART outputs.
 | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_3d_view.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_schematic.png" width="1068" /> |
 
 <details>
-<summary>Click here for show other views.</summary>
+<summary>Click here for show other views. :arrow_heading_down:</summary>
 
+:back:
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_circuit.png" width="1068" /> |
@@ -158,8 +185,9 @@ An optional addon card can be plugged to allowing 4 additional CAN MODULE SPI.
 | <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_3d.PNG" width="456" /> |
 
 <details>
-<summary>Click here for show other views.</summary>
+<summary>Click here for show other views. :arrow_heading_down:</summary>
 
+:back:
 | Front                     | Back                      |
 | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_front.PNG" width="256" /> | <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_back.PNG" width="256" /> |
@@ -175,8 +203,9 @@ The card offers the possibility of securely monitoring the voltage of two DC inp
 |<img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_3d_view.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_schematic.png" width="980" /> |
 
 <details>
-<summary>Click here for show other views.</summary>
+<summary>Click here for show other views. :arrow_heading_down:</summary>
 
+:back:
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_circuit.png" width="1068" /> |
