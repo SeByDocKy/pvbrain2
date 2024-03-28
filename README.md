@@ -33,11 +33,11 @@
 
 > [!NOTE]
 > This PCB uses the excellent ESPhome integrations done by :
-> - <sub>[![Static Badge](https://img.shields.io/badge/Syssi-black?logo=git&style=flat)](https://github.com/syssi)</sub> (Many BMS and inverter).
-> - <sub>[![Static Badge](https://img.shields.io/badge/DrCoolZic-black?logo=git&style=flat)](https://github.com/DrCoolzic)</sub> (Expansion cards [WK2132](https://www.dfrobot.com/product-2001.html) and [WK2168](../main/hardware/module_wk_2168/wk2168_3d_view.png) ).
+> - <sub>[![Syssi](https://img.shields.io/badge/Syssi-black?logo=git&style=flat)](https://github.com/syssi)</sub> (Many BMS and inverter).
+> - <sub>[![DrCoolzic](https://img.shields.io/badge/DrCoolZic-black?logo=git&style=flat)](https://github.com/DrCoolzic)</sub> (Expansion cards [WK2132](https://www.dfrobot.com/product-2001.html) and [WK2168](../main/hardware/module_wk_2168/wk2168_3d_view.png) ).
 > 
-> The __PVbrain 2.0__ represents a joint work between <sub>[![Static Badge](https://img.shields.io/badge/SeByDocKy-black?logo=git&style=flat)](https://github.com/SeByDocKy)</sub> of the <sub>[![Static Badge](https://img.shields.io/badge/Youtube-e--2--nomy-black?style=social&logo=youtube)](https://www.youtube.com/@e2nomy)</sub> and <sub>[![Static Badge](https://img.shields.io/badge/Bandit--17-black?logo=git&style=flat)](https://github.com/Bandit-17)</sub>.
-> - With the help of several members of the <sub>[![Static Badge](https://img.shields.io/badge/DISCORD-Reseautonome-black?style=social&logo=discord)](https://reseautono.me/)</sub>.
+> The __PVbrain 2.0__ represents a joint work between <sub>[![SeByDocKy](https://img.shields.io/badge/SeByDocKy-black?logo=git&style=flat)](https://github.com/SeByDocKy)</sub> of the <sub>[![Youtube_e2nomy](https://img.shields.io/badge/Youtube-e--2--nomy-black?style=social&logo=youtube)](https://www.youtube.com/@e2nomy)</sub> and <sub>[![Bandit-17](https://img.shields.io/badge/Bandit--17-black?logo=git&style=flat)](https://github.com/Bandit-17)</sub>.
+> - With the help of several members of the <sub>[![Reseautonome](https://img.shields.io/badge/DISCORD-Reseautonome-black?style=social&logo=discord)](https://reseautono.me/)</sub>.
 
 # Release PVbrain 2 Youtube Live event:
 [![youtube_live](https://github.com/SeByDocKy/pvbrain2/assets/82636574/b1cb5f1d-b5ad-48e0-927c-dcc7093ea610)](https://www.youtube.com/watch?v=e8uBhS54MFE)
@@ -85,10 +85,15 @@ __Dummy procedure (for newbabies) :__
 > - :seven: :heavy_minus_sign: You finished the flashing procedure. 
 >   - If you entered correctly your WiFi informations in the secrets.yaml file, you should see a notification in Home Assistant asking you to accept a new ESPhome device. 
 >   - Accept it... __You finished!!!!__
->
-> [![youtube](https://img.youtube.com/vi/R9PXNV0ayU4/0.jpg)](https://www.youtube.com/watch?v=R9PXNV0ayU4)
-> <br/>_Video in French._
+> </details>
 
+> <details>
+><summary>Click here for show the French YouTube video of the Dummy procedure. :arrow_heading_down:</summary>
+>
+> :back:
+>
+> [![youtube_Dummy_procedure](https://github.com/SeByDocKy/pvbrain2/assets/82636574/12d9a2b0-adf0-412d-a7bb-ccc5b8956d41)](https://www.youtube.com/watch?v=R9PXNV0ayU4)
+> <br/>_Video in French._
 > </details>
 
 # Main PCB Layout :
