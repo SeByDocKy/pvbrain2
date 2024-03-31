@@ -102,7 +102,9 @@ packages:
   #     light_order: 'GRB'
 
   relays_1: !include
+    url: ${git_url}
     file: pvbrain2/relay/device_relay.yaml
+    refresh: 0s
     vars:
       relays_name: 'relay'
       relays_hub: 'sx1509_hub0'
@@ -125,14 +127,18 @@ packages:
       relays_channel7_pin: '7'
 
 #   fil_pilote: !include
+#     url: ${git_url}
 #     file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REMPLACE "x8" LOCATION BY NOMBRE OF CHAUFFAGE ZONES : 1 to 8
 # #   file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
+#     refresh: 0s
 #     vars:
 #       fpilote_bus: sx1509_hub1
 #       fpilote_name: 'chauffage_zone'
 
 #   teleinfo: !include 
+#     url: ${git_url}
 #     file: pvbrain2/addons/teleinfo/historique.yaml      # Si compteur en mode Historique
+#     refresh: 0s
 # #    file: pvbrain2/addons/teleinfo/standard.yaml       # Si compteur en mode Standard
 #     vars:
 #       linky_name: 'myteleinfo'
@@ -141,7 +147,9 @@ packages:
     
   
   # ac_dimmer_1: !include
+  #   url: ${git_url}
   #   file: pvbrain2/ac_dimmer/device_robotdyn.yaml
+  #   refresh: 0s
   #   vars:
   #     ac_dimmer_name: 'ac_dimmer'
   #     ac_dimmer_gate_gpio: GPIO07
@@ -149,7 +157,9 @@ packages:
   #     ac_dimmer_suffix: '1'
 
   # ac_dimmer_2: !include
+  #   url: ${git_url}
   #   file: pvbrain2/ac_dimmer/device_robotdyn.yaml
+  #   refresh: 0s
   #   vars:
   #     ac_dimmer_name: 'ac_dimmer'
   #     ac_dimmer_gate_gpio: GPIO03
@@ -157,7 +167,9 @@ packages:
   #     ac_dimmer_suffix: '2'
 
   ssr_1: !include
+    url: ${git_url}
     file: pvbrain2/ac_dimmer/device_ssr.yaml
+    refresh: 0s
     vars:
       ssr_name: 'ssr'
       ssr_hub: 'sx1509_hub1'
@@ -165,21 +177,27 @@ packages:
       ssr_suffix: '1'
   
   opto_1: !include
+    url: ${git_url}
     file: pvbrain2/optocoupler/device_opto.yaml
+    refresh: 0s
     vars:
       opto_name: 'opto'
       opto_gpio: GPIO05
       opto_suffix: 'grid_230V'
 
   opto_2: !include
+    url: ${git_url}
     file: pvbrain2/optocoupler/device_opto.yaml
+    refresh: 0s
     vars:
       opto_name: 'opto'
       opto_gpio: GPIO04
       opto_suffix: 'solar_230V'    
   
   bme_280_1: !include
+    url: ${git_url}
     file: pvbrain2/environmental/bme280/device_bme_280.yaml
+    refresh: 0s
     vars:
       bme_280_name: 'bme280'
       bme_280_address: '0x76'
@@ -188,13 +206,17 @@ packages:
       bme_update_interval: '5s'
 
   ats_1: !include
+    url: ${git_url}
     file: pvbrain2/ats/device_ats.yaml
+    refresh: 0s
     vars:
       ats_name: 'ats'
       ats_suffix: '1'
   
   inverter_1: !include
+    url: ${git_url}
     file: pvbrain2/inverter/voltronic/device_axpert_max.yaml
+    refresh: 0s
     vars:
       inverter_uart_id: uart_${uart_hub_bus}_0  # 'uart_i2c_0'
       inverter_name: 'axpert'
@@ -204,7 +226,9 @@ packages:
       inverter_text_update: '5s'
 
   # inverter_2: !include
+  #   url: ${git_url}
   #   file: pvbrain2/inverter/victron/device_multirs.yaml
+  #   refresh: 0s
   #   vars:
   #     inverter_uart_id: uart_${uart_hub_bus}_6  # 'uart_i2c_6'
   #     inverter_name: 'multirs'
@@ -215,7 +239,9 @@ packages:
   #     inverter_text_update: '5s'    
   
   # inverter_3: !include
+  #   url: ${git_url}
   #   file: pvbrain2/inverter/deye/device_deye.yaml
+  #   refresh: 0s
   #   vars:
   #     inverter_uart_id: uart_${uart_hub_bus}_7  # 'uart_i2c_1'
   #     inverter_name: 'deye'
@@ -228,7 +254,9 @@ packages:
   #     inverter_text_update: '5s'
 
   # inverter_4: !include
+  #   url: ${git_url}
   #   file: pvbrain2/inverter/growatt/device_growatt.yaml
+  #   refresh: 0s
   #   vars:
   #     inverter_uart_id: uart_${uart_hub_bus}_7  # 'uart_i2c_1'
   #     inverter_name: 'growatt'
@@ -238,7 +266,9 @@ packages:
   #     inverter_update_interval: '1s'
 
   # inverter_5: !include
+  #   url: ${git_url}
   #   file: pvbrain2/inverter/sofar/device_sofar.yaml
+  #   refresh: 0s
   #   vars:
   #     inverter_uart_id: uart_${uart_hub_bus}_7  # 'uart_i2c_1'
   #     inverter_name: 'sofar'
@@ -249,7 +279,9 @@ packages:
   #     inverter_update_interval: '1s'
    
   powermeter_1: !include
+    url: ${git_url}
     file: pvbrain2/powermeter/ac/jsy/device_jsy193.yaml
+    refresh: 0s
     vars:
       powermeter_uart_id: uart_${uart_hub_bus}_1
       powermeter_name: 'jsy193'
@@ -261,7 +293,9 @@ packages:
       powermeter_modbus_send_wait_time: '200ms'
 
   # powermeter_2: !include
+  #   url: ${git_url}
   #   file: pvbrain2/powermeter/ac/jsy/device_jsy194.yaml
+  #   refresh: 0s
   #   vars:
   #     powermeter_uart_id: uart_${uart_hub_bus}_1
   #     powermeter_name: 'jsy194'
@@ -273,7 +307,9 @@ packages:
   #     powermeter_modbus_send_wait_time: '200ms' 
 
   # powermeter_3: !include
+  #   url: ${git_url}
   #   file: pvbrain2/powermeter/ac/peacefair/device_pzem004tv3.yaml
+  #   refresh: 0s
   #   vars:
   #     powermeter_uart_id: uart_${uart_hub_bus}_1     # uart_${uart_hub_bus}_1
   #     powermeter_name: 'pzem'
@@ -284,7 +320,9 @@ packages:
   #     powermeter_modbus_send_wait_time: '200ms'
 
   # powermeter_4: !include
+  #   url: ${git_url}
   #   file: pvbrain2/powermeter/dc/peacefair/device_pzemdc.yaml
+  #   refresh: 0s
   #   vars:
   #     powermeter_uart_id: uart_${uart_hub_bus}_1     # uart_${uart_hub_bus}_1
   #     powermeter_name: 'pzemdc'
@@ -295,7 +333,9 @@ packages:
   #     powermeter_modbus_send_wait_time: '200ms'
 
   # powermeter_5: !include
+  #   url: ${git_url}
   #   file: pvbrain2/powermeter/ac/eastron/device_sdm.yaml
+  #   refresh: 0s
   #   vars:
   #     powermeter_uart_id: uart_${uart_hub_bus}_1     # uart_${uart_hub_bus}_1
   #     powermeter_name: 'sdm120'
@@ -307,7 +347,9 @@ packages:
 
 
   solar_charger_1: !include
+    url: ${git_url}
     file: pvbrain2/solar_charger/srne/device_srne.yaml
+    refresh: 0s
     vars:
       solar_charger_uart_id: uart_${uart_hub_bus}_2
       solar_charger_name: 'srne'
@@ -320,7 +362,9 @@ packages:
       solar_charger_modbus_throttle: '200ms'
 
   # solar_charger_2: !include
+  #   url: ${git_url}
   #   file: pvbrain2/solar_charger/srne/device_srne.yaml
+  #   refresh: 0s
   #   vars:
   #     solar_charger_uart_id: uart_${uart_hub_bus}_2
   #     solar_charger_name: 'srne'
@@ -333,7 +377,9 @@ packages:
   #     solar_charger_modbus_throttle: '200ms'
 
   # solar_charger_3: !include
+  #   url: ${git_url}
   #   file: pvbrain2/solar_charger/victron/device_smartsolar.yaml
+  #   refresh: 0s
   #   vars:
   #     solar_charger_uart_id: uart_${uart_hub_bus}_6
   #     solar_charger_name: 'smartsolar'
@@ -344,7 +390,9 @@ packages:
   #     solar_charger_text_update: '5s'
 
   # solar_charger_4: !include
+  #   url: ${git_url}
   #   file: pvbrain2/solar_charger/esmart3/device_esmart3.yaml
+  #   refresh: 0s
   #   vars:
   #     solar_charger_uart_id: uart_${uart_hub_bus}_6
   #     solar_charger_name: 'esmart3'
@@ -352,7 +400,9 @@ packages:
   #     solar_charger_update_interval: '1s'
 
   # smartshunt_1: !include
+  #   url: ${git_url}
   #   file: pvbrain2/powermeter/dc/victron/device_smartshunt.yaml
+  #   refresh: 0s
   #   vars:
   #     smartshunt_uart_id: uart_${uart_hub_bus}_3
   #     smartshunt_name: 'smartshunt'
@@ -361,7 +411,9 @@ packages:
   #     smartshunt_template_update: '2s'
 
   bms_1: !include
+    url: ${git_url}
     file: pvbrain2/bms/jkbms/device_jkbms.yaml
+    refreh: 0s
     vars:
       bms_uart_id: uart_${uart_hub_bus}_4
       bms_name: 'jkbms'
@@ -371,7 +423,9 @@ packages:
       bms_text_update: '5s'
 
   # bms_2: !include
+  #   url: ${git_url}
   #   file: pvbrain2/bms/jkbms/device_jkbms.yaml
+  #   refresh: 0s
   #   vars:
   #     bms_uart_id: uart_${uart_hub_bus}_5
   #     bms_name: 'jkbms'
@@ -381,7 +435,9 @@ packages:
   #     bms_text_update: '5s'
 
   # bms_3: !include
+  #   url: ${git_url}
   #   file: pvbrain2/bms/seplos/device_seplosbmsv3.yaml
+  #   refresh: 0s
   #   vars:
   #     bms_uart_id: uart_${uart_hub_bus}_4
   #     bms_name: 'seplosv3'
@@ -394,7 +450,9 @@ packages:
   #     bms_modbus_throttle: '200ms'
 
   # bms_4: !include
+  #   url: ${git_url}
   #   file: pvbrain2/bms/seplos/device_seplosbms.yaml
+  #   refresh: 0s
   #   vars:
   #     bms_uart_id: uart_${uart_hub_bus}_7
   #     bms_name: 'seplos'
@@ -406,7 +464,9 @@ packages:
   #     bms_rx_timeout: '150ms'
 
   # bms_5: !include
+  #   url: ${git_url}
   #   file: pvbrain2/bms/ant/device_antbms.yaml
+  #   refresh: 0s
   #   vars:
   #     bms_uart_id: uart_${uart_hub_bus}_4
   #     bms_name: 'antbms'
@@ -417,7 +477,9 @@ packages:
 
 
   # virtual_canbus_1: !include
+  #   url: ${git_url}
   #   file: pvbrain2/translation/jkbms2canbus/device_virtual_canbus.yaml
+  #   refresh: 0s
   #   vars:
   #     virtual_canbus_bus_id: 'can0_bus'
   #     virtual_canbus_can_id: '4'
@@ -441,7 +503,9 @@ packages:
     ########################   Actions/Automations  ######################
 
   # ats_control_1: !include
+  #   url: ${git_url}
   #   file: pvbrain2/actions/ats_control/action_ats_control.yaml
+  #   refresh: 0s
   #   vars:
   #     ats_control_name: ats_control
   #     ats_control_suffix: '1'
