@@ -50,13 +50,6 @@ esp32:
     version: 2.0.14 
     platform_version: 6.5.0 
 
-
-# external_components:
-#   - source: github://pr#6383
-#     components: [spi]
-#     refresh: 0s
-
-
 # Enable logging
 logger:
    baud_rate: 0
@@ -87,9 +80,13 @@ packages:
 
   ########################   Devices  ######################
   
-  device_base: !include pvbrain2/base/device_base.yaml
+  device_base: !include
+    url: https://github.com/SeByDocKy/pvbrain2/tree/main/pvbrain2/base
+    file: device_base.yaml
+    # file: pvbrain2/base/device_base.yaml
 
-  device_uart_extender_addon: !include pvbrain2/addons/uart_extender_addon/device_wk2168_addon_spi.yaml
+  device_uart_extender_addon: !include 
+    file: pvbrain2/addons/uart_extender_addon/device_wk2168_addon_spi.yaml
 
   # light_1: !include 
   #   file: pvbrain2/environmental/light/device_ws2812b.yaml
