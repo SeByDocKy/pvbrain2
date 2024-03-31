@@ -81,8 +81,9 @@ packages:
   ########################   Devices  ######################
   
   device_base: !include
-    url: https://github.com/SeByDocKy/pvbrain2/tree/main/pvbrain2/base
+    url: https://github.com/SeByDocKy/pvbrain2/tree/main/pvbrain2/base/
     file: device_base.yaml
+    refresh: 0s
     # file: pvbrain2/base/device_base.yaml
 
   device_uart_extender_addon: !include 
