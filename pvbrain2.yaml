@@ -1,5 +1,6 @@
 substitutions:
   name: 'pvbrain2'
+  git_url: 'https://github.com/SeByDocKy/pvbrain2@@main'
   # friendly_name: 'pvbrain2'
 
   ###### For builtin ESP32 S3 UART ports ###
@@ -81,16 +82,19 @@ packages:
   ########################   Devices  ######################
   
   device_base: !include
-    url: https://github.com/SeByDocKy/pvbrain2/pvbrain2/base/
-    file: device_base.yaml
+    url: ${git_url}
+    file: pvbrain2/base/device_base.yaml
     refresh: 0s
-    # file: pvbrain2/base/device_base.yaml
 
   device_uart_extender_addon: !include 
+    url: ${git_url}
     file: pvbrain2/addons/uart_extender_addon/device_wk2168_addon_spi.yaml
+    refresh: 0s
 
   # light_1: !include 
+  #   url: ${git_url}
   #   file: pvbrain2/environmental/light/device_ws2812b.yaml
+  #   refresh: 0s
   #   vars:
   #     light_name: ws2812b
   #     light_suffix: '1'
