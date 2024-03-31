@@ -42,6 +42,8 @@ esphome:
 
 esp32:
   board: esp32-s3-devkitc-1
+  # variant: ESP32S3
+  # flash_size: 16MB
   framework:
     type: esp-idf
     # version: 5.1.2
@@ -50,6 +52,11 @@ esp32:
     # type: arduino
     # version: 2.0.14 
     # platform_version: 6.5.0 
+
+
+# psram:
+  # mode: octal
+  # speed: 80MHz
 
 # Enable logging
 logger:
