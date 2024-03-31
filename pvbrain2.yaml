@@ -5,7 +5,7 @@ substitutions:
 
   ###### For builtin ESP32 S3 UART ports ###
   
-  art_esp0_baudrate: '1200'
+  uart_esp0_baudrate: '1200'
   uart_esp1_baudrate: '9600'
   uart_esp2_baudrate: '9600'
  
