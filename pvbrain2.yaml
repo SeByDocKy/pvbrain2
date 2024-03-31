@@ -52,9 +52,10 @@ esp32:
     # version: 4.4.6
     # type: arduino
     # version: 2.0.14 
-    # platform_version: 6.5.0 
-
-
+    # platform_version: 6.5.0
+    sdkconfig_options:
+      CONFIG_IDF_EXPERIMENTAL_FEATURES: "y"
+      CONFIG_BOOTLOADER_CACHE_32BIT_ADDR_FLASH: "y"
 # psram:
   # mode: octal
   # speed: 80MHz
