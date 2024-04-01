@@ -96,13 +96,11 @@ packages:
     refresh: 0s
     file: pvbrain2/base/device_base.yaml
     
-
-  device_uart_extender_addon: !include 
-    url: ${git_url}
-    refresh: 0s
-    file: pvbrain2/addons/uart_extender_addon/device_wk2168_addon_spi.yaml
+  # device_uart_extender_addon: !include 
+  #   url: ${git_url}
+  #   refresh: 0s
+  #   file: pvbrain2/pvbrain2/addons/uart_extender_addon/device_wk2168_addon_spi.yaml
     
-
   # light_1: !include 
   #   url: ${git_url}
   #   refresh: 0s
