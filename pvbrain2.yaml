@@ -18,7 +18,7 @@ substitutions:
   uart4_baudrate: '115200'  #JKBMS0
   uart5_baudrate: '115200'  #JKBMS1
   uart6_baudrate: '19200'
-  uart7_baudrate: '9600'
+  uart7_baudrate: '9600'    #EPEVER RJ45-3
 
   ##### With uart extender addon board
 
