@@ -4,8 +4,8 @@ packages:
     vars:
       fpilote_id: ${fpilote_name}_1
       fpilote_mode: 'mode'
-      fpilote_neg_pin: '1'
-      fpilote_pos_pin: '2'
+      fpilote_neg_pin: '0'
+      fpilote_pos_pin: '1'
       fpilote_hub: ${fpilote_bus}
 
   fil_pilote_zone_2: !include
@@ -13,8 +13,8 @@ packages:
     vars:
       fpilote_id: ${fpilote_name}_2
       fpilote_mode: 'mode'
-      fpilote_neg_pin: '3'
-      fpilote_pos_pin: '4'
+      fpilote_neg_pin: '2'
+      fpilote_pos_pin: '3'
       fpilote_hub: ${fpilote_bus}
 
   fil_pilote_zone_3: !include
@@ -22,8 +22,8 @@ packages:
     vars:
       fpilote_id: ${fpilote_name}_3
       fpilote_mode: 'mode'
-      fpilote_neg_pin: '5'
-      fpilote_pos_pin: '6'
+      fpilote_neg_pin: '4'
+      fpilote_pos_pin: '5'
       fpilote_hub: ${fpilote_bus}
 
   fil_pilote_zone_4: !include
@@ -31,6 +31,6 @@ packages:
     vars:
       fpilote_id: ${fpilote_name}_4
       fpilote_mode: 'mode'
-      fpilote_neg_pin: '7'
-      fpilote_pos_pin: '8'
+      fpilote_neg_pin: '6'
+      fpilote_pos_pin: '7'
       fpilote_hub: ${fpilote_bus}
