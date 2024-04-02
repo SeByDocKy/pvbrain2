@@ -1,0 +1,36 @@
+packages:
+  fil_pilote_zone_1: !include
+    file: device_fp_zone.yaml
+    vars:
+      fpilote_id: ${fpilote_name}_1
+      fpilote_mode: 'mode'
+      fpilote_neg_pin: '8'
+      fpilote_pos_pin: '9'
+      fpilote_hub: ${fpilote_bus}
+
+  fil_pilote_zone_2: !include
+    file: device_fp_zone.yaml
+    vars:
+      fpilote_id: ${fpilote_name}_2
+      fpilote_mode: 'mode'
+      fpilote_neg_pin: '10'
+      fpilote_pos_pin: '11'
+      fpilote_hub: ${fpilote_bus}
+
+  fil_pilote_zone_3: !include
+    file: device_fp_zone.yaml
+    vars:
+      fpilote_id: ${fpilote_name}_3
+      fpilote_mode: 'mode'
+      fpilote_neg_pin: '12'
+      fpilote_pos_pin: '13'
+      fpilote_hub: ${fpilote_bus}
+
+  fil_pilote_zone_4: !include
+    file: device_fp_zone.yaml
+    vars:
+      fpilote_id: ${fpilote_name}_4
+      fpilote_mode: 'mode'
+      fpilote_neg_pin: '14'
+      fpilote_pos_pin: '15'
+      fpilote_hub: ${fpilote_bus}

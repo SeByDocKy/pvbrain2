@@ -2,7 +2,7 @@ packages:
   fil_pilote_zone_1: !include
     file: device_fp_zone.yaml
     vars:
-      fpilote_id: '${fpilote_name}_1'
+      fpilote_id: ${fpilote_name}_1
       fpilote_mode: 'mode'
       fpilote_pos_pin: '0'
       fpilote_neg_pin: '1'
@@ -11,7 +11,7 @@ packages:
   fil_pilote_zone_2: !include
     file: device_fp_zone.yaml
     vars:
-      fpilote_id: '${fpilote_name}_2'
+      fpilote_id: ${fpilote_name}_2
       fpilote_mode: 'mode'
       fpilote_pos_pin: '2'
       fpilote_neg_pin: '3'
@@ -20,7 +20,7 @@ packages:
   fil_pilote_zone_3: !include
     file: device_fp_zone.yaml
     vars:
-      fpilote_id: '${fpilote_name}_3'
+      fpilote_id: ${fpilote_name}_3
       fpilote_mode: 'mode'
       fpilote_pos_pin: '4'
       fpilote_neg_pin: '5'
@@ -29,7 +29,7 @@ packages:
   fil_pilote_zone_4: !include
     file: device_fp_zone.yaml
     vars:
-      fpilote_id: '${fpilote_name}_4'
+      fpilote_id: ${fpilote_name}_4
       fpilote_mode: 'mode'
       fpilote_pos_pin: '6'
       fpilote_neg_pin: '7'
@@ -38,8 +38,8 @@ packages:
   fil_pilote_zone_5: !include
     file: device_fp_zone.yaml
     vars:
-      fpilote_id: '${fpilote_name}_5'
+      fpilote_id: ${fpilote_name}_5
       fpilote_mode: 'mode'
-      fpilote_pos_pin: '8'
-      fpilote_neg_pin: '9'
+      fpilote_neg_pin: '8'
+      fpilote_pos_pin: '9'
       fpilote_hub: ${fpilote_bus}
