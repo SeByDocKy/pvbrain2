@@ -183,7 +183,7 @@ packages:
     vars:
       ssr_name: 'ssr'
       ssr_hub: 'sx1509_hub1'
-      ssr_pin: '4'
+      ssr_pin: '12'
       ssr_suffix: '1'
   
   opto_1: !include
