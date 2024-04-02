@@ -11,12 +11,12 @@ substitutions:
  
   ###### For extended UART ports with the 2 WK2168###
 
-  uart0_baudrate: '2400'
-  uart1_baudrate: '38400'
-  uart2_baudrate: '115200'
-  uart3_baudrate: '115200'
-  uart4_baudrate: '19200'
-  uart5_baudrate: '115200'
+  uart0_baudrate: '2400'   #WKS RJ45-0
+  uart1_baudrate: '38400'  #JSY193
+  uart2_baudrate: '19200'  #smartshunt
+  uart3_baudrate: '19200'  #SRNE RJ45-2 
+  uart4_baudrate: '115200'  #JKBMS0
+  uart5_baudrate: '115200'  #JKBMS1
   uart6_baudrate: '19200'
   uart7_baudrate: '9600'
 
@@ -361,7 +361,7 @@ packages:
     # refresh: 0s
     file: pvbrain2/solar_charger/srne/device_srne.yaml
     vars:
-      solar_charger_uart_id: uart_${uart_hub_bus}_2
+      solar_charger_uart_id: uart_${uart_hub_bus}_3
       solar_charger_name: 'srne'
       solar_charger_modbus_address: '1'
       solar_charger_suffix: '1'
@@ -376,7 +376,7 @@ packages:
   #   # refresh: 0s
   #   file: pvbrain2/solar_charger/srne/device_srne.yaml
   #   vars:
-  #     solar_charger_uart_id: uart_${uart_hub_bus}_2
+  #     solar_charger_uart_id: uart_${uart_hub_bus}_3
   #     solar_charger_name: 'srne'
   #     solar_charger_modbus_address: '2'
   #     solar_charger_suffix: '2'
@@ -414,7 +414,7 @@ packages:
   #   # refresh: 0s
   #   file: pvbrain2/powermeter/dc/victron/device_smartshunt.yaml
   #   vars:
-  #     smartshunt_uart_id: uart_${uart_hub_bus}_3
+  #     smartshunt_uart_id: uart_${uart_hub_bus}_2
   #     smartshunt_name: 'smartshunt'
   #     smartshunt_suffix: '1'
   #     smartshunt_update_interval: '1s'
