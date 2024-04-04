@@ -5,14 +5,14 @@ uart:
   - id: uart_esp_0
     tx_pin: GPIO43
     rx_pin: GPIO44
-    baud_rate: ${uart8_baudrate}
+    baud_rate: ${uart_esp0_baudrate}
 
   - id: uart_esp_1
     tx_pin: GPIO17
     rx_pin: GPIO18
-    baud_rate: ${uart9_baudrate}
+    baud_rate: ${uart_esp1_baudrate}
     
   - id: uart_esp_2
     tx_pin: GPIO15
     rx_pin: GPIO16
-    baud_rate: ${uart10_baudrate}    
+    baud_rate: ${uart_esp2_baudrate}    
