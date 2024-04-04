@@ -43,7 +43,7 @@
 [![youtube_live](https://github.com/SeByDocKy/pvbrain2/assets/82636574/b1cb5f1d-b5ad-48e0-927c-dcc7093ea610)](https://www.youtube.com/watch?v=e8uBhS54MFE)
 <br/>_Video in French._
 
-# Installation steps:
+# Software (ESPhome) installation steps:
 - __First of all be sure you have installed on your machine the ESP32 S3 driver from [Sillicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads).__
 
 __Classic procedure :__
