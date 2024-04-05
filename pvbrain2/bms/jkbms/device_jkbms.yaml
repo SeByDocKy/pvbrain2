@@ -41,7 +41,7 @@ switch:
       name: ${name}_${bms_name}_charging_${bms_suffix}
       id: ${bms_name}_charging_${bms_suffix}
     discharging:
-      name: ${bms_name}_discharging_${bms_suffix}
+      name: ${name}_${bms_name}_discharging_${bms_suffix}
       id: ${bms_name}_discharging_${bms_suffix}
       
 sensor:
