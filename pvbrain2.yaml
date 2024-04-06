@@ -55,7 +55,7 @@ esp32:
   # partitions: "/config/esphome/32mb.csv"
   framework:
     type: esp-idf
-    version: latest
+    version: recommended
     platform_version: "6.6.0"
     # version: 5.1.2
     # platform_version: 6.5.0
