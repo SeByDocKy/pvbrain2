@@ -225,6 +225,16 @@ packages:
       bme_280_i2c_bus: i2c1_bus
       bme_update_interval: '5s'
 
+  # ina3221_1: !include
+  #   file: pvbrain2/environmental/ina3221/device_ina3221.yaml
+  #   vars:
+  #     ina3221_name: 'ina3221'
+  #     ina3221_address: '0x40'
+  #     ina3221_suffix: '1'
+  #     ina3221_i2c_bus: i2c1_bus
+  #     bme_update_interval: '5s'
+      
+
   ats_1: !include
     # url: ${git_url}
     # refresh: 0s
