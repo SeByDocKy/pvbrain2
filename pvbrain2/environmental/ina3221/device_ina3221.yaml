@@ -1,0 +1,16 @@
+sensor:
+  - platform: ina3221
+    address: ${ina3221_address}
+    channel_1:
+      shunt_resistance: 0.1 ohm
+      bus_voltage:
+        name: ${name}_${ina3221_name}_Voltage_Channel_1_${ina3221_sufix}
+    channel_2:
+      shunt_resistance: 0.1 ohm
+      bus_voltage:
+        name: ${name}_${ina3221_name}_Voltage_Channel_2_${ina3221_sufix}
+    channel_3:
+      shunt_resistance: 0.1 ohm
+      bus_voltage:
+        name: ${name}_${ina3221_name}_Voltage_Channel_3_${ina3221_sufix}
+    update_interval: 1s
