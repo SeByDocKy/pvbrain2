@@ -56,16 +56,16 @@ esp32:
   framework:
     type: esp-idf
     # version: recommended
-    platform_version: "6.6.0"
-    # version: 5.1.2
-    # platform_version: 6.5.0
-    # version: 4.4.6
-    # type: arduino
-    # version: 2.0.14 
-    # platform_version: 6.6.0
+    # platform_version: 6.6.0  # required with esp-idf branch >5.1x
+    # version: 5.2.1 # 5.1.2
     # sdkconfig_options:
     #   CONFIG_ESPTOOLPY_FLASHSIZE_32MB: "y"
     #   COMPILER_OPTIMIZATION_SIZE: y
+
+    # type: arduino
+    # version: 2.0.14 
+    # platform_version: 6.6.0
+    
       
 # psram:
   # mode: octal
