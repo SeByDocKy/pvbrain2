@@ -549,3 +549,4 @@ packages:
   #     ats_control_inverter_switch: 'axpert_switch_on_1'
   #     ats_control_grid: 'opto_grid_230V'
   #     ats_control_solar: 'opto_solar_230V'
+  #     ats_control_inverteur_mode: "axpert_output_source_priority_select_1"
