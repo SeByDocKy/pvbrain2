@@ -65,6 +65,7 @@ esp32:
     # platform_version: 6.6.0
     # sdkconfig_options:
     #   CONFIG_ESPTOOLPY_FLASHSIZE_32MB: "y"
+    #   COMPILER_OPTIMIZATION_SIZE: y
       
 # psram:
   # mode: octal
