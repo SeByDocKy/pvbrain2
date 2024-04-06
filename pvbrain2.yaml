@@ -58,7 +58,7 @@ esp32:
     type: esp-idf
     # version: recommended
     # platform_version: 6.6.0  # required with esp-idf branch >5.1x
-    # version: 5.2.1 # 5.1.2
+    # version: 5.1.2 # 5.2.1
     # sdkconfig_options:
     #   CONFIG_ESPTOOLPY_FLASHSIZE_32MB: "y"
     #   COMPILER_OPTIMIZATION_SIZE: y
