@@ -110,7 +110,7 @@ sensor:
       name: ${name}_${bms_name}_total_voltage_${bms_suffix}
       id: ${name}_${bms_name}_total_voltage_${bms_suffix}
     power:
-      name: ${name}_${bms_name}_power_${bms_sufix} 
+      name: ${name}_${bms_name}_power_${bms_suffix} 
          
     current:
       name: ${name}_${bms_name}_current_${bms_suffix}
