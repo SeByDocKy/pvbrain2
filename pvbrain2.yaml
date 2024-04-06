@@ -232,7 +232,7 @@ packages:
   #     ina3221_address: '0x40'
   #     ina3221_suffix: '1'
   #     ina3221_i2c_bus: i2c1_bus
-  #     bme_update_interval: '5s'
+  #     update_interval: ${ina3221_update_interval}
       
 
   ats_1: !include
