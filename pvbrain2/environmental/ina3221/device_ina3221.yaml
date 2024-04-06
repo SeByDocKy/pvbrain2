@@ -13,4 +13,4 @@ sensor:
       shunt_resistance: 0.1 ohm
       bus_voltage:
         name: ${name}_${ina3221_name}_Voltage_Channel_3_${ina3221_suffix}
-    update_interval: 1s
+    update_interval: ${ina3221_update_interval}
