@@ -28,7 +28,7 @@ substitutions:
   uart11_baudrate: '9600'
   
   uart_hub_bus: 'spi'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub file
-                         # If SPI selected, don't forget to jump/solder the two pins togather located back of WK2168 boards  
+                         # If SPI selected, don't forget to jump/solder the two pairs of pin together located back of WK2168 boards  
   
 
 #######
@@ -43,21 +43,29 @@ esphome:
   # platformio_options:                ##### the following option is required for ESP32 S3 with memory > 16MB, eg. the N32R8V
   #    board_build.arduino.memory_type: opi_opi
   #    board_build.flash_mode: dio
+  #    board_upload.maximum_ram_size: 524288
+  #    build_flags: 
+  #     -DBOARD_HAS_PSRAM 
+  #     -DARDUINO_USB_CDC_ON_BOOT=1
+  #     -mfix-esp32-psram-cache-issue  
 
 esp32:
   board: esp32-s3-devkitc-1
-  # flash_size: 32MB  #32 MB   ajust according to your particular ESP32 S3....
+  flash_size: 32MB  #32 MB   ajust according to your particular ESP32 S3....
+  partitions: "/config/esphome/32mb.csv"
   framework:
     type: esp-idf
+    version: latest
+    platform_version: "6.6.0"
     # version: 5.1.2
     # platform_version: 6.5.0
     # version: 4.4.6
     # type: arduino
     # version: 2.0.14 
-    # platform_version: 6.5.0
+    # platform_version: 6.6.0
     # sdkconfig_options:
-      # CONFIG_IDF_EXPERIMENTAL_FEATURES: "y"
-      # CONFIG_BOOTLOADER_CACHE_32BIT_ADDR_FLASH: "y"
+    #   CONFIG_ESPTOOLPY_FLASHSIZE_32MB: "y"
+      
 # psram:
   # mode: octal
   # speed: 80MHz
