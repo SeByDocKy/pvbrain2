@@ -44,6 +44,7 @@ esphome:
   #    board_build.arduino.memory_type: opi_opi
   #    board_build.flash_mode: dio
   #    board_upload.maximum_ram_size: 524288
+  ##    board_build.partitions: large_littlefs_32MB.csv
   #    build_flags: 
   #     -DBOARD_HAS_PSRAM 
   #     -DARDUINO_USB_CDC_ON_BOOT=1
@@ -52,7 +53,7 @@ esphome:
 esp32:
   board: esp32-s3-devkitc-1
   # flash_size: 32MB  #32 MB   ajust according to your particular ESP32 S3....
-  # partitions: "/config/esphome/32mb.csv"
+  # partitions: large_littlefs_32MB.csv
   framework:
     type: esp-idf
     # version: recommended
