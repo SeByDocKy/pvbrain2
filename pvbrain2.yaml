@@ -226,6 +226,15 @@ packages:
       bme_280_i2c_bus: i2c1_bus
       bme_update_interval: '5s'
 
+  bmp_280_1: !include
+    file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
+    vars:
+      bmp_280_name: 'bmp280'
+      bmp_280_address: '0x77'
+      bmp_280_suffix: '1'
+      bmp_280_i2c_bus: i2c1_bus
+      bmp_update_interval: '5s'
+
   ats_1: !include
     # url: ${git_url}
     # refresh: 0s
@@ -503,6 +512,15 @@ packages:
   #     bms_update_interval: '5s'
   #     bms_rx_timeout: '50ms'
   #     bms_password: "12345678"
+  
+  # bms_6: !include
+  #   file: pvbrain2/bms/pylontech/device_pylotech.yaml
+  #   vars:
+  #     pylon_uart_id: uart_${uart_hub_bus}_4
+  #     pylon_name: pylontech
+  #     pylon_number: '1'
+  #     pylon_id: 'pylcom_id'
+  #     pylon_update_interval: '5s'
 
   # virtual_canbus_1: !include
   #   # url: ${git_url}
