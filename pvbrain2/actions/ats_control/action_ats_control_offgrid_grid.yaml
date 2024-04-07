@@ -55,5 +55,5 @@ script:
  #             - binary_sensor.is_on: ${ats_control_solar}
           then:
             - switch.turn_on: ${ats_control_relay_inverter_id}  ### turn on solar inverter
-            - delay: 13s
+            - delay: ${ats_control_delay_grid_to_solar}
             - switch.turn_off: ${ats_control_relay_ats_id}  ### switch to solar           
