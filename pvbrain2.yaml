@@ -551,7 +551,7 @@ packages:
   # ats_control_1: !include
   #   # url: ${git_url}
   #   # refresh: 0s
-  #   file: pvbrain2/actions/ats_control/action_ats_control.yaml
+  #   file: pvbrain2/actions/ats_control/action_ats_control_offgrid_grid.yaml
   #   vars:
   #     ats_control_name: ats_control
   #     ats_control_suffix: '1'
