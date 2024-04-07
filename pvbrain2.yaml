@@ -5,7 +5,7 @@ substitutions:
 
   ###### For builtin ESP32 S3 UART ports ###
   
-  uart_esp0_baudrate: '1200'
+  uart_esp0_baudrate: '1200'  # Linky #1200 if historique >> #9600 if standard
   uart_esp1_baudrate: '9600'
   uart_esp2_baudrate: '9600'
  
@@ -150,7 +150,7 @@ packages:
 #   fil_pilote: !include
 #     # url: ${git_url}
 #     # refresh: 0s
-#     file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REMPLACE "x8" LOCATION BY NOMBRE OF CHAUFFAGE ZONES : 1 to 8
+#     file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REPLACE THE LOCATION OF "x8" BY NUMBER OF HEATER ZONES : 1 to 8
 # #   file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
 #     vars:
 #       fpilote_bus: sx1509_hub1
@@ -159,8 +159,8 @@ packages:
 #   teleinfo: !include 
 #     # url: ${git_url}
 #     # refresh: 0s
-#     file: pvbrain2/addons/teleinfo/historique.yaml      # Si compteur en mode Historique
-# #    file: pvbrain2/addons/teleinfo/standard.yaml       # Si compteur en mode Standard
+#     file: pvbrain2/addons/teleinfo/historique.yaml      # IF COUNTER IN MODE "Historique"
+# #    file: pvbrain2/addons/teleinfo/standard.yaml       # IF COUNTER IN MODE "Standard"
 #     vars:
 #       linky_name: 'myteleinfo'
 #       linky_uartid: uart_esp_0 #uart_${uart_hub_bus}_8
@@ -225,16 +225,6 @@ packages:
       bme_280_suffix: '1'
       bme_280_i2c_bus: i2c1_bus
       bme_update_interval: '5s'
-
-  # ina3221_1: !include
-  #   file: pvbrain2/environmental/ina3221/device_ina3221.yaml
-  #   vars:
-  #     ina3221_name: 'ina3221'
-  #     ina3221_address: '0x40'
-  #     ina3221_suffix: '1'
-  #     ina3221_i2c_bus: i2c1_bus
-  #     ina3221_update_interval: '5s'
-      
 
   ats_1: !include
     # url: ${git_url}
@@ -376,6 +366,14 @@ packages:
   #     powermeter_template_update: '2s'
   #     powermeter_modbus_send_wait_time: '200ms' 
 
+  # ina3221_1: !include
+  #   file: pvbrain2/powermeter/dc/texas_instruments/device_ina3221.yaml
+  #   vars:
+  #     ina3221_name: 'ina3221'
+  #     ina3221_address: '0x40'
+  #     ina3221_suffix: '1'
+  #     ina3221_i2c_bus: i2c1_bus
+  #     ina3221_update_interval: '5s'
 
   solar_charger_1: !include
     # url: ${git_url}

@@ -1,0 +1,39 @@
+sensor:
+  - platform: ina3221
+    address: ${ina3221_address}
+
+    channel_1:
+      shunt_resistance: 0.1 ohm
+      current:
+        name: ${name}_${ina3221_name}_current_channel_1_${ina3221_suffix}
+      power:
+        name: ${name}_${ina3221_name}_power_channel_1_${ina3221_suffix}
+      bus_voltage:
+        name: ${name}_${ina3221_name}_bus_voltage_channel_1_${ina3221_suffix}
+      shunt_voltage:
+        name: ${name}_${ina3221_name}_shunt_voltage_channel_1_${ina3221_suffix}
+
+    channel_2:
+      shunt_resistance: 0.1 ohm
+      bus_voltage:
+      current:
+        name: ${name}_${ina3221_name}_current_channel_2_${ina3221_suffix}
+      power:
+        name: ${name}_${ina3221_name}_power_channel_2_${ina3221_suffix}
+      bus_voltage:
+        name: ${name}_${ina3221_name}_bus_voltage_channel_2_${ina3221_suffix}
+      shunt_voltage:
+        name: ${name}_${ina3221_name}_shunt_voltage_channel_2_${ina3221_suffix}
+
+    channel_3:
+      shunt_resistance: 0.1 ohm
+      current:
+        name: ${name}_${ina3221_name}_current_channel_3_${ina3221_suffix}
+      power:
+        name: ${name}_${ina3221_name}_power_channel_3_${ina3221_suffix}
+      bus_voltage:
+        name: ${name}_${ina3221_name}_bus_voltage_channel_3_${ina3221_suffix}
+      shunt_voltage:
+        name: ${name}_${ina3221_name}_shunt_voltage_channel_3_${ina3221_suffix}
+
+    update_interval: ${ina3221_update_interval}
