@@ -561,6 +561,8 @@ packages:
   #     ats_control_relay_ats_id: 'relay_ats_control_1'
   #     ats_control_solar_to_grid_voltage_threshold_id: 'ats_voltage_solar_to_grid_number_1'
   #     ats_control_grid_to_solar_voltage_threshold_id: 'ats_voltage_grid_to_solar_number_1'
+  #     ats_control_delay_grid_to_solar: '13s'
+  #     ats_control_delay_solar_to_grid: '2s'
   #     ats_control_grid_input: 'axpert_grid_input_1'
   #     ats_control_inverter_switch: 'axpert_switch_on_1'
   #     ats_control_grid: 'opto_grid_230V'
