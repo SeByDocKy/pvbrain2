@@ -479,7 +479,7 @@ packages:
   #   vars:
   #     bms_uart_id: uart_${uart_hub_bus}_4
   #     bms_name: 'seplosv3'
-  #     bms_modbus_address: '1'
+  #     bms_modbus_address: '0'
   #     bms_suffix: '1'
   #     bms_update_interval: '1s'
   #     bms_template_update: '2s'
