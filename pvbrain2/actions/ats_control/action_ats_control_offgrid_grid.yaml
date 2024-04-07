@@ -32,7 +32,7 @@ script:
               - binary_sensor.is_on: ${ats_control_grid}
           then:
             - switch.turn_on: ${ats_control_relay_ats_id}  ### switch to grid source
-            - delay: 2s
+            - delay: ${ats_control_delay_solar_to_grid}
             - switch.turn_off: ${ats_control_relay_inverter_id} ### turn off solar inverter
       # - if:  ##### cas 2 (rare) on teste si AC_in:on, onduleur:on => ####
           # condition:
