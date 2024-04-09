@@ -19,18 +19,18 @@ wk2168_spi:
     data_rate: 4MHz
     #test_mode: 1
     uart:
-      - uart_id: uart_spi_0
+      - id: uart_spi_0
         channel: 0
         baud_rate: ${uart0_baudrate}
         #parity: even
-      - uart_id: uart_spi_1
+      - id: uart_spi_1
         channel: 1
         baud_rate: ${uart1_baudrate}
-      - uart_id: uart_spi_2
+      - id: uart_spi_2
         channel: 2
         baud_rate: ${uart2_baudrate}
         #parity: even
-      - uart_id: uart_spi_3
+      - id: uart_spi_3
         channel: 3
         baud_rate: ${uart3_baudrate}       
       
@@ -39,17 +39,17 @@ wk2168_spi:
     cs_pin: GPIO20
     data_rate: 4MHz
     uart:
-      - uart_id: uart_spi_4
+      - id: uart_spi_4
         channel: 0
         baud_rate: ${uart4_baudrate}
         #parity: even
-      - uart_id: uart_spi_5
+      - id: uart_spi_5
         channel: 1
         baud_rate: ${uart5_baudrate}
-      - uart_id: uart_spi_6
+      - id: uart_spi_6
         channel: 2
         baud_rate: ${uart6_baudrate}
         #parity: even
-      - uart_id: uart_spi_7
+      - id: uart_spi_7
         channel: 3
         baud_rate: ${uart7_baudrate}
