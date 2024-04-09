@@ -17,18 +17,18 @@ wk2168_i2c:
     id: uart_bridge0
     i2c_id: i2c0_bus
     uart:
-      - uart_id: uart_i2c_0
+      - id: uart_i2c_0
         channel: 0
         baud_rate: ${uart0_baudrate}
         # parity: even
-      - uart_id: uart_i2c_1
+      - id: uart_i2c_1
         channel: 1
         baud_rate: ${uart1_baudrate}   
-      - uart_id: uart_i2c_2
+      - id: uart_i2c_2
         channel: 2
         baud_rate: ${uart2_baudrate}
         # parity: even
-      - uart_id: uart_i2c_3
+      - id: uart_i2c_3
         channel: 3
         baud_rate: ${uart3_baudrate}
 
@@ -36,18 +36,17 @@ wk2168_i2c:
     id: uart_bridge1
     i2c_id: i2c0_bus
     uart:
-      - uart_id: uart_i2c_4
+      - id: uart_i2c_4
         channel: 0
         baud_rate: ${uart4_baudrate}
         # parity: even
-      - uart_id: uart_i2c_5
+      - id: uart_i2c_5
         channel: 1
         baud_rate: ${uart5_baudrate}
-        
-      - uart_id: uart_i2c_6
+      - id: uart_i2c_6
         channel: 2
         baud_rate: ${uart6_baudrate}
         # parity: even
-      - uart_id: uart_i2c_7
+      - id: uart_i2c_7
         channel: 3
         baud_rate: ${uart7_baudrate}
