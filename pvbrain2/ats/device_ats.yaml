@@ -28,6 +28,32 @@ number:
     restore_value: true
     mode: 'slider'
 
+  # - platform: template
+  #   name: ${name}_${ats_name}_voltage_min_cell_solar_to_grid_number_${ats_suffix}
+  #   id: ${ats_name}_voltage_min_cell_solar_to_grid_number_${ats_suffix}
+  #   optimistic: true
+  #   unit_of_measurement: 'V'
+  #   icon: mdi:sine-wave
+  #   min_value: 2.7
+  #   max_value: 3.65
+  #   step: 0.01
+  #   initial_value: 3.0
+  #   restore_value: true
+  #   mode: 'slider'
+    
+  # - platform: template
+  #   name: ${name}_${ats_name}_voltage_min_cell_grid_to_solar_number_${ats_suffix}
+  #   id: ${ats_name}_voltage_min_cell_grid_to_solar_number_${ats_suffix}
+  #   optimistic: true
+  #   unit_of_measurement: 'V'
+  #   icon: mdi:sine-wave
+  #   min_value: 2.7
+  #   max_value: 3.65
+  #   step: 0.01
+  #   initial_value: 3.1
+  #   restore_value: true
+  #   mode: 'slider'
+
 switch:
   - platform: template
     name: ${name}_${ats_name}_automatic_control_${ats_suffix}
