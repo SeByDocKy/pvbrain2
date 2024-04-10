@@ -5,17 +5,17 @@ wk2168_spi:
     data_rate: 4MHz
     #test_mode: 1
     uart:
-      - uart_id: uart_spi_8
+      - id: uart_spi_8
         channel: 0
         baud_rate: ${uart8_baudrate}
         #parity: even
-      - uart_id: uart_spi_9
+      - id: uart_spi_9
         channel: 1
         baud_rate: ${uart9_baudrate}
-      - uart_id: uart_spi_10
+      - id: uart_spi_10
         channel: 2
         baud_rate: ${uart10_baudrate}
         #parity: even
-      - uart_id: uart_spi_11
+      - id: uart_spi_11
         channel: 3
         baud_rate: ${uart11_baudrate}
