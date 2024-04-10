@@ -20,6 +20,36 @@ sensor:
                   return ( ( float(id(${ats_control_voltage_id}).state) > float(id(${ats_control_grid_to_solar_voltage_threshold_id}).state) )     );            
           then:
             - script.execute: script_mode_batterie
+
+  # - platform: copy
+  #   source_id: ${ats_control_voltage_id}
+  #   id: ${ats_control_name}_${ats_control_suffix}
+  #   on_value:
+  #      - if:  ##### si tension cellule mini batterie < seuil bas    ######
+  #           condition:
+  #             and:
+  #               - switch.is_on: ${ats_control_id}
+  #           then:
+  #            - if:
+  #                 condition:
+  #                     or:    
+  #                      - lambda: return id(${ats_control_voltage_min_cell_1_id}).state < id(ats_voltage_min_cell_solar_to_grid_number_1).state;
+  #                      - lambda: return id(${ats_control_voltage_min_cell_2_id}).state < id(ats_voltage_min_cell_solar_to_grid_number_1).state;
+  #                 then:
+  #                   - script.execute: script_mode_EDF
+ 
+  #      - if:  ##### si tension cellule mini batterie < seuil bas    ######
+  #           condition:
+  #             and:
+  #               - switch.is_on: ${ats_control_id}
+  #           then:
+  #            - if:
+  #                 condition:
+  #                     or:    
+  #                      - lambda: return id(${ats_control_voltage_min_cell_1_id}).state > id(ats_voltage_min_cell_grid_to_solar_number_1).state;
+  #                      - lambda: return id(${ats_control_voltage_min_cell_2_id}).state > id(ats_voltage_min_cell_grid_to_solar_number_1).state;
+  #                 then:          
+  #                   - script.execute: script_mode_batterie
             
 script:
   - id: script_mode_EDF
