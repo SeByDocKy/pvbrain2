@@ -36,6 +36,7 @@ time:
         name: ${name}_${ina3221_name}_current_channel_1_${ina3221_suffix}
       power:
         name: ${name}_${ina3221_name}_power_channel_1_${ina3221_suffix}
+        id: ${ina3221_name}_power_channel_1_${ina3221_suffix}
       bus_voltage:
         name: ${name}_${ina3221_name}_bus_voltage_channel_1_${ina3221_suffix}
       shunt_voltage:
@@ -47,6 +48,7 @@ time:
         name: ${name}_${ina3221_name}_current_channel_2_${ina3221_suffix}
       power:
         name: ${name}_${ina3221_name}_power_channel_2_${ina3221_suffix}
+        id: ${ina3221_name}_power_channel_2_${ina3221_suffix}
       bus_voltage:
         name: ${name}_${ina3221_name}_bus_voltage_channel_2_${ina3221_suffix}
       shunt_voltage:
@@ -57,6 +59,7 @@ time:
         name: ${name}_${ina3221_name}_current_channel_3_${ina3221_suffix}
       power:
         name: ${name}_${ina3221_name}_power_channel_3_${ina3221_suffix}
+        id: ${ina3221_name}_power_channel_3_${ina3221_suffix}
       bus_voltage:
         name: ${name}_${ina3221_name}_bus_voltage_channel_3_${ina3221_suffix}
       shunt_voltage:
