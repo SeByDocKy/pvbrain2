@@ -6,7 +6,7 @@
 #     refresh: 0s
     
 external_components:
-  - source: "github://SeByDocKy/myESPhome/"
+  - source: github://SeByDocKy/myESPhome/
     components: [growatt]
     refresh: 0s    
      
