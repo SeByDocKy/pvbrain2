@@ -1,14 +1,14 @@
-external_components:
-  - source:
-      type: git
-      url: https://github.com/ssieb/custom_components
-    components: [ growatt ]
-    refresh: 0s
-    
 # external_components:
-  # - source: "github://SeByDocKy/myESPhome/"
-    # components: [growatt]
-    # refresh: 0s    
+#   - source:
+#       type: git
+#       url: https://github.com/ssieb/custom_components
+#     components: [ growatt ]
+#     refresh: 0s
+    
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [growatt]
+    refresh: 0s    
      
 modbus:
  - id: ${inverter_name}_modbus_${inverter_suffix}
