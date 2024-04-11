@@ -1,7 +1,35 @@
-sensor:
+globals:
+  - id: ${ina3221_name}_energy_yesteday_global_channel_1_${ina3221_suffix}
+    type: float
+    restore_value: yes
+  - id: ${ina3221_name}_energy_yesteday_global_channel_2_${ina3221_suffix}
+    type: float
+    restore_value: yes
+  - id: ${ina3221_name}_energy_yesteday_global_channel_3_${ina3221_suffix}
+    type: float
+    restore_value: yes
+    
+time:
+  - platform: homeassistant #sntp
+    id: my_time
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:  
+          - globals.set:
+              id: ${ina3221_name}_energy_yesteday_global_channel_1_${ina3221_suffix}
+              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_1_${ina3221_suffix}) = float( id(${ina3221_name}_energy_today_channel_1_${ina3221_suffix}).state));    
+          - globals.set:
+              id: ${ina3221_name}_energy_yesteday_global_channel_2_${ina3221_suffix}
+              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_2_${ina3221_suffix}) = float( id(${ina3221_name}_energy_today_channel_2_${ina3221_suffix}).state));
+          - globals.set:
+              id: ${ina3221_name}_energy_yesteday_global_channel_3_${ina3221_suffix}
+              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_3_${ina3221_suffix}) = float( id(${ina3221_name}_energy_today_channel_3_${ina3221_suffix}).state));   
+ 
+ sensor:
   - platform: ina3221
     address: ${ina3221_address}
-
     channel_1:
       shunt_resistance: 0.1 ohm
       current:
@@ -12,7 +40,6 @@ sensor:
         name: ${name}_${ina3221_name}_bus_voltage_channel_1_${ina3221_suffix}
       shunt_voltage:
         name: ${name}_${ina3221_name}_shunt_voltage_channel_1_${ina3221_suffix}
-
     channel_2:
       shunt_resistance: 0.1 ohm
       bus_voltage:
@@ -24,7 +51,6 @@ sensor:
         name: ${name}_${ina3221_name}_bus_voltage_channel_2_${ina3221_suffix}
       shunt_voltage:
         name: ${name}_${ina3221_name}_shunt_voltage_channel_2_${ina3221_suffix}
-
     channel_3:
       shunt_resistance: 0.1 ohm
       current:
@@ -35,5 +61,88 @@ sensor:
         name: ${name}_${ina3221_name}_bus_voltage_channel_3_${ina3221_suffix}
       shunt_voltage:
         name: ${name}_${ina3221_name}_shunt_voltage_channel_3_${ina3221_suffix}
-
     update_interval: ${ina3221_update_interval}
+
+  - platform: template
+    name: ${name}_${ina3221_name}_energy_total_channel_1_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    update_interval: ${ina3221_update_interval}
+    icon: mdi:power
+    lambda: return (( (id(${ina3221_name}_energy_today_channel_1_${ina3221_suffix}).state)/1000.0));
+  - platform: template
+    name: ${name}_${ina3221_name}_energy_total_channel_2_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    update_interval: ${ina3221_update_interval}
+    icon: mdi:power
+    lambda: return (( (id(${ina3221_name}_energy_today_channel_2_${ina3221_suffix}).state)/1000.0));
+  - platform: template
+    name: ${name}_${ina3221_name}_energy_total_channel_3_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    update_interval: ${ina3221_update_interval}
+    icon: mdi:power
+    lambda: return (( (id(${ina3221_name}_energy_today_channel_3_${ina3221_suffix}).state)/1000.0));
+    
+  - platform: total_daily_energy
+    name: ${name}_${ina3221_name}_energy_today_channel_1_${ina3221_suffix}
+    id: ${ina3221_name}_energy_today_channel_1_${ina3221_suffix}
+    power_id: ${ina3221_name}_power_channel_1_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+  - platform: total_daily_energy
+    name: ${name}_${ina3221_name}_energy_today_channel_2_${ina3221_suffix}
+    id: ${ina3221_name}_energy_today_channel_2_${ina3221_suffix}
+    power_id: ${ina3221_name}_power_channel_2_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+  - platform: total_daily_energy
+    name: ${name}_${ina3221_name}_energy_today_channel_3_${ina3221_suffix}
+    id: ${ina3221_name}_energy_today_channel_3_${ina3221_suffix}
+    power_id: ${ina3221_name}_power_channel_3_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${ina3221_name}_energy_yesteday_channel_1_${ina3221_suffix}
+    id: ${ina3221_name}_energy_yesteday_channel_1_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${ina3221_update_interval}
+    lambda: |-
+      return (id(${ina3221_name}_energy_yesteday_channel_1_${ina3221_suffix}).state = id(${ina3221_name}_energy_yesteday_global_channel_1_${ina3221_suffix}));
+  - platform: template
+    name: ${name}_${ina3221_name}_energy_yesteday_channel_2_${ina3221_suffix}
+    id: ${ina3221_name}_energy_yesteday_channel_2_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${ina3221_update_interval}
+    lambda: |-
+      return (id(${ina3221_name}_energy_yesteday_channel_2_${ina3221_suffix}).state = id(${ina3221_name}_energy_yesteday_global_channel_2_${ina3221_suffix}));
+  - platform: template
+    name: ${name}_${ina3221_name}_energy_yesteday_channel_3_${ina3221_suffix}
+    id: ${ina3221_name}_energy_yesteday_channel_3_${ina3221_suffix}
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${ina3221_update_interval}
+    lambda: |-
+      return (id(${ina3221_name}_energy_yesteday_channel_3_${ina3221_suffix}).state = id(${ina3221_name}_energy_yesteday_global_channel_3_${ina3221_suffix}));
