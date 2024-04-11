@@ -3,6 +3,8 @@
 
 # PVbrainV2
 
+![pvbrain_v2_logo](https://github.com/SeByDocKy/pvbrain2/assets/82636574/31fc03fe-0d92-4f01-9dd6-2457bfda07ad)
+
 > [!IMPORTANT]
 > <sub>[![PvBrain-v2.0](https://img.shields.io/badge/PvBrain-v2.0-black?style=social&logo=quasar)](https://github.com/SeByDocKy/pvbrain2)</sub> is an open source/openhardware project to monitor/control __`SIMULTANEOUSLY`__ :
 > - Multiple inverters. <sup>`(PIPsolar/Voltronic, Deye, Growatt, Sofar, Victron, etc...)`</sup> 
