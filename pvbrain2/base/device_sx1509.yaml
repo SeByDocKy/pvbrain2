@@ -6,3 +6,11 @@ sx1509:
   - id: sx1509_hub1
     address: 0x3F
     i2c_id: i2c1_bus
+
+  # - id: sx1509_hub2
+  #   address: 0x70
+  #   i2c_id: i2c1_bus
+
+  # - id: sx1509_hub3
+  #   address: 0x71
+  #   i2c_id: i2c1_bus
