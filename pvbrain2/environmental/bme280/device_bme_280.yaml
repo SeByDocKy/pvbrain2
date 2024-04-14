@@ -16,3 +16,9 @@ sensor:
     address: ${bme_280_address}
     update_interval: ${bme_update_interval}
     i2c_id: ${bme_280_i2c_bus}
+
+  - platform: absolute_humidity
+    name: ${name}_${bme_280_name}_humidite_absolue_${bme_280_suffix}
+    equation: Wobus #Tetens #Buck
+    temperature: ${bme_280_name}_temperature_${bme_280_suffix}
+    humidity: ${bme_280_name}_humidite_${bme_280_suffix}
