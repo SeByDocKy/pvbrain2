@@ -522,7 +522,7 @@ packages:
   #     bms_uart_id: uart_${uart_hub_bus}_6
   #     bms_name: 'antbms'
   #     bms_suffix: '1'
-  #     bms_update_interval: '5s'
+  #     bms_update_interval: '10s'
   #     bms_rx_timeout: '50ms'
   #     bms_password: "12345678"
   
@@ -534,6 +534,21 @@ packages:
   #     pylon_number: '1'             # Battery number queried
   #     pylon_suffix: '1'
   #     pylon_update_interval: '5s'
+
+  # bms_8: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/bms/pace/device_pacebms.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_4
+  #     bms_name: 'pacebms'
+  #     bms_modbus_address: '1'
+  #     bms_suffix: '1'
+  #     bms_update_interval: '1s'
+  #     bms_template_update: '2s'
+  #     bms_text_update: '5s'
+  #     bms_modbus_send_wait_time: '200ms'
+  #     bms_modbus_throttle: '200ms'
 
   # virtual_canbus_1: !include
   #   # url: ${git_url}
