@@ -506,14 +506,26 @@ packages:
   #   # refresh: 0s
   #   file: pvbrain2/bms/ant/device_antbms.yaml
   #   vars:
-  #     bms_uart_id: uart_${uart_hub_bus}_4
+  #     bms_uart_id: uart_${uart_hub_bus}_6
+  #     bms_name: 'antbms'
+  #     bms_suffix: '1'
+  #     bms_update_interval: '5s'
+  #     bms_rx_timeout: '50ms'
+  #     bms_password: "12345678"
+
+  # bms_6: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/bms/ant/device_antbms_old.yaml
+  #   vars:
+  #     bms_uart_id: uart_${uart_hub_bus}_6
   #     bms_name: 'antbms'
   #     bms_suffix: '1'
   #     bms_update_interval: '5s'
   #     bms_rx_timeout: '50ms'
   #     bms_password: "12345678"
   
-  # bms_6: !include
+  # bms_7: !include
   #   file: pvbrain2/bms/pylontech/device_pylotech.yaml
   #   vars:
   #     pylon_uart_id: uart_${uart_hub_bus}_4
