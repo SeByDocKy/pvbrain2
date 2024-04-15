@@ -512,6 +512,7 @@ packages:
   #     bms_update_interval: '5s'
   #     bms_rx_timeout: '50ms'
   #     bms_password: "12345678"
+  #     bms_supports_new_commands: 'true'
 
   # bms_6: !include
   #   # url: ${git_url}
