@@ -2,7 +2,7 @@ external_components:
   - source: github://syssi/esphome-ant-bms@main
     refresh: 0s
     
-ant_bms:
+ant_bms_old:
   - id: ${bms_name}_antbms_${bms_suffix}
     uart_id: ${bms_uart_id}
     update_interval: ${bms_update_interval}
@@ -11,13 +11,13 @@ ant_bms:
     password: "${bms_password}"
 
 binary_sensor:
-  - platform: ant_bms
+  - platform: ant_bms_old
     ant_bms_id: ${bms_name}_antbms_${bms_suffix}
     online_status:
       name: online_status
 
 sensor:
-  - platform: ant_bms
+  - platform: ant_bms_old
     ant_bms_id: ${bms_name}_antbms_${bms_suffix}
     battery_strings:
       name: ${name}_${bms_name}_battery_strings_${bms_suffix}
@@ -133,7 +133,7 @@ sensor:
       name: ${name}_${bms_name}_balancer_status_${bms_suffix}
 
 text_sensor:
-  - platform: ant_bms
+  - platform: ant_bms_old
     ant_bms_id: ${bms_name}_antbms_${bms_suffix}
     # update_interval: ${bms_text_update}
     charge_mosfet_status:
@@ -146,7 +146,7 @@ text_sensor:
       name: ${name}_${bms_name}_total_runtime_formatted_${bms_suffix}
 
 switch:
-  - platform: ant_bms
+  - platform: ant_bms_old
     ant_bms_id: ${bms_name}_antbms_${bms_suffix}
     charging:
       name: ${name}_${bms_name}_battery_charging_${bms_suffix}
@@ -158,7 +158,7 @@ switch:
       name: ${name}_${bms_name}_battery_balancer_${bms_suffix}
 
 button:
-  - platform: ant_bms
+  - platform: ant_bms_old
     ant_bms_id: ${bms_name}_antbms_${bms_suffix}
     shutdown:
       name: ${name}_${bms_name}_shutdown_${bms_suffix}
