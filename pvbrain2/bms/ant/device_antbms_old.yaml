@@ -7,18 +7,17 @@ ant_bms_old:
     uart_id: ${bms_uart_id}
     update_interval: ${bms_update_interval}
     rx_timeout: ${bms_rx_timeout}
-    supports_new_commands: true
     password: "${bms_password}"
 
 binary_sensor:
   - platform: ant_bms_old
-    ant_bms_id: ${bms_name}_antbms_${bms_suffix}
+    ant_bms_old_id: ${bms_name}_antbms_${bms_suffix}
     online_status:
       name: online_status
 
 sensor:
   - platform: ant_bms_old
-    ant_bms_id: ${bms_name}_antbms_${bms_suffix}
+    ant_bms_old_id: ${bms_name}_antbms_${bms_suffix}
     battery_strings:
       name: ${name}_${bms_name}_battery_strings_${bms_suffix}
     current:
@@ -134,7 +133,7 @@ sensor:
 
 text_sensor:
   - platform: ant_bms_old
-    ant_bms_id: ${bms_name}_antbms_${bms_suffix}
+    ant_bms_old_id: ${bms_name}_antbms_${bms_suffix}
     # update_interval: ${bms_text_update}
     charge_mosfet_status:
       name: ${name}_${bms_name}_charge_mosfet_status_${bms_suffix}
@@ -147,19 +146,15 @@ text_sensor:
 
 switch:
   - platform: ant_bms_old
-    ant_bms_id: ${bms_name}_antbms_${bms_suffix}
+    ant_bms_old_id: ${bms_name}_antbms_${bms_suffix}
     charging:
       name: ${name}_${bms_name}_battery_charging_${bms_suffix}
     discharging:
       name: ${name}_${bms_name}_battery_discharging_${bms_suffix}
-    # BMS version 2021 only
-    # Please enable supports_new_commands
-    balancer:
-      name: ${name}_${bms_name}_battery_balancer_${bms_suffix}
 
 button:
   - platform: ant_bms_old
-    ant_bms_id: ${bms_name}_antbms_${bms_suffix}
+    ant_bms_old_id: ${bms_name}_antbms_${bms_suffix}
     shutdown:
       name: ${name}_${bms_name}_shutdown_${bms_suffix}
     clear_counter:
