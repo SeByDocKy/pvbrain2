@@ -7,7 +7,7 @@ ant_bms:
     uart_id: ${bms_uart_id}
     update_interval: ${bms_update_interval}
     rx_timeout: ${bms_rx_timeout}
-    supports_new_commands: true
+    supports_new_commands: ${bms_supports_new_commands}
     password: "${bms_password}"
 
 binary_sensor:
