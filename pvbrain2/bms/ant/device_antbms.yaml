@@ -23,6 +23,8 @@ sensor:
       name: ${name}_${bms_name}_battery_strings_${bms_suffix}
     current:
       name: ${name}_${bms_name}_battery_current_${bms_suffix}
+      filters:
+        - multiply: -1
     soc:
       name: ${name}_${bms_name}_soc_${bms_suffix}
     total_battery_capacity_setting:
@@ -39,6 +41,8 @@ sensor:
       name: ${name}_${bms_name}_average_cell_voltage_${bms_suffix}
     power:
       name: ${name}_${bms_name}_battery_power_${bms_suffix}
+      filters:
+        - multiply: -1
     min_cell_voltage:
       name: ${name}_${bms_name}_min_cell_voltage_${bms_suffix}
     max_cell_voltage:
