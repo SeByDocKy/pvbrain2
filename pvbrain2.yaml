@@ -527,7 +527,7 @@ packages:
   #     bms_password: "12345678"
   
   # bms_7: !include
-  #   file: pvbrain2/bms/pylontech/device_pylotech.yaml
+  #   file: pvbrain2/bms/pylontech/device_pylontech.yaml
   #   vars:
   #     pylon_uart_id: uart_${uart_hub_bus}_4
   #     pylon_name: pylontech
