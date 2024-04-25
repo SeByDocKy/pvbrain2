@@ -1,5 +1,5 @@
 external_components:
-  - source: github://dackara/esphome-pylontech@mos_st
+  - source: github://dackara/esphome-pylontech@official-patched
     refresh: 0s
 
 pylontech:
