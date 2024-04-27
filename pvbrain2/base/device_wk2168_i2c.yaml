@@ -1,10 +1,10 @@
-external_components:
+# external_components:
   # - source: github://pr#5218 #github://DrCoolzic/esphome@wk2168
     # components: [wk_base]
     # refresh: 0s
-  - source: github://pr#5218 
-    components: [weikai,wk2168_i2c]
-    refresh: 0s
+  # - source: github://pr#5218 
+  #   components: [weikai,wk2168_i2c]
+  #   refresh: 0s
     
 i2c:
   - id: i2c0_bus
