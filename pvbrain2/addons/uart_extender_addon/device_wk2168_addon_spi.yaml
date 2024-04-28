@@ -1,17 +1,19 @@
-external_components:
-  # - source: github://pr#5218
-    # components: [wk_base]
-    # refresh: 0s
-  # - source: github://DrCoolzic/esphome@wk2132-split1
-  - source: github://pr#5218 
-    components: [weikai, weikai_spi, wk2168_spi]
-    refresh: 0s
-
+# external_components:
+#   # - source: github://pr#5218
+#     # components: [wk_base]
+#     # refresh: 0s
+#   # - source: github://DrCoolzic/esphome@wk2132-split1
+#   - source: github://pr#5218 
+#     components: [weikai, weikai_spi, wk2168_spi]
+#     refresh: 0s
 
 wk2168_spi:
   - id: uart_bridge2
     spi_id: spi0_bus
-    cs_pin: GPIO46
+    # cs_pin: GPIO46
+    cs_pin: 
+      number: GPIO46
+      ignore_strapping_warning: true    # Delete warning for the strapping pin
     data_rate: 4MHz
     #test_mode: 1
     uart:
