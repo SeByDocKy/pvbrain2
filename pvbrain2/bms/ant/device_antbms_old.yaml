@@ -3,7 +3,7 @@ external_components:
     refresh: 0s
     
 ant_bms_old:
-  - id: ${bms_name}_${bms_suffix}
+  - id: ${bms_name}
     uart_id: ${bms_uart_id}
     update_interval: ${bms_update_interval}
     rx_timeout: ${bms_rx_timeout}
@@ -11,161 +11,161 @@ ant_bms_old:
 
 binary_sensor:
   - platform: ant_bms_old
-    ant_bms_old_id: ${bms_name}_${bms_suffix}
+    ant_bms_old_id: ${bms_name}
     online_status:
       name: online_status
 
 sensor:
   - platform: ant_bms_old
-    ant_bms_old_id: ${bms_name}_${bms_suffix}
+    ant_bms_old_id: ${bms_name}
     battery_strings:
-      name: ${name}_${bms_name}_battery_strings_${bms_suffix}
+      name: ${name}_${bms_name}_battery_strings
     current:
-      name: ${name}_${bms_name}_battery_current_${bms_suffix}
+      name: ${name}_${bms_name}_battery_current
       filters:
         - multiply: -1
     soc:
-      name: ${name}_${bms_name}_soc_${bms_suffix}
+      name: ${name}_${bms_name}_soc
     total_battery_capacity_setting:
-      name: ${name}_${bms_name}_battery_capacity_total_${bms_suffix}
+      name: ${name}_${bms_name}_battery_capacity_total
     capacity_remaining:
-      name: ${name}_${bms_name}_battery_capacity_remaining_${bms_suffix}
+      name: ${name}_${bms_name}_battery_capacity_remaining
     battery_cycle_capacity:
-      name: ${name}_${bms_name}_battery_cycle_${bms_suffix}
+      name: ${name}_${bms_name}_battery_cycle
     total_voltage:
-      name: ${name}_${bms_name}_battery_voltage_${bms_suffix}
+      name: ${name}_${bms_name}_battery_voltage
     total_runtime:
-      name: ${name}_${bms_name}_total_runtime_${bms_suffix}
+      name: ${name}_${bms_name}_total_runtime
     average_cell_voltage:
-      name: ${name}_${bms_name}_average_cell_voltage_${bms_suffix}
+      name: ${name}_${bms_name}_average_cell_voltage
     power:
-      name: ${name}_${bms_name}_battery_power_${bms_suffix}
+      name: ${name}_${bms_name}_battery_power
       # filters:
       #   - multiply: -1
     min_cell_voltage:
-      name: ${name}_${bms_name}_min_cell_voltage_${bms_suffix}
+      name: ${name}_${bms_name}_min_cell_voltage
     max_cell_voltage:
-      name: ${name}_${bms_name}_max_cell_voltage_${bms_suffix}
+      name: ${name}_${bms_name}_max_cell_voltage
     min_voltage_cell:
-      name: ${name}_${bms_name}_min_voltage_cell_${bms_suffix}
+      name: ${name}_${bms_name}_min_voltage_cell
     max_voltage_cell:
-      name: ${name}_${bms_name}_max_voltage_cell_${bms_suffix}
+      name: ${name}_${bms_name}_max_voltage_cell
     delta_cell_voltage:
-      name: ${name}_${bms_name}_delta_cell_voltage_${bms_suffix}
+      name: ${name}_${bms_name}_delta_cell_voltage
     temperature_1:
-      name: ${name}_${bms_name}_temperature_1_${bms_suffix}
+      name: ${name}_${bms_name}_temperature_1
     temperature_2:
-      name: ${name}_${bms_name}_temperature_2_${bms_suffix}
+      name: ${name}_${bms_name}_temperature_2
     temperature_3:
-      name: ${name}_${bms_name}_temperature_3_${bms_suffix}
+      name: ${name}_${bms_name}_temperature_3
     temperature_4:
-      name: ${name}_${bms_name}_temperature_4_${bms_suffix}
+      name: ${name}_${bms_name}_temperature_4
     temperature_5:
-      name: ${name}_${bms_name}_temperature_5_${bms_suffix}
+      name: ${name}_${bms_name}_temperature_5
     temperature_6:
-      name: ${name}_${bms_name}_temperature_6_${bms_suffix}
+      name: ${name}_${bms_name}_temperature_6
     cell_voltage_1:
-      name: ${name}_${bms_name}_cell_voltage_1_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_1
     cell_voltage_2:
-      name: ${name}_${bms_name}_cell_voltage_2_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_2
     cell_voltage_3:
-      name: ${name}_${bms_name}_cell_voltage_3_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_3
     cell_voltage_4:
-      name: ${name}_${bms_name}_cell_voltage_4_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_4
     cell_voltage_5:
-      name: ${name}_${bms_name}_cell_voltage_5_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_5
     cell_voltage_6:
-      name: ${name}_${bms_name}_cell_voltage_6_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_6
     cell_voltage_7:
-      name: ${name}_${bms_name}_cell_voltage_7_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_7
     cell_voltage_8:
-      name: ${name}_${bms_name}_cell_voltage_8_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_8
     cell_voltage_9:
-      name: ${name}_${bms_name}_cell_voltage_9_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_9
     cell_voltage_10:
-      name: ${name}_${bms_name}_cell_voltage_10_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_10
     cell_voltage_11:
-      name: ${name}_${bms_name}_cell_voltage_11_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_11
     cell_voltage_12:
-      name: ${name}_${bms_name}_cell_voltage_12_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_12
     cell_voltage_13:
-      name: ${name}_${bms_name}_cell_voltage_13_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_13
     cell_voltage_14:
-      name: ${name}_${bms_name}_cell_voltage_14_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_14
     cell_voltage_15:
-      name: ${name}_${bms_name}_cell_voltage_15_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_15
     cell_voltage_16:
-      name: ${name}_${bms_name}_cell_voltage_16_${bms_suffix}
+      name: ${name}_${bms_name}_cell_voltage_16
     # cell_voltage_17:
-      # name: ${name}_${bms_name}_cell_voltage_17_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_17
     # cell_voltage_18:
-      # name: ${name}_${bms_name}_cell_voltage_18_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_18
     # cell_voltage_19:
-      # name: ${name}_${bms_name}_cell_voltage_19_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_19
     # cell_voltage_20:
-      # name: ${name}_${bms_name}_cell_voltage_20_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_20
     # cell_voltage_21:
-      # name: ${name}_${bms_name}_cell_voltage_21_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_21
     # cell_voltage_22:
-      # name: ${name}_${bms_name}_cell_voltage_22_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_22
     # cell_voltage_23:
-      # name: ${name}_${bms_name}_cell_voltage_23_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_23
     # cell_voltage_24:
-      # name: ${name}_${bms_name}_cell_voltage_24_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_24
     # cell_voltage_25:
-      # name: ${name}_${bms_name}_cell_voltage_25_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_25
     # cell_voltage_26:
-      # name: ${name}_${bms_name}_cell_voltage_26_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_26
     # cell_voltage_27:
-      # name: ${name}_${bms_name}_cell_voltage_27_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_27
     # cell_voltage_28:
-      # name: ${name}_${bms_name}_cell_voltage_28_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_28
     # cell_voltage_29:
-      # name: ${name}_${bms_name}_cell_voltage_29_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_29
     # cell_voltage_30:
-      # name: ${name}_${bms_name}_cell_voltage_30_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_30
     # cell_voltage_31:
-      # name: ${name}_${bms_name}_cell_voltage_31_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_31
     # cell_voltage_32:
-      # name: ${name}_${bms_name}_cell_voltage_32_${bms_suffix}
+      # name: ${name}_${bms_name}_cell_voltage_32
     charge_mosfet_status_code:
-      name: ${name}_${bms_name}_charge_mosfet_status_${bms_suffix}
+      name: ${name}_${bms_name}_charge_mosfet_status
     discharge_mosfet_status_code:
-      name: ${name}_${bms_name}_discharge_mosfet_status_${bms_suffix}
+      name: ${name}_${bms_name}_discharge_mosfet_status
     balancer_status_code:
-      name: ${name}_${bms_name}_balancer_status_${bms_suffix}
+      name: ${name}_${bms_name}_balancer_status
 
 text_sensor:
   - platform: ant_bms_old
-    ant_bms_old_id: ${bms_name}_${bms_suffix}
+    ant_bms_old_id: ${bms_name}
     # update_interval: ${bms_text_update}
     charge_mosfet_status:
-      name: ${name}_${bms_name}_charge_mosfet_status_${bms_suffix}
+      name: ${name}_${bms_name}_charge_mosfet_status
     discharge_mosfet_status:
-      name: ${name}_${bms_name}_discharge_mosfet_status_${bms_suffix}
+      name: ${name}_${bms_name}_discharge_mosfet_status
     balancer_status:
-      name: ${name}_${bms_name}_balancer_status_${bms_suffix}
+      name: ${name}_${bms_name}_balancer_status
     total_runtime_formatted:
-      name: ${name}_${bms_name}_total_runtime_formatted_${bms_suffix}
+      name: ${name}_${bms_name}_total_runtime_formatted
 
 switch:
   - platform: ant_bms_old
-    ant_bms_old_id: ${bms_name}_${bms_suffix}
+    ant_bms_old_id: ${bms_name}
     charging:
-      name: ${name}_${bms_name}_battery_charging_${bms_suffix}
+      name: ${name}_${bms_name}_battery_charging
     discharging:
-      name: ${name}_${bms_name}_battery_discharging_${bms_suffix}
+      name: ${name}_${bms_name}_battery_discharging
 
 button:
   - platform: ant_bms_old
-    ant_bms_old_id: ${bms_name}_${bms_suffix}
+    ant_bms_old_id: ${bms_name}
     shutdown:
-      name: ${name}_${bms_name}_shutdown_${bms_suffix}
+      name: ${name}_${bms_name}_shutdown
     clear_counter:
-      name: ${name}_${bms_name}_clear_counter_${bms_suffix}
+      name: ${name}_${bms_name}_clear_counter
     balancer:
-      name: ${name}_${bms_name}_balancer_${bms_suffix}
+      name: ${name}_${bms_name}_balancer
     factory_reset:
-      name: ${name}_${bms_name}_factory_reset_${bms_suffix}
+      name: ${name}_${bms_name}_factory_reset
     restart:
-      name: ${name}_${bms_name}_restart_${bms_suffix}
+      name: ${name}_${bms_name}_restart

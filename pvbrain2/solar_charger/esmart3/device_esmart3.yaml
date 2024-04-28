@@ -10,36 +10,36 @@ sensor:
     uart_id: ${solar_charger_uart_id}
     update_interval: ${solar_charger_update_interval}
     charge_mode:
-      id: ${solar_charger_name}_charge_mode_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_charge_mode_${solar_charger_suffix}
+      id: ${solar_charger_name}_charge_mode
+      name: ${name}_${solar_charger_name}_charge_mode
     input_voltage:
-      id: ${solar_charger_name}_pv_voltage_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_pv_voltage_${solar_charger_suffix}
+      id: ${solar_charger_name}_pv_voltage
+      name: ${name}_${solar_charger_name}_pv_voltage
     charging_current:
-      id: ${solar_charger_name}_battery_charging_current_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_battery_charging_current_${solar_charger_suffix}
+      id: ${solar_charger_name}_battery_charging_current
+      name: ${name}_${solar_charger_name}_battery_charging_current
     charging_power:
-      id: ${solar_charger_name}_battery_charging_power_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_battery_charging_power_${solar_charger_suffix}
+      id: ${solar_charger_name}_battery_charging_power
+      name: ${name}_${solar_charger_name}_battery_charging_power
     load_voltage:
-      id: ${solar_charger_name}_load_voltage_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_load_voltage_${solar_charger_suffix}
+      id: ${solar_charger_name}_load_voltage
+      name: ${name}_${solar_charger_name}_load_voltage
     load_current:
-      id: ${solar_charger_name}_load_current_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_load_current_${solar_charger_suffix}
+      id: ${solar_charger_name}_load_current
+      name: ${name}_${solar_charger_name}_load_current
     load_power:
-      id: ${solar_charger_name}_load_power_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_load_power_${solar_charger_suffix}
+      id: ${solar_charger_name}_load_power
+      name: ${name}_${solar_charger_name}_load_power
     battery_voltage:
-      id: ${solar_charger_name}_battery_voltage_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_battery_voltage_${solar_charger_suffix}    
+      id: ${solar_charger_name}_battery_voltage
+      name: ${name}_${solar_charger_name}_battery_voltage    
     battery_temp:
-      id: ${solar_charger_name}_battery_temperature_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_battery_temperature_${solar_charger_suffix}
+      id: ${solar_charger_name}_battery_temperature
+      name: ${name}_${solar_charger_name}_battery_temperature
     battery_level:
-      id: ${solar_charger_name}_battery_level_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_battery_level_${solar_charger_suffix}
+      id: ${solar_charger_name}_battery_level
+      name: ${name}_${solar_charger_name}_battery_level
     internal_temp:
-      id: ${solar_charger_name}_internal_temperature_${solar_charger_suffix}
-      name: ${name}_${solar_charger_name}_internal_temperature_${solar_charger_suffix}
+      id: ${solar_charger_name}_internal_temperature
+      name: ${name}_${solar_charger_name}_internal_temperature
       

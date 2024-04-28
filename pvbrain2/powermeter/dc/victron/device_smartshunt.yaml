@@ -7,91 +7,91 @@ victron_smart_shunt:
   
 sensor:
   - platform: victron_smart_shunt
-#    id: ${smartshunt_name}_${smartshunt_suffix}
+#    id: ${smartshunt_name}
     battery_voltage:
-      name: ${name}_${smartshunt_name}_battery_voltage_${smartshunt_suffix}
-      id: ${smartshunt_name}_battery_voltage_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_battery_voltage
+      id: ${smartshunt_name}_battery_voltage
       accuracy_decimals: 2
 
     battery_current:
-      name: ${name}_${smartshunt_name}_battery_current_${smartshunt_suffix}
-      id: ${smartshunt_name}_battery_current_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_battery_current
+      id: ${smartshunt_name}_battery_current
       accuracy_decimals: 2
 
     fw_version:
-      name: ${name}_${smartshunt_name}_fw_version_${smartshunt_suffix}
-      id: ${smartshunt_name}_fw_version_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_fw_version
+      id: ${smartshunt_name}_fw_version
 
     pid:
-      name: ${name}_${smartshunt_name}_pid_${smartshunt_suffix}
-      id: ${smartshunt_name}_pid_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_pid
+      id: ${smartshunt_name}_pid
 
     instantaneous_power:
-      name: ${name}_${smartshunt_name}_instantaneous_power_${smartshunt_suffix}
-      id: ${smartshunt_name}_instantaneous_power_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_instantaneous_power
+      id: ${smartshunt_name}_instantaneous_power
       accuracy_decimals: 2
 
     time_to_go:
-      name: ${name}_${smartshunt_name}_time_to_go_${smartshunt_suffix}
-      id: ${smartshunt_name}_time_to_go_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_time_to_go
+      id: ${smartshunt_name}_time_to_go
 
     consumed_amp_hours:
-      name: ${name}_${smartshunt_name}_consumed_amp_hours_${smartshunt_suffix}
-      id: ${smartshunt_name}_consumed_amp_hours_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_consumed_amp_hours
+      id: ${smartshunt_name}_consumed_amp_hours
       unit_of_measurement: Ah
       accuracy_decimals: 2
 
     min_battery_voltage:
-      name: ${name}_${smartshunt_name}_min_battery_voltage_${smartshunt_suffix}
-      id: ${smartshunt_name}_min_battery_voltage_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_min_battery_voltage
+      id: ${smartshunt_name}_min_battery_voltage
       accuracy_decimals: 2
 
     max_battery_voltage:
-      name: ${name}_${smartshunt_name}_max_battery_voltage_${smartshunt_suffix}
-      id: ${smartshunt_name}_max_battery_voltage_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_max_battery_voltage
+      id: ${smartshunt_name}_max_battery_voltage
       accuracy_decimals: 2
 
     amount_of_charged:
-      name: ${name}_${smartshunt_name}_amount_of_charged_${smartshunt_suffix}
-      id: ${smartshunt_name}_amount_of_charged_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_amount_of_charged
+      id: ${smartshunt_name}_amount_of_charged
       filters:
         - multiply: 0.001
       unit_of_measurement: kWh
       accuracy_decimals: 1
 
     bmv_alarm_text:
-      name: ${name}_${smartshunt_name}_bmv_alarm_${smartshunt_suffix}
-      id: ${smartshunt_name}_bmv_alarm_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_bmv_alarm
+      id: ${smartshunt_name}_bmv_alarm
 
     bmv_text:
-      name: ${name}_${smartshunt_name}_bmv_text_${smartshunt_suffix}
-      id: ${smartshunt_name}_bmv_text_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_bmv_text
+      id: ${smartshunt_name}_bmv_text
 
     last_full_charge:
-      name: ${name}_${smartshunt_name}_last_full_charge_${smartshunt_suffix}
-      id: ${smartshunt_name}_last_full_charge_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_last_full_charge
+      id: ${smartshunt_name}_last_full_charge
 
     deepest_discharge:
-      name: ${name}_${smartshunt_name}_deepest_discharge_${smartshunt_suffix}
-      id: ${smartshunt_name}_deepest_discharge_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_deepest_discharge
+      id: ${smartshunt_name}_deepest_discharge
       unit_of_measurement: Ah
       accuracy_decimals: 1
 
     last_discharge:
-      name: ${name}_${smartshunt_name}_last_discharge_${smartshunt_suffix}
-      id: ${smartshunt_name}_last_discharge_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_last_discharge
+      id: ${smartshunt_name}_last_discharge
       unit_of_measurement: Ah
       accuracy_decimals: 1
 
     discharged_energy:
-      name: ${name}_${smartshunt_name}_discharged_energy_${smartshunt_suffix}
-      id: ${smartshunt_name}_discharged_energy_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_discharged_energy
+      id: ${smartshunt_name}_discharged_energy
       filters:
         - multiply: 0.001
       unit_of_measurement: kWh
       accuracy_decimals: 1
 
     state_of_charge:
-      name: ${name}_${smartshunt_name}_state_of_charge_${smartshunt_suffix}
-      id: ${smartshunt_name}_state_of_charge_${smartshunt_suffix}
+      name: ${name}_${smartshunt_name}_state_of_charge
+      id: ${smartshunt_name}_state_of_charge
       

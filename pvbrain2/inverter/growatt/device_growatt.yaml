@@ -11,63 +11,63 @@ external_components:
     refresh: 0s    
      
 modbus:
- - id: ${inverter_name}_modbus_${inverter_suffix}
+ - id: ${inverter_name}_modbus
    uart_id: ${inverter_uart_id}
    send_wait_time: ${inverter_modbus_send_wait_time}
    
 sensor:
   - platform: growatt
-    id: ${name}_${inverter_name}_${inverter_suffix}
+    id: ${name}_${inverter_name}
     address: ${inverter_modbus_address}
-    modbus_id: ${inverter_name}_modbus_${inverter_suffix}
+    modbus_id: ${inverter_name}_modbus
     input_power:
-      name: ${name}_${inverter_name}_input_power_${inverter_suffix}
-      id: ${inverter_name}_input_power_${inverter_suffix}
+      name: ${name}_${inverter_name}_input_power
+      id: ${inverter_name}_input_power
     pv1_voltage:
-      name: ${name}_${inverter_name}_pv1_voltage_${inverter_suffix}
-      id: ${inverter_name}_pv1_voltage_${inverter_suffix}
+      name: ${name}_${inverter_name}_pv1_voltage
+      id: ${inverter_name}_pv1_voltage
     pv1_current:
-      name: ${name}_${inverter_name}_pv1_current_${inverter_suffix}
-      id: ${inverter_name}_pv1_current_${inverter_suffix}
+      name: ${name}_${inverter_name}_pv1_current
+      id: ${inverter_name}_pv1_current
     pv1_power:
-      name: ${name}_${inverter_name}_pv1_power_${inverter_suffix}
-      id: ${inverter_name}_pv1_power_${inverter_suffix}
+      name: ${name}_${inverter_name}_pv1_power
+      id: ${inverter_name}_pv1_power
     pv2_voltage:
-      name: ${name}_${inverter_name}_pv2_voltage_${inverter_suffix}
-      id: ${inverter_name}_pv2_voltage_${inverter_suffix}
+      name: ${name}_${inverter_name}_pv2_voltage
+      id: ${inverter_name}_pv2_voltage
     pv2_current:
-      name: ${name}_${inverter_name}_pv2_current_${inverter_suffix}
-      id: ${inverter_name}_pv2_current_${inverter_suffix}
+      name: ${name}_${inverter_name}_pv2_current
+      id: ${inverter_name}_pv2_current
     pv2_power:
-      name: ${name}_${inverter_name}_pv2_power_${inverter_suffix}
-      id: ${inverter_name}_pv2_power_${inverter_suffix}
+      name: ${name}_${inverter_name}_pv2_power
+      id: ${inverter_name}_pv2_power
     output_power:
-      name: ${name}_${inverter_name}_output_power_${inverter_suffix} 
-      id: ${inverter_name}_output_power_${inverter_suffix} 
+      name: ${name}_${inverter_name}_output_power 
+      id: ${inverter_name}_output_power 
     grid_frequency:
-      name: ${name}_${inverter_name}_grid_frequency_${inverter_suffix}
-      id: ${inverter_name}_grid_frequency_${inverter_suffix}
+      name: ${name}_${inverter_name}_grid_frequency
+      id: ${inverter_name}_grid_frequency
     ac_voltage:
-      name: ${name}_${inverter_name}_ac_voltage_${inverter_suffix}
-      id: ${inverter_name}_ac_voltage_${inverter_suffix}
+      name: ${name}_${inverter_name}_ac_voltage
+      id: ${inverter_name}_ac_voltage
     ac_current:
-      name: ${name}_${inverter_name}_ac_current_${inverter_suffix}
-      id: ${inverter_name}_ac_current_${inverter_suffix}
+      name: ${name}_${inverter_name}_ac_current
+      id: ${inverter_name}_ac_current
     ac_power:
-      name: ${name}_${inverter_name}_ac_power_${inverter_suffix}
-      id: ${inverter_name}_ac_power_${inverter_suffix}
+      name: ${name}_${inverter_name}_ac_power
+      id: ${inverter_name}_ac_power
     today_gen:
-      name: ${name}_${inverter_name}_pv_energy_generated_today_${inverter_suffix}
-      id: ${inverter_name}_pv_energy_generated_today_${inverter_suffix}
+      name: ${name}_${inverter_name}_pv_energy_generated_today
+      id: ${inverter_name}_pv_energy_generated_today
     total_gen:
-      name: ${name}_${inverter_name}_pv_energy_generated_total_${inverter_suffix}
-      id: ${inverter_name}_pv_energy_generated_total_${inverter_suffix}
+      name: ${name}_${inverter_name}_pv_energy_generated_total
+      id: ${inverter_name}_pv_energy_generated_total
     temperature:
-      name: ${name}_${inverter_name}_temperature_${inverter_suffix}
-      id: ${inverter_name}_temperature_${inverter_suffix}
+      name: ${name}_${inverter_name}_temperature
+      id: ${inverter_name}_temperature
     today_grid:
-      name: ${name}_${inverter_name}_grid_energy_imported_today_${inverter_suffix}
-      id: ${inverter_name}_grid_energy_imported_today_${inverter_suffix}
+      name: ${name}_${inverter_name}_grid_energy_imported_today
+      id: ${inverter_name}_grid_energy_imported_today
     total_grid:
-      name: ${name}_${inverter_name}_grid_energy_imported_total_${inverter_suffix}
-      id: ${inverter_name}_grid_energy_imported_total_${inverter_suffix}      
+      name: ${name}_${inverter_name}_grid_energy_imported_total
+      id: ${inverter_name}_grid_energy_imported_total      

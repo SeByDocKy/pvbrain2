@@ -1,9 +1,9 @@
 globals:
-  - id: ${powermeter_name}_energy_imported_yesteday_global_${powermeter_suffix}
+  - id: ${powermeter_name}_energy_imported_yesteday_global
     type: float
     restore_value: yes
     
-  - id: ${powermeter_name}_energy_exported_yesteday_global_${powermeter_suffix}
+  - id: ${powermeter_name}_energy_exported_yesteday_global
     type: float
     restore_value: yes
     
@@ -16,69 +16,69 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${powermeter_name}_energy_imported_yesteday_global_${powermeter_suffix}
-              value: !lambda return ( id(${powermeter_name}_energy_imported_yesteday_global_${powermeter_suffix}) =  float( id(${powermeter_name}_energy_imported_today_${powermeter_suffix}).state) );         
+              id: ${powermeter_name}_energy_imported_yesteday_global
+              value: !lambda return ( id(${powermeter_name}_energy_imported_yesteday_global) =  float( id(${powermeter_name}_energy_imported_today).state) );         
           - globals.set:
-              id: ${powermeter_name}_energy_exported_yesteday_global_${powermeter_suffix}
-              value: !lambda return ( id(${powermeter_name}_energy_exported_yesteday_global_${powermeter_suffix}) =  float( id(${powermeter_name}_energy_exported_today_${powermeter_suffix}).state) );          
+              id: ${powermeter_name}_energy_exported_yesteday_global
+              value: !lambda return ( id(${powermeter_name}_energy_exported_yesteday_global) =  float( id(${powermeter_name}_energy_exported_today).state) );          
 modbus:
-  - id: ${powermeter_name}_modbus_${powermeter_suffix}
+  - id: ${powermeter_name}_modbus
     uart_id: ${powermeter_uart_id}
     send_wait_time: ${powermeter_modbus_send_wait_time}
      
 sensor:
   - platform: sdm_meter
-    modbus_id: ${powermeter_name}_modbus_${powermeter_suffix}     
-    id: ${powermeter_name}_sdm_${powermeter_suffix}
+    modbus_id: ${powermeter_name}_modbus     
+    id: ${powermeter_name}_sdm
     phase_a:
       current:
-        name: ${name}_${powermeter_name}_current_${powermeter_suffix}
+        name: ${name}_${powermeter_name}_current
       voltage:
-        name: ${name}_${powermeter_name}_voltage_${powermeter_suffix}
+        name: ${name}_${powermeter_name}_voltage
       active_power:
-        name: ${name}_${powermeter_name}_power_${powermeter_suffix}
-        id: ${powermeter_name}_power_${powermeter_suffix}
+        name: ${name}_${powermeter_name}_power
+        id: ${powermeter_name}_power
       power_factor:
-        name: ${name}_${powermeter_name}_power_factor_${powermeter_suffix}
+        name: ${name}_${powermeter_name}_power_factor
       apparent_power:
-        name: ${name}_${powermeter_name}_apparent_power_${powermeter_suffix}
+        name: ${name}_${powermeter_name}_apparent_power
       reactive_power:
-        name: ${name}_${powermeter_name}_reactive_power_${powermeter_suffix}
+        name: ${name}_${powermeter_name}_reactive_power
       phase_angle:
-        name: ${name}_${powermeter_name}_phase_angle_${powermeter_suffix}
+        name: ${name}_${powermeter_name}_phase_angle
     frequency:
-      name: ${name}_${powermeter_name}_frequency_${powermeter_suffix}
+      name: ${name}_${powermeter_name}_frequency
     total_power:
-      name: ${name}_${powermeter_name}_total_power_${powermeter_suffix}
+      name: ${name}_${powermeter_name}_total_power
     import_active_energy:
-      name: ${name}_${powermeter_name}_energy_imported_${powermeter_suffix}
+      name: ${name}_${powermeter_name}_energy_imported
     export_active_energy:
-      name: ${name}_${powermeter_name}_energy_exported_${powermeter_suffix}
+      name: ${name}_${powermeter_name}_energy_exported
     import_reactive_energy:
-      name: ${name}_${powermeter_name}_reactive_energy_imported_${powermeter_suffix}
+      name: ${name}_${powermeter_name}_reactive_energy_imported
     export_reactive_energy:
-      name: ${name}_${powermeter_name}_reactive_energy_exported_${powermeter_suffix}
+      name: ${name}_${powermeter_name}_reactive_energy_exported
     update_interval: ${powermeter_update_interval}
 
   - platform: template
-    name: ${name}_${powermeter_name}_power_imported_${powermeter_suffix}
-    id: ${powermeter_name}_power_imported_${powermeter_suffix}
+    name: ${name}_${powermeter_name}_power_imported
+    id: ${powermeter_name}_power_imported
     unit_of_measurement: 'W'
     accuracy_decimals: 2
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      if (id(${powermeter_name}_power_${powermeter_suffix}).state > 0.0) {
-        return id(${powermeter_name}_power_${powermeter_suffix}).state;
+      if (id(${powermeter_name}_power).state > 0.0) {
+        return id(${powermeter_name}_power).state;
       } 
       else {
         return 0.0;
       }    
     
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_energy_imported_today_${powermeter_suffix}
-    id: ${powermeter_name}_energy_imported_today_${powermeter_suffix}
-    power_id: ${powermeter_name}_power_imported_${powermeter_suffix}
+    name: ${name}_${powermeter_name}_energy_imported_today
+    id: ${powermeter_name}_energy_imported_today
+    power_id: ${powermeter_name}_power_imported
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -89,34 +89,34 @@ sensor:
     
     
   - platform: template
-    name: ${name}_${powermeter_name}_energy_imported_yesteday_${powermeter_suffix}
-    id: ${powermeter_name}_energy_imported_yesteday_${powermeter_suffix}
+    name: ${name}_${powermeter_name}_energy_imported_yesteday
+    id: ${powermeter_name}_energy_imported_yesteday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(${powermeter_name}_energy_imported_yesteday_${powermeter_suffix}).state = id(${powermeter_name}_energy_imported_yesteday_global_${powermeter_suffix}));
+      return (id(${powermeter_name}_energy_imported_yesteday).state = id(${powermeter_name}_energy_imported_yesteday_global));
 
   - platform: template
-    name: ${name}_${powermeter_name}_power_exported_${powermeter_suffix}
-    id: ${powermeter_name}_power_exported_${powermeter_suffix}
+    name: ${name}_${powermeter_name}_power_exported
+    id: ${powermeter_name}_power_exported
     unit_of_measurement: 'W'
     accuracy_decimals: 2
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      if (id(${powermeter_name}_power_${powermeter_suffix}).state <= 0.0) {
-        return id(${powermeter_name}_power_${powermeter_suffix}).state;
+      if (id(${powermeter_name}_power).state <= 0.0) {
+        return id(${powermeter_name}_power).state;
       } 
       else {
         return 0.0;
       }    
       
   - platform: total_daily_energy
-    name: ${name}_${powermeter_name}_energy_exported_today_${powermeter_suffix}
-    id: ${powermeter_name}_energy_exported_today_${powermeter_suffix}
-    power_id: ${powermeter_name}_power_exported_${powermeter_suffix}
+    name: ${name}_${powermeter_name}_energy_exported_today
+    id: ${powermeter_name}_energy_exported_today
+    power_id: ${powermeter_name}_power_exported
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -126,12 +126,12 @@ sensor:
     icon: mdi:counter    
       
   - platform: template
-    name: ${name}_${powermeter_name}_energy_exported_yesteday_${powermeter_suffix}
-    id: ${powermeter_name}_energy_exported_yesteday_${powermeter_suffix}
+    name: ${name}_${powermeter_name}_energy_exported_yesteday
+    id: ${powermeter_name}_energy_exported_yesteday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(${powermeter_name}_energy_exported_yesteday_${powermeter_suffix}).state = id(${powermeter_name}_energy_exported_yesteday_global_${powermeter_suffix}));      
+      return (id(${powermeter_name}_energy_exported_yesteday).state = id(${powermeter_name}_energy_exported_yesteday_global));      
     

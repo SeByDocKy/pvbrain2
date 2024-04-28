@@ -11,41 +11,41 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_suffix}
-              value: !lambda return ( id(${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_suffix}) =  float( id(${solar_charger_name}_pv_energy_today_${solar_charger_suffix}).state) );         
+              id: ${solar_charger_name}_pv_energy_yesteday_global
+              value: !lambda return ( id(${solar_charger_name}_pv_energy_yesteday_global) =  float( id(${solar_charger_name}_pv_energy_today).state) );         
                 
           - globals.set:
-              id: ${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_suffix}
-              value: !lambda return ( id(${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_suffix}) =  float( id(${solar_charger_name}_battery_charging_energy_today_${solar_charger_suffix}).state) );        
+              id: ${solar_charger_name}_battery_charging_energy_yesteday_global
+              value: !lambda return ( id(${solar_charger_name}_battery_charging_energy_yesteday_global) =  float( id(${solar_charger_name}_battery_charging_energy_today).state) );        
 
 globals:
-  - id: ${solar_charger_name}_battery_coefficient_${solar_charger_suffix}
+  - id: ${solar_charger_name}_battery_coefficient
     type: int
     restore_value: yes
 
-  - id: ${solar_charger_name}_battery_reco_global_${solar_charger_suffix}
+  - id: ${solar_charger_name}_battery_reco_global
     type: int
 
-  - id: ${solar_charger_name}_current_load_charging_mode_global_${solar_charger_suffix}
+  - id: ${solar_charger_name}_current_load_charging_mode_global
     type: int  
 
-  - id: ${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_suffix}
+  - id: ${solar_charger_name}_pv_energy_yesteday_global
     type: float
     restore_value: yes
     
-  - id: ${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_suffix}
+  - id: ${solar_charger_name}_battery_charging_energy_yesteday_global
     type: float
     restore_value: yes
  
 modbus:
-  - id: ${solar_charger_name}_modbus_${solar_charger_suffix}
+  - id: ${solar_charger_name}_modbus
     uart_id: ${solar_charger_uart_id}
     send_wait_time: ${solar_charger_modbus_send_wait_time}
   
 modbus_controller:
-  - id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
+  - id: ${solar_charger_name}_modbus_controller
     address: ${solar_charger_modbus_address}
-    modbus_id: ${solar_charger_name}_modbus_${solar_charger_suffix}
+    modbus_id: ${solar_charger_name}_modbus
     command_throttle: ${solar_charger_modbus_throttle}
     setup_priority: -10
     update_interval: ${solar_charger_update_interval}
@@ -55,9 +55,9 @@ sensor:
         #################### System Informations ##################
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_max_voltage_supported_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_max_voltage_supported_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_max_voltage_supported
+    name: ${name}_${solar_charger_name}_max_voltage_supported
     address: 0x000A
     register_type: holding
     value_type: U_WORD
@@ -68,9 +68,9 @@ sensor:
     bitmask: 0xFF00 #(Bits 15-8)
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_rated_charging_current_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_rated_charging_current_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_rated_charging_current
+    name: ${name}_${solar_charger_name}_rated_charging_current
     address: 0x000A
     register_type: holding
     value_type: U_WORD
@@ -81,9 +81,9 @@ sensor:
     bitmask: 0x00FF #(Bits 7-0)
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_rated_discharging_current_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_rated_discharging_current_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_rated_discharging_current
+    name: ${name}_${solar_charger_name}_rated_discharging_current
     address: 0x000B
     register_type: holding
     value_type: U_WORD
@@ -94,9 +94,9 @@ sensor:
     bitmask: 0xFF00 #(Bits 15-8)  
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_software_version_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_software_version_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_software_version
+    name: ${name}_${solar_charger_name}_software_version
     register_type: holding
     address: 0x014
     value_type: U_DWORD
@@ -106,9 +106,9 @@ sensor:
     #raw_encode: NONE   
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_hardware_version_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_hardware_version_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_hardware_version
+    name: ${name}_${solar_charger_name}_hardware_version
     register_type: holding
     address: 0x016
     #response_size: 4
@@ -118,9 +118,9 @@ sensor:
     #raw_encode: NONE   
     
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_product_serial_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_product_serial_number_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_product_serial_number
+    name: ${name}_${solar_charger_name}_product_serial_number
     register_type: holding
     address: 0x018
     value_type: U_DWORD
@@ -130,9 +130,9 @@ sensor:
     #raw_encode: NONE
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_modbus_adress_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_modbus_adress_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_modbus_adress
+    name: ${name}_${solar_charger_name}_modbus_adress
     register_type: holding
     address: 0x01A
     value_type: U_WORD
@@ -143,9 +143,9 @@ sensor:
       ################ Controller dynamic information# ##############################
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_soc_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_soc_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_soc
+    name: ${name}_${solar_charger_name}_battery_soc
     address: 0x100
     unit_of_measurement: '%'
     register_type: holding
@@ -155,9 +155,9 @@ sensor:
     skip_updates: 1 
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_voltage
+    name: ${name}_${solar_charger_name}_battery_voltage
     address: 0x101
     register_type: holding
     value_type: U_WORD
@@ -169,9 +169,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_charging_current_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_charging_current_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_charging_current
+    name: ${name}_${solar_charger_name}_charging_current
     address: 0x102
     register_type: holding
     value_type: U_WORD
@@ -183,34 +183,34 @@ sensor:
       - multiply: 0.01
 
   - platform: template
-    id: ${solar_charger_name}_charging_power_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_charging_power_${solar_charger_suffix}
+    id: ${solar_charger_name}_charging_power
+    name: ${name}_${solar_charger_name}_charging_power
     accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'W'
     update_interval: ${solar_charger_template_update}
     lambda: |-
-      return id(${solar_charger_name}_charging_current_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_voltage_${solar_charger_suffix}).state;
+      return id(${solar_charger_name}_charging_current).state*id(${solar_charger_name}_battery_voltage).state;
 
   - platform: template
-    id: ${solar_charger_name}_pv_battery_ratio_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_pv_battery_ratio_${solar_charger_suffix}
+    id: ${solar_charger_name}_pv_battery_ratio
+    name: ${name}_${solar_charger_name}_pv_battery_ratio
     accuracy_decimals: 1
     unit_of_measurement: '%'
     icon: mdi:percent
     update_interval: ${solar_charger_template_update}
     lambda: |-
-      if (id(${solar_charger_name}_solar_panel_power_${solar_charger_suffix}).state != 0.0) {
-        return (id(${solar_charger_name}_charging_power_${solar_charger_suffix}).state/id(${solar_charger_name}_solar_panel_power_${solar_charger_suffix}).state)*100.0;    
+      if (id(${solar_charger_name}_solar_panel_power).state != 0.0) {
+        return (id(${solar_charger_name}_charging_power).state/id(${solar_charger_name}_solar_panel_power).state)*100.0;    
       }
       else{
         return 0.0;
       }
 
   - platform: total_daily_energy
-    id: ${solar_charger_name}_battery_charging_energy_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_charging_energy_today_${solar_charger_suffix}
-    power_id: ${solar_charger_name}_charging_power_${solar_charger_suffix}
+    id: ${solar_charger_name}_battery_charging_energy_today
+    name: ${name}_${solar_charger_name}_battery_charging_energy_today
+    power_id: ${solar_charger_name}_charging_power
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -219,19 +219,19 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${solar_charger_name}_battery_charging_energy_yesteday_template_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_charging_energy_yesteday_${solar_charger_suffix}
+    name: ${name}_${solar_charger_name}_battery_charging_energy_yesteday_template
+    id: ${solar_charger_name}_battery_charging_energy_yesteday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${solar_charger_template_update}
     lambda: |-
-      return (id(${solar_charger_name}_battery_charging_energy_yesteday_${solar_charger_suffix}).state = id(${solar_charger_name}_battery_charging_energy_yesteday_global_${solar_charger_suffix}));
+      return (id(${solar_charger_name}_battery_charging_energy_yesteday).state = id(${solar_charger_name}_battery_charging_energy_yesteday_global));
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_device_temperature_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_device_temperature_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_device_temperature
+    name: ${name}_${solar_charger_name}_device_temperature
     address: 0x103
     unit_of_measurement: '°C'
     register_type: holding
@@ -241,9 +241,9 @@ sensor:
     bitmask: 0x7F00 #(Bits 14-8)
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_temperature_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_temperature_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_temperature
+    name: ${name}_${solar_charger_name}_battery_temperature
     address: 0x103
     unit_of_measurement: '°C'
     register_type: holding
@@ -253,9 +253,9 @@ sensor:
     bitmask: 0x7F #(Bits 7-0)
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_load_dc_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_load_dc_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_load_dc_voltage
+    name: ${name}_${solar_charger_name}_load_dc_voltage
     address: 0x104
     register_type: holding
     value_type: U_WORD
@@ -267,9 +267,9 @@ sensor:
       - multiply: 0.1
   
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_load_dc_current_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_load_dc_current_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_load_dc_current
+    name: ${name}_${solar_charger_name}_load_dc_current
     address: 0x105
     register_type: holding
     value_type: U_WORD
@@ -281,9 +281,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_load_dc_power_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_load_dc_power_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_load_dc_power
+    name: ${name}_${solar_charger_name}_load_dc_power
     address: 0x106
     register_type: holding
     value_type: U_WORD
@@ -295,9 +295,9 @@ sensor:
          ############################## Solar Panel Informations ##################
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_solar_panel_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_solar_panel_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_solar_panel_voltage
+    name: ${name}_${solar_charger_name}_solar_panel_voltage
     address: 0x107
     register_type: holding
     value_type: U_WORD
@@ -309,9 +309,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_solar_panel_current_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_solar_panel_current_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_solar_panel_current
+    name: ${name}_${solar_charger_name}_solar_panel_current
     address: 0x108
     register_type: holding
     value_type: U_WORD
@@ -323,9 +323,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_solar_panel_power_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_solar_panel_power_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_solar_panel_power
+    name: ${name}_${solar_charger_name}_solar_panel_power
     address: 0x109
     register_type: holding
     value_type: U_WORD
@@ -335,9 +335,9 @@ sensor:
     unit_of_measurement: 'W'
 
   - platform: total_daily_energy
-    id: ${solar_charger_name}_pv_energy_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_pv_energy_today_${solar_charger_suffix}
-    power_id: ${solar_charger_name}_solar_panel_power_${solar_charger_suffix}
+    id: ${solar_charger_name}_pv_energy_today
+    name: ${name}_${solar_charger_name}_pv_energy_today
+    power_id: ${solar_charger_name}_solar_panel_power
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -347,19 +347,19 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    id: ${solar_charger_name}_pv_energy_yesteday_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_pv_energy_yesteday_${solar_charger_suffix}
+    id: ${solar_charger_name}_pv_energy_yesteday
+    name: ${name}_${solar_charger_name}_pv_energy_yesteday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${solar_charger_template_update}
     lambda: |-
-      return (id( ${solar_charger_name}_pv_energy_yesteday_${solar_charger_suffix}).state = id( ${solar_charger_name}_pv_energy_yesteday_global_${solar_charger_suffix} ));
+      return (id( ${solar_charger_name}_pv_energy_yesteday).state = id( ${solar_charger_name}_pv_energy_yesteday_global ));
     
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_load_dc_charging_status_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_load_dc_charging_status_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_load_dc_charging_status
+    name: ${name}_${solar_charger_name}_load_dc_charging_status
     address: 0x010A
     register_type: holding
     value_type: U_WORD
@@ -371,9 +371,9 @@ sensor:
         ############################## Battery statistics  ############################
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_minimum_voltage_current_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_minimum_voltage_current_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_minimum_voltage_current_today
+    name: ${name}_${solar_charger_name}_battery_minimum_voltage_current_today
     address: 0x010B
     register_type: holding
     value_type: U_WORD
@@ -385,9 +385,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_maximum_voltage_current_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_maximum_voltage_current_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_maximum_voltage_current_today
+    name: ${name}_${solar_charger_name}_battery_maximum_voltage_current_today
     address: 0x010C
     register_type: holding
     value_type: U_WORD
@@ -399,9 +399,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_maximum_charging_current_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_maximum_charging_current_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_maximum_charging_current_today
+    name: ${name}_${solar_charger_name}_battery_maximum_charging_current_today
     address: 0x010D
     register_type: holding
     value_type: U_WORD
@@ -413,9 +413,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_maximum_discharging_current_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_maximum_discharging_current_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_maximum_discharging_current_today
+    name: ${name}_${solar_charger_name}_battery_maximum_discharging_current_today
     address: 0x010E
     register_type: holding
     value_type: U_WORD
@@ -427,9 +427,9 @@ sensor:
       - multiply: 0.01
       
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_maximum_charging_power_current_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_maximum_charging_power_current_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_maximum_charging_power_current_today
+    name: ${name}_${solar_charger_name}_battery_maximum_charging_power_current_today
     address: 0x010F
     register_type: holding
     value_type: U_WORD
@@ -439,9 +439,9 @@ sensor:
     unit_of_measurement: 'W'
  
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_maximum_discharging_power_current_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_maximum_discharging_power_current_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_maximum_discharging_power_current_today
+    name: ${name}_${solar_charger_name}_battery_maximum_discharging_power_current_today
     address: 0x0110
     register_type: holding
     value_type: U_WORD
@@ -451,9 +451,9 @@ sensor:
     unit_of_measurement: 'W'
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_energy_generation_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_energy_generation_today_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_energy_generation_today
+    name: ${name}_${solar_charger_name}_energy_generation_today_today
     address: 0x0113
     register_type: holding
     value_type: U_WORD
@@ -465,9 +465,9 @@ sensor:
       - multiply: 0.001 
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_energy_consumption_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_energy_consumption_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_energy_consumption_today
+    name: ${name}_${solar_charger_name}_energy_consumption_today
     address: 0x0114
     register_type: holding
     value_type: U_WORD
@@ -481,9 +481,9 @@ sensor:
       #################### Historical data information ##################
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_total_number_operating_today_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_total_number_operating_today_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_total_number_operating_today
+    name: ${name}_${solar_charger_name}_total_number_operating_today
     address: 0x0115
     register_type: holding
     value_type: U_WORD
@@ -492,9 +492,9 @@ sensor:
     icon: mdi:calendar-today
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_total_number_battery_overdischarge_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_total_number_battery_overdischarge_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_total_number_battery_overdischarge
+    name: ${name}_${solar_charger_name}_total_number_battery_overdischarge
     address: 0x0116
     register_type: holding
     value_type: U_WORD
@@ -503,9 +503,9 @@ sensor:
     icon: mdi:flash-alert
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_total_number_battery_fullcharge_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_total_number_battery_fullcharge_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_total_number_battery_fullcharge
+    name: ${name}_${solar_charger_name}_total_number_battery_fullcharge
     address: 0x0117
     register_type: holding
     value_type: U_WORD
@@ -514,9 +514,9 @@ sensor:
     icon: mdi:battery-charging-high
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_total_charging_ah_battery_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_total_charging_ah_battery_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_total_charging_ah_battery
+    name: ${name}_${solar_charger_name}_total_charging_ah_battery
     address: 0x0118
     register_type: holding
     value_type: U_DWORD
@@ -526,9 +526,9 @@ sensor:
     unit_of_measurement: 'Ah' 
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_total_discharging_ah_battery_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_total_discharging_ah_battery_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_total_discharging_ah_battery
+    name: ${name}_${solar_charger_name}_total_discharging_ah_battery
     address: 0x011A
     register_type: holding
     value_type: U_DWORD
@@ -538,9 +538,9 @@ sensor:
     unit_of_measurement: 'Ah'     
     
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_energy_generation_total_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_energy_generation_total_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_energy_generation_total
+    name: ${name}_${solar_charger_name}_energy_generation_total
     address: 0x011C
     register_type: holding
     value_type: U_DWORD
@@ -552,9 +552,9 @@ sensor:
       - multiply: 0.001
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_energy_consumption_total_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_energy_consumption_total_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_energy_consumption_total
+    name: ${name}_${solar_charger_name}_energy_consumption_total
     address: 0x011E
     register_type: holding
     value_type: U_DWORD
@@ -566,9 +566,9 @@ sensor:
       - multiply: 0.001    
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_warnings_and_errors_hi_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_warnings_and_errors_hi_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_warnings_and_errors_hi
+    name: ${name}_${solar_charger_name}_warnings_and_errors_hi
     icon: mdi:alert-circle
     address: 0x0121
     register_type: holding
@@ -576,11 +576,11 @@ sensor:
     skip_updates: 1
     lambda: |-
       //ESP_LOGD("Register 0x0121","Lambda incoming value=%d - data array size is %d",int(x),data.size());
-      id(${solar_charger_name}_warnings_and_errors_hi_template_${solar_charger_suffix}).publish_state(int(x));
+      id(${solar_charger_name}_warnings_and_errors_hi_template).publish_state(int(x));
       return x;
    
   - platform: template
-    id: ${solar_charger_name}_warnings_and_errors_hi_template_${solar_charger_suffix}
+    id: ${solar_charger_name}_warnings_and_errors_hi_template
     #name: ${solar_charger_name}_warnings_and_errors_hi_template 
     icon: mdi:alert-circle
     accuracy_decimals: 0
@@ -588,12 +588,12 @@ sensor:
     on_value:
       then: 
         - script.execute: 
-            id: warnings_and_errors_hi_script_${solar_charger_suffix}
+            id: warnings_and_errors_hi_script
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_warnings_and_errors_low_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_warnings_and_errors_low _${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_warnings_and_errors_low
+    name: ${name}_${solar_charger_name}_warnings_and_errors_low 
     icon: mdi:alert-circle
     address: 0x0122
     register_type: holding
@@ -601,11 +601,11 @@ sensor:
     skip_updates: 1
     lambda: |-
       //ESP_LOGD("Register 0x0122","Lambda incoming value=%d - data array size is %d",int(x),data.size());
-      id(${solar_charger_name}_warnings_and_errors_low_template_${solar_charger_suffix}).publish_state(int(x));
+      id(${solar_charger_name}_warnings_and_errors_low_template).publish_state(int(x));
       return x;
    
   - platform: template
-    id: ${solar_charger_name}_warnings_and_errors_low_template_${solar_charger_suffix}
+    id: ${solar_charger_name}_warnings_and_errors_low_template
     #name: ${solar_charger_name}_warnings_and_errors_low_template 
     icon: mdi:alert-circle
     accuracy_decimals: 0
@@ -613,14 +613,14 @@ sensor:
     on_value:
       then: 
         - script.execute: 
-            id: warnings_and_errors_low_script_${solar_charger_suffix}         
+            id: warnings_and_errors_low_script         
 
              ################## Load informations  ####################
   
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_street_light_status_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_street_light_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_street_light_status
+    name: ${name}_${solar_charger_name}_street_light
     icon: mdi:outdoor-lamp
     bitmask: 0x8000
     register_type: holding
@@ -630,9 +630,9 @@ sensor:
     address: 0x0120
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_street_brightness_level_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_street_brightness_level_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_street_brightness_level
+    name: ${name}_${solar_charger_name}_street_brightness_level
     icon: mdi:outdoor-lamp
     bitmask: 0x7F00
     register_type: holding
@@ -644,9 +644,9 @@ sensor:
       ############################ Battery parameters ###################
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_charging_current_limit_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_charging_current_limit_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_charging_current_limit
+    name: ${name}_${solar_charger_name}_charging_current_limit
     address: 0xE001
     register_type: holding
     value_type: U_WORD
@@ -657,9 +657,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_capacity_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_capacity_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_capacity
+    name: ${name}_${solar_charger_name}_battery_capacity
     address: 0xE002
     register_type: holding
     value_type: U_WORD
@@ -668,9 +668,9 @@ sensor:
     accuracy_decimals: 0
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_voltage_setting_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_voltage_setting_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_voltage_setting
+    name: ${name}_${solar_charger_name}_battery_voltage_setting
     address: 0xE003
     register_type: holding
     value_type: U_WORD
@@ -681,9 +681,9 @@ sensor:
     icon: mdi:car-battery 
     
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_voltage_recognized_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_voltage_recognized_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_voltage_recognized
+    name: ${name}_${solar_charger_name}_battery_voltage_recognized
     address: 0xE003
     register_type: holding
     value_type: U_WORD
@@ -694,13 +694,13 @@ sensor:
     icon: mdi:car-battery
     lambda: |-
       //ESP_LOGD("RegE003 sensor", "raw value (%d)", (int)x);
-      id(${solar_charger_name}_battery_reco_global_${solar_charger_suffix}) = (int)x;
+      id(${solar_charger_name}_battery_reco_global) = (int)x;
       return {};
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_type_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_type_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_type
+    name: ${name}_${solar_charger_name}_battery_type
     address: 0xE004
     register_type: holding
     value_type: U_WORD
@@ -712,9 +712,9 @@ sensor:
           ########  1 ########
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_over_voltage_threshold_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_over_voltage_threshold_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_over_voltage_threshold
+    name: ${name}_${solar_charger_name}_over_voltage_threshold
     address: 0xE005
     register_type: holding
     value_type: U_WORD
@@ -722,15 +722,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave
 
           ########  2 ########
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_charging_voltage_limit_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_charging_voltage_limit_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_charging_voltage_limit
+    name: ${name}_${solar_charger_name}_charging_voltage_limit
     address: 0xE006
     register_type: holding
     value_type: U_WORD
@@ -738,15 +738,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave 
 
               ########  3 ########
   
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_equalizing_charge_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_equalizing_charge_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_equalizing_charge_voltage
+    name: ${name}_${solar_charger_name}_equalizing_charge_voltage
     address: 0xE007
     register_type: holding
     value_type: U_WORD
@@ -754,15 +754,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave
 
             ########  4 ########        
   
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_boost_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_boost_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_boost_voltage
+    name: ${name}_${solar_charger_name}_boost_voltage
     address: 0xE008
     register_type: holding
     value_type: U_WORD
@@ -770,15 +770,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave
 
           ######## 5 ########
    
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_float_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_float_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_float_voltage
+    name: ${name}_${solar_charger_name}_float_voltage
     address: 0xE009
     register_type: holding
     value_type: U_WORD
@@ -786,15 +786,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave 
 
             ######## 6 ########
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_boost_charging_recovery_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_boost_charging_recovery_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_boost_charging_recovery_voltage
+    name: ${name}_${solar_charger_name}_boost_charging_recovery_voltage
     address: 0xE00A
     register_type: holding
     value_type: U_WORD
@@ -802,15 +802,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave
 
               ######## 7 ########
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_over_discharge_recovery_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_over_discharge_recovery_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_over_discharge_recovery_voltage
+    name: ${name}_${solar_charger_name}_over_discharge_recovery_voltage
     address: 0xE00B
     register_type: holding
     value_type: U_WORD
@@ -818,15 +818,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave
 
             ######## 8 ########
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_under_voltage_warning_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_under_voltage_warning_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_under_voltage_warning
+    name: ${name}_${solar_charger_name}_under_voltage_warning
     address: 0xE00C
     register_type: holding
     value_type: U_WORD
@@ -834,15 +834,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave
 
         ######## 9 ########
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_over_discharge_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_over_discharge_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_over_discharge_voltage
+    name: ${name}_${solar_charger_name}_over_discharge_voltage
     address: 0xE00D
     register_type: holding
     value_type: U_WORD
@@ -850,15 +850,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave
 
         ######## 10 ########
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_discharge_limit_voltage_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_discharge_limit_voltage_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_discharge_limit_voltage
+    name: ${name}_${solar_charger_name}_discharge_limit_voltage
     address: 0xE00E
     register_type: holding
     value_type: U_WORD
@@ -866,15 +866,15 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1
     lambda: |-
-      return x*0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix});  
+      return x*0.1*id(${solar_charger_name}_battery_coefficient);  
     icon: mdi:sine-wave   
 
       ############## Delay  ##############
   
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_overdischarge_time_delay_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_overdischarge_time_delay_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_overdischarge_time_delay
+    name: ${name}_${solar_charger_name}_overdischarge_time_delay
     address: 0xE010
     register_type: holding
     value_type: U_WORD
@@ -884,9 +884,9 @@ sensor:
     skip_updates: 1
    
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_equalizing_charging_time_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_equalizing_charging_time_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_equalizing_charging_time
+    name: ${name}_${solar_charger_name}_equalizing_charging_time
     address: 0xE011
     value_type: U_WORD
     register_type: holding
@@ -896,9 +896,9 @@ sensor:
     skip_updates: 1
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_boost_charging_time_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_boost_charging_time_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_boost_charging_time
+    name: ${name}_${solar_charger_name}_boost_charging_time
     address: 0xE012
     value_type: U_WORD
     register_type: holding
@@ -908,9 +908,9 @@ sensor:
     skip_updates: 1
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_equalizing_charging_interval_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_equalizing_charging_interval_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_equalizing_charging_interval
+    name: ${name}_${solar_charger_name}_equalizing_charging_interval
     address: 0xE013
     value_type: U_WORD
     register_type: holding
@@ -920,9 +920,9 @@ sensor:
     skip_updates: 1 
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_temperature_compensation_factor_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_temperature_compensation_factor_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_temperature_compensation_factor
+    name: ${name}_${solar_charger_name}_temperature_compensation_factor
     address: 0xE014
     register_type: holding
     value_type: U_WORD
@@ -934,9 +934,9 @@ sensor:
       - multiply: -1
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_load_working_mode_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_load_working_mode_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_load_working_mode
+    name: ${name}_${solar_charger_name}_load_working_mode
     address: 0xE01D
     register_type: holding
     value_type: U_WORD
@@ -947,27 +947,27 @@ sensor:
 switch:
   
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_load_on_off_command_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_load_on_off_command_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_load_on_off_command
+    name: ${name}_${solar_charger_name}_load_on_off_command
     register_type: holding
     address: 0x010A
     bitmask: 1
 
   - platform: template
-    id: ${solar_charger_name}_load_dc_on_off_command_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_load_dc_on_off_command_${solar_charger_suffix}
+    id: ${solar_charger_name}_load_dc_on_off_command
+    name: ${name}_${solar_charger_name}_load_dc_on_off_command
     optimistic: true
     turn_on_action:
-      - script.execute: turn_on_dc_load_script_${solar_charger_suffix}
+      - script.execute: turn_on_dc_load_script
     turn_off_action:
-      - script.execute: turn_off_dc_load_script_${solar_charger_suffix}
+      - script.execute: turn_off_dc_load_script
 
 select:
 
   - platform: template
-    id: ${solar_charger_name}_battery_voltage_setting_select_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_voltage_setting_select_${solar_charger_suffix}
+    id: ${solar_charger_name}_battery_voltage_setting_select
+    name: ${name}_${solar_charger_name}_battery_voltage_setting_select
     optimistic: true
     options:
       - '12V'
@@ -981,16 +981,16 @@ select:
     on_value:
       then: 
         - lambda: !lambda |-
-            id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) = (i + 1);
-        - script.execute: update_template_numbers_script_${solar_charger_suffix} 
+            id(${solar_charger_name}_battery_coefficient) = (i + 1);
+        - script.execute: update_template_numbers_script 
 
         - script.execute: 
-            id: write_E003_register_script_${solar_charger_suffix}
+            id: write_E003_register_script
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_load_charging_mode_select_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_load_charging_mode_select_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_load_charging_mode_select
+    name: ${name}_${solar_charger_name}_load_charging_mode_select
     address: 0xE01D
     value_type: U_WORD
     icon: mdi:list-status
@@ -1015,9 +1015,9 @@ select:
       "Normal mode": 17
  
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_type_select_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_type_select_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_type_select
+    name: ${name}_${solar_charger_name}_battery_type_select
     address: 0xE004
     value_type: U_WORD
     icon: mdi:car-battery
@@ -1032,9 +1032,9 @@ number:
       ############## Delay  ##############
       
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_overdischarge_time_delay_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_overdischarge_time_delay_number_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_overdischarge_time_delay_number
+    name: ${name}_${solar_charger_name}_overdischarge_time_delay_number
     address: 0xE010
     value_type: U_WORD
     unit_of_measurement: 's'
@@ -1045,9 +1045,9 @@ number:
     mode: 'slider'
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_equalizing_charging_time_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_equalizing_charging_time_number_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_equalizing_charging_time_number
+    name: ${name}_${solar_charger_name}_equalizing_charging_time_number
     address: 0xE011
     value_type: U_WORD
     unit_of_measurement: 'min'
@@ -1058,9 +1058,9 @@ number:
     mode: 'slider'
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_boost_charging_time_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_boost_charging_time_number_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_boost_charging_time_number
+    name: ${name}_${solar_charger_name}_boost_charging_time_number
     address: 0xE012
     value_type: U_WORD
     unit_of_measurement: 'min'
@@ -1071,9 +1071,9 @@ number:
     mode: 'slider'
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_equalizing_charging_interval_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_equalizing_charging_interval_number_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_equalizing_charging_interval_number
+    name: ${name}_${solar_charger_name}_equalizing_charging_interval_number
     address: 0xE013
     value_type: U_WORD
     unit_of_measurement: 'day'
@@ -1084,9 +1084,9 @@ number:
     mode: 'slider'  
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_temperature_compensation_coefficient_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_temperature_compensation_coefficient_number_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_temperature_compensation_coefficient_number
+    name: ${name}_${solar_charger_name}_temperature_compensation_coefficient_number
     address: 0xE014
     value_type: U_WORD
     unit_of_measurement: 'mV/°C/2V'
@@ -1102,8 +1102,8 @@ number:
              ######### 1 #########
 
   - platform: template
-    id: ${solar_charger_name}_over_voltage_threshold_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_over_voltage_threshold_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_over_voltage_threshold_number
+    name: ${name}_${solar_charger_name}_over_voltage_threshold_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1115,13 +1115,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix}
+        - script.execute: write_E005_E00E_registers_script
  
              ######### 2 #########
              
   - platform: template
-    id: ${solar_charger_name}_charging_voltage_limit_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_charging_voltage_limit_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_charging_voltage_limit_number
+    name: ${name}_${solar_charger_name}_charging_voltage_limit_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1133,13 +1133,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix}
+        - script.execute: write_E005_E00E_registers_script
   
             ######### 3 #########
 
   - platform: template
-    id: ${solar_charger_name}_equalizing_charge_voltage_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_equalizing_charge_voltage_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_equalizing_charge_voltage_number
+    name: ${name}_${solar_charger_name}_equalizing_charge_voltage_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1151,13 +1151,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix}
+        - script.execute: write_E005_E00E_registers_script
 
           ######### 4 #########
  
   - platform: template
-    id: ${solar_charger_name}_boost_voltage_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_boost_voltage_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_boost_voltage_number
+    name: ${name}_${solar_charger_name}_boost_voltage_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1169,13 +1169,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix}
+        - script.execute: write_E005_E00E_registers_script
 
           ######### 5 #########
 
   - platform: template
-    id: ${solar_charger_name}_float_voltage_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_float_voltage_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_float_voltage_number
+    name: ${name}_${solar_charger_name}_float_voltage_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1187,13 +1187,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix}
+        - script.execute: write_E005_E00E_registers_script
          
              ######### 6 #########
 
   - platform: template
-    id: ${solar_charger_name}_boost_charging_recovery_voltage_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_boost_charging_recovery_voltage_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_boost_charging_recovery_voltage_number
+    name: ${name}_${solar_charger_name}_boost_charging_recovery_voltage_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1205,13 +1205,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix}
+        - script.execute: write_E005_E00E_registers_script
 
           ######### 7 #########
 
   - platform: template
-    id: ${solar_charger_name}_over_discharge_recovery_voltage_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_over_discharge_recovery_voltage_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_over_discharge_recovery_voltage_number
+    name: ${name}_${solar_charger_name}_over_discharge_recovery_voltage_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1223,13 +1223,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix}
+        - script.execute: write_E005_E00E_registers_script
 
          ######### 8 #########
 
   - platform: template
-    id: ${solar_charger_name}_under_voltage_warning_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_under_voltage_warning_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_under_voltage_warning_number
+    name: ${name}_${solar_charger_name}_under_voltage_warning_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1241,13 +1241,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix} 
+        - script.execute: write_E005_E00E_registers_script 
 
          ######### 9 #########
 
   - platform: template
-    id: ${solar_charger_name}_over_discharge_voltage_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_over_discharge_voltage_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_over_discharge_voltage_number
+    name: ${name}_${solar_charger_name}_over_discharge_voltage_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1259,13 +1259,13 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix} 
+        - script.execute: write_E005_E00E_registers_script 
 
          ######### 10 #########
 
   - platform: template
-    id: ${solar_charger_name}_discharge_limit_voltage_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_discharge_limit_voltage_number_${solar_charger_suffix}
+    id: ${solar_charger_name}_discharge_limit_voltage_number
+    name: ${name}_${solar_charger_name}_discharge_limit_voltage_number
     optimistic: true
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
@@ -1277,14 +1277,14 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script_${solar_charger_suffix}
+        - script.execute: write_E005_E00E_registers_script
 
      ############ Charging current ##########
   
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_charging_current_limit_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_charging_current_limit_number_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_charging_current_limit_number
+    name: ${name}_${solar_charger_name}_charging_current_limit_number
     address: 0xE001
     value_type: U_WORD
     unit_of_measurement: 'A'
@@ -1296,9 +1296,9 @@ number:
     multiply: 100
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_battery_capacity_number_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_capacity_number_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_battery_capacity_number
+    name: ${name}_${solar_charger_name}_battery_capacity_number
     address: 0xE002
     value_type: U_WORD
     unit_of_measurement: 'Ah'
@@ -1310,9 +1310,9 @@ number:
 
 text_sensor:
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_product_type_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_product_type_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_product_type
+    name: ${name}_${solar_charger_name}_product_type
     bitmask: 0
     register_type: holding
     address: 0x00B
@@ -1327,9 +1327,9 @@ text_sensor:
       return x;
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_charging_mode_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_charging_mode_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_charging_mode
+    name: ${name}_${solar_charger_name}_charging_mode
     icon: mdi:list-status
     #bitmask: 0
     register_type: holding
@@ -1350,25 +1350,25 @@ text_sensor:
       return x;
 
   - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller_${solar_charger_suffix}
-    id: ${solar_charger_name}_product_model_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_product_model_${solar_charger_suffix}
+    modbus_controller_id: ${solar_charger_name}_modbus_controller
+    id: ${solar_charger_name}_product_model
+    name: ${name}_${solar_charger_name}_product_model
     register_type: holding
     address: 0x00C
     response_size: 16
     raw_encode: NONE
   
   # - platform: template
-    # id: ${solar_charger_name}_warnings_and_errors_hi_text_${solar_charger_suffix}
-    # name: ${name}_${solar_charger_name}_warnings_and_errors_hi_text_${solar_charger_suffix}
+    # id: ${solar_charger_name}_warnings_and_errors_hi_text
+    # name: ${name}_${solar_charger_name}_warnings_and_errors_hi_text
     # icon: mdi:alert-circle
     
   - platform: template
-    id: ${solar_charger_name}_warnings_and_errors_hi_text_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_warnings_and_errors_hi_text_${solar_charger_suffix}
+    id: ${solar_charger_name}_warnings_and_errors_hi_text
+    name: ${name}_${solar_charger_name}_warnings_and_errors_hi_text
     icon: mdi:alert-circle
     lambda: |-
-      return id(${solar_charger_name}_warnings_and_errors_hi_text_${solar_charger_suffix}).state; 
+      return id(${solar_charger_name}_warnings_and_errors_hi_text).state; 
      
 
   # - platform: template
@@ -1377,38 +1377,38 @@ text_sensor:
   #   icon: mdi:alert-circle    
 
 #   - platform: template
-#     id: ${solar_charger_name}_warnings_and_errors_low_text_${solar_charger_suffix}
-#     name: ${name}_${solar_charger_name}_warnings_and_errors_low_text_${solar_charger_suffix}
+#     id: ${solar_charger_name}_warnings_and_errors_low_text
+#     name: ${name}_${solar_charger_name}_warnings_and_errors_low_text
 #     icon: mdi:alert-circle  
 
   - platform: template
-    id: ${solar_charger_name}_warnings_and_errors_low_text_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_warnings_and_errors_low_text_${solar_charger_suffix}
+    id: ${solar_charger_name}_warnings_and_errors_low_text
+    name: ${name}_${solar_charger_name}_warnings_and_errors_low_text
     icon: mdi:alert-circle
     lambda: |-
-      return id(${solar_charger_name}_warnings_and_errors_low_text_${solar_charger_suffix}).state; 
+      return id(${solar_charger_name}_warnings_and_errors_low_text).state; 
 
   - platform: template
-    id: ${solar_charger_name}_charger_status_text_${solar_charger_suffix}
-    name: ${name}_${solar_charger_name}_battery_type_text_${solar_charger_suffix}
+    id: ${solar_charger_name}_charger_status_text
+    name: ${name}_${solar_charger_name}_battery_type_text
     icon: mdi:car-battery
     update_interval: ${solar_charger_text_update}
     lambda: |-
-      if (isnan(id(${solar_charger_name}_battery_type_${solar_charger_suffix}).state)) { 
+      if (isnan(id(${solar_charger_name}_battery_type).state)) { 
         return {"KO"};
       }
       else {
         static const char *battery_list[] = {"User defined","Open (FLD)", "Sealed (SLD)", "Gel" , "Lithium"};
-        return {battery_list[int(id(${solar_charger_name}_battery_type_${solar_charger_suffix}).state)]};
+        return {battery_list[int(id(${solar_charger_name}_battery_type).state)]};
       } 
 
 script:
 
-  - id: warnings_and_errors_hi_script_${solar_charger_suffix}
+  - id: warnings_and_errors_hi_script
     then:
       - lambda: |-
           bool first = true;
-          const uint16_t mask = (id(${solar_charger_name}_warnings_and_errors_hi_template_${solar_charger_suffix}).state);
+          const uint16_t mask = (id(${solar_charger_name}_warnings_and_errors_hi_template).state);
           std::string errors_list = "";
           static const char *const ERRORS_HI[16] = {
               "Reserved",                                  // Byte 0.0, warning
@@ -1441,13 +1441,13 @@ script:
               }
             }
           }
-          id(${solar_charger_name}_warnings_and_errors_hi_text_${solar_charger_suffix}).publish_state(errors_list);
+          id(${solar_charger_name}_warnings_and_errors_hi_text).publish_state(errors_list);
           
-  - id: warnings_and_errors_low_script_${solar_charger_suffix}
+  - id: warnings_and_errors_low_script
     then:
       - lambda: |-
           bool first = true;
-          const uint16_t mask = (id(${solar_charger_name}_warnings_and_errors_low_template_${solar_charger_suffix}).state);
+          const uint16_t mask = (id(${solar_charger_name}_warnings_and_errors_low_template).state);
           std::string errors_list = "";
           static const char *const ERRORS_LOW[16] = {
               "Battery overdischarge",                                  // Byte 0.0, warning
@@ -1480,16 +1480,16 @@ script:
               }
             }
           }
-          id(${solar_charger_name}_warnings_and_errors_low_text_${solar_charger_suffix}).publish_state(errors_list);
+          id(${solar_charger_name}_warnings_and_errors_low_text).publish_state(errors_list);
           
-  - id: turn_on_dc_load_script_${solar_charger_suffix}
+  - id: turn_on_dc_load_script
     then:
       - globals.set:
-                id: ${solar_charger_name}_current_load_charging_mode_global_${solar_charger_suffix}
-                value: !lambda return ( id(${solar_charger_name}_current_load_charging_mode_global_${solar_charger_suffix}) =  int( id(${solar_charger_name}_load_working_mode_${solar_charger_suffix}).state) );
+                id: ${solar_charger_name}_current_load_charging_mode_global
+                value: !lambda return ( id(${solar_charger_name}_current_load_charging_mode_global) =  int( id(${solar_charger_name}_load_working_mode).state) );
       #- delay: 200ms
       - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller_${solar_charger_suffix});
+          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
           std::vector<uint16_t> register_settings(1);
           register_settings[0]  = uint16_t(15); //go in manual mode <=> write 15 in 0xE01D
           //ESP_LOGD("script","value to be written in E01D = %d",register_settings[0]);
@@ -1500,7 +1500,7 @@ script:
           delay(200); 
       - delay: 3s
       - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller_${solar_charger_suffix});
+          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
           std::vector<uint16_t> register_settings(1);
           register_settings[0]  = uint16_t(1); //turn on dc load  <=> write 1 in 0x010A
           ESP_LOGD("script turn on regx010A","value to be written in x010A = %d",register_settings[0]);
@@ -1510,10 +1510,10 @@ script:
           controller->queue_command(register_command);
           delay(200);              
 
-  - id: turn_off_dc_load_script_${solar_charger_suffix}
+  - id: turn_off_dc_load_script
     then:
       - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller_${solar_charger_suffix});
+          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
           std::vector<uint16_t> register_settings(1);
           register_settings[0]  = uint16_t(0); //turn off dc load  <=> write 1 in 0x010A
           ESP_LOGD("script turn off regx010A","value to be written in 010A = %d",register_settings[0]);
@@ -1524,9 +1524,9 @@ script:
           delay(200);                       
 
       - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller_${solar_charger_suffix});
+          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
           std::vector<uint16_t> register_settings(1);
-          register_settings[0]  = uint16_t(id(${solar_charger_name}_current_load_charging_mode_global_${solar_charger_suffix})); //return in previous mode <=> write in 0xE01D
+          register_settings[0]  = uint16_t(id(${solar_charger_name}_current_load_charging_mode_global)); //return in previous mode <=> write in 0xE01D
           //ESP_LOGD("script","value to be written in E01D = %d",register_settings[0]);
           esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0xE01D, register_settings.size() ,
                                                                                           register_settings);
@@ -1534,98 +1534,98 @@ script:
           controller->queue_command(register_command);
           delay(200); 
       
-  - id: update_template_numbers_script_${solar_charger_suffix}
+  - id: update_template_numbers_script
     then:
       - lambda: |-
-            id(${solar_charger_name}_over_voltage_threshold_number_${solar_charger_suffix}).traits.set_min_value(14*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_over_voltage_threshold_number_${solar_charger_suffix}).traits.set_max_value(16*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_over_voltage_threshold_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_over_voltage_threshold_number).traits.set_min_value(14*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_over_voltage_threshold_number).traits.set_max_value(16*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_over_voltage_threshold_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
             
-            id(${solar_charger_name}_charging_voltage_limit_number_${solar_charger_suffix}).traits.set_min_value(14*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_charging_voltage_limit_number_${solar_charger_suffix}).traits.set_max_value(15.5*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_charging_voltage_limit_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_charging_voltage_limit_number).traits.set_min_value(14*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_charging_voltage_limit_number).traits.set_max_value(15.5*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_charging_voltage_limit_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
-            id(${solar_charger_name}_equalizing_charge_voltage_number_${solar_charger_suffix}).traits.set_min_value(12*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_equalizing_charge_voltage_number_${solar_charger_suffix}).traits.set_max_value(14.5*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_equalizing_charge_voltage_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_equalizing_charge_voltage_number).traits.set_min_value(12*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_equalizing_charge_voltage_number).traits.set_max_value(14.5*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_equalizing_charge_voltage_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
-            id(${solar_charger_name}_boost_voltage_number_${solar_charger_suffix}).traits.set_min_value(12*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_boost_voltage_number_${solar_charger_suffix}).traits.set_max_value(14.5*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_boost_voltage_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_boost_voltage_number).traits.set_min_value(12*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_boost_voltage_number).traits.set_max_value(14.5*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_boost_voltage_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
-            id(${solar_charger_name}_float_voltage_number_${solar_charger_suffix}).traits.set_min_value(12*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_float_voltage_number_${solar_charger_suffix}).traits.set_max_value(14.5*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_float_voltage_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_float_voltage_number).traits.set_min_value(12*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_float_voltage_number).traits.set_max_value(14.5*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_float_voltage_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
-            id(${solar_charger_name}_boost_charging_recovery_voltage_number_${solar_charger_suffix}).traits.set_min_value(12*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_boost_charging_recovery_voltage_number_${solar_charger_suffix}).traits.set_max_value(14.5*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_boost_charging_recovery_voltage_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_boost_charging_recovery_voltage_number).traits.set_min_value(12*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_boost_charging_recovery_voltage_number).traits.set_max_value(14.5*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_boost_charging_recovery_voltage_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
-            id(${solar_charger_name}_over_discharge_recovery_voltage_number_${solar_charger_suffix}).traits.set_min_value(11*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_over_discharge_recovery_voltage_number_${solar_charger_suffix}).traits.set_max_value(13*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_over_discharge_recovery_voltage_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_over_discharge_recovery_voltage_number).traits.set_min_value(11*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_over_discharge_recovery_voltage_number).traits.set_max_value(13*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_over_discharge_recovery_voltage_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
-            id(${solar_charger_name}_under_voltage_warning_number_${solar_charger_suffix}).traits.set_min_value(11*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_under_voltage_warning_number_${solar_charger_suffix}).traits.set_max_value(12.6*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_under_voltage_warning_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_under_voltage_warning_number).traits.set_min_value(11*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_under_voltage_warning_number).traits.set_max_value(12.6*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_under_voltage_warning_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
-            id(${solar_charger_name}_over_discharge_voltage_number_${solar_charger_suffix}).traits.set_min_value(10*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_over_discharge_voltage_number_${solar_charger_suffix}).traits.set_max_value(12*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_over_discharge_voltage_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_over_discharge_voltage_number).traits.set_min_value(10*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_over_discharge_voltage_number).traits.set_max_value(12*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_over_discharge_voltage_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
-            id(${solar_charger_name}_discharge_limit_voltage_number_${solar_charger_suffix}).traits.set_min_value(9.8*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_discharge_limit_voltage_number_${solar_charger_suffix}).traits.set_max_value(12*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
-            id(${solar_charger_name}_discharge_limit_voltage_number_${solar_charger_suffix}).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+            id(${solar_charger_name}_discharge_limit_voltage_number).traits.set_min_value(9.8*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_discharge_limit_voltage_number).traits.set_max_value(12*id(${solar_charger_name}_battery_coefficient));
+            id(${solar_charger_name}_discharge_limit_voltage_number).traits.set_step(0.1*id(${solar_charger_name}_battery_coefficient));
 
       - number.set:
-          id: ${solar_charger_name}_over_voltage_threshold_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_over_voltage_threshold_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_over_voltage_threshold_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+              return float(id(${solar_charger_name}_over_voltage_threshold_number).state*id(${solar_charger_name}_battery_coefficient));
       - number.set:
-          id: ${solar_charger_name}_charging_voltage_limit_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_charging_voltage_limit_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_charging_voltage_limit_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+              return float(id(${solar_charger_name}_charging_voltage_limit_number).state*id(${solar_charger_name}_battery_coefficient));
       - number.set:
-          id: ${solar_charger_name}_equalizing_charge_voltage_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_equalizing_charge_voltage_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_equalizing_charge_voltage_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));                
+              return float(id(${solar_charger_name}_equalizing_charge_voltage_number).state*id(${solar_charger_name}_battery_coefficient));                
       - number.set:
-          id: ${solar_charger_name}_boost_voltage_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_boost_voltage_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_boost_voltage_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix})); 
+              return float(id(${solar_charger_name}_boost_voltage_number).state*id(${solar_charger_name}_battery_coefficient)); 
       - number.set:
-          id: ${solar_charger_name}_float_voltage_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_float_voltage_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_float_voltage_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+              return float(id(${solar_charger_name}_float_voltage_number).state*id(${solar_charger_name}_battery_coefficient));
       - number.set:
-          id: ${solar_charger_name}_boost_charging_recovery_voltage_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_boost_charging_recovery_voltage_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_boost_charging_recovery_voltage_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+              return float(id(${solar_charger_name}_boost_charging_recovery_voltage_number).state*id(${solar_charger_name}_battery_coefficient));
       - number.set:
-          id: ${solar_charger_name}_over_discharge_recovery_voltage_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_over_discharge_recovery_voltage_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_over_discharge_recovery_voltage_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));                           
+              return float(id(${solar_charger_name}_over_discharge_recovery_voltage_number).state*id(${solar_charger_name}_battery_coefficient));                           
       - number.set:
-          id: ${solar_charger_name}_under_voltage_warning_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_under_voltage_warning_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_under_voltage_warning_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+              return float(id(${solar_charger_name}_under_voltage_warning_number).state*id(${solar_charger_name}_battery_coefficient));
       - number.set:
-          id: ${solar_charger_name}_over_discharge_voltage_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_over_discharge_voltage_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_over_discharge_voltage_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));
+              return float(id(${solar_charger_name}_over_discharge_voltage_number).state*id(${solar_charger_name}_battery_coefficient));
       - number.set:
-          id: ${solar_charger_name}_discharge_limit_voltage_number_${solar_charger_suffix}
+          id: ${solar_charger_name}_discharge_limit_voltage_number
           value: !lambda |- 
-              return float(id(${solar_charger_name}_discharge_limit_voltage_number_${solar_charger_suffix}).state*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}));                
+              return float(id(${solar_charger_name}_discharge_limit_voltage_number).state*id(${solar_charger_name}_battery_coefficient));                
 
-  - id: write_E003_register_script_${solar_charger_suffix}
+  - id: write_E003_register_script
     # parameters:
     #   current_controller: "esphome::modbus_controller::ModbusController *"
     then:
       - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller_${solar_charger_suffix});
+          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
           std::vector<uint16_t> battery_settings(1);
-          battery_settings[0]  = uint16_t( 3072*id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix})  + id(${solar_charger_name}_battery_reco_global_${solar_charger_suffix}));
+          battery_settings[0]  = uint16_t( 3072*id(${solar_charger_name}_battery_coefficient)  + id(${solar_charger_name}_battery_reco_global));
           //ESP_LOGD("script","value to be written in E003 = %d",battery_settings[0]);
           esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0xE003, battery_settings.size() , battery_settings);
           
@@ -1634,21 +1634,21 @@ script:
           delay(200);
 
  
-  - id: write_E005_E00E_registers_script_${solar_charger_suffix}
+  - id: write_E005_E00E_registers_script
     then:
       - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller_${solar_charger_suffix});
+          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
           std::vector<uint16_t> battery_settings(10);
-          battery_settings[0]  = uint16_t(( (id(${solar_charger_name}_over_voltage_threshold_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[1]  = uint16_t(( (id(${solar_charger_name}_charging_voltage_limit_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[2]  = uint16_t(( (id(${solar_charger_name}_equalizing_charge_voltage_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[3]  = uint16_t(( (id(${solar_charger_name}_boost_voltage_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[4]  = uint16_t(( (id(${solar_charger_name}_float_voltage_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[5]  = uint16_t(( (id(${solar_charger_name}_boost_charging_recovery_voltage_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[6]  = uint16_t(( (id(${solar_charger_name}_over_discharge_recovery_voltage_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[7]  = uint16_t(( (id(${solar_charger_name}_under_voltage_warning_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[8]  = uint16_t(( (id(${solar_charger_name}_over_discharge_voltage_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
-          battery_settings[9]  = uint16_t(( (id(${solar_charger_name}_discharge_limit_voltage_number_${solar_charger_suffix}).state)*10)/id(${solar_charger_name}_battery_coefficient_${solar_charger_suffix}) );
+          battery_settings[0]  = uint16_t(( (id(${solar_charger_name}_over_voltage_threshold_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[1]  = uint16_t(( (id(${solar_charger_name}_charging_voltage_limit_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[2]  = uint16_t(( (id(${solar_charger_name}_equalizing_charge_voltage_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[3]  = uint16_t(( (id(${solar_charger_name}_boost_voltage_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[4]  = uint16_t(( (id(${solar_charger_name}_float_voltage_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[5]  = uint16_t(( (id(${solar_charger_name}_boost_charging_recovery_voltage_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[6]  = uint16_t(( (id(${solar_charger_name}_over_discharge_recovery_voltage_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[7]  = uint16_t(( (id(${solar_charger_name}_under_voltage_warning_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[8]  = uint16_t(( (id(${solar_charger_name}_over_discharge_voltage_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
+          battery_settings[9]  = uint16_t(( (id(${solar_charger_name}_discharge_limit_voltage_number).state)*10)/id(${solar_charger_name}_battery_coefficient) );
           
           esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0xE005, battery_settings.size() ,
                                                                                           battery_settings);

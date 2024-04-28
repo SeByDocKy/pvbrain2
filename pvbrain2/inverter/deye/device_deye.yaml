@@ -3,45 +3,45 @@ packages:
   deye_advanced: !include device_deye_advanced.yaml
 
 # modbus:
- # - id: ${inverter_name}_modbus_${inverter_suffix}
+ # - id: ${inverter_name}_modbus
    # uart_id: ${inverter_uart_id}
    ## flow_control_pin: 4
    
 # modbus_controller:
- # - id: ${inverter_name}_modbus_controller_${inverter_suffix}
+ # - id: ${inverter_name}_modbus_controller
    # address: ${inverter_modbus_address}
-   # modbus_id: ${inverter_name}_modbus_${inverter_suffix}
+   # modbus_id: ${inverter_name}_modbus
    # command_throttle: ${inverter_modbus_throttle}
    # setup_priority: -10
    # update_interval: ${inverter_update_interval}
 
 # binary_sensor:           
   # - platform: modbus_controller            # 194 Grid Connected Status
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_connected_status_${inverter_suffix}
-    # id: ${inverter_name}_grid_connected_status_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_connected_status
+    # id: ${inverter_name}_grid_connected_status
     # register_type: holding
     # address: 194
     
 # sensor:
   # - platform: modbus_controller            # 013 Firmware Control Board
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_firmware_control_board_${inverter_suffix}
-    # id: ${inverter_name}_firmware_control_board_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_firmware_control_board
+    # id: ${inverter_name}_firmware_control_board
     # register_type: holding
     # address: 13
 
   # - platform: modbus_controller            # 014 Firmware Comms Board
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_firmware_comms_board_${inverter_suffix}
-    # id: ${inverter_name}_firmware_comms_board_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_firmware_comms_board
+    # id: ${inverter_name}_firmware_comms_board
     # register_type: holding
     # address: 14
 
   # - platform: modbus_controller            # 070 Battery Charge Day
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_charge_day_${inverter_suffix}
-    # id: ${inverter_name}_battery_charge_day_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_charge_day
+    # id: ${inverter_name}_battery_charge_day
     # register_type: holding
     # address: 70
     # unit_of_measurement: 'kWh'
@@ -53,9 +53,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 071 Battery Discharge Day
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_discharge_day_${inverter_suffix}
-    # id: ${inverter_name}_battery_discharge_day_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_discharge_day
+    # id: ${inverter_name}_battery_discharge_day
     # register_type: holding
     # address: 71
     # unit_of_measurement: 'kWh'
@@ -67,9 +67,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 072 Battery Charge Energy Total
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_total_battery_charge_${inverter_suffix}
-    # id: ${inverter_name}_total_battery_charge_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_total_battery_charge
+    # id: ${inverter_name}_total_battery_charge
     # register_type: holding
     # address: 72
     # unit_of_measurement: 'kWh'
@@ -81,9 +81,9 @@ packages:
      # - multiply: 0.1
 
   # - platform: modbus_controller            # 074 Battery Discharge Energy Total
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_total_battery_discharge_${inverter_suffix}
-    # id: ${inverter_name}_total_battery_discharge_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_total_battery_discharge
+    # id: ${inverter_name}_total_battery_discharge
     # register_type: holding
     # address: 74
     # unit_of_measurement: 'kWh'
@@ -95,9 +95,9 @@ packages:
      # - multiply: 0.1
 
   # - platform: modbus_controller            # 076 Grid Import Day (Buy)
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_import_day_${inverter_suffix}
-    # id: ${inverter_name}_grid_import_day_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_import_day
+    # id: ${inverter_name}_grid_import_day
     # register_type: holding
     # address: 76
     # unit_of_measurement: 'kWh'
@@ -109,9 +109,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 078 Grid Import Energy Total (Buy)
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_total_grid_import_${inverter_suffix}
-    # id: ${inverter_name}_total_grid_import_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_total_grid_import
+    # id: ${inverter_name}_total_grid_import
     # register_type: holding
     # address: 78
     # unit_of_measurement: 'kWh'
@@ -123,9 +123,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 079 Grid Frequency
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_frequency_${inverter_suffix}
-    # id: ${inverter_name}_grid_frequency_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_frequency
+    # id: ${inverter_name}_grid_frequency
     # register_type: holding
     # address: 79
     # unit_of_measurement: 'Hz'
@@ -136,9 +136,9 @@ packages:
     # state_class: measurement
 
   # - platform: modbus_controller            # 081 Grid Export Energy Total (Sell)
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_total_grid_export_${inverter_suffix}
-    # id: ${inverter_name}_total_grid_export_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_total_grid_export
+    # id: ${inverter_name}_total_grid_export
     # register_type: holding
     # address: 81
     # unit_of_measurement: 'kWh'
@@ -150,9 +150,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 084 Daily Load
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_daily_load_power_${inverter_suffix}
-    # id: ${inverter_name}_daily_load_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_daily_load_power
+    # id: ${inverter_name}_daily_load_power
     # register_type: holding
     # address: 84
     # unit_of_measurement: 'kWh'
@@ -164,9 +164,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 085 Total Load
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_total_load_power_${inverter_suffix}
-    # id: ${inverter_name}_total_load_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_total_load_power
+    # id: ${inverter_name}_total_load_power
     # register_type: holding
     # address: 85
     # unit_of_measurement: 'kWh'
@@ -180,9 +180,9 @@ packages:
 ############################################# TEMPERATURE ################################################
             
   # - platform: modbus_controller            # 090 DC Transformer Temperature
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_dc_transformer_temperature_${inverter_suffix}
-    # id: ${inverter_name}_dc_transformer_temperature_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_dc_transformer_temperature
+    # id: ${inverter_name}_dc_transformer_temperature
     # register_type: holding
     # address: 090
     # unit_of_measurement: '°C'
@@ -195,9 +195,9 @@ packages:
       # - multiply:  0.1
 
   # - platform: modbus_controller            # 091 Radiator Temperature
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_dc_radiator_temperature_${inverter_suffix}
-    # id: ${inverter_name}_dc_radiator_temperature_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_dc_radiator_temperature
+    # id: ${inverter_name}_dc_radiator_temperature
     # register_type: holding
     # address: 091
     # unit_of_measurement: '°C'
@@ -212,9 +212,9 @@ packages:
       ####### statistics   ##########
       
   # - platform: modbus_controller            # 096 PV Energy Total
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_total_pv_power_${inverter_suffix}
-    # id: ${inverter_name}_total_pv_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_total_pv_power
+    # id: ${inverter_name}_total_pv_power
     # register_type: holding
     # address: 96
     # unit_of_measurement: 'kWh'
@@ -226,9 +226,9 @@ packages:
     # value_type: U_DWORD_R  
 
   # - platform: modbus_controller            # 108 Day PV Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_daily_pv_power_${inverter_suffix}
-    # id: ${inverter_name}_daily_pv_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_daily_pv_power
+    # id: ${inverter_name}_daily_pv_power
     # register_type: holding
     # address: 108
     # unit_of_measurement: 'kWh'
@@ -240,9 +240,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 109 DC1 Voltage
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_pv1_voltage_${inverter_suffix}
-    # id: ${inverter_name}_pv1_voltage_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_pv1_voltage
+    # id: ${inverter_name}_pv1_voltage
     # register_type: holding
     # address: 109
     # unit_of_measurement: 'V'
@@ -253,9 +253,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 111 DC2 Voltage
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_pv2_voltage_${inverter_suffix}
-    # id: ${inverter_name}_pv2_voltage_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_pv2_voltage
+    # id: ${inverter_name}_pv2_voltage
     # register_type: holding
     # address: 111
     # unit_of_measurement: 'V'
@@ -266,9 +266,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 110 DC1 Output Current
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_pv1_current_${inverter_suffix}
-    # id: ${inverter_name}_pv1_current_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_pv1_current
+    # id: ${inverter_name}_pv1_current
     # register_type: holding
     # address: 110
     # unit_of_measurement: 'A'
@@ -280,9 +280,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 112 DC2 Output Current
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_pv2_current_${inverter_suffix}
-    # id: ${inverter_name}_pv2_current_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_pv2_current
+    # id: ${inverter_name}_pv2_current
     # register_type: holding
     # address: 112
     # unit_of_measurement: 'A'
@@ -294,9 +294,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 154 Grid Inverter Voltage
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_voltage_${inverter_suffix}
-    # id: ${inverter_name}_grid_voltage_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_voltage
+    # id: ${inverter_name}_grid_voltage
     # register_type: holding
     # address: 154
     # unit_of_measurement: 'V'
@@ -308,9 +308,9 @@ packages:
     # value_type: U_WORD 
 
   # - platform: modbus_controller            # 164 Inverter Output Current
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_ac_output_current_${inverter_suffix}
-    # id: ${inverter_name}_ac_output_current_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_ac_output_current
+    # id: ${inverter_name}_ac_output_current
     # register_type: holding
     # address: 164
     # unit_of_measurement: 'A'
@@ -322,9 +322,9 @@ packages:
       # - multiply: 0.01
 
   # - platform: modbus_controller            # 166 Aux Output Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_aux_output_power_${inverter_suffix}
-    # id: ${inverter_name}_aux_output_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_aux_output_power
+    # id: ${inverter_name}_aux_output_power
     # register_type: holding
     # address: 166
     # unit_of_measurement: 'W'
@@ -334,9 +334,9 @@ packages:
     # value_type: S_WORD
 
   # - platform: modbus_controller             # 167 Grid Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_power_167_${inverter_suffix}
-    # id: ${inverter_name}_grid_power_167_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_power_167
+    # id: ${inverter_name}_grid_power_167
     # register_type: holding
     # address: 167
     # unit_of_measurement: 'W'
@@ -346,9 +346,9 @@ packages:
     # value_type: S_WORD
 
   # - platform: modbus_controller             # 169 Grid Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_power_${inverter_suffix}
-    # id: ${inverter_name}_grid_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_power
+    # id: ${inverter_name}_grid_power
     # register_type: holding
     # address: 169
     # unit_of_measurement: 'W'
@@ -358,9 +358,9 @@ packages:
     # value_type: S_WORD
     
   # - platform: modbus_controller            # 172 Grid External Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_external_power_${inverter_suffix}
-    # id: ${inverter_name}_grid_external_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_external_power
+    # id: ${inverter_name}_grid_external_power
     # register_type: holding
     # address: 172
     # unit_of_measurement: 'W'
@@ -370,9 +370,9 @@ packages:
     # value_type: S_WORD
 
   # - platform: modbus_controller            # 175 Inverter Output Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_active_power_${inverter_suffix}
-    # id: ${inverter_name}_active_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_active_power
+    # id: ${inverter_name}_active_power
     # register_type: holding
     # address: 175
     # unit_of_measurement: 'W'
@@ -381,9 +381,9 @@ packages:
     # value_type: S_WORD
 
   # - platform: modbus_controller            # 178 Load Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_load_power_${inverter_suffix}
-    # id: ${inverter_name}_load_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_load_power
+    # id: ${inverter_name}_load_power
     # register_type: holding
     # address: 178
     # unit_of_measurement: 'W'
@@ -394,9 +394,9 @@ packages:
 
   
   # - platform: modbus_controller            # 182 Battery Temperature
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_temperature_${inverter_suffix}
-    # id: ${inverter_name}_battery_temperature_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_temperature
+    # id: ${inverter_name}_battery_temperature
     # register_type: holding
     # address: 182
     # unit_of_measurement: '°C'
@@ -409,9 +409,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 183 Battery Voltage
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_voltage_${inverter_suffix}
-    # id: ${inverter_name}_battery_voltage_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_voltage
+    # id: ${inverter_name}_battery_voltage
     # register_type: holding
     # address: 183
     # unit_of_measurement: 'V'
@@ -423,9 +423,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 184 Battery SOC
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_soc_${inverter_suffix}
-    # id: ${inverter_name}_battery_soc_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_soc
+    # id: ${inverter_name}_battery_soc
     # register_type: holding
     # address: 184
     # unit_of_measurement: '%'
@@ -434,9 +434,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 186 PV1 Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_pv1_power_${inverter_suffix}
-    # id: ${inverter_name}_pv1_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_pv1_power
+    # id: ${inverter_name}_pv1_power
     # register_type: holding
     # address: 186
     # unit_of_measurement: 'W'
@@ -446,9 +446,9 @@ packages:
     # value_type: U_WORD
     
   # - platform: modbus_controller            # 187 PV2 Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_pv2_power_${inverter_suffix}
-    # id: ${inverter_name}_pv2_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_pv2_power
+    # id: ${inverter_name}_pv2_power
     # register_type: holding
     # address: 187
     # unit_of_measurement: 'W'
@@ -458,19 +458,19 @@ packages:
     # value_type: U_WORD
 
   # - platform: template                   # Sum of PV1 and PV2 to get total PV Power
-    # name: ${name}_${inverter_name}_total_solar_${inverter_suffix}
+    # name: ${name}_${inverter_name}_total_solar
     # unit_of_measurement: 'W'
     # accuracy_decimals: 0
     # device_class: power
     # state_class: measurement
     # lambda: |-
-      # return (id(${inverter_name}_pv1_power_${inverter_suffix}).state + id(${inverter_name}_pv2_power_${inverter_suffix}).state);
+      # return (id(${inverter_name}_pv1_power).state + id(${inverter_name}_pv2_power).state);
     # update_interval: ${inverter_template_update}
 
   # - platform: modbus_controller            # 190 Battery Output Power
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_output_power_${inverter_suffix}
-    # id: ${inverter_name}_sunsynk_esphome_battery_output_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_output_power
+    # id: ${inverter_name}_sunsynk_esphome_battery_output_power
     # register_type: holding
     # address: 190
     # unit_of_measurement: 'W'
@@ -479,9 +479,9 @@ packages:
     # value_type: S_WORD
 
   # - platform: modbus_controller            # 191 Battery Output Current
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_output_current_${inverter_suffix}
-    # id: ${inverter_name}_battery_output_current_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_output_current
+    # id: ${inverter_name}_battery_output_current
     # register_type: holding
     # address: 191
     # unit_of_measurement: 'A'
@@ -493,9 +493,9 @@ packages:
       # - multiply: 0.01
 
   # - platform: modbus_controller            # 192 Load Frequency
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_load_frequency_${inverter_suffix}
-    # id: ${inverter_name}_load_frequency_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_load_frequency
+    # id: ${inverter_name}_load_frequency
     # register_type: holding
     # address: 192
     # unit_of_measurement: 'Hz'
@@ -506,9 +506,9 @@ packages:
     # state_class: measurement
 
   # - platform: modbus_controller            # 217 Battery Capacity Shutdown
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_capacity_shutdown_${inverter_suffix}
-    # id: ${inverter_name}_battery_capacity_shutdown_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_capacity_shutdown
+    # id: ${inverter_name}_battery_capacity_shutdown
     # register_type: holding
     # address: 217
     # unit_of_measurement: '%'
@@ -516,52 +516,52 @@ packages:
     # device_class: battery
 
   # - platform: template                   # Essential Power based on register 175 + 167 -166
-    # name: ${name}_${inverter_name}_essential_power_${inverter_suffix}
+    # name: ${name}_${inverter_name}_essential_power
     # unit_of_measurement: 'W'
     # accuracy_decimals: 0
     # device_class: power
     # state_class: measurement
     # lambda: |-
-      # return (id(${inverter_name}_active_power_${inverter_suffix}).state + id(${inverter_name}_grid_power_167_${inverter_suffix}).state - id(${inverter_name}_aux_output_power_${inverter_suffix}).state);
+      # return (id(${inverter_name}_active_power).state + id(${inverter_name}_grid_power_167).state - id(${inverter_name}_aux_output_power).state);
     # update_interval: ${inverter_template_update}
 
   # - platform: template                   # Essential Power based on register 175 + 169 -166
-    # name: ${name}_${inverter_name}_essential_power_1_${inverter_suffix}
+    # name: ${name}_${inverter_name}_essential_power_1
     # unit_of_measurement: 'W'
     # accuracy_decimals: 0
     # device_class: power
     # state_class: measurement
     # lambda: |-
-      # return (id(${inverter_name}_active_power_${inverter_suffix}).state + id(${inverter_name}_grid_power_${inverter_suffix}).state - id(${inverter_name}_aux_output_power_${inverter_suffix}).state);
+      # return (id(${inverter_name}_active_power).state + id(${inverter_name}_grid_power).state - id(${inverter_name}_aux_output_power).state);
     # update_interval: ${inverter_template_update}
 
   # - platform: template                   # Nonessential Power 175 - 167
-    # name: ${name}_${inverter_name}_nonessential_power_${inverter_suffix}
+    # name: ${name}_${inverter_name}_nonessential_power
     # unit_of_measurement: 'W'
     # accuracy_decimals: 0
     # device_class: power
     # state_class: measurement
     # lambda: |-
-      # return (id(${inverter_name}_grid_external_power_${inverter_suffix}).state - id(${inverter_name}_grid_power_167_${inverter_suffix}).state);
+      # return (id(${inverter_name}_grid_external_power).state - id(${inverter_name}_grid_power_167).state);
     # update_interval: ${inverter_template_update}
 
   # - platform: template                   # Nonessential Power 175 - 169
-    # name: ${name}_${inverter_name}_nonessential_power_1_${inverter_suffix}
+    # name: ${name}_${inverter_name}_nonessential_power_1
     # unit_of_measurement: 'W'
     # accuracy_decimals: 0
     # device_class: power
     # state_class: measurement
     # lambda: |-
-      # return (id(${inverter_name}_grid_external_power_${inverter_suffix}).state - id(${inverter_name}_grid_power_${inverter_suffix}).state);
+      # return (id(${inverter_name}_grid_external_power).state - id(${inverter_name}_grid_power).state);
     # update_interval: ${inverter_template_update}
 
 
 ############################################ ENERGY ################################################
 
   # - platform: modbus_controller            # 070 Day Battery Charge
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_day_battery_charge_${inverter_suffix}
-    # id: ${inverter_name}_day_battery_charge_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_day_battery_charge
+    # id: ${inverter_name}_day_battery_charge
     # register_type: holding
     # address: 70
     # unit_of_measurement: 'kWh'
@@ -573,9 +573,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 071 Day Battery Discharge
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_day_battery_discharge_${inverter_suffix}
-    # id: ${inverter_name}_day_battery_discharge_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_day_battery_discharge
+    # id: ${inverter_name}_day_battery_discharge
     # register_type: holding
     # address: 71
     # unit_of_measurement: 'kWh'
@@ -588,9 +588,9 @@ packages:
 
 
   # - platform: modbus_controller            # 076 Day Grid Import
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_day_grid_import_${inverter_suffix}
-    # id: ${inverter_name}_day_grid_import_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_day_grid_import
+    # id: ${inverter_name}_day_grid_import
     # register_type: holding
     # address: 76
     # unit_of_measurement: 'kWh'
@@ -602,9 +602,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 077 Day Grid Export
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_day_grid_export_${inverter_suffix}
-    # id: ${inverter_name}_day_grid_export_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_day_grid_export
+    # id: ${inverter_name}_day_grid_export
     # register_type: holding
     # address: 77
     # unit_of_measurement: 'kWh'
@@ -616,9 +616,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 084 Day Load Energy
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_day_load_energy_${inverter_suffix}
-    # id: ${inverter_name}_day_load_energy_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_day_load_energy
+    # id: ${inverter_name}_day_load_energy
     # register_type: holding
     # address: 84
     # unit_of_measurement: 'kWh'
@@ -630,9 +630,9 @@ packages:
     # value_type: U_WORD
 
   # - platform: modbus_controller            # 085 Total Load Energy
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_total_load_energy_${inverter_suffix}
-    # id: ${inverter_name}_total_load_energy_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_total_load_energy
+    # id: ${inverter_name}_total_load_energy
     # register_type: holding
     # address: 85
     # unit_of_measurement: 'kWh'
@@ -644,9 +644,9 @@ packages:
       # - multiply: 0.1
 
   # - platform: modbus_controller            # 096 Total PV Energy
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_total_pv_energy_${inverter_suffix}
-    # id: ${inverter_name}_total_pv_energy_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_total_pv_energy
+    # id: ${inverter_name}_total_pv_energy
     # register_type: holding
     # address: 96
     # unit_of_measurement: 'kWh'
@@ -658,9 +658,9 @@ packages:
     # value_type: U_DWORD_R  
 
   # - platform: modbus_controller            # 108 Day PV Energy
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_day_pv_energy_${inverter_suffix}
-    # id: ${inverter_name}_day_pv_energy_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_day_pv_energy
+    # id: ${inverter_name}_day_pv_energy
     # register_type: holding
     # address: 108
     # unit_of_measurement: 'kWh'
@@ -675,9 +675,9 @@ packages:
  
     
   # - platform: modbus_controller          # 250 Settings Timezone1
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_timezone1_${inverter_suffix}
-    # id: ${inverter_name}_setting_timezone1_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_timezone1
+    # id: ${inverter_name}_setting_timezone1
     # register_type: holding
     # address: 250
     # filters: #GOOD
@@ -687,9 +687,9 @@ packages:
     # icon: "mdi:clock"
 
   # - platform: modbus_controller          # 251 Settings Timezone2
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_timezone2_${inverter_suffix}
-    # id: ${inverter_name}_setting_timezone2_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_timezone2
+    # id: ${inverter_name}_setting_timezone2
     # register_type: holding
     # address: 251   
     # filters: #GOOD
@@ -699,9 +699,9 @@ packages:
     # icon: "mdi:clock"
 
   # - platform: modbus_controller          # 252 Settings Timezone3
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_timezone3_${inverter_suffix}
-    # id: ${inverter_name}_setting_timezone3_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_timezone3
+    # id: ${inverter_name}_setting_timezone3
     # register_type: holding
     # address: 252
     # filters: #GOOD
@@ -711,17 +711,17 @@ packages:
     # icon: "mdi:clock"
 
   # - platform: modbus_controller          # 253 Settings Timezone4
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_timezone4_${inverter_suffix}
-    # id: ${inverter_name}_setting_timezone4_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_timezone4
+    # id: ${inverter_name}_setting_timezone4
     # register_type: holding
     # address: 253
     # icon: "mdi:clock"
 
   # - platform: modbus_controller          # 254 Settings Timezone5
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_timezone5_${inverter_suffix}
-    # id: ${inverter_name}_setting_timezone5_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_timezone5
+    # id: ${inverter_name}_setting_timezone5
     # register_type: holding
     # address: 254
     # filters: #GOOD
@@ -731,9 +731,9 @@ packages:
     # icon: "mdi:clock"
 
   # - platform: modbus_controller          # 255 Settings Timezone6
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_timezone6_${inverter_suffix}
-    # id: ${inverter_name}_setting_timezone6_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_timezone6
+    # id: ${inverter_name}_setting_timezone6
     # register_type: holding
     # address: 255
     # filters: #GOOD
@@ -744,98 +744,98 @@ packages:
 
 
   # - platform: modbus_controller          # 268 Settings SoC Timezone1
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_soc_timezone1_${inverter_suffix}
-    # id: ${inverter_name}_setting_soc_timezone1_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_soc_timezone1
+    # id: ${inverter_name}_setting_soc_timezone1
     # register_type: holding
     # address: 268
     # value_type: U_WORD
 
   # - platform: modbus_controller          # 269 Settings SoC Timezone2
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_soc_timezone2_${inverter_suffix}
-    # id: ${inverter_name}_setting_soc_timezone2_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_soc_timezone2
+    # id: ${inverter_name}_setting_soc_timezone2
     # register_type: holding
     # address: 269
     # value_type: U_WORD
 
   # - platform: modbus_controller          # 270 Settings SoC Timezone3
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_soc_timezone3_${inverter_suffix}
-    # id: ${inverter_name}_setting_soc_timezone3_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_soc_timezone3
+    # id: ${inverter_name}_setting_soc_timezone3
     # register_type: holding
     # address: 270
     # value_type: U_WORD
 
   # - platform: modbus_controller          # 271 Settings SoC Timezone4
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_soc_timezone4_${inverter_suffix}
-    # id: ${inverter_name}_setting_soc_timezone4_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_soc_timezone4
+    # id: ${inverter_name}_setting_soc_timezone4
     # register_type: holding
     # address: 271
     # value_type: U_WORD
 
   # - platform: modbus_controller          # 272 Settings SoC Timezone5
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_soc_timezone5_${inverter_suffix}
-    # id: ${inverter_name}_setting_soc_timezone5_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_soc_timezone5
+    # id: ${inverter_name}_setting_soc_timezone5
     # register_type: holding
     # address: 272
     # value_type: U_WORD
 
   # - platform: modbus_controller          # 273 Settings SoC Timezone6
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_soc_timezone6_${inverter_suffix}
-    # id: ${inverter_name}_setting_soc_timezone6_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_soc_timezone6
+    # id: ${inverter_name}_setting_soc_timezone6
     # register_type: holding
     # address: 273
     # value_type: U_WORD
 
   # - platform: modbus_controller          # 274 Settings Grid Charge Timezone1
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_grid_charge_timezone1_${inverter_suffix}
-    # id: ${inverter_name}_setting_grid_charge_timezone1_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_grid_charge_timezone1
+    # id: ${inverter_name}_setting_grid_charge_timezone1
     # register_type: holding
     # address: 274
 
   # - platform: modbus_controller          # 275 Settings Grid Charge Timezone2
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_grid_charge_timezone2_${inverter_suffix}
-    # id: ${inverter_name}_setting_grid_charge_timezone2_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_grid_charge_timezone2
+    # id: ${inverter_name}_setting_grid_charge_timezone2
     # register_type: holding
     # address: 275
     
   # - platform: modbus_controller          # 276 Settings Grid Charge Timezone3
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_grid_charge_timezone3_${inverter_suffix}
-    # id: ${inverter_name}_setting_grid_charge_timezone3_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_grid_charge_timezone3
+    # id: ${inverter_name}_setting_grid_charge_timezone3
     # register_type: holding
     # address: 276
     
   # - platform: modbus_controller          # 277 Settings Grid Charge Timezone4
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_grid_charge_timezone4_${inverter_suffix}
-    # id: ${inverter_name}_setting_grid_charge_timezone4_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_grid_charge_timezone4
+    # id: ${inverter_name}_setting_grid_charge_timezone4
     # register_type: holding
     # address: 277
     
   # - platform: modbus_controller          # 278 Settings Grid Charge Timezone5
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_grid_charge_timezone5_${inverter_suffix}
-    # id: ${inverter_name}_setting_grid_charge_timezone5_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_grid_charge_timezone5
+    # id: ${inverter_name}_setting_grid_charge_timezone5
     # register_type: holding
     # address: 278
     
   # - platform: modbus_controller          # 279 Settings Grid Charge Timezone6
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_setting_grid_charge_timezone6_${inverter_suffix}
-    # id: ${inverter_name}_setting_grid_charge_timezone6_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_setting_grid_charge_timezone6
+    # id: ${inverter_name}_setting_grid_charge_timezone6
     # register_type: holding
     # address: 279
     
   # - platform: modbus_controller        # 255 Grid Peak Shaving raw register value
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # id: ${inverter_name}_grid_peak_shaving_raw_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # id: ${inverter_name}_grid_peak_shaving_raw
     # register_type: holding
     # address: 280
     # value_type: U_WORD
@@ -844,9 +844,9 @@ packages:
 # switch:
   # - platform: modbus_controller          # 247 Toggle Solar Sell
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_toggle_solar_sell_${inverter_suffix}
-    # id: ${inverter_name}_toggle_solar_sell_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_toggle_solar_sell
+    # id: ${inverter_name}_toggle_solar_sell
     # register_type: holding
     # address: 247
     # bitmask: 1
@@ -855,9 +855,9 @@ packages:
   
   # - platform: modbus_controller          # 243 Priority Load
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_toggle_priority_load_${inverter_suffix}
-    # id: ${inverter_name}_toggle_priority_load_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_toggle_priority_load
+    # id: ${inverter_name}_toggle_priority_load
     # register_type: holding
     # address: 243
     # bitmask: 1
@@ -865,9 +865,9 @@ packages:
   
   # - platform: modbus_controller          # 326 Toggle Force Generator
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_toggle_force_generator_${inverter_suffix}
-    # id: ${inverter_name}_toggle_force_generator_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_toggle_force_generator
+    # id: ${inverter_name}_toggle_force_generator
     # register_type: holding
     # address: 326
     # bitmask: 8192 # 2^13 to target bit 13
@@ -877,9 +877,9 @@ packages:
     
   # - platform: modbus_controller          # 248 Toggle System Timer
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_toggle_system_timer_${inverter_suffix}
-    # id: ${inverter_name}_toggle_system_timer_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_toggle_system_timer
+    # id: ${inverter_name}_toggle_system_timer
     # register_type: holding
     # address: 248
     # bitmask: 1
@@ -888,9 +888,9 @@ packages:
     
   # - platform: modbus_controller          # 274 Toggle Grid Charge Timezone1
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone1_${inverter_suffix}
-    # id: ${inverter_name}_toggle_grid_charge_timezone1_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone1
+    # id: ${inverter_name}_toggle_grid_charge_timezone1
     # register_type: holding
     # address: 274
     # bitmask: 1
@@ -898,10 +898,10 @@ packages:
     # icon: "mdi:toggle-switch"
 
   # - platform: modbus_controller          # 275 Toggle Grid Charge Timezone2
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
     # use_write_multiple: true
-    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone2_${inverter_suffix}
-    # id: ${inverter_name}_toggle_grid_charge_timezone2_${inverter_suffix}
+    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone2
+    # id: ${inverter_name}_toggle_grid_charge_timezone2
     # register_type: holding
     # address: 275
     # bitmask: 1
@@ -909,10 +909,10 @@ packages:
     # icon: "mdi:toggle-switch"
 
   # - platform: modbus_controller          # 276 Toggle Grid Charge Timezone3
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
     # use_write_multiple: true
-    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone3_${inverter_suffix}
-    # id: ${inverter_name}_toggle_grid_charge_timezone3_${inverter_suffix}
+    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone3
+    # id: ${inverter_name}_toggle_grid_charge_timezone3
     # register_type: holding
     # address: 276
     # bitmask: 1
@@ -920,10 +920,10 @@ packages:
     # icon: "mdi:toggle-switch"
 
   # - platform: modbus_controller          # 277 Toggle Grid Charge Timezone4
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
     # use_write_multiple: true
-    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone4_${inverter_suffix}
-    # id: ${inverter_name}_toggle_grid_charge_timezone4_${inverter_suffix}
+    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone4
+    # id: ${inverter_name}_toggle_grid_charge_timezone4
     # register_type: holding
     # address: 277
     # bitmask: 1
@@ -931,10 +931,10 @@ packages:
     # icon: "mdi:toggle-switch"
 
   # - platform: modbus_controller          # 278 Toggle Grid Charge Timezone5
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
     # use_write_multiple: true
-    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone5_${inverter_suffix}
-    # id: ${inverter_name}_toggle_grid_charge_timezone5_${inverter_suffix}
+    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone5
+    # id: ${inverter_name}_toggle_grid_charge_timezone5
     # register_type: holding
     # address: 278
     # bitmask: 1
@@ -942,10 +942,10 @@ packages:
     # icon: "mdi:toggle-switch"
 
   # - platform: modbus_controller          # 279 Toggle Grid Charge Timezone6
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
     # use_write_multiple: true
-    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone6_${inverter_suffix}
-    # id: ${inverter_name}_toggle_grid_charge_timezone6_${inverter_suffix}
+    # name: ${name}_${inverter_name}_toggle_grid_charge_timezone6
+    # id: ${inverter_name}_toggle_grid_charge_timezone6
     # register_type: holding
     # address: 279
     # bitmask: 1
@@ -956,9 +956,9 @@ packages:
 
   # - platform: modbus_controller         # 230 Grid Charge Battery current
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_charge_battery_current_${inverter_suffix}
-    # id: ${inverter_name}_grid_charge_battery_current_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_charge_battery_current
+    # id: ${inverter_name}_grid_charge_battery_current
     # unit_of_measurement: 'A'
     # address: 230
     # min_value: 0
@@ -968,9 +968,9 @@ packages:
 
   # - platform: modbus_controller         # 210 Battery Max Charge current
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_max_charge_current_${inverter_suffix}
-    # id: ${inverter_name}_battery_max_charge_current_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_max_charge_current
+    # id: ${inverter_name}_battery_max_charge_current
     # unit_of_measurement: 'A'
     # address: 210
     # min_value: 5
@@ -980,9 +980,9 @@ packages:
 
   # - platform: modbus_controller         # 211 Battery Max Discharge current
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_battery_max_discharge_current_${inverter_suffix}
-    # id: ${inverter_name}_battery_max_discharge_current_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_battery_max_discharge_current
+    # id: ${inverter_name}_battery_max_discharge_current
     # unit_of_measurement: 'A'
     # address: 211
     # min_value: 0
@@ -992,9 +992,9 @@ packages:
 
   # - platform: modbus_controller            # 293 Grid Peak Shaving Power
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_peak_shaving_power_${inverter_suffix}
-    # id: ${inverter_name}_grid_peak_shaving_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_peak_shaving_power
+    # id: ${inverter_name}_grid_peak_shaving_power
     # address: 293
     # unit_of_measurement: 'W'
     # min_value: 0
@@ -1004,9 +1004,9 @@ packages:
 
   # - platform: modbus_controller            # 245 Max Sell Power
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_max_sell_power_${inverter_suffix}
-    # id: ${inverter_name}_max_sell_power_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_max_sell_power
+    # id: ${inverter_name}_max_sell_power
     # address: 245
     # unit_of_measurement: 'W'
     # min_value: 0
@@ -1018,9 +1018,9 @@ packages:
 
   # - platform: modbus_controller         # 268 Settings SoC Timezone1
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_set_soc_timezone1_${inverter_suffix}
-    # id: ${inverter_name}_set_soc_timezone1_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_set_soc_timezone1
+    # id: ${inverter_name}_set_soc_timezone1
     # unit_of_measurement: '%'
     # address: 268
     # min_value: 0
@@ -1030,9 +1030,9 @@ packages:
 
   # - platform: modbus_controller         # 269 Settings SoC Timezone2
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_set_soc_timezone2_${inverter_suffix}
-    # id: ${inverter_name}_set_soc_timezone2_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_set_soc_timezone2
+    # id: ${inverter_name}_set_soc_timezone2
     # unit_of_measurement: '%'
     # address: 269
     # min_value: 0
@@ -1042,9 +1042,9 @@ packages:
 
   # - platform: modbus_controller         # 270 Settings SoC Timezone3
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_set_soc_timezone3_${inverter_suffix}
-    # id: ${inverter_name}_set_soc_timezone3_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_set_soc_timezone3
+    # id: ${inverter_name}_set_soc_timezone3
     # unit_of_measurement: '%'
     # address: 270
     # min_value: 0
@@ -1054,9 +1054,9 @@ packages:
 
   # - platform: modbus_controller         # 271 Settings SoC Timezone4
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_set_soc_timezone4_${inverter_suffix}
-    # id: ${inverter_name}_set_soc_timezone4_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_set_soc_timezone4
+    # id: ${inverter_name}_set_soc_timezone4
     # unit_of_measurement: '%'
     # address: 271
     # min_value: 0
@@ -1066,9 +1066,9 @@ packages:
 
   # - platform: modbus_controller         # 272 Settings SoC Timezone5
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_set_soc_timezone5_${inverter_suffix}
-    # id: ${inverter_name}_set_soc_timezone5_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_set_soc_timezone5
+    # id: ${inverter_name}_set_soc_timezone5
     # unit_of_measurement: '%'
     # address: 272
     # min_value: 0
@@ -1078,9 +1078,9 @@ packages:
 
   # - platform: modbus_controller         # 273 Settings SoC Timezone6
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_set_soc_timezone6_${inverter_suffix}
-    # id: ${inverter_name}_set_soc_timezone6_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_set_soc_timezone6
+    # id: ${inverter_name}_set_soc_timezone6
     # unit_of_measurement: '%'
     # address: 273
     # min_value: 0
@@ -1093,9 +1093,9 @@ packages:
 # select:
   # - platform: modbus_controller                   #243 Select Energy Patern
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_energy_pattern_${inverter_suffix}
-    # id: ${inverter_name}_energy_pattern_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_energy_pattern
+    # id: ${inverter_name}_energy_pattern
     # address: 243
     # value_type: U_WORD
     # optionsmap:
@@ -1104,9 +1104,9 @@ packages:
          
   # - platform: modbus_controller                   #244 Select Work Mode
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_work_mode_${inverter_suffix}
-    # id: ${inverter_name}_work_mode_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_work_mode
+    # id: ${inverter_name}_work_mode
     # address: 244
     # value_type: U_WORD
     # optionsmap:
@@ -1116,9 +1116,9 @@ packages:
 
   # - platform: modbus_controller                  #280 Select Grid Peak Shaving
     # use_write_multiple: true
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_grid_peak_shaving_${inverter_suffix}
-    # id: ${inverter_name}_grid_peak_shaving_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_grid_peak_shaving
+    # id: ${inverter_name}_grid_peak_shaving
     # address: 280
     # value_type: U_WORD
     # optionsmap:
@@ -1135,7 +1135,7 @@ packages:
       # return {};
     # write_lambda: |-
       # //ESP_LOGE("main","Modbus write gets = %d",value);
-      # uint16_t unmodified =  id(${inverter_name}_grid_peak_shaving_raw_${inverter_suffix}).state;
+      # uint16_t unmodified =  id(${inverter_name}_grid_peak_shaving_raw).state;
       # //ESP_LOGE("main","Modbus write unmodified = %d", unmodified);
       # // optionsmap should only return 2 values... 0 , 256 so bitmask with complement 0x0100 to ensure we keep the original values in register. Then appply OR with the value that was chosen
       # uint16_t modified = ((unmodified & ~0x0100) | value);
@@ -1147,9 +1147,9 @@ packages:
 
 # text_sensor:
   # - platform: modbus_controller            # 059 Overall State
-    # modbus_controller_id: ${inverter_name}_modbus_controller_${inverter_suffix}
-    # name: ${name}_${inverter_name}_overall_state_${inverter_suffix}
-    # id: ${inverter_name}_overall_state_${inverter_suffix}
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_overall_state
+    # id: ${inverter_name}_overall_state
     # register_type: holding
     # raw_encode: HEXBYTES
     # address: 59
@@ -1165,13 +1165,13 @@ packages:
       # }
   
   # - platform: template
-    # name: ${name}_${inverter_name}_time_slot_1_${inverter_suffix}
-    # id: ${inverter_name}_time_slot_1_${inverter_suffix}
+    # name: ${name}_${inverter_name}_time_slot_1
+    # id: ${inverter_name}_time_slot_1
     # lambda: |-
         # int minutes, hours;
-        # if (id(${inverter_name}_setting_timezone1_${inverter_suffix}).state) {
-        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone1_${inverter_suffix}).state) % 100;
-        # hours = static_cast<int>(id(${inverter_name}_setting_timezone1_${inverter_suffix}).state) / 100;
+        # if (id(${inverter_name}_setting_timezone1).state) {
+        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone1).state) % 100;
+        # hours = static_cast<int>(id(${inverter_name}_setting_timezone1).state) / 100;
         # } else {
           # minutes = 0;
           # hours = 0;
@@ -1181,13 +1181,13 @@ packages:
         # return esphome::optional<std::string>(formatted_time);
   
   # - platform: template
-    # name: ${name}_${inverter_name}_time_slot_2_${inverter_suffix}
-    # id: ${inverter_name}_time_slot_2_${inverter_suffix}
+    # name: ${name}_${inverter_name}_time_slot_2
+    # id: ${inverter_name}_time_slot_2
     # lambda: |-
         # int minutes, hours;
-        # if (id(${inverter_name}_setting_timezone2_${inverter_suffix}).state) {
-        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone2_${inverter_suffix}).state) % 100;
-        # hours = static_cast<int>(id(${inverter_name}_setting_timezone2_${inverter_suffix}).state) / 100;
+        # if (id(${inverter_name}_setting_timezone2).state) {
+        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone2).state) % 100;
+        # hours = static_cast<int>(id(${inverter_name}_setting_timezone2).state) / 100;
         # } else {
           # minutes = 0;
           # hours = 0;
@@ -1197,13 +1197,13 @@ packages:
         # return esphome::optional<std::string>(formatted_time);
   
   # - platform: template
-    # name: ${name}_${inverter_name}_time_slot_3_${inverter_suffix}
-    # id: ${inverter_name}_time_slot_3_${inverter_suffix}
+    # name: ${name}_${inverter_name}_time_slot_3
+    # id: ${inverter_name}_time_slot_3
     # lambda: |-
         # int minutes, hours;
-        # if (id(${inverter_name}_setting_timezone3_${inverter_suffix}).state) {
-        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone3_${inverter_suffix}).state) % 100;
-        # hours = static_cast<int>(id(${inverter_name}_setting_timezone3_${inverter_suffix}).state) / 100;
+        # if (id(${inverter_name}_setting_timezone3).state) {
+        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone3).state) % 100;
+        # hours = static_cast<int>(id(${inverter_name}_setting_timezone3).state) / 100;
         # } else {
           # minutes = 0;
           # hours = 0;
@@ -1213,13 +1213,13 @@ packages:
         # return esphome::optional<std::string>(formatted_time);
   
   # - platform: template
-    # name: ${name}_${inverter_name}_time_slot_4_${inverter_suffix}
-    # id: ${inverter_name}_time_slot_4_${inverter_suffix}
+    # name: ${name}_${inverter_name}_time_slot_4
+    # id: ${inverter_name}_time_slot_4
     # lambda: |-
         # int minutes, hours;
-        # if (id(${inverter_name}_setting_timezone4_${inverter_suffix}).state) {
-        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone4_${inverter_suffix}).state) % 100;
-        # hours = static_cast<int>(id(${inverter_name}_setting_timezone4_${inverter_suffix}).state) / 100;
+        # if (id(${inverter_name}_setting_timezone4).state) {
+        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone4).state) % 100;
+        # hours = static_cast<int>(id(${inverter_name}_setting_timezone4).state) / 100;
         # } else {
           # minutes = 0;
           # hours = 0;
@@ -1229,13 +1229,13 @@ packages:
         # return esphome::optional<std::string>(formatted_time);
   
   # - platform: template
-    # name: ${name}_${inverter_name}_time_slot_5_${inverter_suffix}
-    # id: ${inverter_name}_time_slot_5_${inverter_suffix}
+    # name: ${name}_${inverter_name}_time_slot_5
+    # id: ${inverter_name}_time_slot_5
     # lambda: |-
         # int minutes, hours;
-        # if (id(${inverter_name}_setting_timezone5_${inverter_suffix}).state) {
-        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone5_${inverter_suffix}).state) % 100;
-        # hours = static_cast<int>(id(${inverter_name}_setting_timezone5_${inverter_suffix}).state) / 100;
+        # if (id(${inverter_name}_setting_timezone5).state) {
+        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone5).state) % 100;
+        # hours = static_cast<int>(id(${inverter_name}_setting_timezone5).state) / 100;
         # } else {
           # minutes = 0;
           # hours = 0;
@@ -1245,13 +1245,13 @@ packages:
         # return esphome::optional<std::string>(formatted_time);
   
   # - platform: template
-    # name: ${name}_${inverter_name}_time_slot_6_${inverter_suffix}
-    # id: ${inverter_name}_time_slot_6_${inverter_suffix}
+    # name: ${name}_${inverter_name}_time_slot_6
+    # id: ${inverter_name}_time_slot_6
     # lambda: |-
         # int minutes, hours;
-        # if (id(${inverter_name}_setting_timezone6_${inverter_suffix}).state) {
-        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone6_${inverter_suffix}).state) % 100;
-        # hours = static_cast<int>(id(${inverter_name}_setting_timezone6_${inverter_suffix}).state) / 100;
+        # if (id(${inverter_name}_setting_timezone6).state) {
+        # minutes = static_cast<int>(id(${inverter_name}_setting_timezone6).state) % 100;
+        # hours = static_cast<int>(id(${inverter_name}_setting_timezone6).state) / 100;
         # } else {
           # minutes = 0;
           # hours = 0;

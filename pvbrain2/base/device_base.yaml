@@ -10,48 +10,87 @@ packages:
   # device_wk2168_i2c: !include device_wk2168_i2c.yaml
   # device_wk2168_addon_spi: !include device_wk2168_addon_spi.yaml
               
-binary_sensor:       
+binary_sensor:
+# https://esphome.io/components/binary_sensor/status  
   - platform: status
     name: ${name}_status   
    
-light:  
+light:
+# https://esphome.io/components/light/status_led
   - platform: status_led
     name: ${name}_led_light_1
     id: led_light_1
     pin: GPIO01
+    effects: !include
+      file: ../environmental/light/effect_monochrome.yaml
+    entity_category: config
 
   - platform: status_led
     name: ${name}_led_light_2
     id: led_light_2
     pin: GPIO02    
-    
+    effects: !include
+      file: ../environmental/light/effect_monochrome.yaml
+    entity_category: config
+
+# https://esphome.io/components/light/esp32_rmt_led_strip
+  - platform: esp32_rmt_led_strip
+    id: on_board_light_io48
+    name: ${name}_on_board_light_io48
+    rgb_order: GRB
+    pin: GPIO48
+    num_leds: 1
+    rmt_channel: 0
+    chipset: ws2812
+    effects: !include
+      file: ../environmental/light/effect_addressable_monoled.yaml
+    entity_category: config
+
 switch:
+# https://esphome.io/components/switch/restart
   - platform: restart
     name: ${name}_restart
     id: ${name}_restart    
-    
-sensor:    
+
+# https://esphome.io/components/switch/safe_mode
+  - platform: safe_mode
+    name: ${name}_safe_mode
+    id: ${name}_safe_mode
+
+# https://esphome.io/components/switch/shutdown
+  - platform: shutdown
+    name: ${name}_shutdown
+    id: ${name}_shutdown
+
+sensor:
+# https://esphome.io/components/sensor/wifi_signal 
   - platform: wifi_signal
     id: ${name}_wifi_power
     name: ${name}_wifi_power
     update_interval: 10s
-  
+    entity_category: diagnostic
+
   - platform: copy # Reports the WiFi signal strength in %
     source_id: ${name}_wifi_power
     name: ${name}_wifi_power_percent
+    id: wifi_power_percent
     filters:
       - lambda: 'return min(max(2 * (x + 100.0), 0.0), 100.0);'
     unit_of_measurement: '%'
     entity_category: diagnostic
-  
+
+# https://esphome.io/components/sensor/internal_temperature
   - platform: internal_temperature
     name: ${name}_internal_temperature
+    id: ${name}_internal_temperature
     entity_category: diagnostic
-   
+
+# https://esphome.io/components/sensor/uptime
   - platform: uptime
     id: uptime_sec
-    
+
 text_sensor:
+# https://esphome.io/components/text_sensor/wifi_info
   - platform: wifi_info
     ip_address:
       name: ${name}_ip_address
@@ -65,7 +104,12 @@ text_sensor:
       name: ${name}_latest_scan_results
     dns_address:
       name: ${name}_dns_address
-      
+
+# https://esphome.io/components/text_sensor/version
+  - platform: version
+    name: ${name}_esphomelib_version
+    hide_timestamp: true
+
   - platform: template
     name: ${name}_uptime
     lambda: |-

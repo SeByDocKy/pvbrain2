@@ -1,11 +1,11 @@
 globals: 
-  - id: ${ina3221_name}_energy_yesteday_global_channel_1_${ina3221_suffix}
+  - id: ${ina3221_name}_energy_yesteday_global_channel_1
     type: float
     restore_value: yes
-  - id: ${ina3221_name}_energy_yesteday_global_channel_2_${ina3221_suffix}
+  - id: ${ina3221_name}_energy_yesteday_global_channel_2
     type: float
     restore_value: yes
-  - id: ${ina3221_name}_energy_yesteday_global_channel_3_${ina3221_suffix}
+  - id: ${ina3221_name}_energy_yesteday_global_channel_3
     type: float
     restore_value: yes
 
@@ -18,14 +18,14 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${ina3221_name}_energy_yesteday_global_channel_1_${ina3221_suffix}
-              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_1_${ina3221_suffix}) = float( id(${ina3221_name}_energy_today_channel_1_${ina3221_suffix}).state));    
+              id: ${ina3221_name}_energy_yesteday_global_channel_1
+              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_1) = float( id(${ina3221_name}_energy_today_channel_1).state));    
           - globals.set:
-              id: ${ina3221_name}_energy_yesteday_global_channel_2_${ina3221_suffix}
-              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_2_${ina3221_suffix}) = float( id(${ina3221_name}_energy_today_channel_2_${ina3221_suffix}).state));
+              id: ${ina3221_name}_energy_yesteday_global_channel_2
+              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_2) = float( id(${ina3221_name}_energy_today_channel_2).state));
           - globals.set:
-              id: ${ina3221_name}_energy_yesteday_global_channel_3_${ina3221_suffix}
-              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_3_${ina3221_suffix}) = float( id(${ina3221_name}_energy_today_channel_3_${ina3221_suffix}).state));   
+              id: ${ina3221_name}_energy_yesteday_global_channel_3
+              value: !lambda return (id(${ina3221_name}_energy_yesteday_global_channel_3) = float( id(${ina3221_name}_energy_today_channel_3).state));   
  
 sensor:
   - platform: ina3221
@@ -33,64 +33,64 @@ sensor:
     channel_1:
       shunt_resistance: 0.1 ohm
       current:
-        name: ${name}_${ina3221_name}_current_channel_1_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_current_channel_1
       power:
-        name: ${name}_${ina3221_name}_power_channel_1_${ina3221_suffix}
-        id: ${ina3221_name}_power_channel_1_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_power_channel_1
+        id: ${ina3221_name}_power_channel_1
       bus_voltage:
-        name: ${name}_${ina3221_name}_bus_voltage_channel_1_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_bus_voltage_channel_1
       shunt_voltage:
-        name: ${name}_${ina3221_name}_shunt_voltage_channel_1_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_shunt_voltage_channel_1
     channel_2:
       shunt_resistance: 0.1 ohm
       current:
-        name: ${name}_${ina3221_name}_current_channel_2_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_current_channel_2
       power:
-        name: ${name}_${ina3221_name}_power_channel_2_${ina3221_suffix}
-        id: ${ina3221_name}_power_channel_2_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_power_channel_2
+        id: ${ina3221_name}_power_channel_2
       bus_voltage:
-        name: ${name}_${ina3221_name}_bus_voltage_channel_2_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_bus_voltage_channel_2
       shunt_voltage:
-        name: ${name}_${ina3221_name}_shunt_voltage_channel_2_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_shunt_voltage_channel_2
     channel_3:
       shunt_resistance: 0.1 ohm
       current:
-        name: ${name}_${ina3221_name}_current_channel_3_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_current_channel_3
       power:
-        name: ${name}_${ina3221_name}_power_channel_3_${ina3221_suffix}
-        id: ${ina3221_name}_power_channel_3_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_power_channel_3
+        id: ${ina3221_name}_power_channel_3
       bus_voltage:
-        name: ${name}_${ina3221_name}_bus_voltage_channel_3_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_bus_voltage_channel_3
       shunt_voltage:
-        name: ${name}_${ina3221_name}_shunt_voltage_channel_3_${ina3221_suffix}
+        name: ${name}_${ina3221_name}_shunt_voltage_channel_3
     update_interval: ${ina3221_update_interval}
 
   - platform: template
-    name: ${name}_${ina3221_name}_energy_total_channel_1_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_total_channel_1
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     update_interval: ${ina3221_update_interval}
     icon: mdi:power
-    lambda: return (( (id(${ina3221_name}_energy_today_channel_1_${ina3221_suffix}).state)/1000.0));
+    lambda: return (( (id(${ina3221_name}_energy_today_channel_1).state)/1000.0));
   - platform: template
-    name: ${name}_${ina3221_name}_energy_total_channel_2_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_total_channel_2
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     update_interval: ${ina3221_update_interval}
     icon: mdi:power
-    lambda: return (( (id(${ina3221_name}_energy_today_channel_2_${ina3221_suffix}).state)/1000.0));
+    lambda: return (( (id(${ina3221_name}_energy_today_channel_2).state)/1000.0));
   - platform: template
-    name: ${name}_${ina3221_name}_energy_total_channel_3_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_total_channel_3
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     update_interval: ${ina3221_update_interval}
     icon: mdi:power
-    lambda: return (( (id(${ina3221_name}_energy_today_channel_3_${ina3221_suffix}).state)/1000.0));
+    lambda: return (( (id(${ina3221_name}_energy_today_channel_3).state)/1000.0));
     
   - platform: total_daily_energy
-    name: ${name}_${ina3221_name}_energy_today_channel_1_${ina3221_suffix}
-    id: ${ina3221_name}_energy_today_channel_1_${ina3221_suffix}
-    power_id: ${ina3221_name}_power_channel_1_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_today_channel_1
+    id: ${ina3221_name}_energy_today_channel_1
+    power_id: ${ina3221_name}_power_channel_1
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -99,9 +99,9 @@ sensor:
       - multiply: 0.001
     icon: mdi:counter
   - platform: total_daily_energy
-    name: ${name}_${ina3221_name}_energy_today_channel_2_${ina3221_suffix}
-    id: ${ina3221_name}_energy_today_channel_2_${ina3221_suffix}
-    power_id: ${ina3221_name}_power_channel_2_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_today_channel_2
+    id: ${ina3221_name}_energy_today_channel_2
+    power_id: ${ina3221_name}_power_channel_2
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -110,9 +110,9 @@ sensor:
       - multiply: 0.001
     icon: mdi:counter
   - platform: total_daily_energy
-    name: ${name}_${ina3221_name}_energy_today_channel_3_${ina3221_suffix}
-    id: ${ina3221_name}_energy_today_channel_3_${ina3221_suffix}
-    power_id: ${ina3221_name}_power_channel_3_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_today_channel_3
+    id: ${ina3221_name}_energy_today_channel_3
+    power_id: ${ina3221_name}_power_channel_3
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -122,29 +122,29 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${ina3221_name}_energy_yesteday_channel_1_${ina3221_suffix}
-    id: ${ina3221_name}_energy_yesteday_channel_1_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_yesteday_channel_1
+    id: ${ina3221_name}_energy_yesteday_channel_1
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${ina3221_update_interval}
     lambda: |-
-      return (id(${ina3221_name}_energy_yesteday_channel_1_${ina3221_suffix}).state = id(${ina3221_name}_energy_yesteday_global_channel_1_${ina3221_suffix}));
+      return (id(${ina3221_name}_energy_yesteday_channel_1).state = id(${ina3221_name}_energy_yesteday_global_channel_1));
   - platform: template
-    name: ${name}_${ina3221_name}_energy_yesteday_channel_2_${ina3221_suffix}
-    id: ${ina3221_name}_energy_yesteday_channel_2_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_yesteday_channel_2
+    id: ${ina3221_name}_energy_yesteday_channel_2
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${ina3221_update_interval}
     lambda: |-
-      return (id(${ina3221_name}_energy_yesteday_channel_2_${ina3221_suffix}).state = id(${ina3221_name}_energy_yesteday_global_channel_2_${ina3221_suffix}));
+      return (id(${ina3221_name}_energy_yesteday_channel_2).state = id(${ina3221_name}_energy_yesteday_global_channel_2));
   - platform: template
-    name: ${name}_${ina3221_name}_energy_yesteday_channel_3_${ina3221_suffix}
-    id: ${ina3221_name}_energy_yesteday_channel_3_${ina3221_suffix}
+    name: ${name}_${ina3221_name}_energy_yesteday_channel_3
+    id: ${ina3221_name}_energy_yesteday_channel_3
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${ina3221_update_interval}
     lambda: |-
-      return (id(${ina3221_name}_energy_yesteday_channel_3_${ina3221_suffix}).state = id(${ina3221_name}_energy_yesteday_global_channel_3_${ina3221_suffix}));
+      return (id(${ina3221_name}_energy_yesteday_channel_3).state = id(${ina3221_name}_energy_yesteday_global_channel_3));

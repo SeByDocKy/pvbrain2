@@ -3,70 +3,70 @@ external_components:
     refresh: 0s
 
 pylontech:
-  id: ${pylon_name}
+  id: id_${pylon_name}
   uart_id: ${pylon_uart_id}
   update_interval: ${pylon_update_interval}
 
 sensor:
   - platform: pylontech
-    pylontech_id: ${pylon_name}
+    pylontech_id: id_${pylon_name}
     battery: ${pylon_number}
     voltage:
-      id: ${pylon_name}_${pylon_number}_tension_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number}_tension_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_tension
+      name: '${name}_${pylon_name}${pylon_number}_tension'
     current:
-      id: ${pylon_name}_${pylon_number}_courant_charge_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number}_courant_charge_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_courant_charge
+      name: '${name}_${pylon_name}${pylon_number}_courant_charge'
     coulomb:
-      id: ${pylon_name}_${pylon_number}_capacity_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number}_capacity_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_capacity
+      name: '${name}_${pylon_name}${pylon_number}_capacity'
     temperature:
-      id: ${pylon_name}_${pylon_number}_temperature_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number}_temperature_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_temperature
+      name: '${name}_${pylon_name}${pylon_number}_temperature'
     temperature_low:
-      id: ${pylon_name}_${pylon_number}_low_temperature_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number} low temperature_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_low_temperature
+      name: '${name}_${pylon_name}${pylon_number} low temperature'
     temperature_high:
-      id: ${pylon_name}_${pylon_number}_high_temperature_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number} high temperature_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_high_temperature
+      name: '${name}_${pylon_name}${pylon_number} high temperature'
     voltage_low:
-      id: ${pylon_name}_${pylon_number}_cell_low_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number}_cell_low_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_cell_low
+      name: '${name}_${pylon_name}${pylon_number}_cell_low'
     voltage_high:
-      id: ${pylon_name}_${pylon_number}_cell_high_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number}_cell_high_${pylon_suffix}'  
+      id: ${pylon_name}_${pylon_number}_cell_high
+      name: '${name}_${pylon_name}${pylon_number}_cell_high'  
     mos_temperature:
-      id: ${pylon_name}_${pylon_number}_mosfet_temperature_${pylon_suffix}
-      name: '${name}_${pylon_name}${pylon_number}_mosfet_temperature_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_mosfet_temperature
+      name: '${name}_${pylon_name}${pylon_number}_mosfet_temperature'
       
 text_sensor:
   - platform: pylontech
-    pylontech_id: ${pylon_name}
+    pylontech_id: id_${pylon_name}
     battery: ${pylon_number}
     base_state:
-      id: ${pylon_name}_${pylon_number}_base_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_base_state_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_base_state
+      name: '${name}_${pylon_name}_${pylon_number}_base_state'
     voltage_state:
-      id: ${pylon_name}_${pylon_number}_voltage_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_voltage_sate_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_voltage_state
+      name: '${name}_${pylon_name}_${pylon_number}_voltage_sate'
     current_state:
-      id: ${pylon_name}_${pylon_number}_current_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_current_state_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_current_state
+      name: '${name}_${pylon_name}_${pylon_number}_current_state'
     temperature_state:
-      id: ${pylon_name}_${pylon_number}_temperature_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_temperature_state_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_temperature_state
+      name: '${name}_${pylon_name}_${pylon_number}_temperature_state'
     date_state:
-      id: ${pylon_name}_${pylon_number}_date_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_date_state_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_date_state
+      name: '${name}_${pylon_name}_${pylon_number}_date_state'
     time_state:
-      id: ${pylon_name}_${pylon_number}_time_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_time_state_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_time_state
+      name: '${name}_${pylon_name}_${pylon_number}_time_state'
     bv_state:
-      id: ${pylon_name}_${pylon_number}_bv_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_bv_state_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_bv_state
+      name: '${name}_${pylon_name}_${pylon_number}_bv_state'
     bt_state:
-      id: ${pylon_name}_${pylon_number}_bt_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_bt_state_${pylon_suffix}'
+      id: ${pylon_name}_${pylon_number}_bt_state
+      name: '${name}_${pylon_name}_${pylon_number}_bt_state'
     mos_state:
-      id: ${pylon_name}_${pylon_number}_mos_state_${pylon_suffix}
-      name: '${name}_${pylon_name}_${pylon_number}_mos_state_${pylon_suffix}' 
+      id: ${pylon_name}_${pylon_number}_mos_state
+      name: '${name}_${pylon_name}_${pylon_number}_mos_state' 

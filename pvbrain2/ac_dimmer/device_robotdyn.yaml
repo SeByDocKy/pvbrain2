@@ -1,6 +1,6 @@
 output:
   - platform: ac_dimmer
-    id: ${ac_dimmer_name}_${ac_dimmer_suffix}
+    id: ${ac_dimmer_name}
     gate_pin: ${ac_dimmer_gate_gpio}
     zero_cross_pin:
       number: ${ac_dimmer_zc_gpio}

@@ -1,5 +1,5 @@
 ![Work_In_Progress](https://img.shields.io/badge/Work_In_Progress-Project_still_in_development-red?logo=adblock&logoColor=red&style=plastic)
-[![Realease](https://img.shields.io/badge/Realease-Beta-blue?style=plastic)](https://github.com/SeByDocKy/pvbrain2)
+[![Realease](https://img.shields.io/badge/Realease-v1.0.1-blue?style=plastic)](https://github.com/SeByDocKy/pvbrain2)
 
 # PVbrainV2
 
@@ -187,6 +187,8 @@ An optional addon card can be plugged to allowing 4 additional UART outputs.
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_uart_extension/uart_extension_circuit.png" width="1068" /> |
+
+Also, find all BOM <sup>_(Aliexpress and Amzon links)_</sup> and some extra information in this <sub>[![Google Docs](https://img.shields.io/badge/Google_Docs-_-black?logo=google&style=social)](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqTCFvosqLe3oL8kCYauC0Lip-PFoYXdSaXtiM5O0mfbqNR286LAmPG_ngkzn3vveCUbP-QugC6HAZ/pubhtml#)</sub> <sup>_(in French)_</sup>.
 </details>
 
 ## [MULTI-CAN :](../main/hardware/addon_MULTI-CAN)
@@ -202,6 +204,8 @@ An optional addon card can be plugged to allowing 4 additional CAN MODULE SPI.
 | Front                     | Back                      |
 | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_front.PNG" width="256" /> | <img src="../main/hardware/addon_MULTI-CAN/MULTICAN_back.PNG" width="256" /> |
+
+Also, find all BOM <sup>_(Aliexpress and Amzon links)_</sup> and some extra information in this <sub>[![Google Docs](https://img.shields.io/badge/Google_Docs-_-black?logo=google&style=social)](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqTCFvosqLe3oL8kCYauC0Lip-PFoYXdSaXtiM5O0mfbqNR286LAmPG_ngkzn3vveCUbP-QugC6HAZ/pubhtml#)</sub> <sup>_(in French)_</sup>.
 </details>
 
 ## [PV Monitor :](../main/hardware/addon_carte_pv_monitor)
@@ -220,6 +224,8 @@ The card offers the possibility of securely monitoring the voltage of two DC inp
 | Front                     | Back                      | Circuit                   |
 | :-----------------------: | :-----------------------: | :-----------------------: |
 | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_front.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_back.png" width="1068" /> | <img src="../main/hardware/addon_carte_pv_monitor/pv_monitor_circuit.png" width="1068" /> |
+
+Also, find all BOM <sup>_(Aliexpress and Amzon links)_</sup> and some extra information in this <sub>[![Google Docs](https://img.shields.io/badge/Google_Docs-_-black?logo=google&style=social)](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqTCFvosqLe3oL8kCYauC0Lip-PFoYXdSaXtiM5O0mfbqNR286LAmPG_ngkzn3vveCUbP-QugC6HAZ/pubhtml#)</sub> <sup>_(in French)_</sup>.
 </details>
 
 ## [Fil_Pilote :](../main/hardware/addon_carte_fil_pilote)
