@@ -74,7 +74,6 @@ esp32:
   # partitions: large_littlefs_32MB.csv
   framework:
     type: esp-idf
-    # version: recommended
     # version: 5.1.2 # 5.2.1
     # platform_version: 6.6.0  # required with esp-idf branch >5.1x
     # sdkconfig_options:
@@ -83,7 +82,7 @@ esp32:
     #   CONFIG_COMPILER_OPTIMIZATION_PERF: y
 
     # type: arduino
-    # version: 2.0.14 
+    # version: 2.0.15 
     # platform_version: 6.6.0
     
       
