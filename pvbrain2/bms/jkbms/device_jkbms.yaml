@@ -176,7 +176,7 @@ sensor:
         # return 0.0;
       # }
   - platform: total_daily_energy
-    name: ${bms_name}_battery_charging_energy_day
+    name: ${name}_${bms_name}_battery_charging_energy_day
     power_id: ${bms_name}_battery_charging_power
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
