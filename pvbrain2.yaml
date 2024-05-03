@@ -51,7 +51,7 @@ substitutions:
 
 esphome:
   name: ${name}
-  friendly_name: ${name}
+  # friendly_name: ${name}
   # comment: 'Solar system braining and more !'
   # area: 'Local Technique'
   project:
