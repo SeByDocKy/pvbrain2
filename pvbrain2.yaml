@@ -239,6 +239,16 @@ packages:
       bme_280_i2c_bus: i2c1_bus
       bme_update_interval: '5s'
 
+  # dallas_1: !include 
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/environmental/dallas/device_dallas.yaml
+  #   vars:
+  #     dallas_name: 'dallas_temperature'
+  #     pin: GPIO47
+  #     dallas_address: '0x9f3c01f09613re85'
+  #    # dallas_update_interval: '5s'  
+  
   # bmp_280_1: !include
   #   file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
   #   vars:
