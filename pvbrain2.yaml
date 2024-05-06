@@ -127,6 +127,7 @@ packages:
     # url: ${git_url}
     # refresh: 0s
     file: pvbrain2/base/device_base.yaml
+    # file: https://github.com/SeByDocKy/pvbrain2/pvbrain2/base/device_base.yaml@main
     
   # device_uart_extender_addon: !include 
   #   # url: ${git_url}
