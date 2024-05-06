@@ -1,6 +1,6 @@
 substitutions:
   name: 'pvbrain2'
-  git_url: 'https://github.com/SeByDocKy/pvbrain2@main'
+  git_url: 'https://github.com/SeByDocKy/pvbrain2'
   # friendly_name: 'pvbrain2'
 
   ###### For builtin ESP32 S3 UART ports ######
@@ -125,9 +125,10 @@ packages:
   
   device_base: !include
     # url: ${git_url}
+    # ref: main
     # refresh: 0s
     file: pvbrain2/base/device_base.yaml
-    # file: https://github.com/SeByDocKy/pvbrain2/pvbrain2/base/device_base.yaml@main
+    
     
   # device_uart_extender_addon: !include 
   #   # url: ${git_url}
