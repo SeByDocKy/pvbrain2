@@ -1,10 +1,25 @@
  
 packages:
-  physical_uart: !include device_physical_uart.yaml    
-  device_sx1509: !include device_sx1509.yaml
-  device_dallas: !include device_dallas.yaml
-  i2c1: !include device_i2c1.yaml
-  device_wk2168_spi: !include device_wk2168_spi.yaml
+  physical_uart: !include 
+    url: ${git_url}
+    refresh: 0s
+    file: base/device_physical_uart.yaml    
+  device_sx1509: !include 
+    url: ${git_url}
+    refresh: 0s
+    file: base/device_sx1509.yaml
+  device_dallas: !include 
+    url: ${git_url}
+    refresh: 0s
+    file: base/device_dallas.yaml
+  i2c1: !include 
+    url: ${git_url}
+    refresh: 0s
+    file: base/device_i2c1.yaml
+  device_wk2168_spi: !include 
+    url: ${git_url}
+    refresh: 0s
+    file: base/device_wk2168_spi.yaml
   # device_wk2132_i2c: !include device_wk2132_i2c.yaml
   # device_wk2132_spi: !include device_wk2132_spi.yaml
   # device_wk2168_i2c: !include device_wk2168_i2c.yaml
@@ -30,6 +45,8 @@ light:
     id: led_light_2
     pin: GPIO02    
     effects: !include
+      url: ${git_url}
+      refresh: 0s
       file: ../environmental/light/effect_monochrome.yaml
     entity_category: config
 
@@ -43,6 +60,8 @@ light:
     rmt_channel: 0
     chipset: ws2812
     effects: !include
+      url: ${git_url}
+      refresh: 0s
       file: ../environmental/light/effect_addressable_monoled.yaml
     entity_category: config
 
