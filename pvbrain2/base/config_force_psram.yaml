@@ -1,0 +1,20 @@
+esphome:
+  platformio_options:
+    build_flags: "-DBOARD_HAS_PSRAM"
+    board_build.arduino.memory_type: opi_opi                  # qio_opi
+
+esp32:
+  framework:
+    type: esp-idf
+    version: 4.4.7 
+    sdkconfig_options:
+      CONFIG_SPIRAM_USE_MALLOC: y                             # fully integrating it making malloc() also able to return SPI RAM pointers.
+      CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY: y
+      CONFIG_SPIRAM_ALLOW_NOINIT_SEG_EXTERNAL_MEMORY: y
+      CONFIG_SPIRAM_ALLOW_STACK_EXTERNAL_MEMORY: y
+      CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP: y                 # Try to allocate memories of WiFi and LWIP in SPIRAM firstly. If failed, allocate internal memory
+      CONFIG_BT_NIMBLE_MEM_ALLOC_MODE_EXTERNAL: y
+      CONFIG_BLE_MESH_MEM_ALLOC_MODE_EXTERNAL: y              # Allocation strategy for BLE Mesh stack, essentially provides ability to allocate all required dynamic allocations
+      CONFIG_BLE_MESH_FREERTOS_STATIC_ALLOC_EXTERNAL: y       # Choose the memory to be used for FreeRTOS objects.
+      CONFIG_FATFS_ALLOC_PREFER_EXTRAM: y
+      CONFIG_MBEDTLS_EXTERNAL_MEM_ALLOC: y

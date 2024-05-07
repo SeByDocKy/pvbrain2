@@ -34,39 +34,49 @@ sensor:
       shunt_resistance: 0.1 ohm
       current:
         name: ${name}_${ina3221_name}_current_channel_1
+        id: ${ina3221_name}_current_channel_1
       power:
         name: ${name}_${ina3221_name}_power_channel_1
         id: ${ina3221_name}_power_channel_1
       bus_voltage:
         name: ${name}_${ina3221_name}_bus_voltage_channel_1
+        id: ${ina3221_name}_bus_voltage_channel_1
       shunt_voltage:
         name: ${name}_${ina3221_name}_shunt_voltage_channel_1
+        id: ${ina3221_name}_shunt_voltage_channel_1
     channel_2:
       shunt_resistance: 0.1 ohm
       current:
         name: ${name}_${ina3221_name}_current_channel_2
+        id: ${ina3221_name}_current_channel_2
       power:
         name: ${name}_${ina3221_name}_power_channel_2
         id: ${ina3221_name}_power_channel_2
       bus_voltage:
         name: ${name}_${ina3221_name}_bus_voltage_channel_2
+        id: ${ina3221_name}_bus_voltage_channel_2
       shunt_voltage:
         name: ${name}_${ina3221_name}_shunt_voltage_channel_2
+        id: ${ina3221_name}_shunt_voltage_channel_2
     channel_3:
       shunt_resistance: 0.1 ohm
       current:
         name: ${name}_${ina3221_name}_current_channel_3
+        id: ${ina3221_name}_current_channel_3
       power:
         name: ${name}_${ina3221_name}_power_channel_3
         id: ${ina3221_name}_power_channel_3
       bus_voltage:
         name: ${name}_${ina3221_name}_bus_voltage_channel_3
+        id: ${ina3221_name}_bus_voltage_channel_3
       shunt_voltage:
         name: ${name}_${ina3221_name}_shunt_voltage_channel_3
+        id: ${ina3221_name}_shunt_voltage_channel_3
     update_interval: ${ina3221_update_interval}
 
   - platform: template
     name: ${name}_${ina3221_name}_energy_total_channel_1
+    id: ${ina3221_name}_energy_total_channel_1
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     update_interval: ${ina3221_update_interval}
@@ -74,6 +84,7 @@ sensor:
     lambda: return (( (id(${ina3221_name}_energy_today_channel_1).state)/1000.0));
   - platform: template
     name: ${name}_${ina3221_name}_energy_total_channel_2
+    id: ${ina3221_name}_energy_total_channel_2
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     update_interval: ${ina3221_update_interval}
@@ -81,6 +92,7 @@ sensor:
     lambda: return (( (id(${ina3221_name}_energy_today_channel_2).state)/1000.0));
   - platform: template
     name: ${name}_${ina3221_name}_energy_total_channel_3
+    id: ${ina3221_name}_energy_total_channel_3
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     update_interval: ${ina3221_update_interval}

@@ -17,6 +17,7 @@ sensor:
     update_interval: ${bme_update_interval}
     i2c_id: ${bme_280_i2c_bus}
 
+# https://esphome.io/components/sensor/absolute_humidity.html?highlight=absolute_humidity
   - platform: absolute_humidity
     name: ${name}_${bme_280_name}_humidite_absolue
     id: ${bme_280_name}_humidite_absolue

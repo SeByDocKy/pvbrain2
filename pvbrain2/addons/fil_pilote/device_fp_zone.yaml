@@ -1,3 +1,11 @@
+esphome:
+  on_boot:
+    priority: -100.0
+    then:
+      - select.set:
+          id: ${fpilote_id}_${fpilote_mode}
+          option: ${fpilote_initial_option}
+
 output:
   - platform: gpio
     id: ${fpilote_hub}_output_${fpilote_pos_pin}
@@ -40,6 +48,7 @@ select:
      - "Confort -1" #Alternance pleine temporisé (4'57"off/3"on/..)
      - "Confort -2" #Alternance pleine temporisé (4'53"off/7"on/..)
     initial_option: "Confort"
+    # restore_value: true
     optimistic: true
     icon: mdi:radiator
     set_action:
