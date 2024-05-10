@@ -14,7 +14,7 @@ substitutions:
   uart0_baudrate: '2400'    #WKS         {RJ45-UART0} 
   uart1_baudrate: '38400'   #JSY193
   uart2_baudrate: '19200'   #smartshunt
-  uart3_baudrate: '19200'   #SRNE        {RJ45-UART3} 
+  uart3_baudrate: '9600'    #SRNE        {RJ45-UART3} 
   uart4_baudrate: '115200'  #JKBMS0
   uart5_baudrate: '115200'  #JKBMS1
   uart6_baudrate: '115200'  #Pylontech
