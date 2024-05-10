@@ -10,16 +10,16 @@ external_components:
     components: [growatt]
     refresh: 0s    
      
-modbus:
- - id: ${inverter_name}_modbus
-   uart_id: ${inverter_uart_id}
-   send_wait_time: ${inverter_modbus_send_wait_time}
+# modbus:
+ # - id: ${inverter_name}_modbus
+   # uart_id: ${inverter_uart_id}
+   # send_wait_time: ${inverter_modbus_send_wait_time}
    
 sensor:
   - platform: growatt
-    id: ${name}_${inverter_name}
+    id: ${inverter_name}_id
     address: ${inverter_modbus_address}
-    modbus_id: ${inverter_name}_modbus
+    modbus_id: ${inverter_modbus_id}
     input_power:
       name: ${name}_${inverter_name}_input_power
       id: ${inverter_name}_input_power

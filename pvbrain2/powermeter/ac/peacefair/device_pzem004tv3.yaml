@@ -5,7 +5,7 @@ globals:
     
 time:
   - platform: homeassistant #sntp
-    id: my_time
+    id: ${powermeter_name}_time
     on_time:
       - seconds: 59
         minutes: 59
@@ -15,23 +15,23 @@ time:
               id: ${powermeter_name}_energy_yesteday_global
               value: !lambda return ( id(${powermeter_name}_energy_yesteday_global) =  float( id(${powermeter_name}_energy_today).state) );         
  
-modbus:
-   - id: ${powermeter_name}_modbus
-     uart_id: ${powermeter_uart_id}
-     send_wait_time: ${powermeter_modbus_send_wait_time}
+# modbus:
+   # - id: ${powermeter_name}_modbus
+     # uart_id: ${powermeter_uart_id}
+     # send_wait_time: ${powermeter_modbus_send_wait_time}
    
 button:
   - platform: template
     name: ${name}_${powermeter_name}_reset_energy
     on_press:
       then:
-        - pzemac.reset_energy: ${powermeter_name}_pzem
+        - pzemac.reset_energy: ${powermeter_name}_id
    
    
 sensor:
   - platform: pzemac
-    id: ${powermeter_name}_pzem
-    modbus_id: ${powermeter_name}_modbus
+    id: ${powermeter_name}_id
+    modbus_id: ${powermeter_modbus_id}
     address: ${powermeter_modbus_address}
     current:
       name: ${name}_${powermeter_name}_current

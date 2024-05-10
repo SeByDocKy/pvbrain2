@@ -11,7 +11,7 @@ globals:
 
 time:
   - platform: homeassistant #sntp
-    # id: my_time
+    id: ${ina3221_name}_time
     on_time:
       - seconds: 59
         minutes: 59

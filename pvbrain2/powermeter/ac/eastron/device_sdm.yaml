@@ -9,7 +9,7 @@ globals:
     
 time:
   - platform: homeassistant #sntp
-    id: my_time
+    id: ${powermeter_name}_time
     on_time:
       - seconds: 59
         minutes: 59
@@ -21,15 +21,15 @@ time:
           - globals.set:
               id: ${powermeter_name}_energy_exported_yesteday_global
               value: !lambda return ( id(${powermeter_name}_energy_exported_yesteday_global) =  float( id(${powermeter_name}_energy_exported_today).state) );          
-modbus:
-  - id: ${powermeter_name}_modbus
-    uart_id: ${powermeter_uart_id}
-    send_wait_time: ${powermeter_modbus_send_wait_time}
+# modbus:
+  # - id: ${powermeter_name}_modbus
+    # uart_id: ${powermeter_uart_id}
+    # send_wait_time: ${powermeter_modbus_send_wait_time}
      
 sensor:
   - platform: sdm_meter
-    modbus_id: ${powermeter_name}_modbus     
-    id: ${powermeter_name}_sdm
+    modbus_id: ${powermeter_modbus_id}     
+    id: ${powermeter_name}_id
     phase_a:
       current:
         name: ${name}_${powermeter_name}_current

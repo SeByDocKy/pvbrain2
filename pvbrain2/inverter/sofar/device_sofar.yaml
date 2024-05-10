@@ -2,15 +2,15 @@ substitutions:
   max_power: '3000'
   balance_loop_delay: '5s'
 
-modbus:
-  - id: ${inverter_name}_modbus
-    uart_id: ${inverter_uart_id}
-    send_wait_time: ${inverter_modbus_send_wait_time}
+# modbus:
+  # - id: ${inverter_name}_modbus
+    # uart_id: ${inverter_uart_id}
+    # send_wait_time: ${inverter_modbus_send_wait_time}
   
 modbus_controller:
   - id: ${inverter_name}_modbus_controller
     address: ${inverter_modbus_address}
-    modbus_id: ${inverter_name}_modbus
+    modbus_id: ${inverter_modbus_id}
     command_throttle: ${inverter_modbus_throttle}
     setup_priority: -10
     update_interval: ${inverter_update_interval}

@@ -1,0 +1,6 @@
+modbus:
+  - id: ${modbus_id}
+    uart_id: ${modbus_uart_id}
+    send_wait_time: ${modbus_send_wait_time}
+
+
