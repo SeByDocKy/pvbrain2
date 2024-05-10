@@ -8,7 +8,12 @@ packages:
   # device_wk2132_spi: !include device_wk2132_spi.yaml
   # device_wk2168_i2c: !include device_wk2168_i2c.yaml
   # device_wk2168_addon_spi: !include device_wk2168_addon_spi.yaml
-              
+ 
+time:
+# https://esphome.io/components/time/homeassistant
+  - platform: homeassistant
+    id: my_time
+ 
 binary_sensor:
 # https://esphome.io/components/binary_sensor/status  
   - platform: status

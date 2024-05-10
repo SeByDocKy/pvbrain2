@@ -26,7 +26,7 @@ globals:
 
 time:
   - platform: homeassistant #sntp
-    id: ${inverter_name}_time
+    id: !extend my_time
   
     on_time:
       - seconds: 59
