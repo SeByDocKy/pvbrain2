@@ -169,6 +169,16 @@ packages:
   #     modbus_uart_id: uart_${uart_hub_bus}_5
   #     modbus_send_wait_time: '200ms'    
 
+  # modbus_38400: !include
+  #   # url: ${git_url}
+  #   # ref: main
+  #   # refresh: 0s
+  #   file: pvbrain2/base/device_modbus.yaml
+  #   vars:
+  #     modbus_id: 'modbus_38400_id'
+  #     modbus_uart_id: uart_${uart_hub_bus}_1
+  #     modbus_send_wait_time: '200ms'
+
 
   ###### End of RS485/modbus intefaces  #####
     
