@@ -337,94 +337,94 @@ text_sensor:
     name: ${name}_${inverter_name}_time_slot_1
     id: ${inverter_name}_time_slot_1
     lambda: |-
-        int minutes, hours;
+        unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone1).state) {
-        minutes = static_cast<int>(id(${inverter_name}_setting_timezone1).state) % 100;
-        hours = static_cast<int>(id(${inverter_name}_setting_timezone1).state) / 100;
+        minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone1).state) % 100;
+        hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone1).state) / 100);
         } else {
           minutes = 0;
           hours = 0;
         }
         char formatted_time[6];
-        snprintf(formatted_time, sizeof(formatted_time), "%02d:%02d", hours, minutes);
+        snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);
   
   - platform: template
     name: ${name}_${inverter_name}_time_slot_2
     id: ${inverter_name}_time_slot_2
     lambda: |-
-        int minutes, hours;
+        unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone2).state) {
-        minutes = static_cast<int>(id(${inverter_name}_setting_timezone2).state) % 100;
-        hours = static_cast<int>(id(${inverter_name}_setting_timezone2).state) / 100;
+        minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone2).state) % 100;
+        hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone2).state) / 100);
         } else {
           minutes = 0;
           hours = 0;
         }
         char formatted_time[6];
-        snprintf(formatted_time, sizeof(formatted_time), "%02d:%02d", hours, minutes);
+        snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);
   
   - platform: template
     name: ${name}_${inverter_name}_time_slot_3
     id: ${inverter_name}_time_slot_3
     lambda: |-
-        int minutes, hours;
+        unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone3).state) {
-        minutes = static_cast<int>(id(${inverter_name}_setting_timezone3).state) % 100;
-        hours = static_cast<int>(id(${inverter_name}_setting_timezone3).state) / 100;
+        minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone3).state) % 100;
+        hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone3).state) / 100);
         } else {
           minutes = 0;
           hours = 0;
         }
         char formatted_time[6];
-        snprintf(formatted_time, sizeof(formatted_time), "%02d:%02d", hours, minutes);
+        snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);
   
   - platform: template
     name: ${name}_${inverter_name}_time_slot_4
     id: ${inverter_name}_time_slot_4
     lambda: |-
-        int minutes, hours;
+        unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone4).state) {
-        minutes = static_cast<int>(id(${inverter_name}_setting_timezone4).state) % 100;
-        hours = static_cast<int>(id(${inverter_name}_setting_timezone4).state) / 100;
+        minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone4).state) % 100;
+        hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone4).state) / 100);
         } else {
           minutes = 0;
           hours = 0;
         }
         char formatted_time[6];
-        snprintf(formatted_time, sizeof(formatted_time), "%02d:%02d", hours, minutes);
+        snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);
   
   - platform: template
     name: ${name}_${inverter_name}_time_slot_5
     id: ${inverter_name}_time_slot_5
     lambda: |-
-        int minutes, hours;
+        unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone5).state) {
-        minutes = static_cast<int>(id(${inverter_name}_setting_timezone5).state) % 100;
-        hours = static_cast<int>(id(${inverter_name}_setting_timezone5).state) / 100;
+        minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone5).state) % 100;
+        hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone5).state) / 100);
         } else {
           minutes = 0;
           hours = 0;
         }
         char formatted_time[6];
-        snprintf(formatted_time, sizeof(formatted_time), "%02d:%02d", hours, minutes);
+        snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);
   
   - platform: template
     name: ${name}_${inverter_name}_time_slot_6
     id: ${inverter_name}_time_slot_6
     lambda: |-
-        int minutes, hours;
+        unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone6).state) {
-        minutes = static_cast<int>(id(${inverter_name}_setting_timezone6).state) % 100;
-        hours = static_cast<int>(id(${inverter_name}_setting_timezone6).state) / 100;
+        minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone6).state) % 100;
+        hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone6).state) / 100);
         } else {
           minutes = 0;
           hours = 0;
         }
         char formatted_time[6];
-        snprintf(formatted_time, sizeof(formatted_time), "%02d:%02d", hours, minutes);
+        snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
