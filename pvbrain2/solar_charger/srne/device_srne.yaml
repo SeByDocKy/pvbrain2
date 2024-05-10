@@ -1,6 +1,6 @@
 time:
   - platform: homeassistant #sntp
-    id: my_time
+    id: ${solar_charger_name}_time
     # id: ${solar_charger_name}_time   
     # timezone: "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00" #https://sites.google.com/a/usapiens.com/opnode/time-zones
     # servers: "de.pool.ntp.org"
@@ -588,7 +588,7 @@ sensor:
     on_value:
       then: 
         - script.execute: 
-            id: warnings_and_errors_hi_script
+            id: ${solar_charger_name}_warnings_and_errors_hi_script
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -613,7 +613,7 @@ sensor:
     on_value:
       then: 
         - script.execute: 
-            id: warnings_and_errors_low_script         
+            id: ${solar_charger_name}_warnings_and_errors_low_script         
 
              ################## Load informations  ####################
   
@@ -959,9 +959,9 @@ switch:
     name: ${name}_${solar_charger_name}_load_dc_on_off_command
     optimistic: true
     turn_on_action:
-      - script.execute: turn_on_dc_load_script
+      - script.execute: ${solar_charger_name}_turn_on_dc_load_script
     turn_off_action:
-      - script.execute: turn_off_dc_load_script
+      - script.execute: ${solar_charger_name}_turn_off_dc_load_script
 
 select:
 
@@ -982,10 +982,10 @@ select:
       then: 
         - lambda: !lambda |-
             id(${solar_charger_name}_battery_coefficient) = (i + 1);
-        - script.execute: update_template_numbers_script 
+        - script.execute: ${solar_charger_name}_update_template_numbers_script 
 
         - script.execute: 
-            id: write_E003_register_script
+            id: ${solar_charger_name}_write_E003_register_script
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -1115,7 +1115,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
  
              ######### 2 #########
              
@@ -1133,7 +1133,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
   
             ######### 3 #########
 
@@ -1151,7 +1151,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
 
           ######### 4 #########
  
@@ -1169,7 +1169,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
 
           ######### 5 #########
 
@@ -1187,7 +1187,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
          
              ######### 6 #########
 
@@ -1205,7 +1205,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
 
           ######### 7 #########
 
@@ -1223,7 +1223,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
 
          ######### 8 #########
 
@@ -1241,7 +1241,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script 
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script 
 
          ######### 9 #########
 
@@ -1259,7 +1259,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script 
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script 
 
          ######### 10 #########
 
@@ -1277,7 +1277,7 @@ number:
     mode: 'slider'
     on_value:
       then: 
-        - script.execute: write_E005_E00E_registers_script
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
 
      ############ Charging current ##########
   
@@ -1404,7 +1404,7 @@ text_sensor:
 
 script:
 
-  - id: warnings_and_errors_hi_script
+  - id: ${solar_charger_name}_warnings_and_errors_hi_script
     then:
       - lambda: |-
           bool first = true;
@@ -1443,7 +1443,7 @@ script:
           }
           id(${solar_charger_name}_warnings_and_errors_hi_text).publish_state(errors_list);
           
-  - id: warnings_and_errors_low_script
+  - id: ${solar_charger_name}_warnings_and_errors_low_script
     then:
       - lambda: |-
           bool first = true;
@@ -1482,7 +1482,7 @@ script:
           }
           id(${solar_charger_name}_warnings_and_errors_low_text).publish_state(errors_list);
           
-  - id: turn_on_dc_load_script
+  - id: ${solar_charger_name}_turn_on_dc_load_script
     then:
       - globals.set:
                 id: ${solar_charger_name}_current_load_charging_mode_global
@@ -1510,7 +1510,7 @@ script:
           controller->queue_command(register_command);
           delay(200);              
 
-  - id: turn_off_dc_load_script
+  - id: ${solar_charger_name}_turn_off_dc_load_script
     then:
       - lambda: |-
           esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
@@ -1534,7 +1534,7 @@ script:
           controller->queue_command(register_command);
           delay(200); 
       
-  - id: update_template_numbers_script
+  - id: ${solar_charger_name}_update_template_numbers_script
     then:
       - lambda: |-
             id(${solar_charger_name}_over_voltage_threshold_number).traits.set_min_value(14*id(${solar_charger_name}_battery_coefficient));
@@ -1618,7 +1618,7 @@ script:
           value: !lambda |- 
               return float(id(${solar_charger_name}_discharge_limit_voltage_number).state*id(${solar_charger_name}_battery_coefficient));                
 
-  - id: write_E003_register_script
+  - id: ${solar_charger_name}_write_E003_register_script
     # parameters:
     #   current_controller: "esphome::modbus_controller::ModbusController *"
     then:
@@ -1634,7 +1634,7 @@ script:
           delay(200);
 
  
-  - id: write_E005_E00E_registers_script
+  - id: ${solar_charger_name}_write_E005_E00E_registers_script
     then:
       - lambda: |-
           esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
