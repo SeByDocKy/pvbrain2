@@ -30,11 +30,13 @@ switch:
     name: '${name}_${fpilote_id}_${fpilote_pos_pin}'
     output: ${fpilote_hub}_output_${fpilote_pos_pin}
     id: ${fpilote_id}_${fpilote_pos_pin}
+    disabled_by_default: true
       
   - platform: output
     name: '${name}_${fpilote_id}_${fpilote_neg_pin}'
     output: ${fpilote_hub}_output_${fpilote_neg_pin}
     id: ${fpilote_id}_${fpilote_neg_pin}
+    disabled_by_default: true
     
 select:
   - platform: template
@@ -47,8 +49,7 @@ select:
      - "Arrêt"      #Alternance positive
      - "Confort -1" #Alternance pleine temporisé (4'57"off/3"on/..)
      - "Confort -2" #Alternance pleine temporisé (4'53"off/7"on/..)
-    initial_option: "Confort"
-    # restore_value: true
+    initial_option: ${fpilote_initial_option}
     optimistic: true
     icon: mdi:radiator
     set_action:

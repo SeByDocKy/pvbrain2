@@ -7,6 +7,7 @@ packages:
       fpilote_pos_pin: '0'
       fpilote_neg_pin: '1'
       fpilote_hub: ${fpilote_bus}
+      fpilote_initial_option: '${fpilote_initial_option}'
 
   fil_pilote_zone_2: !include
     file: device_fp_zone.yaml
@@ -16,3 +17,4 @@ packages:
       fpilote_pos_pin: '2'
       fpilote_neg_pin: '3'
       fpilote_hub: ${fpilote_bus}
+      fpilote_initial_option: '${fpilote_initial_option}'

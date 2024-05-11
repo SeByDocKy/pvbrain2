@@ -1,6 +1,6 @@
 substitutions:
   name: 'pvbrain2'
-  git_url: 'https://github.com/SeByDocKy/pvbrain2'
+  git_url: 'https://github.com/SeByDocKy/pvbrain2@main'
   # friendly_name: 'pvbrain2'
 
   ###### For builtin ESP32 S3 UART ports ######
@@ -30,13 +30,13 @@ substitutions:
   uart_hub_bus: 'spi'    # 'i2c' or 'spi'  go into pvbrain2/base/device_base.yaml to select I2C or SPI UART Hub file
                          # If SPI selected, don't forget to jump/solder the two pairs of pin together located back of WK2168 boards  
 
-  #### Example of '!extend' for builtin ESP32_S3_UART special cases ######
+  #### Example of '!extend' for 'builtin ESP32_S3_UART' special cases ######
 # uart:
 #   - id: !extend uart_esp_0              # ID of the UART to modify; Here for Linky.
 #     parity: EVEN                        # Is requiered for Teleinfo
 #     data_bits: 7                        # Is requiered for Teleinfo
 
-  #### Example of extend for WK2168_UART special cases ######
+  #### Example of '!extend' for 'WK2168_UART' or similar special cases ######
 # wk2168_spi:
 #   - id: !extend  uart_bridge1             # ID of the 'WK_UART_Bridge' to modify
 #     uart:
@@ -130,7 +130,6 @@ packages:
 
   device_base: !include
     # url: ${git_url}
-    # ref: main
     # refresh: 0s
     file: pvbrain2/base/device_base.yaml
 
@@ -139,19 +138,17 @@ packages:
   ###### Define here RS485/modbus intefaces you have installed on your PVBRAIN2. 
   #####  In general, one per databaud. Each modbus_uart_id must point one of the uart_x defined above in term of databaud
   
-  modbus_9600: !include
-    # url: ${git_url}
-    # ref: main
-    # refresh: 0s
-    file: pvbrain2/base/device_modbus.yaml
-    vars:
-      modbus_id: 'modbus_9600_id'
-      modbus_uart_id: uart_${uart_hub_bus}_3
-      modbus_send_wait_time: '200ms'
+  # modbus_9600: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/base/device_modbus.yaml
+  #   vars:
+  #     modbus_id: 'modbus_9600_id'
+  #     modbus_uart_id: uart_${uart_hub_bus}_3
+  #     modbus_send_wait_time: '200ms'
 
   # modbus_19200: !include
   #   # url: ${git_url}
-  #   # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/base/device_modbus.yaml
   #   vars:
@@ -161,7 +158,6 @@ packages:
 
   # modbus_115200: !include
   #   # url: ${git_url}
-  #   # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/base/device_modbus.yaml
   #   vars:
@@ -171,7 +167,6 @@ packages:
 
   # modbus_38400: !include
   #   # url: ${git_url}
-  #   # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/base/device_modbus.yaml
   #   vars:
@@ -225,19 +220,20 @@ packages:
 #     # url: ${git_url}
 #     # refresh: 0s
 #     file: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REPLACE THE LOCATION OF "x8" BY NUMBER OF HEATER ZONES : 1 to 8
-# #   file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
+#   # file: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
 #     vars:
 #       fpilote_bus: sx1509_hub1
 #       fpilote_name: 'chauffage_zone'
+#       fpilote_initial_option: 'Hors-gel'
 
 #   teleinfo: !include 
 #     # url: ${git_url}
 #     # refresh: 0s
 #     file: pvbrain2/addons/teleinfo/historique.yaml      # IF COUNTER IN MODE "Historique"
-# #    file: pvbrain2/addons/teleinfo/standard.yaml       # IF COUNTER IN MODE "Standard"
+#   # file: pvbrain2/addons/teleinfo/standard.yaml        # IF COUNTER IN MODE "Standard"
 #     vars:
-#       linky_name: 'myteleinfo'
-#       linky_uartid: uart_esp_0 #uart_${uart_hub_bus}_8
+#       linky_name: 'myteleinfo'                          # /!\ teleinfo not work with WK UART /!\
+#       linky_uartid: uart_esp_0                          # Need to modify UART baudrate: '1200' if historique >> '9600' if standard
 #       linky_update_interval: '5s'
     
   
@@ -286,7 +282,6 @@ packages:
   
   # bme_280_1: !include
   #   # url: ${git_url}
-  #   # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/environmental/bme280/device_bme_280.yaml
   #   vars:
@@ -294,10 +289,19 @@ packages:
   #     bme_280_address: '0x76'
   #     bme_280_i2c_bus: i2c1_bus
   #     bme_update_interval: '5s'
+  
+  # bmp_280_1: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
+  #   vars:
+  #     bmp_280_name: 'bmp280'
+  #     bmp_280_address: '0x77'
+  #     bmp_280_i2c_bus: i2c1_bus
+  #     bmp_update_interval: '5s'
 
   # dallas_1: !include 
   #   # url: ${git_url}
-      # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/environmental/dallas/device_dallas.yaml
   #   vars:
@@ -305,14 +309,6 @@ packages:
   #     pin: GPIO47
   #     dallas_address: '0x9f3c01f09613re85'
   #    # dallas_update_interval: '5s'  
-  
-  # bmp_280_1: !include
-  #   file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
-  #   vars:
-  #     bmp_280_name: 'bmp280'
-  #     bmp_280_address: '0x77'
-  #     bmp_280_i2c_bus: i2c1_bus
-  #     bmp_update_interval: '5s'
 
   # ats_1: !include
   #   # url: ${git_url}
@@ -321,21 +317,19 @@ packages:
   #   vars:
   #     ats_name: 'ats'
   
-  inverter_1: !include
-    # url: ${git_url}
-    # ref: main
-    # refresh: 0s
-    file: pvbrain2/inverter/voltronic/device_axpert_max.yaml
-    vars:
-      inverter_uart_id: uart_${uart_hub_bus}_0  # 'uart_i2c_0'
-      inverter_name: 'axpert'
-      inverter_update_interval: '1s'
-      inverter_template_update: '2s'
-      inverter_text_update: '5s'
+  # inverter_1: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/inverter/voltronic/device_axpert_max.yaml
+  #   vars:
+  #     inverter_uart_id: uart_${uart_hub_bus}_0  # 'uart_i2c_0'
+  #     inverter_name: 'axpert'
+  #     inverter_update_interval: '1s'
+  #     inverter_template_update: '2s'
+  #     inverter_text_update: '5s'
 
   # inverter_2: !include
   #   # url: ${git_url}
-  #   # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/inverter/victron/device_multirs.yaml
   #   vars:
@@ -382,7 +376,6 @@ packages:
    
   # powermeter_1: !include
   #   # url: ${git_url}
-  #   # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/powermeter/ac/jsy/device_jsy193.yaml
   #   vars:
@@ -421,7 +414,6 @@ packages:
 
   # powermeter_4: !include
   #   # url: ${git_url}
-  #   # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/powermeter/dc/peacefair/device_pzemdc.yaml
   #   vars:
@@ -448,10 +440,10 @@ packages:
   # ina3221_1: !include
   #   file: pvbrain2/powermeter/dc/texas_instruments/device_ina3221.yaml
   #   vars:
-  #     ina3221_name: 'ina3221'
-  #     ina3221_address: '0x40'
-  #     ina3221_i2c_bus: i2c1_bus
-  #     ina3221_update_interval: '5s'
+  #     powermeter_name: 'ina3221'
+  #     powermeter_address: '0x40'
+  #     powermeter_i2c_bus: i2c1_bus
+  #     powermeter_update_interval: '5s'
 
   # solar_charger_1: !include
   #   # url: ${git_url}

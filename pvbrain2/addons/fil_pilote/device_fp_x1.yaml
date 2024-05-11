@@ -7,3 +7,4 @@ packages:
       fpilote_pos_pin: '0'
       fpilote_neg_pin: '1'
       fpilote_hub: ${fpilote_bus}
+      fpilote_initial_option: '${fpilote_initial_option}'
