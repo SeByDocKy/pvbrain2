@@ -1,3 +1,8 @@
+esphome:
+  on_boot:
+    then:
+      - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
+    
 time:
   - platform: homeassistant #sntp
     id: !extend my_time
@@ -181,6 +186,12 @@ sensor:
     unit_of_measurement: 'A'
     filters:
       - multiply: 0.01
+      
+  - platform: template
+    id: ${solar_charger_name}_battery_coeff
+    name: ${name}_${solar_charger_name}_battery_coefficient
+    lambda: |-
+      return id(${solar_charger_name}_battery_coefficient);
 
   - platform: template
     id: ${solar_charger_name}_charging_power
