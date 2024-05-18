@@ -22,18 +22,18 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
   
-  on_time:
-    - seconds: 59
-      minutes: 59
-      hours: 23
-      then:  
-        - globals.set:
-                id: ${bms_name}_battery_charging_energy_yesteday_global
-                value: !lambda return ( id(${bms_name}_battery_charging_energy_yesteday_global) =  float( id(${bms_name}_battery_charging_energy_day).state) ); 
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:  
+          - globals.set:
+              id: ${bms_name}_battery_charging_energy_yesteday_global
+              value: !lambda return ( id(${bms_name}_battery_charging_energy_yesteday_global) =  float( id(${bms_name}_battery_charging_energy_day).state) ); 
                 
-        - globals.set:
-                id: ${bms_name}_battery_discharging_energy_yesteday_global
-                value: !lambda return ( id(${bms_name}_battery_discharging_energy_yesteday_global) =  float( id(${bms_name}_battery_discharging_energy_day).state) );     
+          - globals.set:
+              id: ${bms_name}_battery_discharging_energy_yesteday_global
+              value: !lambda return ( id(${bms_name}_battery_discharging_energy_yesteday_global) =  float( id(${bms_name}_battery_discharging_energy_day).state) );     
 switch:
   - platform: jk_bms
     jk_bms_id: ${bms_name}_bms
