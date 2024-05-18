@@ -19,8 +19,8 @@ globals:
     restore_value: yes
 
 time:
-  platform: homeassistant #sntp
-  id: !extend my_time
+  - platform: homeassistant #sntp
+    id: !extend my_time
   
   on_time:
     - seconds: 59
