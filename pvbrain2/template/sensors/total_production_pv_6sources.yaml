@@ -1,0 +1,52 @@
+
+globals:  
+  - id: ${total_production_pv_name}_energy_total_yesteday_global
+    type: float
+    restore_value: yes
+
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+  
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:           
+          - globals.set:
+              id: ${total_production_pv_name}_energy_total_yesteday_global
+              value: !lambda return ( id(${total_production_pv_name}_energy_total_yesteday_global) =  float( id(${total_production_pv_name}_energy_total_today).state) );                    
+    
+sensor:
+  - platform: template
+    id: ${total_production_pv_name}_power_total
+    name: ${name}_${total_production_pv_name}_power
+    accuracy_decimals: 1
+    icon: mdi:power
+    unit_of_measurement: 'W'
+    update_interval: ${total_production_pv_template_update}
+    lambda: |-
+      return (id(${total_production_pv_source1}).state + id(${total_production_pv_source2}).state + id(${total_production_pv_source3}).state + id(${total_production_pv_source4}).state + id(${total_production_pv_source5}).state + id(${total_production_pv_source6}).state);
+      
+  - platform: total_daily_energy
+    name: ${name}_${total_production_pv_name}_energy_total_today
+    id: ${total_production_pv_name}_energy_total_today
+    power_id: ${total_production_pv_name}_power_total
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter
+  
+  - platform: template
+    name: ${name}_${total_production_pv_name}_energy_total_yesteday
+    id: ${total_production_pv_name}_energy_total_yesteday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${total_production_pv_template_update}
+    lambda: |-
+      return ( id(${total_production_pv_name}_energy_total_yesteday).state = id(${total_production_pv_name}_energy_total_yesteday_global) );  
+      
