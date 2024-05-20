@@ -1,0 +1,13 @@
+debug:
+  update_interval: ${debug_update_interval}
+
+sensor:
+  - platform: debug
+    free:
+      name: ${name}_${debug_name}_heap_free
+    block:
+      name: ${name}_${debug_name}_heap_max_block
+    loop_time:
+      name: ${name}_${debug_name}_loop_time
+    psram:
+      name: ${name}_${debug_name}_free_PSRAM
