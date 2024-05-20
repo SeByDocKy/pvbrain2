@@ -82,7 +82,7 @@ esp32:
     #   CONFIG_COMPILER_OPTIMIZATION_PERF: y
 
     # type: arduino
-    # version: 2.0.14
+    # version: 2.0.16
     # platform_version: 6.6.0
     
       
@@ -593,6 +593,16 @@ packages:
   #     bms_template_update: '2s'
   #     bms_text_update: '5s'
   #     bms_modbus_throttle: '100ms'
+  
+  # total_production_pv_4sources: !include
+  #   file: pvbrain2/template/sensors/total_production_pv_4sources.yaml
+  #   vars:
+  #     total_production_pv_name: 'total_production_pv'
+  #     total_production_pv_source1: 'axpert_pv1_charging_power' 
+  #     total_production_pv_source2: 'axpert_pv2_charging_power'
+  #     total_production_pv_source3: 'srne1_solar_panel_power'
+  #     total_production_pv_source4: 'srne2_solar_panel_power'
+  #     total_production_pv_template_update: '3s'
 
   # virtual_canbus_1: !include
   #   # url: ${git_url}
