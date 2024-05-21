@@ -75,7 +75,7 @@ esp32:
   framework:
     type: esp-idf
     # version: 5.1.2 # 5.2.1
-    # platform_version: 6.6.0  # required with esp-idf branch >5.1x
+    # platform_version: 6.7.0  # required with esp-idf branch >5.1x
     # sdkconfig_options:
     #   CONFIG_ESPTOOLPY_FLASHSIZE_32MB: "y"
     #   COMPILER_OPTIMIZATION_SIZE: y
