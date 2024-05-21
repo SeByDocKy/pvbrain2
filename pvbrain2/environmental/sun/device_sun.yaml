@@ -6,6 +6,7 @@
 sun:
   latitude: ${sun_latitude}
   longitude: ${sun_longitude}
+  id: my_sun
 
 time:
   - platform: homeassistant
