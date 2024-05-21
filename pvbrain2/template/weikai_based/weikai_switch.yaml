@@ -1,0 +1,19 @@
+# Updated : 2024.05.18
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+output:
+  - platform: gpio
+    id: ${weikai_name}_output_pin_${weikai_pin}
+    pin:
+      wk2168_spi: ${weikai_id} #uart_bridge0
+      number: 0
+      mode:
+        output: true
+      inverted: ${weikai_inverted_pin} #true
+
+switch:
+  - platform: output
+    id: ${weikai_name}_switch_pin_${weikai_pin}
+    name: ${name}_${weikai_name}_switch_pin_${weikai_pin}
+    output: ${weikai_name}_output_pin_${weikai_pin}

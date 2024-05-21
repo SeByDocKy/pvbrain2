@@ -1,0 +1,16 @@
+# Updated : 2024.05.18
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# To initiate communication with Pylontech batteries for the first time, or, 
+# after a complete shutdown of the system, it is necessary to send a 
+# command line at 2400 baud, before switching to 115200 baud.
+
+# So you need to set the baud_rate to 2400, send the command by 
+# pressing the button, then set the baud_rate back to 115200.
+
+packages:
+  my_templated_set_communication_for_pylontech_1: !include
+    file: pvbrain2/template/set_communication_for_pylontech/set_communication_for_pylontech.yaml
+    vars:
+      pylontech_uart_id: 'uart_${uart_hub_bus}_1'     # ID of the UART bus used for your pylontech batteries.

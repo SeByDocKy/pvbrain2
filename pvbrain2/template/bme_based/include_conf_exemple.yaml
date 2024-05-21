@@ -1,0 +1,13 @@
+# Updated : 2024.05.18
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This file adds 3 sensors to you: altitude (relative to sea level), dew_point and pressure_sea_level_equivalent
+
+packages:
+  my_templated_bme_280_1: !include
+    file: pvbrain2/template/bme_based/template_bme_based.yaml
+    vars:
+      bme_280_name: 'bme280'           # Must be identical to that of your BME280
+      bme_update_interval: '5s'        # Refresh interval
+      bme_280_my_fix_altitude: '26'    # Your altitude in Meters. To calculate the equivalent pressure at sea level, it must be fixed.

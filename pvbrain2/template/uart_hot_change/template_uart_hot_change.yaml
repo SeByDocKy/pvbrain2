@@ -1,0 +1,508 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This file allows you to hot change (without reflashing the ESP) the 
+# specifications of the 3 physical UART bus.
+
+# Currently parity change is not supported.
+
+# https://esphome.io/components/uart#changing-at-runtime
+sensor:
+  # RX buffer size
+  - platform: template
+    id: uart_esp_0_get_rx_buffer_size
+    name: ${name}_uart_esp_0_get_rx_buffer_size
+    lambda: return id(uart_esp_0).get_rx_buffer_size();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_1_get_rx_buffer_size
+    name: ${name}_uart_esp_1_get_rx_buffer_size
+    lambda: return id(uart_esp_1).get_rx_buffer_size();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_2_get_rx_buffer_size
+    name: ${name}_uart_esp_2_get_rx_buffer_size
+    lambda: return id(uart_esp_2).get_rx_buffer_size();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  # Stop bits
+  - platform: template
+    id: uart_esp_0_get_stop_bits
+    name: ${name}_uart_esp_0_get_stop_bits
+    lambda: return id(uart_esp_0).get_stop_bits();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_1_get_stop_bits
+    name: ${name}_uart_esp_1_get_stop_bits
+    lambda: return id(uart_esp_1).get_stop_bits();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_2_get_stop_bits
+    name: ${name}_uart_esp_2_get_stop_bits
+    lambda: return id(uart_esp_2).get_stop_bits();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  # Data bits
+  - platform: template
+    id: uart_esp_0_get_data_bits
+    name: ${name}_uart_esp_0_get_data_bits
+    lambda: return id(uart_esp_0).get_data_bits();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_1_get_data_bits
+    name: ${name}_uart_esp_1_get_data_bits
+    lambda: return id(uart_esp_1).get_data_bits();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_2_get_data_bits
+    name: ${name}_uart_esp_2_get_data_bits
+    lambda: return id(uart_esp_2).get_data_bits();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  # Baud rate
+  - platform: template
+    id: uart_esp_0_get_baud_rate
+    name: ${name}_uart_esp_0_get_baud_rate
+    lambda: return id(uart_esp_0).get_baud_rate();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_1_get_baud_rate
+    name: ${name}_uart_esp_1_get_baud_rate
+    lambda: return id(uart_esp_1).get_baud_rate();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_2_get_baud_rate
+    name: ${name}_uart_esp_2_get_baud_rate
+    lambda: return id(uart_esp_2).get_baud_rate();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+  # Parity
+  - platform: template
+    id: uart_esp_0_internal_get_parity
+    name: ${name}_uart_esp_0_internal_get_parity
+    lambda: |-
+      return id(uart_esp_0).get_parity();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    # internal: true
+  - platform: template
+    id: uart_esp_1_internal_get_parity
+    name: ${name}_uart_esp_1_internal_get_parity
+    lambda: |-
+      return id(uart_esp_1).get_parity();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    # internal: true
+  - platform: template
+    id: uart_esp_2_internal_get_parity
+    name: ${name}_uart_esp_2_internal_get_parity
+    lambda: |-
+      return id(uart_esp_2).get_parity();
+    accuracy_decimals: 0
+    entity_category: diagnostic
+    # internal: true
+
+text_sensor:
+  # Parity
+  - platform: template
+    id: uart_esp_0_get_parity
+    name: ${name}_uart_esp_0_get_parity
+    # lambda: |-
+    #   return id(uart_esp_0).get_parity();
+    lambda: |-
+      const int PARITY = id(uart_esp_0_internal_get_parity).state ;
+      if (PARITY == 0) {return {"NONE"};}
+      if (PARITY == 1) {return {"EVEN"};}
+      if (PARITY == 2) {return {"ODD"};}
+      else {return {"ERROR"};}
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_1_get_parity
+    name: ${name}_uart_esp_1_get_parity
+    lambda: |-
+      const int PARITY = id(uart_esp_1_internal_get_parity).state ;
+      if (PARITY == 0) {return {"NONE"};}
+      if (PARITY == 1) {return {"EVEN"};}
+      if (PARITY == 2) {return {"ODD"};}
+      else {return {"ERROR"};}
+    entity_category: diagnostic
+  - platform: template
+    id: uart_esp_2_get_parity
+    name: ${name}_uart_esp_2_get_parity
+    lambda: |-
+      const int PARITY = id(uart_esp_2_internal_get_parity).state ;
+      if (PARITY == 0) {return {"NONE"};}
+      if (PARITY == 1) {return {"EVEN"};}
+      if (PARITY == 2) {return {"ODD"};}
+      else {return {"ERROR"};}
+    entity_category: diagnostic
+
+select:
+  # RX buffer size
+  - id: uart_esp_0_change_rx_buffer_size
+    name: ${name}_uart_esp_0_change_rx_buffer_size
+    platform: template
+    options:
+      - "256"
+      - "512"
+      - "1024"
+      - "2048"
+      - "4096"
+    initial_option: "256"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_0).flush();
+          size_t new_rx_buffer_size = stoi(x);
+          ESP_LOGD("change_rx_buffer_size", "Changing baud rate from %i to %i",id(uart_esp_0).get_rx_buffer_size(), new_rx_buffer_size);
+          if (id(uart_esp_0).get_rx_buffer_size() != new_rx_buffer_size) {
+            id(uart_esp_0).set_rx_buffer_size(new_rx_buffer_size);
+            id(uart_esp_0).load_settings();
+          }
+  - id: uart_esp_1_change_rx_buffer_size
+    name: ${name}_uart_esp_1_change_rx_buffer_size
+    platform: template
+    options:
+      - "256"
+      - "512"
+      - "1024"
+      - "2048"
+      - "4096"
+    initial_option: "256"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_1).flush();
+          size_t new_rx_buffer_size = stoi(x);
+          ESP_LOGD("change_rx_buffer_size", "Changing baud rate from %i to %i",id(uart_esp_1).get_rx_buffer_size(), new_rx_buffer_size);
+          if (id(uart_esp_1).get_rx_buffer_size() != new_rx_buffer_size) {
+            id(uart_esp_1).set_rx_buffer_size(new_rx_buffer_size);
+            id(uart_esp_1).load_settings();
+          }
+  - id: uart_esp_2_change_rx_buffer_size
+    name: ${name}_uart_esp_2_change_rx_buffer_size
+    platform: template
+    options:
+      - "256"
+      - "512"
+      - "1024"
+      - "2048"
+      - "4096"
+    initial_option: "256"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_2).flush();
+          size_t new_rx_buffer_size = stoi(x);
+          ESP_LOGD("change_rx_buffer_size", "Changing baud rate from %i to %i",id(uart_esp_2).get_rx_buffer_size(), new_rx_buffer_size);
+          if (id(uart_esp_2).get_rx_buffer_size() != new_rx_buffer_size) {
+            id(uart_esp_2).set_rx_buffer_size(new_rx_buffer_size);
+            id(uart_esp_2).load_settings();
+          }
+  # Stop bits
+  - id: uart_esp_0_change_stop_bits
+    name: ${name}_uart_esp_0_change_stop_bits
+    platform: template
+    options:
+      - "1"
+      - "2"
+    initial_option: "1"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_0).flush();
+          uint8_t new_stop_bits = stoi(x);
+          ESP_LOGD("change_stop_bits", "Changing baud rate from %i to %i",id(uart_esp_0).get_stop_bits(), new_stop_bits);
+          if (id(uart_esp_0).get_stop_bits() != new_stop_bits) {
+            id(uart_esp_0).set_stop_bits(new_stop_bits);
+            id(uart_esp_0).load_settings();
+          }
+  - id: uart_esp_1_change_stop_bits
+    name: ${name}_uart_esp_1_change_stop_bits
+    platform: template
+    options:
+      - "1"
+      - "2"
+    initial_option: "1"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_1).flush();
+          uint8_t new_stop_bits = stoi(x);
+          ESP_LOGD("change_stop_bits", "Changing baud rate from %i to %i",id(uart_esp_1).get_stop_bits(), new_stop_bits);
+          if (id(uart_esp_1).get_stop_bits() != new_stop_bits) {
+            id(uart_esp_1).set_stop_bits(new_stop_bits);
+            id(uart_esp_1).load_settings();
+          }
+  - id: uart_esp_2_change_stop_bits
+    name: ${name}_uart_esp_2_change_stop_bits
+    platform: template
+    options:
+      - "1"
+      - "2"
+    initial_option: "1"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_2).flush();
+          uint8_t new_stop_bits = stoi(x);
+          ESP_LOGD("change_stop_bits", "Changing baud rate from %i to %i",id(uart_esp_2).get_stop_bits(), new_stop_bits);
+          if (id(uart_esp_2).get_stop_bits() != new_stop_bits) {
+            id(uart_esp_2).set_stop_bits(new_stop_bits);
+            id(uart_esp_2).load_settings();
+          }
+  # Data bits
+  - id: uart_esp_0_change_data_bits
+    name: ${name}_uart_esp_0_change_data_bits
+    platform: template
+    options:
+      - "5"
+      - "6"
+      - "7"
+      - "8"
+    initial_option: "8"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_0).flush();
+          uint8_t new_data_bits = stoi(x);
+          ESP_LOGD("change_data_bits", "Changing baud rate from %i to %i",id(uart_esp_0).get_data_bits(), new_data_bits);
+          if (id(uart_esp_0).get_data_bits() != new_data_bits) {
+            id(uart_esp_0).set_data_bits(new_data_bits);
+            id(uart_esp_0).load_settings();
+          }
+  - id: uart_esp_1_change_data_bits
+    name: ${name}_uart_esp_1_change_data_bits
+    platform: template
+    options:
+      - "5"
+      - "6"
+      - "7"
+      - "8"
+    initial_option: "8"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_1).flush();
+          uint8_t new_data_bits = stoi(x);
+          ESP_LOGD("change_data_bits", "Changing baud rate from %i to %i",id(uart_esp_1).get_data_bits(), new_data_bits);
+          if (id(uart_esp_1).get_data_bits() != new_data_bits) {
+            id(uart_esp_1).set_data_bits(new_data_bits);
+            id(uart_esp_1).load_settings();
+          }
+  - id: uart_esp_2_change_data_bits
+    name: ${name}_uart_esp_2_change_data_bits
+    platform: template
+    options:
+      - "5"
+      - "6"
+      - "7"
+      - "8"
+    initial_option: "8"
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_2).flush();
+          uint8_t new_data_bits = stoi(x);
+          ESP_LOGD("change_data_bits", "Changing baud rate from %i to %i",id(uart_esp_2).get_data_bits(), new_data_bits);
+          if (id(uart_esp_2).get_data_bits() != new_data_bits) {
+            id(uart_esp_2).set_data_bits(new_data_bits);
+            id(uart_esp_2).load_settings();
+          }
+  # # Parity
+  # - id: uart_esp_0_change_parity
+  #   name: ${name}_uart_esp_0_change_parity
+  #   platform: template
+  #   options:
+  #     - "NONE"
+  #     - "EVEN"
+  #     - "ODD"
+  #   initial_option: "NONE"
+  #   optimistic: true
+  #   restore_value: True
+  #   internal: false
+  #   entity_category: config
+  #   icon: mdi:swap-horizontal
+  #   set_action:
+  #     - lambda: |-
+  #         id(uart_esp_0).flush();
+  #         UARTParityOptions new_parity = stoi(x);
+  #         ESP_LOGD("change_parity", "Changing baud rate from %i to %i",id(uart_esp_0).get_parity(), new_parity);
+  #         if (id(uart_esp_0).get_parity() != new_parity) {
+  #           id(uart_esp_0).set_parity(new_parity);
+  #           id(uart_esp_0).load_settings();
+  #         }
+  # - id: uart_esp_1_change_parity
+  #   name: ${name}_uart_esp_1_change_parity
+  #   platform: template
+  #   options:
+  #     - "NONE"
+  #     - "EVEN"
+  #     - "ODD"
+  #   initial_option: "NONE"
+  #   optimistic: true
+  #   restore_value: True
+  #   internal: false
+  #   entity_category: config
+  #   icon: mdi:swap-horizontal
+  #   set_action:
+  #     - lambda: |-
+  #         id(uart_esp_1).flush();
+  #         UARTParityOptions new_parity = stoi(x);
+  #         ESP_LOGD("change_parity", "Changing baud rate from %i to %i",id(uart_esp_1).get_parity(), new_parity);
+  #         if (id(uart_esp_1).get_parity() != new_parity) {
+  #           id(uart_esp_1).set_parity(new_parity);
+  #           id(uart_esp_1).load_settings();
+  #         }
+  # - id: uart_esp_2_change_parity
+  #   name: ${name}_uart_esp_2_change_parity
+  #   platform: template
+  #   options:
+  #     - "NONE"
+  #     - "EVEN"
+  #     - "ODD"
+  #   initial_option: "NONE"
+  #   optimistic: true
+  #   restore_value: True
+  #   internal: false
+  #   entity_category: config
+  #   icon: mdi:swap-horizontal
+  #   set_action:
+  #     - lambda: |-
+  #         id(uart_esp_2).flush();
+  #         UARTParityOptions new_parity = stoi(x);
+  #         ESP_LOGD("change_parity", "Changing baud rate from %i to %i",id(uart_esp_2).get_parity(), new_parity);
+  #         if (id(uart_esp_2).get_parity() != new_parity) {
+  #           id(uart_esp_2).set_parity(new_parity);
+  #           id(uart_esp_2).load_settings();
+  #         }
+  # Baud rate
+  - id: uart_esp_0_change_baud_rate
+    name: ${name}_uart_esp_0_change_baud_rate
+    platform: template
+    options:
+      - "1200"
+      - "2400"
+      - "9600"
+      - "38400"
+      - "57600"
+      - "115200"
+      - "256000"
+      - "512000"
+      - "921600"
+    initial_option: ${uart_esp0_baudrate}
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_0).flush();
+          uint32_t new_baud_rate = stoi(x);
+          ESP_LOGD("change_baud_rate", "Changing baud rate from %i to %i",id(uart_esp_0).get_baud_rate(), new_baud_rate);
+          if (id(uart_esp_0).get_baud_rate() != new_baud_rate) {
+            id(uart_esp_0).set_baud_rate(new_baud_rate);
+            id(uart_esp_0).load_settings();
+          }
+  - id: uart_esp_1_change_baud_rate
+    name: ${name}_uart_esp_1_change_baud_rate
+    platform: template
+    options:
+      - "1200"
+      - "2400"
+      - "9600"
+      - "38400"
+      - "57600"
+      - "115200"
+      - "256000"
+      - "512000"
+      - "921600"
+    initial_option: ${uart_esp1_baudrate}
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_1).flush();
+          uint32_t new_baud_rate = stoi(x);
+          ESP_LOGD("change_baud_rate", "Changing baud rate from %i to %i",id(uart_esp_1).get_baud_rate(), new_baud_rate);
+          if (id(uart_esp_1).get_baud_rate() != new_baud_rate) {
+            id(uart_esp_1).set_baud_rate(new_baud_rate);
+            id(uart_esp_1).load_settings();
+          }
+  - id: uart_esp_2_change_baud_rate
+    name: ${name}_uart_esp_2_change_baud_rate
+    platform: template
+    options:
+      - "1200"
+      - "2400"
+      - "9600"
+      - "38400"
+      - "57600"
+      - "115200"
+      - "256000"
+      - "512000"
+      - "921600"
+    initial_option: ${uart_esp2_baudrate}
+    optimistic: true
+    restore_value: True
+    internal: false
+    entity_category: config
+    icon: mdi:swap-horizontal
+    set_action:
+      - lambda: |-
+          id(uart_esp_2).flush();
+          uint32_t new_baud_rate = stoi(x);
+          ESP_LOGD("change_baud_rate", "Changing baud rate from %i to %i",id(uart_esp_2).get_baud_rate(), new_baud_rate);
+          if (id(uart_esp_2).get_baud_rate() != new_baud_rate) {
+            id(uart_esp_2).set_baud_rate(new_baud_rate);
+            id(uart_esp_2).load_settings();
+          }

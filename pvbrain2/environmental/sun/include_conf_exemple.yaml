@@ -1,0 +1,17 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+packages:
+  sun_1: !include
+    file: pvbrain2/environmental/sun/device_sun.yaml
+    vars:
+      sun_latitude: !secret my_latitude        # Personally I prefer to place this information in my "secrets.yaml" folder 
+      sun_longitude: !secret my_longitude      # but you can just as easily enter it hard here (eg: sun_latitude: '44.33334')
+
+# If you choose to use "!secret" you must then place the following lines 
+# in your "secrets.yaml" file placed at the root of esphome, obviously 
+# replacing the GPS coordinates with yours.
+
+# my_latitude: '44.33334'
+# my_longitude: '2.60620'

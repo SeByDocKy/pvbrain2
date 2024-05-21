@@ -1,0 +1,19 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This code allows you to display the percentage of Wc currently used by the panels, 
+# as well as the quantity of Wc/Wh produced.
+
+# The 'inverter' variable does not mean that your sensors must come from one, 
+# it could very well be a power_meter, a charger, etc...
+
+packages:
+  my_templated_watt_crete_1: !include
+    file: pvbrain2/template/watt_crete_based/template_watt_crete_based.yaml
+    vars:
+      inverter_name: 'easun1'                                        # Must be identical to the 'inverter_name' of your source inverter.
+      my_mppt_wc: '4020'                                             # Indicate here the sum of Wc of your panel string on the mppt, can be readjusted directly from HA.
+      inverter_power_pannel_id: 'easun1_qpigs_pv_charging_power'     # Indicate here the ID of the current power sensor of your panels on the defined mppt.
+      inverter_energy_pannel_id: 'easun1_pv_energy_product_today'    # Indicate here the ID of the energy sensor (wh) produced by your panel on the defined mppt.
+      template_update_interval: '5s'                                 # The update interval for new sensors generated.

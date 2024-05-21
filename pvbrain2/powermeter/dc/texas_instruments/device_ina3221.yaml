@@ -1,11 +1,14 @@
+# Updated : 2024.05.17
+# Version : 1.0.1
+
 globals: 
-  - id: ${powermeter_name}_energy_yesteday_global_channel_1
+  - id: ${powermeter_name}_energy_yesterday_global_channel_1
     type: float
     restore_value: yes
-  - id: ${powermeter_name}_energy_yesteday_global_channel_2
+  - id: ${powermeter_name}_energy_yesterday_global_channel_2
     type: float
     restore_value: yes
-  - id: ${powermeter_name}_energy_yesteday_global_channel_3
+  - id: ${powermeter_name}_energy_yesterday_global_channel_3
     type: float
     restore_value: yes
 
@@ -18,14 +21,14 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${powermeter_name}_energy_yesteday_global_channel_1
-              value: !lambda return (id(${powermeter_name}_energy_yesteday_global_channel_1) = float( id(${powermeter_name}_energy_today_channel_1).state));    
+              id: ${powermeter_name}_energy_yesterday_global_channel_1
+              value: !lambda return (id(${powermeter_name}_energy_yesterday_global_channel_1) = float( id(${powermeter_name}_energy_today_channel_1).state));    
           - globals.set:
-              id: ${powermeter_name}_energy_yesteday_global_channel_2
-              value: !lambda return (id(${powermeter_name}_energy_yesteday_global_channel_2) = float( id(${powermeter_name}_energy_today_channel_2).state));
+              id: ${powermeter_name}_energy_yesterday_global_channel_2
+              value: !lambda return (id(${powermeter_name}_energy_yesterday_global_channel_2) = float( id(${powermeter_name}_energy_today_channel_2).state));
           - globals.set:
-              id: ${powermeter_name}_energy_yesteday_global_channel_3
-              value: !lambda return (id(${powermeter_name}_energy_yesteday_global_channel_3) = float( id(${powermeter_name}_energy_today_channel_3).state));   
+              id: ${powermeter_name}_energy_yesterday_global_channel_3
+              value: !lambda return (id(${powermeter_name}_energy_yesterday_global_channel_3) = float( id(${powermeter_name}_energy_today_channel_3).state));   
  
 sensor:
   - platform: ina3221
@@ -135,29 +138,29 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_energy_yesteday_channel_1
-    id: ${powermeter_name}_energy_yesteday_channel_1
+    name: ${name}_${powermeter_name}_energy_yesterday_channel_1
+    id: ${powermeter_name}_energy_yesterday_channel_1
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_update_interval}
     lambda: |-
-      return (id(${powermeter_name}_energy_yesteday_channel_1).state = id(${powermeter_name}_energy_yesteday_global_channel_1));
+      return (id(${powermeter_name}_energy_yesterday_channel_1).state = id(${powermeter_name}_energy_yesterday_global_channel_1));
   - platform: template
-    name: ${name}_${powermeter_name}_energy_yesteday_channel_2
-    id: ${powermeter_name}_energy_yesteday_channel_2
+    name: ${name}_${powermeter_name}_energy_yesterday_channel_2
+    id: ${powermeter_name}_energy_yesterday_channel_2
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_update_interval}
     lambda: |-
-      return (id(${powermeter_name}_energy_yesteday_channel_2).state = id(${powermeter_name}_energy_yesteday_global_channel_2));
+      return (id(${powermeter_name}_energy_yesterday_channel_2).state = id(${powermeter_name}_energy_yesterday_global_channel_2));
   - platform: template
-    name: ${name}_${powermeter_name}_energy_yesteday_channel_3
-    id: ${powermeter_name}_energy_yesteday_channel_3
+    name: ${name}_${powermeter_name}_energy_yesterday_channel_3
+    id: ${powermeter_name}_energy_yesterday_channel_3
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_update_interval}
     lambda: |-
-      return (id(${powermeter_name}_energy_yesteday_channel_3).state = id(${powermeter_name}_energy_yesteday_global_channel_3));
+      return (id(${powermeter_name}_energy_yesterday_channel_3).state = id(${powermeter_name}_energy_yesterday_global_channel_3));

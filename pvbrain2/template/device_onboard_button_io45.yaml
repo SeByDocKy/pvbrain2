@@ -1,0 +1,33 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# Some (rare) ESP32 S3 has an additional, programmable button.
+# Only use this file if you are sure of what you are doing!
+
+# In the code presented here, we simply turn the 
+# internal addressable LED on or off.
+
+binary_sensor:
+  - platform: gpio
+    id: onboard_button_io45
+    name: ${name}_onboard_button_io45
+    pin:
+      number: GPIO45
+      mode: INPUT_PULLUP
+      inverted: False
+      ignore_strapping_warning: true    # Delete warning for the strapping pin
+    on_press:
+      then:
+        - logger.log: "onboard_button_io45 pressed"
+        - light.toggle:
+            id: on_board_light_io48
+    entity_category: diagnostic
+
+#-----------------------------------------------------------------------------------------------#
+
+## EXEMPLE FOR USE :
+# packages:
+#   device_onboard_button_io45: !include pvbrain2/template/device_onboard_button_io45.yaml
+
+#-----------------------------------------------------------------------------------------------#

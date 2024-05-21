@@ -1,0 +1,19 @@
+# Updated : 2024.05.17
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This code allows you to control your light teleruptor from the ESP or
+# your frontend (eg: HomeAssistant) via 3 control modes 'light', 'switch'
+# and 'button', the state of the first two obtains the real state of the 
+# litter (on or off).
+
+packages:
+  teleruptor_1: !include
+    file: pvbrain2/environmental/light/teleruptor/device_teleruptor.yaml
+    vars:
+      teleruptor_name: 'teleruptor_1'                    # The name of your Teleruptor
+      binary_disabled: 'true'                            # Disables 2 binary sensors by defaut, but they can be activated in the frontend
+      # Input / To Optocouplor - Binary_sensor (light circuit):
+      teleruptor_input_binary_sensor_id: 'wk_binary1'    # ID of the Binary_sensor to detect 230v presence
+      # Output / To Teleruptor - Relay card (button circuit):
+      teleruptor_output_button_id: 'sx1_output1'         # ID of the Output to controle the teleruptor

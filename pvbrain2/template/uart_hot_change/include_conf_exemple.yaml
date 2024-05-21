@@ -1,0 +1,12 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This file allows you to hot change (without reflashing the ESP) the 
+# specifications of the 3 physical UART bus.
+
+# Currently parity change is not supported.
+
+packages:
+  my_templated_uart_hot_change: !include
+    file: pvbrain2/template/uart_hot_change/template_uart_hot_change.yaml

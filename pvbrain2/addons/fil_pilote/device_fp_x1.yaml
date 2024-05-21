@@ -1,3 +1,19 @@
+#######################################################################################
+#                                                                                     #
+#   WWWWWWW#WWWWWW-=WW@         #WWWWWW* =WWWWWW #WW#    -#WWWWW@-*WWWWWWWW:WWWWWWW   #
+#   WWW:-::  @WW*  =WW@         #WW#:#WW=  WWW*  #WW#    #WW#-#WW@-:-@WW=-:-WWW+--:   #
+#   WWW-     @WW*  =WW@         #WW= *WW=  WWW*  #WW#    @WW= *WW@   @WW=  -WWW:      #
+#   WWW*+++- @WW*  =WW@         #WW#=WWW=  WWW*  #WW#    @WW= *WW@   @WW= -*WWW=+++   #
+#   WWWWWWW- @WW*  =WW@:WW=     #WWWWW+    WWW*  #WW# WW @WW= *WW@   @WW=  *WWWWWWW   #
+#   WWW-     @WW=- =WW@*WW#     #WW#      -WWW*- #WW@ WW #WW@:#WW@   @WW=  -WWW*___   #
+#   WWW-   :WWWWWW-=WWWWWW@     #WW=     +WWWWWW #WWWWWW. =WWWWW#    @WW=  -WWWWWWW   #
+#                                                                                     #
+#######################################################################################
+
+# Updated : 2024.05.17
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
 packages:
   fil_pilote_zone_1: !include
     file: device_fp_zone.yaml

@@ -1,5 +1,8 @@
+# Updated : 2024.05.17
+# Version : 1.0.1
+
 globals:
-  - id: ${powermeter_name}_energy_yesteday_global
+  - id: ${powermeter_name}_energy_yesterday_global
     type: float
     restore_value: yes
     
@@ -12,8 +15,8 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${powermeter_name}_energy_yesteday_global
-              value: !lambda return ( id(${powermeter_name}_energy_yesteday_global) =  float( id(${powermeter_name}_energy_today).state) );         
+              id: ${powermeter_name}_energy_yesterday_global
+              value: !lambda return ( id(${powermeter_name}_energy_yesterday_global) =  float( id(${powermeter_name}_energy_today).state) );         
  
 # modbus:
    # - id: ${pzemdc_name}_modbus
@@ -71,15 +74,14 @@ sensor:
       id: ${powermeter_name}_energy
     update_interval: ${powermeter_update_interval}
     
-    
-  - platform: template
-    id: ${powermeter_name}_energy_total
-    name: ${name}_${powermeter_name}_energy_total
-    unit_of_measurement: 'kWh'
-    accuracy_decimals: 1
-    update_interval: ${powermeter_template_update}
-    icon: mdi:power
-    lambda: return (( (id(${powermeter_name}_energy).state)/1000.0));
+  # - platform: template
+  #   id: ${powermeter_name}_energy_total
+  #   name: ${name}_${powermeter_name}_energy_total
+  #   unit_of_measurement: 'kWh'
+  #   accuracy_decimals: 1
+  #   update_interval: ${powermeter_template_update}
+  #   icon: mdi:power
+  #   lambda: return (( (id(${powermeter_name}_energy).state)/1000.0));
     
   - platform: total_daily_energy
     id: ${powermeter_name}_energy_today
@@ -94,11 +96,11 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    id: ${powermeter_name}_energy_yesteday
-    name: ${name}_${powermeter_name}_energy_yesteday
+    id: ${powermeter_name}_energy_yesterday
+    name: ${name}_${powermeter_name}_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(${powermeter_name}_energy_yesteday).state = id(${powermeter_name}_energy_yesteday_global));
+      return (id(${powermeter_name}_energy_yesterday).state = id(${powermeter_name}_energy_yesterday_global));

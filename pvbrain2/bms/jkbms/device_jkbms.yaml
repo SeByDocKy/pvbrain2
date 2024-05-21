@@ -10,11 +10,11 @@ jk_bms:
     jk_modbus_id: ${bms_name}_modbus
     
 globals:    
-  - id: ${bms_name}_battery_charging_energy_yesteday_global
+  - id: ${bms_name}_battery_charging_energy_yesterday_global
     type: float
     restore_value: yes
     
-  - id: ${bms_name}_battery_discharging_energy_yesteday_global
+  - id: ${bms_name}_battery_discharging_energy_yesterday_global
     type: float
     restore_value: yes
 
@@ -28,12 +28,12 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${bms_name}_battery_charging_energy_yesteday_global
-              value: !lambda return ( id(${bms_name}_battery_charging_energy_yesteday_global) =  float( id(${bms_name}_battery_charging_energy_day).state) ); 
+              id: ${bms_name}_battery_charging_energy_yesterday_global
+              value: !lambda return ( id(${bms_name}_battery_charging_energy_yesterday_global) =  float( id(${bms_name}_battery_charging_energy_day).state) ); 
                 
           - globals.set:
-              id: ${bms_name}_battery_discharging_energy_yesteday_global
-              value: !lambda return ( id(${bms_name}_battery_discharging_energy_yesteday_global) =  float( id(${bms_name}_battery_discharging_energy_day).state) );     
+              id: ${bms_name}_battery_discharging_energy_yesterday_global
+              value: !lambda return ( id(${bms_name}_battery_discharging_energy_yesterday_global) =  float( id(${bms_name}_battery_discharging_energy_day).state) );     
 switch:
   - platform: jk_bms
     jk_bms_id: ${bms_name}_bms
@@ -188,14 +188,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${bms_name}_battery_charging_energy_yesteday
-    id: template_${bms_name}_battery_charging_energy_yesteday
+    name: ${name}_${bms_name}_battery_charging_energy_yesterday
+    id: template_${bms_name}_battery_charging_energy_yesterday
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
     icon: mdi:power
     update_interval: ${bms_template_update}
     lambda: |-
-      return ( id(template_${bms_name}_battery_charging_energy_yesteday).state = id(${bms_name}_battery_charging_energy_yesteday_global) );    
+      return ( id(template_${bms_name}_battery_charging_energy_yesterday).state = id(${bms_name}_battery_charging_energy_yesterday_global) );    
 
   - platform: template
     name: ${name}_${bms_name}_battery_discharging_current
@@ -240,14 +240,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${bms_name}_battery_discharging_energy_yesteday
-    id: template_${bms_name}_battery_discharging_energy_yesteday
+    name: ${name}_${bms_name}_battery_discharging_energy_yesterday
+    id: template_${bms_name}_battery_discharging_energy_yesterday
     unit_of_measurement: "kWh"
     accuracy_decimals: 2
     icon: mdi:power
     update_interval: ${bms_template_update}
     lambda: |-
-      return ( id(template_${bms_name}_battery_discharging_energy_yesteday).state = id(${bms_name}_battery_discharging_energy_yesteday_global) );
+      return ( id(template_${bms_name}_battery_discharging_energy_yesterday).state = id(${bms_name}_battery_discharging_energy_yesterday_global) );
 
   - platform: template
     name: ${name}_${bms_name}_c_values

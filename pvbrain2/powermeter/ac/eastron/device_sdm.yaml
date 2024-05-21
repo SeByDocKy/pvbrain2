@@ -1,9 +1,9 @@
 globals:
-  - id: ${powermeter_name}_energy_imported_yesteday_global
+  - id: ${powermeter_name}_energy_imported_yesterday_global
     type: float
     restore_value: yes
     
-  - id: ${powermeter_name}_energy_exported_yesteday_global
+  - id: ${powermeter_name}_energy_exported_yesterday_global
     type: float
     restore_value: yes
     
@@ -16,11 +16,11 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${powermeter_name}_energy_imported_yesteday_global
-              value: !lambda return ( id(${powermeter_name}_energy_imported_yesteday_global) =  float( id(${powermeter_name}_energy_imported_today).state) );         
+              id: ${powermeter_name}_energy_imported_yesterday_global
+              value: !lambda return ( id(${powermeter_name}_energy_imported_yesterday_global) =  float( id(${powermeter_name}_energy_imported_today).state) );         
           - globals.set:
-              id: ${powermeter_name}_energy_exported_yesteday_global
-              value: !lambda return ( id(${powermeter_name}_energy_exported_yesteday_global) =  float( id(${powermeter_name}_energy_exported_today).state) );          
+              id: ${powermeter_name}_energy_exported_yesterday_global
+              value: !lambda return ( id(${powermeter_name}_energy_exported_yesterday_global) =  float( id(${powermeter_name}_energy_exported_today).state) );          
 # modbus:
   # - id: ${powermeter_name}_modbus
     # uart_id: ${powermeter_uart_id}
@@ -89,14 +89,14 @@ sensor:
     
     
   - platform: template
-    name: ${name}_${powermeter_name}_energy_imported_yesteday
-    id: ${powermeter_name}_energy_imported_yesteday
+    name: ${name}_${powermeter_name}_energy_imported_yesterday
+    id: ${powermeter_name}_energy_imported_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(${powermeter_name}_energy_imported_yesteday).state = id(${powermeter_name}_energy_imported_yesteday_global));
+      return (id(${powermeter_name}_energy_imported_yesterday).state = id(${powermeter_name}_energy_imported_yesterday_global));
 
   - platform: template
     name: ${name}_${powermeter_name}_power_exported
@@ -126,12 +126,12 @@ sensor:
     icon: mdi:counter    
       
   - platform: template
-    name: ${name}_${powermeter_name}_energy_exported_yesteday
-    id: ${powermeter_name}_energy_exported_yesteday
+    name: ${name}_${powermeter_name}_energy_exported_yesterday
+    id: ${powermeter_name}_energy_exported_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(${powermeter_name}_energy_exported_yesteday).state = id(${powermeter_name}_energy_exported_yesteday_global));      
+      return (id(${powermeter_name}_energy_exported_yesterday).state = id(${powermeter_name}_energy_exported_yesterday_global));      
     

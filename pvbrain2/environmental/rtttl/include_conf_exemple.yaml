@@ -1,0 +1,13 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This code allows you to control a buzzer and make it play different 
+# music. Practical for programming sound alerts, in addition to visual 
+# alerts.
+
+packages:
+  rtttl_buzzer_1: !include
+    file: pvbrain2/environmental/rtttl/device_rtttl_buzzer.yaml
+    vars:
+      buzzer_pin: '04'    # Pin number of the esp on which the buzzer is used. /!\ It need a esp32 pin /!\

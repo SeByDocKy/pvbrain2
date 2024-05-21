@@ -1,5 +1,34 @@
+# Updated : 2024.05.21
+# Version : 1.0.1
+# GitHub  : https://github.com/Dackara/
+
+#-----------------------------------------------------------------------------------------------#
+
+## EXEMPLE FOR USE :
+# packages:
+#   device_debug: !include
+#     file: pvbrain2/base/device_debug.yaml
+#     vars:
+#       debug_update_interval: '5s'
+#       debug_psram_size: '8388608'    # Size of your PSRAM in bits. Choice :8Mb='8388608' | 6Mb='6291456' | 4Mb='4194304' | 2Mb='2097152' | NoPSRAM='0'
+
+#-----------------------------------------------------------------------------------------------#
+
+
+# The PSRAM platform must be included for the sensor of the same name to work
+psram:
+
 debug:
   update_interval: ${debug_update_interval}
+
+text_sensor:
+  - platform: debug
+    device:
+      name: ${name}_${debug_name}_device_info
+      id: ${debug_name}_device_info
+    reset_reason:
+      name: ${name}_${debug_name}_reset_reason
+      id: ${debug_name}_reset_reason
 
 sensor:
   - platform: debug
@@ -8,21 +37,23 @@ sensor:
       id: ${debug_name}_heap_free
     block:
       name: ${name}_${debug_name}_heap_max_block
+      id: ${debug_name}_heap_max_block
     loop_time:
       name: ${name}_${debug_name}_loop_time
+      id: ${debug_name}_loop_time
     psram:
-      name: ${name}_${debug_name}_free_psram
+      name: ${name}_${debug_name}_free_PSRAM
       id: ${debug_name}_free_psram
-      
+    
   - platform: template
-    name: ${name}_${debug_name}_free_psram_percent
-    id: debug_free_psram_percent
+    name: ${name}_${debug_name}g_free_psram_percent
+    id: ${debug_name}_free_psram_percent
     unit_of_measurement: '%'
     accuracy_decimals: 2
     icon: mdi:percent
     update_interval: ${debug_update_interval}
     lambda: |-
-      return ( id(${debug_name}_free_psram).state * 100 / 8388608 );
+      return ( id(${debug_name}_free_psram).state * 100 / ${debug_psram_size} ); // 8388608
     entity_category: diagnostic
 
   - platform: template
@@ -33,6 +64,19 @@ sensor:
     icon: mdi:percent
     update_interval: ${debug_update_interval}
     lambda: |-
-      return ( id(debug_heap_free).state * 100 / 327680 );
+      return ( id(${debug_name}_heap_free).state * 100 / 327680 );
     # 524288 B # 327680 B
-    entity_category: diagnostic    
+    entity_category: diagnostic
+
+  - platform: template
+    name: ${name}_${debug_name}_heap_max_block_percent
+    id: ${debug_name}_heap_max_block_percent
+    unit_of_measurement: '%'
+    accuracy_decimals: 2
+    icon: mdi:percent
+    update_interval: ${debug_update_interval}
+    lambda: |-
+      return ( id(${debug_name}_heap_max_block).state * 100 / 327680 );
+    # 524288 B # 327680 B
+    entity_category: diagnostic
+  

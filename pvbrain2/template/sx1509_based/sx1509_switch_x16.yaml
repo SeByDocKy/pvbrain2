@@ -1,0 +1,229 @@
+# Updated : 2024.05.20
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+output:
+  - platform: gpio
+    id: ${relays_name}_output_pin0
+    pin:
+      sx1509: ${relays_hub}
+      number: 0
+      mode:
+        output: true
+      inverted: true
+      
+  - platform: gpio
+    id: ${relays_name}_output_pin1
+    pin:
+      sx1509: ${relays_hub}
+      number: 1
+      mode:
+        output: true
+      inverted: true
+      
+  - platform: gpio
+    id: ${relays_name}_output_pin2
+    pin:
+      sx1509: ${relays_hub}
+      number: 2
+      mode:
+        output: true
+      inverted: true
+ 
+  - platform: gpio
+    id: ${relays_name}_output_pin3
+    pin:
+      sx1509: ${relays_hub}
+      number: 3
+      mode:
+        output: true
+      inverted: true 
+
+  - platform: gpio
+    id: ${relays_name}_output_pin4
+    pin:
+      sx1509: ${relays_hub}
+      number: 4
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin5
+    pin:
+      sx1509: ${relays_hub}
+      number: 5
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin6
+    pin:
+      sx1509: ${relays_hub}
+      number: 6
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin7
+    pin:
+      sx1509: ${relays_hub}
+      number: 7
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin8
+    pin:
+      sx1509: ${relays_hub}
+      number: 8
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin9
+    pin:
+      sx1509: ${relays_hub}
+      number: 9
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin10
+    pin:
+      sx1509: ${relays_hub}
+      number: 10
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin11
+    pin:
+      sx1509: ${relays_hub}
+      number: 11
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin12
+    pin:
+      sx1509: ${relays_hub}
+      number: 12
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin13
+    pin:
+      sx1509: ${relays_hub}
+      number: 13
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin14
+    pin:
+      sx1509: ${relays_hub}
+      number: 14
+      mode:
+        output: true
+      inverted: true
+
+  - platform: gpio
+    id: ${relays_name}_output_pin15
+    pin:
+      sx1509: ${relays_hub}
+      number: 15
+      mode:
+        output: true
+      inverted: true
+       
+switch:
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin0
+    id: ${relays_name}_switch_pin0
+    output: ${relays_name}_output_pin0
+    
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin1
+    id: ${relays_name}_switch_pin1
+    output: ${relays_name}_output_pin1  
+  
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin2
+    id: ${relays_name}_switch_pin2
+    output: ${relays_name}_output_pin2
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin3
+    id: ${relays_name}_switch_pin3
+    output: ${relays_name}_output_pin3
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin4
+    id: ${relays_name}_switch_pin4
+    output: ${relays_name}_output_pin4
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin5
+    id: ${relays_name}_switch_pin5
+    output: ${relays_name}_output_pin5
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin6
+    id: ${relays_name}_switch_pin6
+    output: ${relays_name}_output_pin6
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin7
+    id: ${relays_name}_switch_pin7
+    output: ${relays_name}_output_pin7    
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin8
+    id: ${relays_name}_switch_pin8
+    output: ${relays_name}_output_pin8
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin9
+    id: ${relays_name}_switch_pin9
+    output: ${relays_name}_output_pin9
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin10
+    id: ${relays_name}_switch_pin10
+    output: ${relays_name}_output_pin10
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin11
+    id: ${relays_name}_switch_pin11
+    output: ${relays_name}_output_pin11
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin12
+    id: ${relays_name}_switch_pin12
+    output: ${relays_name}_output_pin12
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin13
+    id: ${relays_name}_switch_pin13
+    output: ${relays_name}_output_pin13
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin14
+    id: ${relays_name}_switch_pin14
+    output: ${relays_name}_output_pin14
+
+  - platform: output
+    name: ${name}_${relays_name}_switch_pin15
+    id: ${relays_name}_switch_pin15
+    output: ${relays_name}_output_pin15   

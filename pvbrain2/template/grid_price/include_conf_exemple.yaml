@@ -1,0 +1,14 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This file allows you to calculate the amount of your 
+# consumption on the grid.
+
+packages:
+  my_templated_grid_price_1: !include
+    file: pvbrain2/template/grid_price/template_grid_price.yaml
+    vars:
+      grid_name: 'linky'                       # Not very important, the name for the sensor
+      my_kwh_price: '0.1609'                   # kWh rate in € (and not in cents)
+      grid_kwh_energy_id: 'linky_grid_today'   # /!\ Important /!\ ID of the sensor containing the sum of kWh consumed for the day

@@ -1,0 +1,33 @@
+# Updated : 2024.05.17
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# https://esphome.io/components/sun
+sun:
+  latitude: ${sun_latitude}
+  longitude: ${sun_longitude}
+
+time:
+  - platform: homeassistant
+    id: !extend my_time
+  
+sensor:
+  - platform: sun
+    name: ${name}_sun_elevation
+    id: sun_elevation
+    type: elevation
+  - platform: sun
+    name: ${name}_sun_azimuth
+    id: sun_azimuth
+    type: azimuth
+
+text_sensor:
+  - platform: sun
+    name: ${name}_sun_next_sunrise
+    id: sun_next_sunrise
+    type: sunrise
+    # elevation: 0             # Defaults to -0.833°
+  - platform: sun
+    name: ${name}_sun_next_sunset
+    id: sun_next_sunset
+    type: sunset

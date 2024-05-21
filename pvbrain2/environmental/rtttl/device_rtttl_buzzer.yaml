@@ -1,0 +1,131 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This code allows you to control a buzzer and make it play different 
+# music. Practical for programming sound alerts, in addition to visual 
+# alerts.
+
+# https://esphome.io/components/rtttl
+rtttl:
+  output: rtttl_out
+  id: my_rtttl
+  gain: 80%
+
+output: 
+# https://esphome.io/components/output/ledc
+  - platform: ledc
+    pin: ${buzzer_pin}
+    id: rtttl_out
+    channel: 0
+    frequency: "100Hz"
+
+##  Rtttl Player : https://eddmann.com/nokia-composer-web/
+select:
+  - platform: template
+    name: ${name}_rtttl_player
+    id: rtttl_player
+    options:
+     - "Master of Puppets"
+     - "Super Mario"
+     - "Indiana Jones"
+     - "Zelda Main Theme"
+     - "Zelda Gerudo Valley"
+     - "Zelda Lost Woods"
+     - "Zelda Song of Storms"
+     - "Zelda Lullaby"
+     - "Zelda Link Awakening"
+     - "Tetris"
+     - "Bip Bip"
+     - "Siren"
+     - "Stop"
+    initial_option: "Stop"
+    optimistic: true
+    # restore_value: true
+    icon: mdi:bell-ring-outline
+    set_action:
+      - logger.log:
+          format: "Chosen option: %s"
+          args: ["x.c_str()"]
+      - lambda: |-
+          id(rtttl_player).state = x.c_str(); 
+    on_value:
+      then:
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Master of Puppets" ;
+            then:
+              - rtttl.play: 'MasterOf:d=4,o=5,b=112:16e,16f,16b,16e,16f,16c6,16e,16f,16c#6,16e,16f,16c6,16e,16f,16b,16b,16e,16f,16b,16e,16f,16c6,16f,16e,16d6,16c#6,16e,16d6,16c#6,16e,16d6,16c#6,16d6,16c#6,16e,16d6,16c#6,16e,16d6,16c#6,8e'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Super Mario" ;
+            then:
+              - rtttl.play: 'Super Mario:d=4,o=5,b=100:16e6,16e6,32p,8e6,16c6,8e6,8g6,8p,8g,8p,8c6,16p,8g,16p,8e,16p,8a,8b,16a#,8a,16g.,16e6,16g6,8a6,16f6,8g6,8e6,16c6,16d6,8b,16p,8c6,16p,8g,16p,8e,16p,8a,8b,16a#,8a,16g.,16e6,16g6,8a6,16f6,8g6,8e6,16c6,16d6,8b,8p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16g#,16a,16c6,16p,16a,16c6,16d6,8p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16c7,16p,16c7,16c7,p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16g#,16a,16c6,16p,16a,16c6,16d6,8p,16d#6,8p,16d6,8p,16c6'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Indiana Jones" ;
+            then:
+              - rtttl.play: 'Indiana Jones:d=4,o=5,b=250:e,8p,8f,8g,8p,1c6,8p.,d,8p,8e,1f,p.,g,8p,8a,8b,8p,1f6,p,a,8p,8b,2c6,2d6,2e6,e,8p,8f,8g,8p,1c6,p,d6,8p,8e6,1f.6,g,8p,8g,e.6,8p,d6,8p,8g,e.6,8p,d6,8p,8g,f.6,8p,e6,8p,8d6,2c6'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Zelda Main Theme" ;
+            then:
+              - rtttl.play: 'Zelda:d=16,o=5,b=200:2a#,2f,4p,8a#,8c6,8d6,8d#6,2f6,2p,4f6,4f6,8f#6,8g#6,2a#6,2p,4a#6,8a#6,8p,8g#6,8f#6,4g#6,8f#6,2f6,2p,2f6,4d#6,8d#6,8f6,2f#6,2p,4f6,4d#6,4c#6,8c#6,8d#6,2f6,2p,4d#6,4c#6,4c6,8c6,8d6,2e6,2p,2g6,1f6'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Zelda Gerudo Valley" ;
+            then:
+              - rtttl.play: 'zelda_gerudo:d=4,o=5,b=125:16c#,16f#,16g#,8a,16p,16c#,16f#,16g#,a,8p,16d,16f#,16g#,8a,16p,16d,16f#,16g#,a,8p,16b4,16e,16f#,8g#,16p,16b4,16e,16f#,g#,8p,16f#,16g#,16f#,2f,8p,16c#,16f#,16g#,8a,16p,16c#,16f#,16g#,a,8p,16d,16f#,16g#,8a,16p,16d,16f#,16g#,a,8p,16b4,16e,16f#,8g#,16p,16b4,16e,16f#,g#,8p,16a,16b,16a,2g#'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Zelda Lost Woods" ;
+            then:
+              - rtttl.play: 'zelda_woods:d=4,o=5,b=140:8f6,8a6,b6,8f6,8a6,b6,8f6,8a6,8b6,8e7,d7,8b6,8c7,8b6,8g6,2e6,8d6,8e6,8g6,2e6,8f6,8a6,b6,8f6,8a6,b6,8f6,8a6,8b6,8e7,d7,8b6,8c7,8e7,8b6,2g6,8b6,8g6,8d6,2e6'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Zelda Song of Storms" ;
+            then:
+              - rtttl.play: 'zelda_storms:d=4,o=5,b=180:8d6,8f6,d7,p,8d6,8f6,d7,p,e7,8p,8f7,8e7,8f7,8e7,8c7,a6,8p,a6,d6,8f6,8g6,2a6,8p,a6,d6,8f6,8g6,2e6,8p,8d6,8f6,d7,p,8d6,8f6,d7,p,e7,8p,8f7,8e7,8f7,8e7,8c7,a6,8p,a6,d6,8f6,8g6,a6,8p,a6,1d6'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Zelda Lullaby" ;
+            then:
+              - rtttl.play: 'ocarina:d=4,o=5,b=100:b,16p,8d6,32p,a,16p,16g,32p,16a,32p,b,16p,8d6,32p,2a,16p,b,16p,8d6,32p,a6,16p,8g6,32p,d6,16p,16c6,32p,16b,32p,2a,16p,b,16p,8d6,32p,a,16p,16g,32p,16a,32p,b,16p,8d6,32p,2a,16p,b,16p,8d6,32p,a6,16p,8g6,16p,2d7'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Zelda Link Awakening" ;
+            then:
+              - rtttl.play: 'zla:d=4,o=5,b=125:8g,8p,d,8p,16g.,16g.,16a,16b,16c6,d.6,p,32p,16d.6,16d6,32p,16d#6,16f.6,g.6,p,32p,16g.6,16g6,32p,16f6,16d#.6,16f6,16p,32p,16d#.6,d6,p,16d6,32p,16d#6,16d.6,16c.6,32p,16c6,16d6,d#.6,8p,16d.6,32p,16c.6,32p,16a#.,32p,16a#,16c6,d.6,8p,16c.6,32p,16a#.,32p,16a.,32p,16a,16b,c#.6,8p,e6,d6'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Tetris" ;
+            then:
+              - rtttl.play: 'tetris:d=4,o=5,b=160:e6,8b,8c6,8d6,16e6,16d6,8c6,8b,a,8a,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,2a,8p,d6,8f6,a6,8g6,8f6,e6,8e6,8c6,e6,8d6,8c6,b,8b,8c6,d6,e6,c6,a,a'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Bip Bip" ;
+            then:
+              - rtttl.play: 'bipbip:d=8,o=5,b=140:16e6,32p,16e6'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Siren" ;
+            then:
+              - rtttl.play: 'siren:d=8,o=5,b=100:d,e,d,e,d,e,d,e'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(rtttl_player).state == "Stop" ;
+            then:
+              - rtttl.stop

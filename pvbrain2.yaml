@@ -1,13 +1,13 @@
 substitutions:
   name: 'pvbrain2'
+  pvbrain2_version: '1.0.1'
   git_url: 'https://github.com/SeByDocKy/pvbrain2@main'
-  # friendly_name: 'pvbrain2'
 
   ###### For builtin ESP32 S3 UART ports ######
   
-  uart_esp0_baudrate: '115200'  # Linky   #1200 if historique >> #9600 if standard
+  uart_esp0_baudrate: '115200'
   uart_esp1_baudrate: '9600'
-  uart_esp2_baudrate: '9600'
+  uart_esp2_baudrate: '9600'    # Linky   #1200 if historique >> #9600 if standard
  
   ###### For extended UART ports with the 2 WK2168 ######
 
@@ -51,27 +51,30 @@ substitutions:
 
 esphome:
   name: ${name}
-  # friendly_name: ${name}
   # comment: 'Solar system braining and more !'
   # area: 'Local Technique'
   project:
     name: esphome.pvbrain2
-    version: "1.0.1"
+    version: ${pvbrain2_version}
   min_version: 2024.3.0
-  # platformio_options:                ##### the following option is required for ESP32 S3 with memory > 16MB, eg. the N32R8V
-  #    board_build.arduino.memory_type: opi_opi
-  #    board_build.flash_mode: dio
-  #    board_upload.maximum_ram_size: 524288
-  ##    board_build.partitions: large_littlefs_32MB.csv
-  #    build_flags: 
-  #     -DBOARD_HAS_PSRAM 
-  #     -DARDUINO_USB_CDC_ON_BOOT=1
-  #     -mfix-esp32-psram-cache-issue  
+  platformio_options:                ##### the following option is required for some ESP32 S3 with memory >= 16MB, eg. the N32R8V
+    board_build.flash_mode: dio
+    # upload_speed: 115200
+    # board_build.arduino.memory_type: opi_opi
+    board_upload.maximum_ram_size: 524288            # Total Size of the internal RAM in bits
+    # board_upload.maximum_size: 16777216            # Total Size of the Flash in bits (eg. 8MB='8388608')
+    # build_flags: 
+    #   -DBOARD_HAS_PSRAM 
+    #   -DARDUINO_USB_CDC_ON_BOOT=1
+    #   -mfix-esp32-psram-cache-issue  
 
 esp32:
   board: esp32-s3-devkitc-1
-  # flash_size: 32MB  #32 MB   ajust according to your particular ESP32 S3....
-  # partitions: large_littlefs_32MB.csv
+  # flash_size: 16MB  #32 MB                          # Ajust according to your particular ESP32 S3....
+
+# Only if during the flash, the size of it is eroded. Other partitions files is in this folder:
+  # partitions: "pvbrain2/_my_pvbrain2_packages/base/partitions/large_littlefs_32MB.csv"   
+
   framework:
     type: esp-idf
     # version: 5.1.2 # 5.2.1
@@ -81,11 +84,12 @@ esp32:
     #   COMPILER_OPTIMIZATION_SIZE: y
     #   CONFIG_COMPILER_OPTIMIZATION_PERF: y
 
+# If you prefer to compile in Arduino (not recommended)
     # type: arduino
     # version: 2.0.16
     # platform_version: 6.6.0
-    
-      
+
+# Enable PSRAM. Comment for disabled if you don't have PSRAM on your ESP.
 psram:
   mode: octal
   speed: 80MHz
@@ -103,16 +107,20 @@ api:
 ota:
   # password: "b82b9faf767e862e00fd6aba6c360b7f"
 
+# Enable Web Server. Uncomment if you want to enable it.
 # web_server:
 #   port: 80
 
 dashboard_import:
   package_import_url: github://SeByDocKy/pvbrain2/pvbrain2.yaml@main
 
+# Remember to enter your connection identifiers in the "secrets.yaml" file in the esphome folder.
+# (this file is different from the one present at the root of Home Assistant!)
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  output_power: 20.5db
+  # power_save_mode: none   # If activated, less energy saving, but less disconnection.
+  # output_power: 20.5db    # If you still have network problems, you can try this.
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:

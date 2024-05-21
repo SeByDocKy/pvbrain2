@@ -1,0 +1,39 @@
+# Updated : 2024.05.17
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+sensor:
+# https://esphome.io/components/sensor/ads1115
+  - platform: ads1115
+    id: ${clamp_name}_adc_sensor
+    name: ${name}_${clamp_name}_adc_sensor
+    ads1115_id: ${clamp_ads1115_hub}
+    multiplexer: ${clamp_multiplexer}
+    gain: ${clamp_gain}
+    accuracy_decimals: 3
+    update_interval: ${clamp_update_interval}     # Defaults to 60s.
+    # internal: true
+
+# https://esphome.io/components/sensor/ct_clamp
+  - platform: ct_clamp
+    name: ${name}_${clamp_name}
+    id: ${clamp_name}
+    sensor: ${clamp_name}_adc_sensor
+    accuracy_decimals: 3
+    update_interval: ${clamp_update_interval}
+    filters:
+      - calibrate_linear:
+         method: exact
+         datapoints:
+          - 0 -> 0.00
+          - ${datapoints_0}
+          - ${datapoints_1}
+          - ${datapoints_2}
+          - ${datapoints_3}
+
+    # filters:
+    #   - sliding_window_moving_average:
+    #       window_size: 2
+    #       send_every: 1
+
+

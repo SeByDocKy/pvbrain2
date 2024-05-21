@@ -1,0 +1,22 @@
+# Updated : 2024.05.17
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# https://esphome.io/components/sensor/ads1115.html
+ads1115:
+  - address: 0x48
+    id: ${ads1115_name}_hub0
+    i2c_id: ${ads1115_i2c_channel}
+    continuous_mode: on
+  - address: 0x49
+    id: ${ads1115_name}_hub1
+    i2c_id: ${ads1115_i2c_channel}
+    continuous_mode: on
+  - address: 0x4A
+    id: ${ads1115_name}_hub2
+    i2c_id: ${ads1115_i2c_channel}
+    continuous_mode: on
+  - address: 0x4B
+    id: ${ads1115_name}_hub3
+    i2c_id: ${ads1115_i2c_channel}
+    continuous_mode: on

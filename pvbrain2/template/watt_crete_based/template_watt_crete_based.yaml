@@ -1,0 +1,71 @@
+# Updated : 2024.05.17
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This code allows you to display the percentage of Wc currently used by the panels, 
+# as well as the quantity of Wc/Wh produced.
+
+number:
+# Declaration of total Wc on the mppt.
+  - platform: template
+    id: ${inverter_name}_mppt_wc
+    name: ${name}_${inverter_name}_mppt_wc
+    unit_of_measurement: "Wc"
+    optimistic: true
+    min_value: 0
+    max_value: 15000
+    initial_value: ${my_mppt_wc}
+    step: 1
+    restore_value: true
+    mode: box #slider #auto
+
+globals:  
+  - id: ${inverter_name}_pv_energy_product_per_wc_yesterday_global
+    type: float
+    restore_value: yes
+
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:           
+          - globals.set:
+              id: ${inverter_name}_pv_energy_product_per_wc_yesterday_global
+              value: !lambda return ( id(${inverter_name}_pv_energy_product_per_wc_yesterday_global) =  float( id(${inverter_name}_pv_energy_product_per_wc_today).state) );     
+
+sensor:
+# Calculation of the percentage of Watt produced per Wc.
+  - platform: template
+    name: ${name}_${inverter_name}_mppt_wc_percent_use_now
+    id: ${inverter_name}_mppt_wc_percent_use_now
+    lambda: |-
+      return id(${inverter_power_pannel_id}).state / id(${inverter_name}_mppt_wc).state * 100;
+    unit_of_measurement: '%'
+    accuracy_decimals: 2
+    icon: 'mdi:percent'
+    update_interval: ${template_update_interval}
+
+# Calculation of the quantity of Wh per Wc.
+  - platform: template
+    name: ${name}_${inverter_name}_pv_energy_product_per_wc_today
+    id: ${inverter_name}_pv_energy_product_per_wc_today
+    lambda: |-
+      return (id(${inverter_energy_pannel_id}).state * 1000) / id(${inverter_name}_mppt_wc).state;
+    unit_of_measurement: 'Wh/Wc'
+    accuracy_decimals: 2
+    icon: mdi:power
+    update_interval: ${template_update_interval}
+
+# Stock the value of the day before calculating the quantity of Wh per Wc
+  - platform: template
+    name: ${name}_${inverter_name}_pv_energy_product_per_wc_yesterday
+    id: ${inverter_name}_pv_energy_product_per_wc_yesterday
+    unit_of_measurement: 'Wh/Wc'
+    accuracy_decimals: 2
+    icon: mdi:power
+    update_interval: ${template_update_interval}
+    lambda: |-
+      return ( id(${inverter_name}_pv_energy_product_per_wc_yesterday).state = id(${inverter_name}_pv_energy_product_per_wc_yesterday_global) );

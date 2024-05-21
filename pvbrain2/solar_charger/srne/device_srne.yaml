@@ -16,12 +16,12 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${solar_charger_name}_pv_energy_yesteday_global
-              value: !lambda return ( id(${solar_charger_name}_pv_energy_yesteday_global) =  float( id(${solar_charger_name}_pv_energy_today).state) );         
+              id: ${solar_charger_name}_pv_energy_yesterday_global
+              value: !lambda return ( id(${solar_charger_name}_pv_energy_yesterday_global) =  float( id(${solar_charger_name}_pv_energy_today).state) );         
                 
           - globals.set:
-              id: ${solar_charger_name}_battery_charging_energy_yesteday_global
-              value: !lambda return ( id(${solar_charger_name}_battery_charging_energy_yesteday_global) =  float( id(${solar_charger_name}_battery_charging_energy_today).state) );        
+              id: ${solar_charger_name}_battery_charging_energy_yesterday_global
+              value: !lambda return ( id(${solar_charger_name}_battery_charging_energy_yesterday_global) =  float( id(${solar_charger_name}_battery_charging_energy_today).state) );        
 
 globals:
   - id: ${solar_charger_name}_battery_coefficient
@@ -34,11 +34,11 @@ globals:
   - id: ${solar_charger_name}_current_load_charging_mode_global
     type: int  
 
-  - id: ${solar_charger_name}_pv_energy_yesteday_global
+  - id: ${solar_charger_name}_pv_energy_yesterday_global
     type: float
     restore_value: yes
     
-  - id: ${solar_charger_name}_battery_charging_energy_yesteday_global
+  - id: ${solar_charger_name}_battery_charging_energy_yesterday_global
     type: float
     restore_value: yes
  
@@ -230,14 +230,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${solar_charger_name}_battery_charging_energy_yesteday_template
-    id: ${solar_charger_name}_battery_charging_energy_yesteday
+    name: ${name}_${solar_charger_name}_battery_charging_energy_yesterday_template
+    id: ${solar_charger_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${solar_charger_template_update}
     lambda: |-
-      return (id(${solar_charger_name}_battery_charging_energy_yesteday).state = id(${solar_charger_name}_battery_charging_energy_yesteday_global));
+      return (id(${solar_charger_name}_battery_charging_energy_yesterday).state = id(${solar_charger_name}_battery_charging_energy_yesterday_global));
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -358,14 +358,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    id: ${solar_charger_name}_pv_energy_yesteday
-    name: ${name}_${solar_charger_name}_pv_energy_yesteday
+    id: ${solar_charger_name}_pv_energy_yesterday
+    name: ${name}_${solar_charger_name}_pv_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${solar_charger_template_update}
     lambda: |-
-      return (id( ${solar_charger_name}_pv_energy_yesteday).state = id( ${solar_charger_name}_pv_energy_yesteday_global ));
+      return (id( ${solar_charger_name}_pv_energy_yesterday).state = id( ${solar_charger_name}_pv_energy_yesterday_global ));
     
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller

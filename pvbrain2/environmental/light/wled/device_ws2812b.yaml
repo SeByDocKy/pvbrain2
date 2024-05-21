@@ -1,0 +1,28 @@
+# Updated : 2024.05.21
+# Version : 1.0.1
+# GitHub  : https://github.com/Dackara/
+
+# This code allows you to use the "WLED" platform on WS2812B type 
+# addressable LEDs and to synchronize their effects with your WLED 
+# controller.
+
+# During the next update of this file, it will be possible 
+# to choose another type of LED strip.
+
+# https://esphome.io/components/light/index.html?#wled-effect
+wled:
+
+light:
+  - platform: fastled_clockless
+    name: ${name}_${light_name}
+    id: ${light_name} 
+    chipset: WS2812B
+    pin: GPIO14
+    num_leds: ${light_num_leds}
+    rgb_order: ${light_order}
+    effects:
+      - wled:
+          # port: 21324
+          # blank_on_start: True
+          # sync_group_mask: 0
+    

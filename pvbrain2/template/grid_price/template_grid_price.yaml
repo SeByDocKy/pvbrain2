@@ -1,0 +1,29 @@
+# Updated : 2024.05.18
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+number:
+# Declaration du tarrif pour l'index nommé
+  - platform: template
+    id: ${grid_name}_kwh_price
+    name: ${name}_${grid_name}_kwh_price
+    unit_of_measurement: "€"
+    optimistic: true
+    min_value: 0
+    max_value: 15
+    initial_value: ${my_kwh_price}
+    step: 0.0001
+    restore_value: true
+    mode: box #slider #auto
+
+sensor:
+# Calculation of the actual price for this index today
+  - platform: template
+    name: ${name}_${inverter_name}_kwh_price_today
+    id: ${inverter_name}_kwh_price_today
+    lambda: |-
+      return id(${grid_kwh_energy_id}).state * id(${grid_name}_kwh_price).state ;
+    unit_of_measurement: '€'
+    accuracy_decimals: 2
+    icon: 'mdi:percent'
+    update_interval: ${template_update_interval}

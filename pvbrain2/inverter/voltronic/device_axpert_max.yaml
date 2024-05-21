@@ -8,19 +8,19 @@ pipsolar:
     update_interval: ${inverter_update_interval}
         
 globals:  
-  - id: ${inverter_name}_pv_energy_total_yesteday_global
+  - id: ${inverter_name}_pv_energy_total_yesterday_global
     type: float
     restore_value: yes
     
-  - id: ${inverter_name}_ac_output_energy_yesteday_global
+  - id: ${inverter_name}_ac_output_energy_yesterday_global
     type: float
     restore_value: yes
 
-  - id: ${inverter_name}_battery_charging_energy_yesteday_global
+  - id: ${inverter_name}_battery_charging_energy_yesterday_global
     type: float
     restore_value: yes
  
-  - id: ${inverter_name}_battery_discharging_energy_yesteday_global
+  - id: ${inverter_name}_battery_discharging_energy_yesterday_global
     type: float
     restore_value: yes
 
@@ -34,20 +34,20 @@ time:
         hours: 23
         then:           
           - globals.set:
-              id: ${inverter_name}_pv_energy_total_yesteday_global
-              value: !lambda return ( id(${inverter_name}_pv_energy_total_yesteday_global) =  float( id(${inverter_name}_pv_energy_total_today).state) );                    
+              id: ${inverter_name}_pv_energy_total_yesterday_global
+              value: !lambda return ( id(${inverter_name}_pv_energy_total_yesterday_global) =  float( id(${inverter_name}_pv_energy_total_today).state) );                    
   
           - globals.set:
-              id: ${inverter_name}_ac_output_energy_yesteday_global
-              value: !lambda return ( id(${inverter_name}_ac_output_energy_yesteday_global) =  float( id(${inverter_name}_ac_output_energy_today).state) );
+              id: ${inverter_name}_ac_output_energy_yesterday_global
+              value: !lambda return ( id(${inverter_name}_ac_output_energy_yesterday_global) =  float( id(${inverter_name}_ac_output_energy_today).state) );
 
           - globals.set:
-              id: ${inverter_name}_battery_charging_energy_yesteday_global
-              value: !lambda return ( id(${inverter_name}_battery_charging_energy_yesteday_global) =  float( id(${inverter_name}_battery_charging_energy_today).state) ); 
+              id: ${inverter_name}_battery_charging_energy_yesterday_global
+              value: !lambda return ( id(${inverter_name}_battery_charging_energy_yesterday_global) =  float( id(${inverter_name}_battery_charging_energy_today).state) ); 
                 
           - globals.set:
-              id: ${inverter_name}_battery_discharging_energy_yesteday_global
-              value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesteday_global) =  float( id(${inverter_name}_battery_discharging_energy_today).state) ); 
+              id: ${inverter_name}_battery_discharging_energy_yesterday_global
+              value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesterday_global) =  float( id(${inverter_name}_battery_discharging_energy_today).state) ); 
  
 output:
   - platform: pipsolar
@@ -436,14 +436,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${inverter_name}_pv_energy_total_yesteday
-    id: ${inverter_name}_pv_energy_total_yesteday
+    name: ${name}_${inverter_name}_pv_energy_total_yesterday
+    id: ${inverter_name}_pv_energy_total_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${inverter_template_update}
     lambda: |-
-      return ( id(${inverter_name}_pv_energy_total_yesteday).state = id(${inverter_name}_pv_energy_total_yesteday_global) );
+      return ( id(${inverter_name}_pv_energy_total_yesterday).state = id(${inverter_name}_pv_energy_total_yesterday_global) );
 
   - platform: total_daily_energy
     name: ${name}_${inverter_name}_ac_output_energy_today
@@ -459,14 +459,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${inverter_name}_ac_output_energy_yesteday
-    id: ${inverter_name}_ac_output_energy_yesteday
+    name: ${name}_${inverter_name}_ac_output_energy_yesterday
+    id: ${inverter_name}_ac_output_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${inverter_template_update}
     lambda: |-
-      return ( id(${inverter_name}_ac_output_energy_yesteday).state = id(${inverter_name}_ac_output_energy_yesteday_global) );
+      return ( id(${inverter_name}_ac_output_energy_yesterday).state = id(${inverter_name}_ac_output_energy_yesterday_global) );
     
   - platform: template
     name: ${name}_${inverter_name}_battery_charging_power
@@ -490,14 +490,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${inverter_name}_battery_charging_energy_yesteday
-    id: ${inverter_name}_battery_charging_energy_yesteday
+    name: ${name}_${inverter_name}_battery_charging_energy_yesterday
+    id: ${inverter_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${inverter_template_update}
     lambda: |-
-      return ( id(${inverter_name}_battery_charging_energy_yesteday).state = id(${inverter_name}_battery_charging_energy_yesteday_global) );    
+      return ( id(${inverter_name}_battery_charging_energy_yesterday).state = id(${inverter_name}_battery_charging_energy_yesterday_global) );    
        
   - platform: template
     name: ${name}_${inverter_name}_battery_discharging_power
@@ -522,14 +522,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${inverter_name}_battery_discharging_energy_yesteday
-    id: ${inverter_name}_battery_discharging_energy_yesteday
+    name: ${name}_${inverter_name}_battery_discharging_energy_yesterday
+    id: ${inverter_name}_battery_discharging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${inverter_template_update}
     lambda: |-
-      return ( id(${inverter_name}_battery_discharging_energy_yesteday).state = id(${inverter_name}_battery_discharging_energy_yesteday_global) );        
+      return ( id(${inverter_name}_battery_discharging_energy_yesterday).state = id(${inverter_name}_battery_discharging_energy_yesterday_global) );        
   
 text_sensor:
         

@@ -1,0 +1,39 @@
+# Updated : 2024.05.20
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+sensor:
+# https://esphome.io/cookbook/bme280_environment
+  - platform: template
+    name: ${name}_${bme_280_name}_altitude
+    id: ${bme_280_name}_altitude
+    lambda: |-
+      const float STANDARD_SEA_LEVEL_PRESSURE = id(${bme_280_name}_pressure_sea_level_equivalent).state ; // 1013.25; //in hPa, see note
+      return ((id(${bme_280_name}_temperature).state + 273.15) / 0.0065) *
+        (powf((STANDARD_SEA_LEVEL_PRESSURE / id(${bme_280_name}_pression).state), 0.190234) - 1); // in meter
+    unit_of_measurement: 'm'
+    icon: 'mdi:signal'
+    update_interval: ${bme_update_interval}
+
+# https://esphome.io/cookbook/bme280_environment#altitude-and-absolute-humidity
+  - platform: template
+    name: ${name}_${bme_280_name}_dew_point
+    id: ${bme_280_name}_dew_point
+    lambda: |-
+      return (243.5*(log(id(${bme_280_name}_humidite).state/100)+((17.67*id(${bme_280_name}_temperature).state)/
+      (243.5+id(${bme_280_name}_temperature).state)))/(17.67-log(id(${bme_280_name}_humidite).state/100)-
+      ((17.67*id(${bme_280_name}_temperature).state)/(243.5+id(${bme_280_name}_temperature).state))));
+    unit_of_measurement: '°C'
+    icon: 'mdi:thermometer-alert'
+    update_interval: ${bme_update_interval}
+
+# https://esphome.io/cookbook/bme280_environment#equivalent-sea-level-pressure
+  - platform: template
+    name: ${name}_${bme_280_name}_pressure_sea_level_equivalent
+    id: ${bme_280_name}_pressure_sea_level_equivalent
+    lambda: |-
+      const float STANDARD_ALTITUDE = ${bme_280_my_fix_altitude} ; // 0.6; // in meters, see note
+      return id(${bme_280_name}_pression).state / powf(1 - ((0.0065 * STANDARD_ALTITUDE) /
+        (id(${bme_280_name}_temperature).state + (0.0065 * STANDARD_ALTITUDE) + 273.15)), 5.257); // in hPa
+    unit_of_measurement: 'hPa'
+    update_interval: ${bme_update_interval}

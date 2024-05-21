@@ -1,0 +1,94 @@
+# Updated : 2024.05.18
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+packages:
+  # First of all, you must declare the 4 ads1115 here.
+  clamp_meter_ads1115: !include
+    file: pvbrain2/addons/clamp_meter/device_ads1115.yaml
+    vars:
+      ads1115_name: 'ads1115'
+      # Here you must define the I2C bus used by your ADS1115,
+      # this can be a physical bus of the esp (eg: i2c1_bus), or if used, 
+      # a virtual bus coming from a TCA9548A (ex: tca9548a_multiplex0_channel0)
+      ads1115_i2c_channel: 'tca9548a_multiplex0_channel0'  
+      # '${tca9548a_name}_${tca9548a_id}_channel0' to '${tca9548a_name}_${tca9548a_id}_channel7'
+
+  # This package is only necessary if you are using a TCA9548A I2C multiplexer.
+  clamp_meter_tca9548a: !include
+    file: pvbrain2/addons/clamp_meter/device_tca9548a.yaml
+    vars:
+      tca9548a_name: 'tca9548a'
+      # The identifier of your multiplexer (useful in case you have several)
+      tca9548a_id: 'multiplex0'
+      # The I2C bus and address your TCA9548A is on.
+      tca9548a_i2c_bus: 'i2c1_bus'
+      tca9548a_address: '0x70'
+
+
+  # The following packages define each of the current clamps connected to your PCB.
+  clamp_meter_addon_ct0: !include
+    file: pvbrain2/addons/clamp_meter/device_clamp_meter.yaml
+    vars:
+      clamp_name: 'ct_clamp_0'
+      clamp_ads1115_hub: 'ads1115_hub0'    # "${ads1115_name}_hub0" to "${ads1115_name}_hub3"
+      clamp_multiplexer: 'A0_GND'          # "A0_GND" to "A3_GND"
+      # The ADS1115 has a Programmable Gain Amplifier (PGA) that can help you measure voltages in different ranges, these are:
+      # 6.144 (measures up to 6.144V), 4.096, 2.048, 1.024, 0.512, 0.256 (measures up to 0.256V)
+      clamp_gain: '6.144'
+      clamp_update_interval: '1s'
+      # The following lines allow you to calibrate the clamps so that the 
+      # current read (on the left) corresponds to the real current (on the right).
+      datapoints_0: '0.002 -> 0.00'
+      datapoints_1: '0.040 -> 2.50'
+      datapoints_2: '0.100 -> 4.80'
+      datapoints_3: '0.130 -> 7.30'
+
+  clamp_meter_addon_ct1: !include
+    file: pvbrain2/addons/clamp_meter/device_clamp_meter.yaml
+    vars:
+      clamp_name: 'ct_clamp_1'
+      clamp_ads1115_hub: 'ads1115_hub0'    # "${ads1115_name}_hub0" to "${ads1115_name}_hub3"
+      clamp_multiplexer: 'A1_GND'          # "A0_GND" to "A3_GND"
+      clamp_gain: '6.144'
+      clamp_update_interval: '1s'
+      datapoints_0: '0.002 -> 0.00'
+      datapoints_1: '0.225 -> 2.50'
+      datapoints_2: '0.460 -> 4.80'
+      datapoints_3: '0.650 -> 7.30'
+
+  clamp_meter_addon_ct2: !include
+    file: pvbrain2/addons/clamp_meter/device_clamp_meter.yaml
+    vars:
+      clamp_name: 'ct_clamp_2'
+      clamp_ads1115_hub: 'ads1115_hub0'    # "${ads1115_name}_hub0" to "${ads1115_name}_hub3"
+      clamp_multiplexer: 'A2_GND'          # "A0_GND" to "A3_GND"
+      clamp_gain: '6.144'
+      clamp_update_interval: '1s'
+      datapoints_0: '0.002 -> 0.00'
+      datapoints_1: '0.225 -> 2.50'
+      datapoints_2: '0.480 -> 4.80'
+      datapoints_3: '0.700 -> 7.30'
+
+  clamp_meter_addon_ct3: !include
+    file: pvbrain2/addons/clamp_meter/device_clamp_meter.yaml
+    vars:
+      clamp_name: 'ct_clamp_3'
+      clamp_ads1115_hub: 'ads1115_hub0'    # "${ads1115_name}_hub0" to "${ads1115_name}_hub3"
+      clamp_multiplexer: 'A3_GND'          # "A0_GND" to "A3_GND"
+      clamp_gain: '6.144'
+      clamp_update_interval: '1s'
+      datapoints_0: '0.002 -> 0.00'
+      datapoints_1: '0.003 -> 0.003'
+      datapoints_2: '1.00 -> 1.00'
+      datapoints_3: '5.00 -> 5.00'
+
+
+# Also, if you do not use the 4 ASD1115 (only one for example) you can 
+# add these lines (replacing "${ads1115_name}" with the name of your ADS1115) 
+# so as not to have an error in the log:
+
+# ads1115:
+#   - id: !remove ${ads1115_name}_hub1
+#   - id: !remove ${ads1115_name}_hub2
+#   - id: !remove ${ads1115_name}_hub3

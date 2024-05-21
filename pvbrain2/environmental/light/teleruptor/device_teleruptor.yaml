@@ -1,0 +1,141 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+# This code allows you to control your light teleruptor from the ESP or
+# your frontend (eg: HomeAssistant) via 3 control modes 'light', 'switch'
+# and 'button', the state of the first two obtains the real state of the 
+# litter (on or off).
+
+esphome:
+  on_boot:
+    priority: -100.0
+    then:
+      - if:
+          condition:
+            - binary_sensor.is_on: ${teleruptor_name}_copy_detection_230v
+          then:
+            - delay: 2s
+            - binary_sensor.template.publish:
+                id: ${teleruptor_name}_copy_detection_230v_long_delay
+                state: ON
+      - if:
+          condition:
+            - binary_sensor.is_off: ${teleruptor_name}_copy_detection_230v
+          then:
+            - delay: 2s
+            - binary_sensor.template.publish:
+                id: ${teleruptor_name}_copy_detection_230v_long_delay
+                state: OFF
+
+output:
+  - platform: template
+    id: ${teleruptor_name}_false_output
+    type: binary
+    write_action:
+      if:
+        condition:
+          - binary_sensor.is_on: ${teleruptor_name}_copy_detection_230v
+        then:
+          - logger.log: "telerupteur ON"
+        else:
+          - logger.log: "telerupteur OFF"
+
+switch:
+  - platform: output
+    output: ${teleruptor_name}_false_output
+    name: ${name}_${teleruptor_name}_switch
+    id: ${teleruptor_name}_switch
+    on_turn_on:
+      if:
+        condition:
+          and:
+            - binary_sensor.is_off: ${teleruptor_name}_copy_detection_230v
+            - binary_sensor.is_off: ${teleruptor_name}_copy_detection_230v_long_delay
+        then:
+          - button.press: ${teleruptor_name}_button
+        else:
+          - logger.log: "Le télérupteur a déjà été activé il y a une seconde"
+    on_turn_off:
+      if:
+        condition:
+          and:
+            - binary_sensor.is_on: ${teleruptor_name}_copy_detection_230v
+            - binary_sensor.is_on: ${teleruptor_name}_copy_detection_230v_long_delay
+        then:
+          - button.press: ${teleruptor_name}_button
+        else:
+          - logger.log: "Le télérupteur a déjà été activé il y a une seconde"
+
+light:
+  - platform: binary
+    name: ${name}_${teleruptor_name}_light
+    id: ${teleruptor_name}_light
+    output: ${teleruptor_name}_false_output
+    on_turn_on:
+      if:
+        condition:
+          and:
+            - binary_sensor.is_off: ${teleruptor_name}_copy_detection_230v
+            - binary_sensor.is_off: ${teleruptor_name}_copy_detection_230v_long_delay
+        then:
+          - button.press: ${teleruptor_name}_button
+        else:
+          - logger.log: "Le télérupteur a déjà été activé il y a une seconde"
+    on_turn_off:
+      if:
+        condition:
+          and:
+            - binary_sensor.is_on: ${teleruptor_name}_copy_detection_230v
+            - binary_sensor.is_on: ${teleruptor_name}_copy_detection_230v_long_delay
+        then:
+          - button.press: ${teleruptor_name}_button
+        else:
+          - logger.log: "Le télérupteur a déjà été activé il y a une seconde"
+button:
+  - platform: output
+    name: ${name}_${teleruptor_name}_button
+    id: ${teleruptor_name}_button
+    output: ${teleruptor_output_button_id}
+    duration: 200ms
+    on_press:
+      - logger.log: "Button Pressed !"
+
+binary_sensor:
+  - platform: copy
+    name: ${name}_${teleruptor_name}_copy_detection_230v
+    id: ${teleruptor_name}_copy_detection_230v
+    source_id: ${teleruptor_input_binary_sensor_id}
+    internal: true
+    filters:
+      - invert:
+      - delayed_off: 100ms
+    on_state:
+      then:
+        - if:
+            condition:
+              - binary_sensor.is_on: ${teleruptor_name}_copy_detection_230v
+            then:
+              - switch.turn_on: ${teleruptor_name}_switch
+              - light.turn_on: ${teleruptor_name}_light
+              - logger.log: "le capteur indique que la lumière est allumé "
+              - delay: 2s
+              - binary_sensor.template.publish:
+                  id: ${teleruptor_name}_copy_detection_230v_long_delay
+                  state: ON
+        - if:
+            condition:
+              - binary_sensor.is_off: ${teleruptor_name}_copy_detection_230v
+            then:
+              - switch.turn_off: ${teleruptor_name}_switch
+              - light.turn_off: ${teleruptor_name}_light
+              - logger.log: "le capteur indique que la lumière est éteinte"
+              - delay: 2s
+              - binary_sensor.template.publish:
+                  id: ${teleruptor_name}_copy_detection_230v_long_delay
+                  state: OFF
+
+  - platform: template
+    name: ${name}_${teleruptor_name}_copy_detection_230v_long_delay
+    id: ${teleruptor_name}_copy_detection_230v_long_delay
+    disabled_by_default: ${binary_disabled}

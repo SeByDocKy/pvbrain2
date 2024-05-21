@@ -1,3 +1,7 @@
+# Updated : 2024.05.17
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
 # https://esphome.io/components/sensor/teleinfo.html
 teleinfo:
   - uart_id: ${linky_uartid}

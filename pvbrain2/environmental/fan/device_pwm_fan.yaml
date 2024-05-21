@@ -1,0 +1,269 @@
+# Updated : 2024.05.21
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+esphome:
+  on_boot:
+    priority: -100.0
+    then:
+      # - logger.log:
+      #     format: "Fan as a Auto preset_mode"
+      # - text_sensor.template.publish:
+      #     id: ${fan_name}_preset_mode
+      #     state: 'Auto'
+      # - delay: 300ms
+      # - script.execute: set_fan_state
+      - select.set:
+          id: pwm_${fan_name}_selector
+          option: 'Auto'
+
+select:
+  - platform: template
+    name: ${name}_pwm_${fan_name}_selector
+    id: pwm_${fan_name}_selector
+    optimistic: true
+    options:
+      - 'Auto'
+      - 'Manual'
+      - 'Off'
+    initial_option: 'Auto'
+    restore_value: true
+    icon: mdi:fan-clock
+    set_action:
+      - logger.log:
+          format: "Fan as a %s preset_mode"
+          args: ["x.c_str()"]
+      - lambda: |-
+          id(pwm_${fan_name}_selector).state = x.c_str(); 
+    on_value:
+      then:
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(pwm_${fan_name}_selector).state == "Auto" ;
+            then:
+              - text_sensor.template.publish:
+                  id: ${fan_name}_preset_mode
+                  state: 'Auto'
+              - rtttl.play: 'bipbip:d=8,o=5,b=140:16e6,32p,16e6'
+              - script.execute: set_fan_state
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(pwm_${fan_name}_selector).state == "Manual" ;
+            then:
+              - script.stop: set_fan_state
+              - rtttl.play: 'bipbip:d=8,o=5,b=140:16e6,32p,16e6'
+              - text_sensor.template.publish:
+                  id: ${fan_name}_preset_mode
+                  state: 'Manual'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(pwm_${fan_name}_selector).state == "Off" ;
+            then:
+              - script.stop: set_fan_state
+              - fan.turn_off: pwm_${fan_name}
+              - rtttl.play: 'bipbip:d=8,o=5,b=140:16e6,32p,16e6'
+              - text_sensor.template.publish:
+                  id: ${fan_name}_preset_mode
+                  state: 'Off'
+
+fan:
+  - platform: speed
+    id: pwm_${fan_name}
+    name: ${name}_pwm_${fan_name}
+    output: ${pwm_fan_output_gpio_id}
+    preset_modes:
+      - 'Auto'
+      - 'Manual'
+      - 'Off'
+    on_preset_set:
+      then:
+        - logger.log:
+            format: "Fan preset mode was changed to %s!"
+            args: [ x.c_str() ]
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(pwm_${fan_name}).preset_mode == "Auto" ;
+            then: 
+              - select.set:
+                  id: pwm_${fan_name}_selector
+                  option: 'Auto'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(pwm_${fan_name}).preset_mode == "Manual" ;
+            then: 
+              - select.set:
+                  id: pwm_${fan_name}_selector
+                  option: 'Manual'
+        - if:
+            condition:
+              - lambda: |- 
+                  return id(pwm_${fan_name}).preset_mode == "Off" ;
+            then: 
+              - select.set:
+                  id: pwm_${fan_name}_selector
+                  option: 'Off'
+    on_speed_set:
+      then:
+        - sensor.template.publish:
+            id: ${fan_name}_speed_percent
+            state: !lambda 'return id(pwm_${fan_name}).speed;'
+        # - if:
+        #     condition:
+        #       text_sensor.state:
+        #         id: ${fan_name}_preset_mode
+        #         state: 'Auto'
+        #     then:
+        #       - script.execute: set_fan_state
+        - if:
+            condition:
+              text_sensor.state:
+                id: ${fan_name}_preset_mode
+                state: 'Off'
+            then:
+              - fan.turn_off: pwm_${fan_name}
+    on_turn_on:
+      - sensor.template.publish:
+          id: ${fan_name}_speed_percent
+          state: !lambda 'return id(pwm_${fan_name}).speed;'
+    on_turn_off:
+      - sensor.template.publish:
+          id: ${fan_name}_speed_percent
+          state: !lambda 'return 0;'
+      - script.stop: set_fan_state
+
+sensor:
+  - platform: pulse_counter
+    pin: ${fan_pulse_counter_pin}
+    unit_of_measurement: 'RPM'
+    id: ${fan_name}_speed_rpm
+    name: ${name}_${fan_name}_speed_rpm
+    accuracy_decimals: 0
+    update_interval: 1s
+    filters:
+      - multiply: ${fan_filter_multiply}
+      
+  - platform: template
+    id: ${fan_name}_speed_percent
+    name: ${name}_${fan_name}_speed_percent
+    icon: mdi:percent
+    unit_of_measurement: "%"
+    accuracy_decimals: 0
+    lambda: |-
+      if (id(pwm_${fan_name}).state == false)
+        { return 0 ; }
+      else
+        { return {} ; }
+
+# https://esphome.io/components/text_sensor/template
+text_sensor:
+  - platform: template
+    id: ${fan_name}_preset_mode
+    name: ${name}_${fan_name}_preset_mode
+    icon: mdi:fan-clock
+    lambda: return {};
+
+number:
+  - platform: template
+    id: ${fan_name}_config_temperature_threshold_low
+    name: ${name}_${fan_name}_config_temperature_threshold_low
+    unit_of_measurement: "°C"
+    optimistic: true
+    restore_value: true
+    min_value: 10
+    max_value: 50
+    step: 1
+    initial_value: 10
+    entity_category: config
+    set_action:
+      - if:
+          condition:
+            text_sensor.state:
+              id: ${fan_name}_preset_mode
+              state: 'Auto'
+          then: 
+            # - fan.turn_on: pwm_${fan_name}
+            - script.execute: set_fan_state
+
+  - platform: template
+    id: ${fan_name}_config_temperature_threshold_high
+    name: ${name}_${fan_name}_config_temperature_threshold_high
+    unit_of_measurement: "°C"
+    optimistic: true
+    restore_value: true
+    min_value: 10
+    max_value: 50
+    step: 1
+    initial_value: 35
+    entity_category: config
+    set_action:
+      - if:
+          condition:
+            text_sensor.state:
+              id: ${fan_name}_preset_mode
+              state: 'Auto'
+          then: 
+            # - fan.turn_on: pwm_${fan_name}
+            - script.execute: set_fan_state
+    
+  - platform: template
+    id: ${fan_name}_config_minimum_fan_speed
+    name: ${name}_${fan_name}_config_minimum_fan_speed
+    unit_of_measurement: "%"
+    optimistic: true
+    restore_value: true
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 20
+    entity_category: config
+    set_action:
+      - if:
+          condition:
+            text_sensor.state:
+              id: ${fan_name}_preset_mode
+              state: 'Auto'
+          then: 
+            # - fan.turn_on: pwm_${fan_name}
+            - script.execute: set_fan_state
+
+# Sets the speed of the fan based on a linear calculation
+# between the high and low temperature thresholds and
+# the minimum specified fan speed
+script:
+  - id: set_fan_state
+    then:
+      - if:
+          condition:
+            lambda: |-
+              return id(${bme_280_complete_id}).state < id(${fan_name}_config_temperature_threshold_low).state;
+          then:
+            - fan.turn_off: pwm_${fan_name}
+          else:
+            - fan.turn_on: pwm_${fan_name}
+            - delay: 100ms
+            - while:
+                condition:
+                  text_sensor.state:
+                    id: ${fan_name}_preset_mode
+                    state: 'Auto'
+                then:
+                  - fan.turn_on:
+                      id: pwm_${fan_name}
+                      speed: !lambda |-
+                        if (id(${bme_280_complete_id}).state >= id(${fan_name}_config_temperature_threshold_high).state) {
+                          // Over upper threshold, fan speed at maximum
+                          ESP_LOGD("Fan_speed_calc", "Temperature is above or equal to upper threshold so setting to max");
+                          return 100;
+                        }
+                        else {
+                          float calc_speed = ((100-id(${fan_name}_config_minimum_fan_speed).state) / (id(${fan_name}_config_temperature_threshold_high).state - id(${fan_name}_config_temperature_threshold_low).state)) * (id(${bme_280_complete_id}).state - id(${fan_name}_config_temperature_threshold_low).state) + id(${fan_name}_config_minimum_fan_speed).state;
+                          ESP_LOGD("Fan_speed_calc", "calculated speed = %f", calc_speed);
+                          return calc_speed;
+                        }
+                  - logger.log: "La vitesse du ventilateur à été mise à jour."
+                  - delay: 60s

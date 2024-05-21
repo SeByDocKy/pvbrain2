@@ -1,0 +1,13 @@
+# Updated : 2024.05.18
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+packages:
+  pwm_fan_1: !include
+    file: pvbrain2/environmental/fan/device_pwm_fan.yaml
+    vars:
+      fan_name: 'fan'
+      fan_pulse_counter_pin: '05'                  # Number of the physical esp32 pin used the RPM pulse counter. - It need a esp32 pin !!
+      pwm_fan_output_gpio_id: 'relay_2_output0'    # /!\ VERY IMPORTANT /!\  ESPHome-ID of the GPIO used by the fan.  /!\ VERY IMPORTANT /!\
+      bme_280_complete_id: 'bme280_temperature'    # /!\ VERY IMPORTANT /!\  ESPHome-ID of the temperature sensor.    /!\ VERY IMPORTANT /!\
+      fan_filter_multiply: '0.5'                   # Depending on how many pulses the fan sends per round - should be 0.5 or 1 - try...
