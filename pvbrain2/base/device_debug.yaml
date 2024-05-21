@@ -5,9 +5,34 @@ sensor:
   - platform: debug
     free:
       name: ${name}_${debug_name}_heap_free
+      id: ${debug_name}_heap_free
     block:
       name: ${name}_${debug_name}_heap_max_block
     loop_time:
       name: ${name}_${debug_name}_loop_time
     psram:
-      name: ${name}_${debug_name}_free_PSRAM
+      name: ${name}_${debug_name}_free_psram
+      id: ${debug_name}_free_psram
+      
+  - platform: template
+    name: ${name}_${debug_name}_free_psram_percent
+    id: debug_free_psram_percent
+    unit_of_measurement: '%'
+    accuracy_decimals: 2
+    icon: mdi:percent
+    update_interval: ${debug_update_interval}
+    lambda: |-
+      return ( id(${debug_name}_free_psram).state * 100 / 8388608 );
+    entity_category: diagnostic
+
+  - platform: template
+    name: ${name}_${debug_name}_heap_free_percent
+    id: ${debug_name}_heap_free_percent
+    unit_of_measurement: '%'
+    accuracy_decimals: 2
+    icon: mdi:percent
+    update_interval: ${debug_update_interval}
+    lambda: |-
+      return ( id(debug_heap_free).state * 100 / 327680 );
+    # 524288 B # 327680 B
+    entity_category: diagnostic    
