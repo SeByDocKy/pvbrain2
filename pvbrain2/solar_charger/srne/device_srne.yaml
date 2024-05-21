@@ -1315,7 +1315,7 @@ number:
     unit_of_measurement: 'Ah'
     icon: mdi:car-battery
     min_value: 50
-    max_value: 1000
+    max_value: 1500
     step:  10
     mode: 'slider'
 
