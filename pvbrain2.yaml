@@ -61,7 +61,7 @@ esphome:
     board_build.flash_mode: dio
     # upload_speed: 115200
     # board_build.arduino.memory_type: opi_opi
-    board_upload.maximum_ram_size: 524288            # Total Size of the internal RAM in bits
+    board_upload.maximum_ram_size: 524288            # Total Size of the internal RAM in bits. Is the same for all esp s3.
     # board_upload.maximum_size: 16777216            # Total Size of the Flash in bits (eg. 8MB='8388608')
     # build_flags: 
     #   -DBOARD_HAS_PSRAM 
