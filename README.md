@@ -266,7 +266,7 @@ Just a prototyping board with the same footprint as the other addon boards.
 A plastic card in the same format as the addon cards which can, for example, allow circuit isolation, is also available.
 | Front View                | Back View                 |
 | :-----------------------: | :-----------------------: |
-| <img src="../main/hardware/printable_3d_din_mount/3d_din_mount_front.png" width="880" /> | <img src="../main/hardware/printable_3d_din_mount/3d_din_mount_back.png" width="1068" /> |
+| <img src="../main/hardware/printable_3d_files/3d_din_mount_front.png" width="880" /> | <img src="../main/hardware/printable_3d_files/3d_din_mount_back.png" width="1068" /> |
 
 ## ["Carte Option 2" :](../main/hardware/addon_carte_old_option2)
 The old "Option 2" card made by <sub>[![Luc](https://img.shields.io/badge/Luc-black?logo=discord&style=flat)](https://reseautono.me/)</sub> for the [PVbrain V1](https://github.com/Bandit-17/PVBRAIN) is also compatible with the __PVbrain V2__.
