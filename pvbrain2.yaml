@@ -656,3 +656,15 @@ packages:
   #     ats_control_grid: 'opto_grid_230V'
   #     ats_control_solar: 'opto_solar_230V'
   #     # ats_control_inverteur_mode: 'axpert_output_source_priority_select'
+
+  fan_control_1: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file:  pvbrain2/actions/fan_control/action_fan_control_with_sun.yaml
+  #   vars:
+  #     fan_control_name: 'fan_control'
+  #     fan_control_relay0_id: 'relay0_fan_extraction'
+  #     fan_control_relay1_id: 'relay0_fan_axpert'
+  #     fan_control_relay2_id: 'relay0_fan_general'
+  #     fan_control_template_update: '10s'
+
