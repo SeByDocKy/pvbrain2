@@ -1,0 +1,107 @@
+sun:
+  latitude: !secret esphome_lat
+  longitude: !secret esphome_long
+  id: my_sun
+  
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+
+switch:
+  - platform: template
+    name: ${name}_${fan_control_name}_automatic_control
+    id: ${fan_control_name}_automatic_control
+    optimistic: true
+    restore_mode: ALWAYS_ON 
+    
+text_sensor:
+  
+  - platform: template
+    name: ${name}_${fan_control_name}_sunrise_offset_time
+    id: ${fan_control_name}_sunrise_offset_time
+    lambda: |-
+      auto sunrise = id(my_sun).sunrise(-0.833);
+      auto time = id(my_time).now();
+      if (!sunrise.has_value())
+        return {"NaN"};
+      int sunrise_min = sunrise.value().hour * 60 + sunrise.value().minute + int(id(${fan_control_name}_offset_sunrise).state) ;
+      unsigned sunrise_hour = int(sunrise_min / 60);
+      unsigned sunrise_minute = sunrise_min % 60;
+      ESP_LOGD("sun_shift", "Sunrise  is      %02i:%02i", sunrise.value().hour , sunrise.value().minute);
+      ESP_LOGD("sun_shift", "Sunrise shift is %02i:%02i", sunrise_hour , sunrise_minute);
+      if((sunrise_hour == time.hour) and (sunrise_minute == time.minute)){
+        if(id(${fan_control_name}_automatic_control).state){
+          if(!id(${fan_control_relay0_id}).state){
+            id(${fan_control_relay0_id}).turn_on();
+          }
+          if(!id(${fan_control_relay1_id}).state){
+            id(${fan_control_relay1_id}).turn_on();
+          }
+          if(!id(${fan_control_relay2_id}).state){
+            id(${fan_control_relay2_id}).turn_on();
+          }
+        }
+      }
+      char buffer[8];
+      sprintf(buffer,"%02i:%02i", sunrise_hour , sunrise_minute);
+      return {buffer};
+  
+  - platform: template
+    name: ${name}_${fan_control_name}_sunset_offset_time
+    id: ${fan_control_name}_sunset_offset_time
+    update_interval: ${fan_control_template_update}
+    lambda: |-
+      auto sunset = id(my_sun).sunset(-0.833);
+      auto time = id(my_time).now();
+      if (!sunset.has_value()){
+        return {"NaN"};
+      }
+      int sunset_min = sunset.value().hour * 60 + sunset.value().minute + int(id(${fan_control_name}_offset_sunset).state);
+      unsigned int sunset_hour = int(sunset_min / 60);
+      unsigned int sunset_minute = sunset_min % 60;
+      ESP_LOGD("sun_shift", "Sunset  is      %02i:%02i", sunset.value().hour , sunset.value().minute);
+      ESP_LOGD("sun_shift", "Sunset shift is %02i:%02i", sunset_hour , sunset_minute);
+      if((sunset_hour == time.hour) and (sunset_minute == time.minute)){
+        if(id(${fan_control_name}_automatic_control).state){
+          if(id(${fan_control_relay0_id}).state){
+            id(${fan_control_relay0_id}).turn_off();
+          }
+          if(id(${fan_control_relay1_id}).state){
+            id(${fan_control_relay1_id}).turn_off();
+          }
+          if(id(${fan_control_relay2_id}).state){
+            id(${fan_control_relay2_id}).turn_off();
+          }
+        }
+      }
+      char buffer[8];
+      sprintf(buffer,"%02i:%02i", sunset_hour , sunset_minute);
+      return {buffer};
+      
+number:
+    
+  - platform: template
+    name: ${name}_${fan_control_name}_offset_sunrise
+    id: ${fan_control_name}_offset_sunrise
+    optimistic: true
+    unit_of_measurement: 'min'
+    icon: mdi:timer-sand
+    min_value: -240
+    max_value: 240
+    step: 10
+    initial_value: 30
+    restore_value: true
+    mode: 'slider'
+    
+  - platform: template
+    name: ${name}_${fan_control_name}_offset_sunset
+    id: ${fan_control_name}_offset_sunset
+    optimistic: true
+    unit_of_measurement: 'min'
+    icon: mdi:timer-sand
+    min_value: -240
+    max_value: 240
+    step: 10
+    initial_value: -30
+    restore_value: true
+    mode: 'slider'  
