@@ -1,0 +1,18 @@
+# Updated : 2024.05.22
+# Version : 1.0.0
+# GitHub  : https://github.com/Dackara/
+
+binary_sensor:
+  - platform: gpio
+    id: ${weikai_name}_output_pin_${weikai_pin}
+    name: ${name}_${weikai_name}_output_pin_${weikai_pin}
+    pin:
+      wk2168_spi: ${weikai_id} #uart_bridge0
+      number: ${weikai_pin}
+      mode:
+        input: true
+      inverted: ${weikai_inverted_pin} #false
+    # disabled_by_default: false
+    filters:
+      # - invert:
+      - delayed_off: 100ms

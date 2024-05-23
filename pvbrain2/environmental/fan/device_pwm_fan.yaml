@@ -1,18 +1,11 @@
-# Updated : 2024.05.21
-# Version : 1.0.0
+# Updated : 2024.05.22
+# Version : 1.0.1
 # GitHub  : https://github.com/Dackara/
 
 esphome:
   on_boot:
     priority: -100.0
     then:
-      # - logger.log:
-      #     format: "Fan as a Auto preset_mode"
-      # - text_sensor.template.publish:
-      #     id: ${fan_name}_preset_mode
-      #     state: 'Auto'
-      # - delay: 300ms
-      # - script.execute: set_fan_state
       - select.set:
           id: pwm_${fan_name}_selector
           option: 'Auto'
@@ -112,13 +105,6 @@ fan:
         - sensor.template.publish:
             id: ${fan_name}_speed_percent
             state: !lambda 'return id(pwm_${fan_name}).speed;'
-        # - if:
-        #     condition:
-        #       text_sensor.state:
-        #         id: ${fan_name}_preset_mode
-        #         state: 'Auto'
-        #     then:
-        #       - script.execute: set_fan_state
         - if:
             condition:
               text_sensor.state:
@@ -186,7 +172,6 @@ number:
               id: ${fan_name}_preset_mode
               state: 'Auto'
           then: 
-            # - fan.turn_on: pwm_${fan_name}
             - script.execute: set_fan_state
 
   - platform: template
@@ -207,7 +192,6 @@ number:
               id: ${fan_name}_preset_mode
               state: 'Auto'
           then: 
-            # - fan.turn_on: pwm_${fan_name}
             - script.execute: set_fan_state
     
   - platform: template
@@ -228,7 +212,6 @@ number:
               id: ${fan_name}_preset_mode
               state: 'Auto'
           then: 
-            # - fan.turn_on: pwm_${fan_name}
             - script.execute: set_fan_state
 
 # Sets the speed of the fan based on a linear calculation

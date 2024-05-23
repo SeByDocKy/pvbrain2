@@ -1,6 +1,8 @@
+# Updated : 2024.05.23
+# Version : 1.0.1
 
 globals:  
-  - id: ${total_production_pv_name}_energy_total_yesteday_global
+  - id: ${total_production_pv_name}_energy_total_yesterday_global
     type: float
     restore_value: yes
 
@@ -14,8 +16,8 @@ time:
         hours: 23
         then:           
           - globals.set:
-              id: ${total_production_pv_name}_energy_total_yesteday_global
-              value: !lambda return ( id(${total_production_pv_name}_energy_total_yesteday_global) =  float( id(${total_production_pv_name}_energy_total_today).state) );                    
+              id: ${total_production_pv_name}_energy_total_yesterday_global
+              value: !lambda return ( id(${total_production_pv_name}_energy_total_yesterday_global) =  float( id(${total_production_pv_name}_energy_total_today).state) );                    
     
 sensor:
   - platform: template
@@ -41,12 +43,12 @@ sensor:
     icon: mdi:counter
   
   - platform: template
-    name: ${name}_${total_production_pv_name}_energy_total_yesteday
-    id: ${total_production_pv_name}_energy_total_yesteday
+    name: ${name}_${total_production_pv_name}_energy_total_yesterday
+    id: ${total_production_pv_name}_energy_total_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${total_production_pv_template_update}
     lambda: |-
-      return ( id(${total_production_pv_name}_energy_total_yesteday).state = id(${total_production_pv_name}_energy_total_yesteday_global) );  
+      return ( id(${total_production_pv_name}_energy_total_yesterday).state = id(${total_production_pv_name}_energy_total_yesterday_global) );  
       

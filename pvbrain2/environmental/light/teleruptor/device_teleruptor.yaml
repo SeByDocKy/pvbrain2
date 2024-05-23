@@ -1,5 +1,5 @@
-# Updated : 2024.05.21
-# Version : 1.0.0
+# Updated : 2024.05.22
+# Version : 1.0.1
 # GitHub  : https://github.com/Dackara/
 
 # This code allows you to control your light teleruptor from the ESP or
@@ -9,7 +9,7 @@
 
 esphome:
   on_boot:
-    priority: -100.0
+    priority: -101.0
     then:
       - if:
           condition:

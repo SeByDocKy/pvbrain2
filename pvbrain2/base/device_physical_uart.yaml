@@ -1,12 +1,15 @@
- ############# ESP32 S3 UART ############    
+# Updated : 2024.05.23
+# Version : 1.0.x
+
+# (Will be replaced during the PR of @Sleeper85)
+
+############# ESP32 S3 UART ############    
 
 uart:
   - id: uart_esp_0
     tx_pin: GPIO43
     rx_pin: GPIO44
     baud_rate: ${uart_esp0_baudrate}
-    # parity: EVEN                        # Requiered for Teleinfo
-    # data_bits: 7                        # Requiered for Teleinfo
 
   - id: uart_esp_1
     tx_pin: GPIO17
