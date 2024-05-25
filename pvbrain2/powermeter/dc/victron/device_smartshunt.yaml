@@ -4,8 +4,111 @@ external_components:
 
 victron_smart_shunt:
   uart_id: ${smartshunt_uart_id}
+
+
+globals:    
+  - id: ${smartshunt_name}_battery_charging_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+  - id: ${smartshunt_name}_battery_discharging_energy_yesterday_global
+    type: float
+    restore_value: yes
+
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
   
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:  
+          - globals.set:
+              id: ${smartshunt_name}_battery_charging_energy_yesterday_global
+              value: !lambda return ( id(${smartshunt_name}_battery_charging_energy_yesterday_global) =  float( id(${smartshunt_name}_battery_charging_energy_today).state) ); 
+                
+          - globals.set:
+              id: ${smartshunt_name}_battery_discharging_energy_yesterday_global
+              value: !lambda return ( id(${smartshunt_name}_battery_discharging_energy_yesterday_global) =  float( id(${smartshunt_name}_battery_discharging_energy_today).state) );
+
 sensor:
+  
+  - platform: template
+    name: ${name}_${smartshunt_name}_battery_charging_power
+    id: ${smartshunt_name}_battery_charging_power
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${smartshunt_template_update}
+    icon: mdi:power
+    lambda: |-
+      if (float(id(${smartshunt_name}_instantaneous_power).state)> 0){
+        return ( (id(${smartshunt_name}_instantaneous_power).state) );   
+      }
+      else {
+        return 0.0;
+      }  
+  
+  - platform: total_daily_energy
+    name: ${name}_${smartshunt_name}_battery_charging_energy_today
+    power_id: ${smartshunt_name}_battery_charging_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 2
+    id: ${smartshunt_name}_battery_charging_energy_today
+    method: trapezoid
+    filters:
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${smartshunt_name}_battery_charging_energy_yesterday
+    id: ${smartshunt_name}_battery_charging_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 2
+    icon: mdi:power
+    update_interval: ${smartshunt_template_update}
+    lambda: |-
+      return ( id(${smartshunt_name}_battery_charging_energy_yesterday).state = id(${smartshunt_name}_battery_charging_energy_yesterday_global) );    
+  
+  - platform: template
+    name: ${name}_${smartshunt_name}_battery_discharging_power
+    id: ${smartshunt_name}_battery_discharging_power
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${smartshunt_template_update}
+    icon: mdi:power
+    lambda: |-
+      if (float(id(${smartshunt_name}_instantaneous_power).state)<= 0){
+        return ( (id(${smartshunt_name}_instantaneous_power).state) );   
+      }
+      else {
+        return 0.0;
+      }  
+  
+  - platform: total_daily_energy
+    name: ${name}_${smartshunt_name}_battery_discharging_energy_today
+    power_id: ${smartshunt_name}_battery_discharging_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 2
+    id: ${smartshunt_name}_battery_discharging_energy_today
+    method: trapezoid
+    filters:
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${smartshunt_name}_battery_discharging_energy_yesterday
+    id: ${smartshunt_name}_battery_discharging_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 2
+    icon: mdi:power
+    update_interval: ${smartshunt_template_update}
+    lambda: |-
+      return ( id(${smartshunt_name}_battery_discharging_energy_yesterday).state = id(${smartshunt_name}_battery_discharging_energy_yesterday_global) );    
+  
+
   - platform: victron_smart_shunt
 #    id: ${smartshunt_name}
     battery_voltage:
