@@ -544,10 +544,10 @@ packages:
   # bms_1: !include
   #   # url: ${git_url}
   #   # refreh: 0s
-  #   file: pvbrain2/bms/jkbms/device_jkbms.yaml
+  #   file: pvbrain2/bms/jikong/device_jkbms.yaml
   #   vars:
   #     bms_uart_id: uart_${uart_hub_bus}_4
-  #     bms_name: 'jkbms'
+  #     bms_name: 'jkbms1'
   #     bms_update_interval: '1s'
   #     bms_template_update: '2s'
   #     bms_text_update: '5s'
@@ -555,10 +555,10 @@ packages:
   # bms_2: !include
   #   # url: ${git_url}
   #   # refresh: 0s
-  #   file: pvbrain2/bms/jkbms/device_jkbms.yaml
+  #   file: pvbrain2/bms/jikong/device_jkbms.yaml
   #   vars:
   #     bms_uart_id: uart_${uart_hub_bus}_5
-  #     bms_name: 'jkbms'
+  #     bms_name: 'jkbms2'
   #     bms_update_interval: '1s'
   #     bms_template_update: '2s'
   #     bms_text_update: '5s'
