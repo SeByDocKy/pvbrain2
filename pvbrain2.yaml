@@ -87,7 +87,7 @@ esp32:
 # If you prefer to compile in Arduino (not recommended)
     # type: arduino
     # version: 2.0.16
-    # platform_version: 6.6.0
+    # platform_version: 6.7.0
 
 # Enable PSRAM. Comment for disabled if you don't have PSRAM on your ESP.
 psram:
@@ -136,7 +136,7 @@ packages:
   ########################   Devices  ######################
   
   ### Must include package ####
-
+  
   device_base: !include
     # url: ${git_url}
     # refresh: 0s
@@ -201,6 +201,8 @@ packages:
   #     light_num_leds: '2'
   #     light_order: 'GRB'
 
+   ################# RELAYS (over SX1509)  ##############
+
   # relays_1: !include
   #   # url: ${git_url}
   #   # refresh: 0s
@@ -245,6 +247,8 @@ packages:
 #       linky_uartid: uart_esp_0                          # Need to modify UART baudrate: '1200' if historique >> '9600' if standard
 #       linky_update_interval: '5s'
     
+
+  ################# AC dimmer/SSR  ##############
   
   # ac_dimmer_1: !include
   #   # url: ${git_url}
@@ -272,6 +276,8 @@ packages:
   #     ssr_name: 'ssr'
   #     ssr_hub: 'sx1509_hub1'
   #     ssr_pin: '12'
+
+  ################# Optocoupler (AC's presence detection)  ##############
   
   # opto_1: !include
   #   # url: ${git_url}
@@ -288,6 +294,8 @@ packages:
   #   vars:
   #     opto_name: 'opto_solar_230V'
   #     opto_gpio: GPIO04 
+
+  ################# Environnemental  ##############
   
   # bme_280_1: !include
   #   # url: ${git_url}
@@ -319,12 +327,16 @@ packages:
   #     dallas_address: '0x9f3c01f09613re85'
   #    # dallas_update_interval: '5s'  
 
+  ################# Automatic Transfert Switch  ##############
+
   # ats_1: !include
   #   # url: ${git_url}
   #   # refresh: 0s
   #   file: pvbrain2/ats/device_ats.yaml
   #   vars:
   #     ats_name: 'ats'
+
+  ################# Solar Inverter (ongrid/hybrid/offgrid)  ##############
   
   # inverter_1: !include
   #   # url: ${git_url}
@@ -382,6 +394,8 @@ packages:
   #     inverter_modbus_address: '6'
   #     inverter_modbus_throttle: '100ms'
   #     inverter_update_interval: '1s'
+
+  ################### AC powermeter  ################
    
   # powermeter_1: !include
   #   # url: ${git_url}
@@ -408,7 +422,6 @@ packages:
   #     powermeter_suffix2: 'grid'
   #     powermeter_update_interval: '1s'
   #     powermeter_template_update: '2s'
-
 
   # powermeter_3: !include
   #   # url: ${git_url}
@@ -446,13 +459,38 @@ packages:
   #     powermeter_update_interval: '2s'
   #     powermeter_template_update: '2s'
 
-  # ina3221_1: !include
+  # powermeter_6: !include
   #   file: pvbrain2/powermeter/dc/texas_instruments/device_ina3221.yaml
   #   vars:
   #     powermeter_name: 'ina3221'
   #     powermeter_address: '0x40'
   #     powermeter_i2c_bus: i2c1_bus
   #     powermeter_update_interval: '5s'
+
+  ################### DC powermeter  ################
+
+  # powermeter_7: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/powermeter/dc/victron/device_smartshunt.yaml
+  #   vars:
+  #     powermeter_uart_id: uart_${uart_hub_bus}_2
+  #     powermeter_name: 'smartshunt'
+  #     powermeter_update_interval: '3s'
+  #     powermeter_template_update: '3s'
+
+  # powermeter_8: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/powermeter/dc/jsy/device_jsy231.yaml
+  #   vars:
+  #     powermeter_name: 'jsy231'
+  #     powermeter_modbus_id: 'modbus_38400_id'
+  #     powermeter_modbus_address: '1'
+  #     powermeter_update_interval: '3s'
+  #     powermeter_template_update: '3s' #
+
+    ################# Solar charger/MPPT (DC coupling)  ##############
 
   # solar_charger_1: !include
   #   # url: ${git_url}
@@ -500,17 +538,9 @@ packages:
   #     solar_charger_uart_id: uart_${uart_hub_bus}_6
   #     solar_charger_name: 'esmart3'
   #     solar_charger_update_interval: '1s'
-
-  # smartshunt_1: !include
-  #   # url: ${git_url}
-  #   # refresh: 0s
-  #   file: pvbrain2/powermeter/dc/victron/device_smartshunt.yaml
-  #   vars:
-  #     smartshunt_uart_id: uart_${uart_hub_bus}_2
-  #     smartshunt_name: 'smartshunt'
-  #     smartshunt_update_interval: '1s'
-  #     smartshunt_template_update: '2s'
-
+  
+  ################# Battery Management System (BMS)  ##############
+  
   # bms_1: !include
   #   # url: ${git_url}
   #   # refreh: 0s
@@ -602,6 +632,9 @@ packages:
   #     bms_template_update: '2s'
   #     bms_text_update: '5s'
   #     bms_modbus_throttle: '100ms'
+
+   ################# TEMPLATE SENSORS  ##############
+
   
   # total_production_pv_4sources: !include
   #   file: pvbrain2/template/sensors/total_production_pv_4sources.yaml
@@ -612,6 +645,8 @@ packages:
   #     total_production_pv_source3: 'srne1_solar_panel_power'
   #     total_production_pv_source4: 'srne2_solar_panel_power'
   #     total_production_pv_template_update: '3s'
+
+    ################# MULTIBMS/MULTICAN  ##############
 
   # virtual_canbus_1: !include
   #   # url: ${git_url}
@@ -658,7 +693,7 @@ packages:
   #     ats_control_solar: 'opto_solar_230V'
   #     # ats_control_inverteur_mode: 'axpert_output_source_priority_select'
 
-  fan_control_1: !include
+  # fan_control_1: !include
   #   # url: ${git_url}
   #   # refresh: 0s
   #   file:  pvbrain2/actions/fan_control/action_fan_control_with_sun.yaml
