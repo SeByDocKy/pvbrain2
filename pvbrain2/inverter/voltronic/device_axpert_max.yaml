@@ -696,6 +696,3 @@ select:
         "100": "Disabled charger;Disabled discharger standby unit"
         "001": "N/A"
         "000": "Cleaned return to previous status" 
-    
-    
-    
