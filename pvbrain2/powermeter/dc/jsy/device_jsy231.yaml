@@ -1,0 +1,223 @@
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [jsy22x]
+    refresh: 0s
+    
+globals:
+  - id: ${powermeter_name}_pos_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+  - id: ${powermeter_name}_neg_energy_yesterday_global
+    type: float
+    restore_value: yes    
+       
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:  
+          - globals.set:
+              id: ${powermeter_name}_pos_energy_yesterday_global
+              value: !lambda return ( id(${powermeter_name}_pos_energy_yesterday_global) =  float( id(${powermeter_name}_pos_energy_today).state) );
+
+          - globals.set:
+              id: ${powermeter_name}_neg_energy_yesterday_global
+              value: !lambda return ( id(${powermeter_name}_neg_energy_yesterday_global) =  float( id(${powermeter_name}_neg_energy_today).state) );                
+                     
+button:
+  - platform: template
+    name: ${name}_${powermeter_name}_reset_energy
+    id: ${powermeter_name}_reset_energy
+    icon: mdi:button-pointer
+    on_press:
+      then:
+        - jsy22x.reset_energy: 
+           id: ${powermeter_name}_id
+
+  - platform: template
+    name: ${name}_${powermeter_name}_write_register04
+    id: ${powermeter_name}_write_register04
+    icon: mdi:button-pointer
+    on_press:
+      then:
+        - jsy22x.write_com_setting:
+            id: ${powermeter_name}_id
+            new_address: !lambda 'return stoi(id(new_address).state);'
+            new_baudrate: !lambda |-
+              auto index = id(new_baudrate).active_index();
+              return uint8_t( index.value() + ${offset_select}  );
+          
+  - platform: template
+    name: ${name}_${powermeter_name}_read_register04
+    id: ${powermeter_name}_read_register04
+    icon: mdi:button-pointer
+    on_press:
+      then:
+        - lambda: |-
+           uint8_t current_address, current_baudrate;
+           esphome::jsy22x::JSY22X *sen =  id(${powermeter_name}_id);
+           sen->read_register04();
+           current_address = sen->get_address();
+           auto address = id(new_address).make_call();
+           address.set_value(std::to_string(current_address));
+           address.perform();
+           current_baudrate = sen->get_baudrate();
+           auto baudrate = id(new_baudrate).make_call();
+           baudrate.set_index(current_baudrate - ${offset_select});
+           baudrate.perform();        
+
+text:
+  - platform: template
+    name: ${name}_${powermeter_name}_new_address
+    id: new_address
+    optimistic: true
+    min_length: 0
+    max_length: 3
+    mode: text
+    initial_value: '   '
+    restore_value: false
+
+select:
+  - platform: template
+    name: ${name}_${powermeter_name}_new_baudrate
+    id: new_baudrate
+    optimistic: true
+    options:
+      - '              '
+      - '3 - 1200 bauds'
+      - '4 - 2400 bauds'
+      - '5 - 4800 bauds'
+      - '6 - 9600 bauds'
+      - '7 - 19200 bauds'
+      - '8 - 38400 bauds'
+    initial_option: '              '
+    restore_value: false
+      
+sensor:
+  - platform: jsy22x
+    id: ${powermeter_name}_id
+    modbus_id: ${powermeter_modbus_id}
+    address: ${powermeter_modbus_address}
+    current:
+      name: ${name}_${powermeter_name}_current
+      accuracy_decimals: 2
+    voltage:
+      name: ${name}_${powermeter_name}_voltage
+      accuracy_decimals: 2
+    active_power:
+      name: ${name}_${powermeter_name}_power
+      id: ${powermeter_name}_power
+      accuracy_decimals: 2
+    reactive_power:
+      name: ${name}_${powermeter_name}_reactive_power
+      accuracy_decimals: 2
+    apparent_power:
+      name: ${name}_${powermeter_name}_apparent_power
+      accuracy_decimals: 2
+    power_factor:
+      name: ${name}_${powermeter_name}_power_factor
+      accuracy_decimals: 2
+    frequency:
+      name: ${name}_${powermeter_name}_frequency
+      accuracy_decimals: 1  
+    active_energy:
+      name: ${name}_${powermeter_name}_active_energy
+      accuracy_decimals: 2
+    reactive_energy:
+      name: ${name}_${powermeter_name}_reactive_energy
+    acdc_mode:
+      name: ${name}_${powermeter_name}_acdc_mode
+    active_power_direction:
+      name: ${name}_${powermeter_name}_active_power_direction
+    reactive_power_direction:
+      name: ${name}_${powermeter_name}_reactive_power_direction
+    positive_active_energy:
+      name: ${name}_${powermeter_name}_positive_active_energy
+    negative_active_energy:
+      name: ${name}_${powermeter_name}_negative_active_energy
+    positive_reactive_energy:
+      name: ${name}_${powermeter_name}_positive_reactive_energy
+    negative_reactive_energy:
+      name: ${name}_${powermeter_name}_negative_reactive_energy
+    update_interval: ${powermeter_update_interval}
+    
+    ##### Positive energy1 ####
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_pos_power
+    id: ${powermeter_name}_pos_power
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${powermeter_template_update}
+    icon: mdi:power
+    lambda: |-
+      if(id(${powermeter_name}_power).state > 0.0){
+        return (id(${powermeter_name}_power).state);
+      }
+      else{
+        return 0.0;
+      }
+    
+  - platform: total_daily_energy
+    name: ${name}_${powermeter_name}_pos_energy_today
+    id: ${powermeter_name}_pos_energy_today
+    power_id: ${powermeter_name}_pos_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_pos_energy_yesterday
+    id: ${powermeter_name}_pos_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${powermeter_template_update}
+    lambda: |-
+      return (id(${powermeter_name}_pos_energy_yesterday).state = id(${powermeter_name}_pos_energy_yesterday_global));  
+ 
+    ##### Negative energy1 ####
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_neg_power
+    id: ${powermeter_name}_neg_power
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${powermeter_template_update}
+    icon: mdi:power
+    lambda: |-
+      if(id(${powermeter_name}_power).state <= 0.0){
+        return (id(${powermeter_name}_power).state);
+      }
+      else{
+        return 0.0;
+      }
+    
+  - platform: total_daily_energy
+    name: ${name}_${powermeter_name}_neg_energy_today
+    id: ${powermeter_name}_neg_energy_today
+    power_id: ${powermeter_name}_neg_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_neg_energy_yesterday
+    id: ${powermeter_name}_neg_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${powermeter_template_update}
+    lambda: |-
+      return (id(${powermeter_name}_neg_energy_yesterday).state = id(${powermeter_name}_neg_energy_yesterday_global));  
+ 
