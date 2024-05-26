@@ -1,5 +1,3 @@
-# Updated : 2024.05.23
-# Version : 1.0.1
 
 globals:  
   - id: ${total_production_pv_name}_energy_total_yesterday_global
