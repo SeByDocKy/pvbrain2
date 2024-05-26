@@ -297,35 +297,35 @@ packages:
 
   ################# Environnemental  ##############
   
-  # bme_280_1: !include
+  # environnemental_1: !include
   #   # url: ${git_url}
+  #   # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/environmental/bme280/device_bme_280.yaml
   #   vars:
-  #     bme_280_name: 'bme280'
-  #     bme_280_address: '0x76'
-  #     bme_280_i2c_bus: i2c1_bus
-  #     bme_update_interval: '5s'
-  
-  # bmp_280_1: !include
-  #   # url: ${git_url}
-  #   # refresh: 0s
-  #   file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
-  #   vars:
-  #     bmp_280_name: 'bmp280'
-  #     bmp_280_address: '0x77'
-  #     bmp_280_i2c_bus: i2c1_bus
-  #     bmp_update_interval: '5s'
+  #     environnemental_name: 'bme280'
+  #     environnemental_address: '0x76'
+  #     environnemental_i2c_bus: 'i2c1_bus'
+  #     environnemental_update_interval: '5s'
 
-  # dallas_1: !include 
+  # environnemental_2: !include 
   #   # url: ${git_url}
+      # ref: main
   #   # refresh: 0s
   #   file: pvbrain2/environmental/dallas/device_dallas.yaml
   #   vars:
-  #     dallas_name: 'dallas_temperature'
-  #     pin: GPIO47
-  #     dallas_address: '0x9f3c01f09613re85'
-  #    # dallas_update_interval: '5s'  
+  #     environnemental_name: 'dallas_temperature'
+  #     # environnemental_GPIO: 'GPIO47'
+  #     environnemental_address: '0x9f3c01f09613re85'
+  #     environnemental_update_interval: '5s'  
+  
+  # environnemental_3: !include
+  #   file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
+  #   vars:
+  #     environnemental_name: 'bmp280'
+  #     environnemental_address: '0x77'
+  #     environnemental_i2c_bus: 'i2c1_bus'
+  #     environnemental_update_interval: '5s' 
 
   ################# Automatic Transfert Switch  ##############
 
