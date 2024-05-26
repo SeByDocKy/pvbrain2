@@ -294,9 +294,9 @@ packages:
   #   vars:
   #     opto_name: 'opto_solar_230V'
   #     opto_gpio: GPIO04 
-
-  ################# Environnemental  ##############
   
+ ##############  Environnemental sensors ################
+
   # environnemental_1: !include
   #   # url: ${git_url}
   #   # ref: main
@@ -307,17 +307,6 @@ packages:
   #     environnemental_address: '0x76'
   #     environnemental_i2c_bus: 'i2c1_bus'
   #     environnemental_update_interval: '5s'
-
-  # environnemental_2: !include 
-  #   # url: ${git_url}
-      # ref: main
-  #   # refresh: 0s
-  #   file: pvbrain2/environmental/dallas/device_dallas.yaml
-  #   vars:
-  #     environnemental_name: 'dallas_temperature'
-  #     # environnemental_GPIO: 'GPIO47'
-  #     environnemental_address: '0x9f3c01f09613re85'
-  #     environnemental_update_interval: '5s'  
   
   # environnemental_3: !include
   #   file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
@@ -325,7 +314,18 @@ packages:
   #     environnemental_name: 'bmp280'
   #     environnemental_address: '0x77'
   #     environnemental_i2c_bus: 'i2c1_bus'
-  #     environnemental_update_interval: '5s' 
+  #     environnemental_update_interval: '5s'
+
+  # environnemental_2: !include 
+  #   # url: ${git_url}
+      # ref: main
+  #   # refresh: 0s
+  #   file: pvbrain2/environmental/dallas/device_dallas.yaml
+  #   vars:
+  #     environnemental_name: 'dallas1'
+  #     # environnemental_GPIO: 'GPIO47'
+  #     environnemental_address: '0x9f3c01f09613re85'
+  #     environnemental_update_interval: '5s'
 
   ################# Automatic Transfert Switch  ##############
 
