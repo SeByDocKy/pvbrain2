@@ -7,3 +7,7 @@ sensor:
     name: ${name}_${environnemental_name}
     id: ${environnemental_name} 
     address: ${environnemental_address}
+    filters:
+      - filter_out: 85
+      - filter_out: 128
+      - filter_out: NAN
