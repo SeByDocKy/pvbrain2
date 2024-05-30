@@ -1,3 +1,6 @@
+substitutions:
+   offset_select: '2'
+   
 external_components:
   - source: "github://SeByDocKy/myESPhome/"
     components: [jsy22x]
@@ -92,8 +95,6 @@ select:
       - '4 - 2400 bauds'
       - '5 - 4800 bauds'
       - '6 - 9600 bauds'
-      - '7 - 19200 bauds'
-      - '8 - 38400 bauds'
     initial_option: '              '
     restore_value: false
       
@@ -145,7 +146,7 @@ sensor:
       name: ${name}_${powermeter_name}_negative_reactive_energy
     update_interval: ${powermeter_update_interval}
     
-    ##### Positive energy1 ####
+    ##### Positive energy ####
     
   - platform: template
     name: ${name}_${powermeter_name}_pos_power
@@ -183,7 +184,7 @@ sensor:
     lambda: |-
       return (id(${powermeter_name}_pos_energy_yesterday).state = id(${powermeter_name}_pos_energy_yesterday_global));  
  
-    ##### Negative energy1 ####
+    ##### Negative energy ####
     
   - platform: template
     name: ${name}_${powermeter_name}_neg_power
