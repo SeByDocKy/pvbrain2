@@ -19,7 +19,6 @@ button:
          - script.execute: script_from_grid_to_solar
 
 switch:
-
   - platform: template
     name: ${name}_${ats_control_name}_automatic_control
     id: ${ats_control_name}_automatic_control
@@ -61,7 +60,7 @@ script:
           then:
             - switch.turn_on: ${ats_control_relay_ats_id}  ### switch to grid source
             - delay: ${ats_control_delay_solar_to_grid}
-            - switch.turn_off: ${ats_control_relay_inverter_id} ### turn off solar inverter
+            - switch.turn_on: ${ats_control_relay_inverter_id} ### turn off solar inverter
       # - if:  ##### cas 2 (rare) on teste si AC_in:on, onduleur:on => ####
           # condition:
             # and:
@@ -82,6 +81,6 @@ script:
               - binary_sensor.is_off: ${ats_control_inverter_switch}
               - binary_sensor.is_on: ${ats_control_solar}
           then:
-            - switch.turn_on: ${ats_control_relay_inverter_id}  ### turn on solar inverter
+            - switch.turn_off: ${ats_control_relay_inverter_id}  ### turn on solar inverter
             - delay: ${ats_control_delay_grid_to_solar}
             - switch.turn_off: ${ats_control_relay_ats_id}  ### switch to solar           
