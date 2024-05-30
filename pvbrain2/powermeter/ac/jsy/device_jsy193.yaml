@@ -72,7 +72,7 @@ button:
            id: ${powermeter_name}_id
 
   - platform: template
-    name: ${name}_${powermeter_name}_write_register04_${powermeter_suffix1}
+    name: ${name}_${powermeter_name}_write_register04
     id: ${powermeter_name}_write_register04_${powermeter_suffix1}
     icon: "mdi:button-pointer"
     on_press:
@@ -85,7 +85,7 @@ button:
               return uint8_t( index.value() + ${offset_select}  );
           
   - platform: template
-    name: ${name}_${powermeter_name}_read_register04_${powermeter_suffix1}
+    name: ${name}_${powermeter_name}_read_register04
     id: ${powermeter_name}_read_register04_${powermeter_suffix1}
     icon: "mdi:button-pointer"
     on_press:
@@ -105,7 +105,7 @@ button:
 
 text:
   - platform: template
-    name: ${name}_${powermeter_name}_new_address_${powermeter_suffix1}
+    name: ${name}_${powermeter_name}_new_address
     id: ${powermeter_name}_new_address_${powermeter_suffix1}
     optimistic: true
     min_length: 0
@@ -116,7 +116,7 @@ text:
 
 select:
   - platform: template
-    name: ${name}_${powermeter_name}_new_baudrate_${powermeter_suffix1}
+    name: ${name}_${powermeter_name}_new_baudrate
     id: ${powermeter_name}_new_baudrate_${powermeter_suffix1}
     optimistic: true
     options:
