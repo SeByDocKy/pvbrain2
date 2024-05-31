@@ -230,7 +230,7 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${solar_charger_name}_battery_charging_energy_yesterday_template
+    name: ${name}_${solar_charger_name}_battery_charging_energy_yesterday
     id: ${solar_charger_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
