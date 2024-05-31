@@ -377,8 +377,8 @@ sensor:
       id: ${inverter_name}_pv1_input_voltage
       name: ${name}_${inverter_name}_pv1_input_voltage
     pv1_charging_power:
-      id: ${inverter_name}_pv1_charging_power
-      name: ${name}_${inverter_name}_pv1_charging_power
+      id: ${inverter_name}_pv1_power
+      name: ${name}_${inverter_name}_pv1_power
     pv2_input_current:
       id: ${inverter_name}_pv2_input_current
       name: ${name}_${inverter_name}_pv2_input_current
@@ -386,14 +386,14 @@ sensor:
       id: ${inverter_name}_pv2_input_voltage
       name: ${name}_${inverter_name}_pv2_input_voltage
     pv2_charging_power:
-      id: ${inverter_name}_pv2_charging_power
-      name: ${name}_${inverter_name}_pv2_charging_power
+      id: ${inverter_name}_pv2_power
+      name: ${name}_${inverter_name}_pv2_power
       
   
   - platform: total_daily_energy
     name: ${name}_${inverter_name}_pv1_energy_today
     id: ${inverter_name}_pv1_energy_today
-    power_id: ${inverter_name}_pv1_charging_power
+    power_id: ${inverter_name}_pv1_power
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -405,7 +405,7 @@ sensor:
   - platform: total_daily_energy
     name: ${name}_${inverter_name}_pv2_energy_today
     id: ${inverter_name}_pv2_energy_today
-    power_id: ${inverter_name}_pv2_charging_power
+    power_id: ${inverter_name}_pv2_power
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
@@ -418,10 +418,10 @@ sensor:
     name: ${name}_${inverter_name}_pv_power_total
     id: ${inverter_name}_pv_power_total
     unit_of_measurement: 'W'
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     update_interval: ${inverter_template_update}
     icon: mdi:power  
-    lambda: return ( (id(${inverter_name}_pv1_charging_power).state) + (id(${inverter_name}_pv2_charging_power).state) );     
+    lambda: return ( (id(${inverter_name}_pv1_power).state) + (id(${inverter_name}_pv2_power).state) );     
     
   - platform: total_daily_energy
     name: ${name}_${inverter_name}_pv_energy_total_today
