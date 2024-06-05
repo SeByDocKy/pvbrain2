@@ -1,0 +1,3 @@
+packages:
+  jkpb0116: !include device_jkpb0116.yaml
+  jkpb1732: !include device_jkpb1732.yaml

@@ -1,0 +1,435 @@
+sensor:
+  # 0x1220   32    UINT16    2    R    CellVol16   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_17
+    address: 0x1220
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1222   34    UINT16    2    R    CellVol17   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_18
+    address: 0x1222
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1224   36    UINT16    2    R    CellVol18   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_19
+    address: 0x1224
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1226   38    UINT16    2    R    CellVol19   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_20
+    address: 0x1226
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1228   40    UINT16    2    R    CellVol20   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_21
+    address: 0x1228
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x122A   42    UINT16    2    R    CellVol21   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_22
+    address: 0x122A
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x122C   44    UINT16    2    R    CellVol22   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_23
+    address: 0x122C
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x122E   46    UINT16    2    R    CellVol23   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_24
+    address: 0x122E
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1230   48    UINT16    2    R    CellVol24   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_25
+    address: 0x1230
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1232   50    UINT16    2    R    CellVol25   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_26
+    address: 0x1232
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1234   52    UINT16    2    R    CellVol26   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_27
+    address: 0x1234
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1236   54    UINT16    2    R    CellVol27   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_28
+    address: 0x1236
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1238   56    UINT16    2    R    CellVol28   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_29
+    address: 0x1238
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x123A   58    UINT16    2    R    CellVol29   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_30
+    address: 0x123A
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x123C   60    UINT16    2    R    CellVol30   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_31
+    address: 0x123C
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x123E   62    UINT16    2    R    CellVol31   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_32
+    address: 0x123E
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+      
+    # # 0x126A   106   UINT16    2    R    CellWireRes16   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_17_wire_resistance
+    # address: 0x126A
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x126C   108   UINT16    2    R    CellWireRes17   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_18_wire_resistance
+    # address: 0x126C
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x126E   110   UINT16    2    R    CellWireRes18   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_19_wire_resistance
+    # address: 0x126E
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1270   112   UINT16    2    R    CellWireRes19   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_20_wire_resistance
+    # address: 0x1270
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1272   114   UINT16    2    R    CellWireRes20   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_21_wire_resistance
+    # address: 0x1272
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1274   116   UINT16    2    R    CellWireRes21   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_22_wire_resistance
+    # address: 0x1274
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1276   118   UINT16    2    R    CellWireRes22   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_23_wire_resistance
+    # address: 0x1276
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1278   120   UINT16    2    R    CellWireRes23   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_24_wire_resistance
+    # address: 0x1278
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x127A   122   UINT16    2    R    CellWireRes24   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_25_wire_resistance
+    # address: 0x127A
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x127C   124   UINT16    2    R    CellWireRes25   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_26_wire_resistance
+    # address: 0x127C
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x127E   126   UINT16    2    R    CellWireRes26   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_27_wire_resistance
+    # address: 0x127E
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1280   128   UINT16    2    R    CellWireRes27   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_28_wire_resistance
+    # address: 0x1280
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1282   130   UINT16    2    R    CellWireRes28   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_29_wire_resistance
+    # address: 0x1282
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1284   132   UINT16    2    R    CellWireRes29   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_30_wire_resistance
+    # address: 0x1284
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1286   134   UINT16    2    R    CellWireRes30   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_31_wire_resistance
+    # address: 0x1286
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+
+  # # 0x1288   136   UINT16    2    R    CellWireRes31   mΩ
+  # - platform: modbus_controller
+    # modbus_controller_id: ${bms_name}_modbus_controller
+    # name: ${name}_${bms_name}_cell_32_wire_resistance
+    # address: 0x1288
+    # register_type: holding
+    # value_type: U_WORD
+    # unit_of_measurement: "Ω"
+    # state_class: measurement
+    # accuracy_decimals: 3
+    # filters:
+      # - multiply: 0.001
+    
+      
+      
