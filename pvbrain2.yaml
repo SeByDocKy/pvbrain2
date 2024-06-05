@@ -633,6 +633,19 @@ packages:
   #     bms_text_update: '5s'
   #     bms_modbus_throttle: '100ms'
 
+  # bms_9: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/bms/jikong/device_jkpbbms.yaml
+  #   vars:
+  #     bms_name: 'jkpb1'
+  #     bms_modbus_id: 'modbus_115200_id'
+  #     bms_modbus_address: '0'
+  #     bms_update_interval: '5s'
+  #     bms_template_update: '5s'
+  #     bms_text_update: '5s'
+  #     bms_modbus_throttle: '200ms'
+
    ################# TEMPLATE SENSORS  ##############
 
   
