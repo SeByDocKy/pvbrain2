@@ -1,0 +1,54 @@
+###########  Connect SX1509 pins to GND, a switch between ######
+
+binary_sensor:
+  - platform: gpio
+    name: ${name}_${binary_sensor_name}_${binary_sensor_channel0}
+    id: ${binary_sensor_name}_input0
+    pin:
+      sx1509: ${binary_sensor_hub}
+      number: ${binary_sensor_channel0_pin}
+      mode:
+        input: true
+        pullup: true
+      inverted: ${binary_sensor_channel0_inverted}
+    filters:
+      - delayed_on: 200ms
+           
+  - platform: gpio
+    name: ${name}_${binary_sensor_name}_${binary_sensor_channel1}
+    id: ${binary_sensor_name}_input1
+    pin:
+      sx1509: ${binary_sensor_hub}
+      number: ${binary_sensor_channel1_pin}
+      mode:
+        input: true
+        pullup: true
+      inverted: ${binary_sensor_channel1_inverted}
+    filters:
+      - delayed_on: 200ms
+      
+  - platform: gpio
+    name: ${name}_${binary_sensor_name}_${binary_sensor_channel2}
+    id: ${binary_sensor_name}_input2
+    pin:
+      sx1509: ${binary_sensor_hub}
+      number: ${binary_sensor_channel2_pin}
+      mode:
+        input: true
+        pullup: true
+      inverted: ${binary_sensor_channel2_inverted}
+    filters:
+      - delayed_on: 200ms
+      
+  - platform: gpio
+    name: ${name}_${binary_sensor_name}_${binary_sensor_channel3}
+    id: ${binary_sensor_name}_input3
+    pin:
+      sx1509: ${binary_sensor_hub}
+      number: ${binary_sensor_channel3_pin}
+      mode:
+        input: true
+        pullup: true
+      inverted: ${binary_sensor_channel3_inverted}    
+    filters:
+      - delayed_on: 200ms
