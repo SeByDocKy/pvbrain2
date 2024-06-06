@@ -430,6 +430,5 @@ sensor:
     # accuracy_decimals: 3
     # filters:
       # - multiply: 0.001
-    
       
       
