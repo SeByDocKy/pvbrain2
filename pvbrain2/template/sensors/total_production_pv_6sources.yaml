@@ -26,7 +26,26 @@ sensor:
     unit_of_measurement: 'W'
     update_interval: ${total_production_pv_template_update}
     lambda: |-
-      return (id(${total_production_pv_source1}).state + id(${total_production_pv_source2}).state + id(${total_production_pv_source3}).state + id(${total_production_pv_source4}).state + id(${total_production_pv_source5}).state + id(${total_production_pv_source6}).state);
+      float power = 0.0f;
+      if (id(${total_production_pv_source1}).has_state()){
+        power += id(${total_production_pv_source1}).state;
+      }
+      if (id(${total_production_pv_source2}).has_state()){
+        power += id(${total_production_pv_source2}).state;
+      }
+      if (id(${total_production_pv_source3}).has_state()){
+        power += id(${total_production_pv_source3}).state;
+      }
+      if (id(${total_production_pv_source4}).has_state()){
+        power += id(${total_production_pv_source4}).state;
+      }
+      if (id(${total_production_pv_source5}).has_state()){
+        power += id(${total_production_pv_source5}).state;
+      }
+      if (id(${total_production_pv_source6}).has_state()){
+        power += id(${total_production_pv_source6}).state;
+      }
+      return power;
       
   - platform: total_daily_energy
     name: ${name}_${total_production_pv_name}_energy_total_today
