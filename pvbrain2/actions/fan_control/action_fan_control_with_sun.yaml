@@ -13,22 +13,120 @@ switch:
     id: ${fan_control_name}_automatic_control
     optimistic: true
     restore_mode: ALWAYS_ON 
+
+# binary_sensor:
+  - platform: template
+    name: ${name}_${fan_control_name}_after_sunrise
+    id: ${fan_control_name}_after_sunrise
+    optimistic: true
+    on_turn_on:
+      then:
+        - lambda: |-
+            if( (id(${fan_control_name}_after_sunrise).state) && (id(${fan_control_name}_before_sunset).state) ){
+              id(${fan_control_name}_working).publish_state(true);
+            }
+            else{
+              id(${fan_control_name}_working).publish_state(false);
+            }
+    on_turn_off:
+      then:
+        - lambda: |-
+            if( (id(${fan_control_name}_after_sunrise).state) && (id(${fan_control_name}_before_sunset).state) ){
+              id(${fan_control_name}_working).publish_state(true);
+            }
+            else{
+              id(${fan_control_name}_working).publish_state(false);
+            }        
     
+  - platform: template
+    name: ${name}_${fan_control_name}_before_sunset
+    id: ${fan_control_name}_before_sunset
+    optimistic: true
+    on_turn_on:
+      then:
+        - lambda: |-
+            if( (id(${fan_control_name}_after_sunrise).state) && (id(${fan_control_name}_before_sunset).state) ){
+              id(${fan_control_name}_working).publish_state(true);
+            }
+            else{
+              id(${fan_control_name}_working).publish_state(false);
+            }
+    on_turn_off:
+      then:
+        - lambda: |-
+            if( (id(${fan_control_name}_after_sunrise).state) && (id(${fan_control_name}_before_sunset).state) ){
+              id(${fan_control_name}_working).publish_state(true);
+            }
+            else{
+              id(${fan_control_name}_working).publish_state(false);
+            }
+    
+  - platform: template
+    name: ${name}_${fan_control_name}_working
+    id: ${fan_control_name}_working
+    optimistic: true
+    on_turn_on:
+      then:
+        - lambda: |-
+            if(id(${fan_control_name}_automatic_control).state){
+              if(id(${fan_control_name}_working).state){
+                if(!id(${fan_control_relay0_id}).state){
+                  id(${fan_control_relay0_id}).turn_on();
+                }
+                if(!id(${fan_control_relay1_id}).state){
+                  id(${fan_control_relay1_id}).turn_on();
+                }
+                if(!id(${fan_control_relay2_id}).state){
+                  id(${fan_control_relay2_id}).turn_on();
+                }
+                if(!id(${fan_control_relay3_id}).state){
+                  id(${fan_control_relay3_id}).turn_on();
+                }
+               }
+            }               
+    on_turn_off:
+      then:
+        - lambda: |-
+            if(id(${fan_control_name}_automatic_control).state){
+            
+              if(!id(${fan_control_relay0_id}).state){
+                  id(${fan_control_relay0_id}).turn_on();
+                }
+              if(!id(${fan_control_relay1_id}).state){
+                  id(${fan_control_relay1_id}).turn_on();
+                }
+              if(!id(${fan_control_relay2_id}).state){
+                  id(${fan_control_relay2_id}).turn_on();
+                }
+              
+              if(id(${fan_control_relay3_id}).state){
+                id(${fan_control_relay3_id}).turn_off();
+              }
+            }        
 text_sensor:
   
   - platform: template
     name: ${name}_${fan_control_name}_sunrise_offset_time
     id: ${fan_control_name}_sunrise_offset_time
+    update_interval: ${fan_control_text_update}
     lambda: |-
       auto sunrise = id(my_sun).sunrise(-0.833);
-      auto time = id(my_time).now();
       if (!sunrise.has_value())
         return {"NaN"};
-      int sunrise_min = sunrise.value().hour * 60 + sunrise.value().minute + int(id(${fan_control_name}_offset_sunrise).state) ;
+      int sunrise_min = sunrise.value().hour * 60 + sunrise.value().minute + int(id(${fan_control_name}_offset_sunrise).state);
       unsigned sunrise_hour = int(sunrise_min / 60);
       unsigned sunrise_minute = sunrise_min % 60;
       ESP_LOGD("sun_shift", "Sunrise  is      %02i:%02i", sunrise.value().hour , sunrise.value().minute);
       ESP_LOGD("sun_shift", "Sunrise shift is %02i:%02i", sunrise_hour , sunrise_minute);
+      auto time = id(my_time).now();
+      int time_min = time.hour * 60 + time.minute;
+      if (sunrise_min < time_min){
+        id(${fan_control_name}_after_sunrise).publish_state(true);
+      }
+      else{
+        id(${fan_control_name}_after_sunrise).publish_state(false);
+      }
+      /*
       if((sunrise_hour == time.hour) and (sunrise_minute == time.minute)){
         if(id(${fan_control_name}_automatic_control).state){
           if(!id(${fan_control_relay0_id}).state){
@@ -42,6 +140,7 @@ text_sensor:
           }
         }
       }
+      */
       char buffer[8];
       sprintf(buffer,"%02i:%02i", sunrise_hour , sunrise_minute);
       return {buffer};
@@ -52,7 +151,6 @@ text_sensor:
     update_interval: ${fan_control_template_update}
     lambda: |-
       auto sunset = id(my_sun).sunset(-0.833);
-      auto time = id(my_time).now();
       if (!sunset.has_value()){
         return {"NaN"};
       }
@@ -61,6 +159,15 @@ text_sensor:
       unsigned int sunset_minute = sunset_min % 60;
       ESP_LOGD("sun_shift", "Sunset  is      %02i:%02i", sunset.value().hour , sunset.value().minute);
       ESP_LOGD("sun_shift", "Sunset shift is %02i:%02i", sunset_hour , sunset_minute);
+      auto time = id(my_time).now();
+      int time_min = time.hour * 60 + time.minute;
+      if (sunset_min > time_min){
+        id(${fan_control_name}_before_sunset).publish_state(true);
+      }
+      else{
+        id(${fan_control_name}_before_sunset).publish_state(false);
+      }
+      /*
       if((sunset_hour == time.hour) and (sunset_minute == time.minute)){
         if(id(${fan_control_name}_automatic_control).state){
           if(id(${fan_control_relay0_id}).state){
@@ -74,6 +181,7 @@ text_sensor:
           }
         }
       }
+      */
       char buffer[8];
       sprintf(buffer,"%02i:%02i", sunset_hour , sunset_minute);
       return {buffer};
