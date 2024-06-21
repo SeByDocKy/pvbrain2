@@ -716,4 +716,5 @@ packages:
   #     fan_control_relay1_id: 'relay0_fan_axpert'
   #     fan_control_relay2_id: 'relay0_fan_general'
   #     fan_control_template_update: '10s'
+  #     fan_control_text_update: '10s'
 
