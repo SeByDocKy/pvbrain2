@@ -3,7 +3,7 @@ dallas:
     update_interval: ${environnemental_update_interval}
     
 sensor:
-  - platform: dallas
+  - platform: dallas_temp
     name: ${name}_${environnemental_name}
     id: ${environnemental_name} 
     address: ${environnemental_address}
