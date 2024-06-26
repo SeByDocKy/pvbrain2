@@ -1,12 +1,24 @@
-dallas:
-  - id: !extend dallas_hub
-    update_interval: ${environnemental_update_interval}
+# dallas:
+  # - id: !extend dallas_hub
+    # update_interval: ${environnemental_update_interval}
+    
+# sensor:
+  # - platform: dallas
+    # name: ${name}_${environnemental_name}
+    # id: ${environnemental_name}
+    # address: ${environnemental_address}
+    # filters:
+      # - filter_out: 85
+      # - filter_out: 128
+      # - filter_out: NAN    
     
 sensor:
   - platform: dallas_temp
     name: ${name}_${environnemental_name}
-    id: ${environnemental_name} 
+    id: ${environnemental_name}
+    one_wire_id: on_wire_hub
     address: ${environnemental_address}
+    update_interval: ${environnemental_update_interval}
     filters:
       - filter_out: 85
       - filter_out: 128
