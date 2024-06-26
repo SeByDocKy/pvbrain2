@@ -105,7 +105,7 @@ api:
   #   key: "vR4R7EBch24hzs8Fga1ATBfRa6YWxpw9PfzRLJFoqY4="
 
 ota:
-  # - platform: esphome
+  - platform: esphome
     # password: "b82b9faf767e862e00fd6aba6c360b7f"
 
 # Enable Web Server. Uncomment if you want to enable it.
