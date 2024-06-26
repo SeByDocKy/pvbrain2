@@ -1,6 +1,6 @@
 packages:
   deye_nominal: !include device_deye_nominal.yaml
-  deye_advanced: !include device_deye_advanced.yaml
+  # deye_advanced: !include device_deye_advanced.yaml
 
 # modbus:
  # - id: ${inverter_name}_modbus
