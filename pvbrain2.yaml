@@ -56,7 +56,7 @@ esphome:
   project:
     name: esphome.pvbrain2
     version: ${pvbrain2_version}
-  min_version: 2024.6.2
+  min_version: 2024.6.3
   platformio_options:                ##### the following option is required for some ESP32 S3 with memory >= 16MB, eg. the N32R8V
     board_build.flash_mode: dio
     # upload_speed: 115200
