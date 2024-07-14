@@ -1,3 +1,7 @@
+# Updated : 2024.07.14
+# Version : 1.0.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
 # dallas:
   # - id: !extend dallas_hub
     # update_interval: ${environnemental_update_interval}
@@ -16,7 +20,7 @@ sensor:
   - platform: dallas_temp
     name: ${name}_${environnemental_name}
     id: ${environnemental_name}
-    one_wire_id: on_wire_hub
+    one_wire_id: one_wire_hub
     address: ${environnemental_address}
     update_interval: ${environnemental_update_interval}
     filters:
