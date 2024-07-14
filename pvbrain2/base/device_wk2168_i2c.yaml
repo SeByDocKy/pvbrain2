@@ -1,13 +1,9 @@
-# external_components:
-  # - source: github://pr#5218 #github://DrCoolzic/esphome@wk2168
-    # components: [wk_base]
-    # refresh: 0s
-  # - source: github://pr#5218 
-  #   components: [weikai,wk2168_i2c]
-  #   refresh: 0s
-    
+# Updated : 2024.07.14
+# Version : 1.0.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
 i2c:
-  - id: i2c0_bus
+  - id: i2c1_bus
     sda: GPIO41 
     scl: GPIO40
     frequency: 800kHz
@@ -15,7 +11,7 @@ i2c:
 wk2168_i2c:
   - address: 0x10
     id: uart_bridge0
-    i2c_id: i2c0_bus
+    i2c_id: i2c1_bus
     uart:
       - id: uart_i2c_0
         channel: 0
@@ -34,7 +30,7 @@ wk2168_i2c:
 
   - address: 0x70
     id: uart_bridge1
-    i2c_id: i2c0_bus
+    i2c_id: i2c1_bus
     uart:
       - id: uart_i2c_4
         channel: 0
