@@ -1,3 +1,7 @@
+# Updated : 2024.07.14
+# Version : 1.0.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
 substitutions:
   name: 'pvbrain2'
   pvbrain2_version: '1.0.1'
@@ -305,7 +309,7 @@ packages:
   #   vars:
   #     environnemental_name: 'bme280'
   #     environnemental_address: '0x76'
-  #     environnemental_i2c_bus: 'i2c1_bus'
+  #     environnemental_i2c_bus: 'i2c0_bus'
   #     environnemental_update_interval: '5s'
   
   # environnemental_3: !include
@@ -313,7 +317,7 @@ packages:
   #   vars:
   #     environnemental_name: 'bmp280'
   #     environnemental_address: '0x77'
-  #     environnemental_i2c_bus: 'i2c1_bus'
+  #     environnemental_i2c_bus: 'i2c0_bus'
   #     environnemental_update_interval: '5s'
 
   # environnemental_2: !include 
@@ -464,7 +468,7 @@ packages:
   #   vars:
   #     powermeter_name: 'ina3221'
   #     powermeter_address: '0x40'
-  #     powermeter_i2c_bus: i2c1_bus
+  #     powermeter_i2c_bus: i2c0_bus
   #     powermeter_update_interval: '5s'
 
   ################### DC powermeter  ################

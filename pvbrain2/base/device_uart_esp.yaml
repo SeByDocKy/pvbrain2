@@ -1,11 +1,11 @@
-# Updated : 2024.05.23
-# Version : 1.0.x
+# Updated : 2024.07.14
+# Version : 1.0.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
 
-# (Will be replaced during the PR of @Sleeper85)
-
-############# ESP32 S3 UART ############    
+ ############# ESP32 S3 UART ############    
 
 uart:
+  # Set logger baud_rate: to 0 for prevent boot loop
   - id: uart_esp_0
     tx_pin: GPIO43
     rx_pin: GPIO44

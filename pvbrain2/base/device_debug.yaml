@@ -1,19 +1,21 @@
-# Updated : 2024.05.21
-# Version : 1.0.1
+# Updated : 2024.07.14
+# Version : 1.0.2
 # GitHub  : https://github.com/Dackara/
 
-#-----------------------------------------------------------------------------------------------#
-
-## EXEMPLE FOR USE :
+# +--------------------------------------+
+# | Example of use                       |
+# +--------------------------------------+
+#
 # packages:
 #   device_debug: !include
 #     file: pvbrain2/base/device_debug.yaml
 #     vars:
+#       debug_name: 'Debug'
 #       debug_update_interval: '5s'
-#       debug_psram_size: '8388608'    # Size of your PSRAM in bits. Choice :8Mb='8388608' | 6Mb='6291456' | 4Mb='4194304' | 2Mb='2097152' | NoPSRAM='0'
-
-#-----------------------------------------------------------------------------------------------#
-
+#       # Size of your PSRAM in bits. Choice :8Mb='8388608' | 6Mb='6291456' | 4Mb='4194304' | 2Mb='2097152' | NoPSRAM='0'
+#       debug_psram_size: '8388608'
+#
+# +--------------------------------------+
 
 # The PSRAM platform must be included for the sensor of the same name to work
 psram:

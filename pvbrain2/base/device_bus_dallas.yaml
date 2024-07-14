@@ -1,0 +1,8 @@
+# Updated : 2024.07.14
+# Version : 1.0.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
+one_wire:
+  - platform: gpio
+    id: on_wire_hub
+    pin: GPIO47
