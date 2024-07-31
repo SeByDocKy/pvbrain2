@@ -1,24 +1,27 @@
-# Updated : 2024.07.14
-# Version : 1.0.2
+# Updated : 2024.07.29
+# Version : 1.0.3
 # GitHub  : https://github.com/Dackara/
 
 # +--------------------------------------+
 # | Example of use                       |
 # +--------------------------------------+
-#
-# packages:
-#   device_debug: !include
-#     file: pvbrain2/base/device_debug.yaml
-#     vars:
-#       debug_name: 'Debug'
-#       debug_update_interval: '5s'
-#       # Size of your PSRAM in bits. Choice :8Mb='8388608' | 6Mb='6291456' | 4Mb='4194304' | 2Mb='2097152' | NoPSRAM='0'
-#       debug_psram_size: '8388608'
-#
+# | DEBUG ( logger level must be DEBUG ) |
+# +--------------------------------------+
+
+  # device_debug: !include
+  #   file: pvbrain2/base/device_debug.yaml
+  #   vars:
+  #     debug_name: 'Debug'
+  #     debug_update_interval: '5s'
+  #     # Size of your PSRAM in bits
+  #     # 8Mb='8388608' | 6Mb='6291456' | 4Mb='4194304' | 2Mb='2097152' | NoPSRAM='0'
+  #     debug_psram_size: '8388608'
+
 # +--------------------------------------+
 
 # The PSRAM platform must be included for the sensor of the same name to work
-psram:
+# The psram: platform is already declared in the main YAML 'pvbrain2.yam'
+# psram:
 
 debug:
   update_interval: ${debug_update_interval}
@@ -40,23 +43,12 @@ sensor:
     block:
       name: ${name}_${debug_name}_heap_max_block
       id: ${debug_name}_heap_max_block
-    loop_time:
-      name: ${name}_${debug_name}_loop_time
-      id: ${debug_name}_loop_time
     psram:
       name: ${name}_${debug_name}_free_PSRAM
       id: ${debug_name}_free_psram
-    
-  - platform: template
-    name: ${name}_${debug_name}g_free_psram_percent
-    id: ${debug_name}_free_psram_percent
-    unit_of_measurement: '%'
-    accuracy_decimals: 2
-    icon: mdi:percent
-    update_interval: ${debug_update_interval}
-    lambda: |-
-      return ( id(${debug_name}_free_psram).state * 100 / ${debug_psram_size} ); // 8388608
-    entity_category: diagnostic
+    loop_time:
+      name: ${name}_${debug_name}_loop_time
+      id: ${debug_name}_loop_time
 
   - platform: template
     name: ${name}_${debug_name}_heap_free_percent
@@ -65,10 +57,10 @@ sensor:
     accuracy_decimals: 2
     icon: mdi:percent
     update_interval: ${debug_update_interval}
-    lambda: |-
-      return ( id(${debug_name}_heap_free).state * 100 / 327680 );
-    # 524288 B # 327680 B
     entity_category: diagnostic
+    # 524288 B (SRAM total)
+    # 327680 B (DRAM usable)
+    lambda: return ( id(${debug_name}_heap_free).state * 100 / 327680 );
 
   - platform: template
     name: ${name}_${debug_name}_heap_max_block_percent
@@ -77,8 +69,17 @@ sensor:
     accuracy_decimals: 2
     icon: mdi:percent
     update_interval: ${debug_update_interval}
-    lambda: |-
-      return ( id(${debug_name}_heap_max_block).state * 100 / 327680 );
-    # 524288 B # 327680 B
     entity_category: diagnostic
-  
+    # 524288 B (SRAM total)
+    # 327680 B (DRAM usable)
+    lambda: return ( id(${debug_name}_heap_max_block).state * 100 / 327680 );
+
+  - platform: template
+    name: ${name}_${debug_name}_free_psram_percent
+    id: ${debug_name}_free_psram_percent
+    unit_of_measurement: '%'
+    accuracy_decimals: 2
+    icon: mdi:percent
+    update_interval: ${debug_update_interval}
+    entity_category: diagnostic
+    lambda: return ( id(${debug_name}_free_psram).state * 100 / ${debug_psram_size} ); // 8388608

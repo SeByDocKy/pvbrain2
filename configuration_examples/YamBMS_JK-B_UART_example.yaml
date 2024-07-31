@@ -1,11 +1,14 @@
-# Updated   : 2024.07.14
-# Version   : 1.3.2
-# GitHub    : https://github.com/Sleeper85
+# Updated   : 2024.07.31
+# Version   : 1.4.2
+# GitHub  : https://github.com/Sleeper85/esphome-yambms
 
 # +--------------------------------------+
 # | Packages                             |
 # +--------------------------------------+
 packages:
+
+  # PVbrain2 core
+  pvbrain2_core: !include pvbrain2_core.yaml
   # Don't forget to import `device_canbus_esp32can.yaml` or `device_canbus_mcp2515.yaml` into device_base.yaml
   device_base: !include pvbrain2/base/device_base.yaml
 
@@ -40,7 +43,7 @@ packages:
   yambms1: !include
     file: pvbrain2/translation/yambms/yambms.yaml
     vars:
-      # Please read the cut off charging logic README to understand how the YamBMS works
+      # Please read the cut-off charging logic README to understand how the YamBMS works
       yambms_id: 'yambms1'
       yambms_name: 'YamBMS 1'
       yambms_update_interval: '1s'
@@ -58,6 +61,8 @@ packages:
       # Allows the charging process to complete within 30 minutes even if the cells are still equalizing
       # This timer can be deactivated with a switch
       yambms_eoc_timer: '30'
+      # Time in seconds during which the end of charge conditions must be respected (cut-off + cells not equalizing)
+      yambms_cutoff_timer: '60'
       # Absorption Offset V.
       yambms_absorption_offset_v: '0.1'
       yambms_absorption_offset_v_slider: 'true' # true: the slider is hidden, false: the slider is available
@@ -81,5 +86,6 @@ packages:
       canbus_name: 'CANBUS 1'
       canbus_node_id: 'canbus_node1'
       canbus_light_id: 'led_light_1' # on_board_light_io48
-      # The CANBUS links will be considered down if no response from the inverter (ID 0x305) after 30 loops.
-      canbus_max_no_ack: "30"
+      # The CANBUS link will be considered down if no response from the inverter (ID 0x305) for 5s
+      # The Deye inverter sends the ACK (can_id 0x305) only when it receives the can_id 0x356
+      canbus_link_timer: '5'

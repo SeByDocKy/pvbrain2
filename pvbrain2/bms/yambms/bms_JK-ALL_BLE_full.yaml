@@ -1,5 +1,5 @@
-# Updated : 2024.07.13
-# Version : 1.3.2
+# Updated : 2024.07.31
+# Version : 1.4.2
 # GitHub  : https://github.com/syssi/esphome-jk-bms
 
 # This YAML is free software: you can redistribute it and/or
@@ -22,18 +22,21 @@ packages:
 external_components:
   - source: github://syssi/esphome-jk-bms@main
     refresh: 0s
-  
+
 ota:
-  on_begin:
-    then:
-      - switch.turn_off: bms${bms_id}_enable_bluetooth_connection
-      - logger.log: "BLE shutdown for flashing"
+  - platform: esphome
+    on_begin:
+      then:
+        - switch.turn_off: bms${bms_id}_enable_bluetooth_connection
+        - logger.log: "BLE shutdown for flashing"
   
 # +--------------------------------------+
 # | JK-BMS BLE connection                |
 # +--------------------------------------+
 
 esp32_ble_tracker:
+  scan_parameters:
+    interval: 500ms
   on_ble_advertise:
     then:
       - lambda: |-
