@@ -79,7 +79,7 @@ sensor:
     icon: mdi:power
     lambda: |-
       if (float(id(${powermeter_name}_instantaneous_power).state)<= 0){
-        return ( (id(${powermeter_name}_instantaneous_power).state) );   
+        return ( - (id(${powermeter_name}_instantaneous_power).state) );   
       }
       else {
         return 0.0;
