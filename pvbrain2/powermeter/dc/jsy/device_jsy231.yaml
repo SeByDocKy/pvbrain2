@@ -195,7 +195,7 @@ sensor:
     icon: mdi:power
     lambda: |-
       if(id(${powermeter_name}_power).state <= 0.0){
-        return (id(${powermeter_name}_power).state);
+        return (- id(${powermeter_name}_power).state);
       }
       else{
         return 0.0;
