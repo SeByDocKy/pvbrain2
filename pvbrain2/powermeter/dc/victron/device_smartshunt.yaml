@@ -1,11 +1,14 @@
 external_components:
-  - source: github://KinDR007/VictronSmartShunt-ESPHOME@main
-    refresh: 0s
+  # - source: github://KinDR007/VictronSmartShunt-ESPHOME@main
+  #   refresh: 0s
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [victron_smart_shunt]
+    refresh: 0s  
 
 victron_smart_shunt:
-  id: ${powermeter_name}_smart_shunt
-  uart_id: ${powermeter_uart_id}
-
+  - id: ${powermeter_name}_smart_shunt
+    uart_id: ${powermeter_uart_id}
+    
 globals:    
   - id: ${powermeter_name}_battery_charging_energy_yesterday_global
     type: float
