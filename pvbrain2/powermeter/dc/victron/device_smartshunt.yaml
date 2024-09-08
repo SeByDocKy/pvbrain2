@@ -3,6 +3,7 @@ external_components:
     refresh: 0s
 
 victron_smart_shunt:
+  id: ${powermeter_name}_smart_shunt
   uart_id: ${powermeter_uart_id}
 
 globals:    
@@ -109,7 +110,7 @@ sensor:
   
 
   - platform: victron_smart_shunt
-#    id: ${powermeter_name}
+    victron_smart_shunt_id: ${powermeter_name}_smart_shunt
     battery_voltage:
       name: ${name}_${powermeter_name}_battery_voltage
       id: ${powermeter_name}_battery_voltage
