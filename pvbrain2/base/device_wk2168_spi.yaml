@@ -1,7 +1,10 @@
-# Updated : 2024.07.14
-# Version : 1.0.1
+# Updated : 2024.09.30
+# Version : 1.0.2
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
- 
+
+substitutions:
+  uart_hub_bus: 'spi'
+
 spi:
   - id: spi0_bus
     mosi_pin: GPIO6  

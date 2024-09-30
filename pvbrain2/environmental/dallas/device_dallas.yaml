@@ -1,21 +1,7 @@
-# Updated : 2024.07.14
-# Version : 1.0.1
+# Updated : 2024.09.30
+# Version : 1.0.2
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
-# dallas:
-  # - id: !extend dallas_hub
-    # update_interval: ${environnemental_update_interval}
-    
-# sensor:
-  # - platform: dallas
-    # name: ${name}_${environnemental_name}
-    # id: ${environnemental_name}
-    # address: ${environnemental_address}
-    # filters:
-      # - filter_out: 85
-      # - filter_out: 128
-      # - filter_out: NAN    
-    
 sensor:
   - platform: dallas_temp
     name: ${name}_${environnemental_name}

@@ -1,5 +1,5 @@
-# Updated : 2024.07.14
-# Version : 1.0.2
+# Updated : 2024.09.30
+# Version : 1.0.3
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
 packages:
@@ -20,16 +20,17 @@ packages:
   # device_canbus_node2: !include device_canbus_mcp2515.yaml
 
 time:
-# https://esphome.io/components/time/homeassistant
-  - platform: homeassistant
+  # https://esphome.io/components/time/homeassistant
+  # https://esphome.io/components/time/sntp
+  - platform: homeassistant # sntp
     id: my_time
- 
+
 binary_sensor:
 # https://esphome.io/components/binary_sensor/status  
   - platform: status
     name: ${name}_status
     id: ${name}_status
-   
+
 light:
 # https://esphome.io/components/light/status_led
   - platform: status_led
@@ -103,7 +104,8 @@ sensor:
 
 # https://esphome.io/components/sensor/uptime
   - platform: uptime
-    id: uptime_sec
+    id: ${name}_uptime_sec
+    update_interval: 10s
     internal: true
 
 text_sensor:
@@ -138,23 +140,20 @@ text_sensor:
   - platform: template
     name: ${name}_uptime
     id: ${name}_uptime
-    lambda: |-
-      int seconds = (id(uptime_sec).state);
-      int days = seconds / (24 * 3600);
-      seconds = seconds % (24 * 3600); 
-      int hours = seconds / 3600;
-      seconds = seconds % 3600;
-      int minutes = seconds /  60;
-      seconds = seconds % 60;
-      if ( days ) {
-        return { (std::to_string(days) +"d " + std::to_string(hours) +"h " + std::to_string(minutes) +"m "+ std::to_string(seconds) +"s ").c_str() };
-      } else if ( hours ) {
-        return { (std::to_string(hours) +"h " + std::to_string(minutes) +"m "+ std::to_string(seconds) +"s ").c_str() };
-      } else if ( minutes ) {
-        return { (std::to_string(minutes) +"m "+ std::to_string(seconds) +"s ").c_str() };
-      } else {
-        return { (std::to_string(seconds) +"s ").c_str() };
-      }
+    update_interval: 10s
     icon: mdi:clock-start
-    update_interval: 113s
     entity_category: diagnostic
+    lambda: |-
+      int uptime_sec = id(${name}_uptime_sec).state;
+      int days = uptime_sec / 86400;
+      int hours = (uptime_sec % 86400) / 3600;
+      int minutes = (uptime_sec % 3600) / 60;
+      int seconds = uptime_sec % 60;
+      return {
+        (
+          (days ? std::to_string(days) +"d " : "") +
+          (hours ? std::to_string(hours) +"h " : "") +
+          (minutes ? std::to_string(minutes) +"m " : "") +
+          (std::to_string(seconds) +"s")
+        ).c_str()
+      };

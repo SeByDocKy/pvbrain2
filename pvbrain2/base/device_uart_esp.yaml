@@ -1,11 +1,14 @@
-# Updated : 2024.07.14
-# Version : 1.0.1
+# Updated : 2024.09.30
+# Version : 1.0.2
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
- ############# ESP32 S3 UART ############    
+# Don't send logs to `uart_esp_0` in order to free GPIOs 43 and 44
+logger:
+  baud_rate: 0
+
+############# ESP32 S3 UART ############  
 
 uart:
-  # Set logger baud_rate: to 0 for prevent boot loop
   - id: uart_esp_0
     tx_pin: GPIO43
     rx_pin: GPIO44
