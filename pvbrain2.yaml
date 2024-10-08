@@ -388,6 +388,18 @@ packages:
   #     inverter_modbus_throttle: '100ms'
   #     inverter_update_interval: '1s'
 
+  # inverter_6: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/inverter/EASUN/device_smg2.yaml
+  #   vars:
+  #     inverter_uart_id: uart_${uart_hub_bus}_0
+  #     inverter_name: 'easun'
+  #     inverter_modbus_id: 'modbus_9600_id'
+  #     inverter_modbus_address: '1'
+  #     inverter_modbus_throttle: '200ms'
+  #     inverter_update_interval: '1s'
+
   ################### AC powermeter  ################
    
   # powermeter_1: !include
