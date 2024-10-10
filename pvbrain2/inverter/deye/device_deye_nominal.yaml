@@ -1,3 +1,10 @@
+modbus_controller:
+ - id: ${inverter_name}_modbus_controller
+   address: ${inverter_modbus_address}
+   modbus_id: ${inverter_modbus_id}
+   command_throttle: ${inverter_modbus_throttle}
+   setup_priority: -10
+   update_interval: ${inverter_update_interval}
 
 globals:  
   - id: ${inverter_name}_pv_energy_total_yesterday_global
@@ -33,14 +40,6 @@ time:
           - globals.set:
               id: ${inverter_name}_battery_discharging_energy_yesterday_global
               value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesterday_global) =  float( id(${inverter_name}_battery_discharging_energy_today).state) ); 
-
-modbus_controller:
- - id: ${inverter_name}_modbus_controller
-   address: ${inverter_modbus_address}
-   modbus_id: ${inverter_modbus_id}
-   command_throttle: ${inverter_modbus_throttle}
-   setup_priority: -10
-   update_interval: ${inverter_update_interval}
 
 binary_sensor:           
     
@@ -107,10 +106,10 @@ sensor:
   - platform: template
     name: ${name}_${inverter_name}_battery_charging_current
     id: ${inverter_name}_battery_charging_current
-    unit_of_measurement: 'W'
+    unit_of_measurement: 'A'
     accuracy_decimals: 2
     update_interval: ${inverter_template_update}
-    icon: mdi:power  
+    icon: mdi:current-dc  
     lambda: |-
       if (id(${inverter_name}_battery_current).state >= 0) {
         return (id(${inverter_name}_battery_current).state );
@@ -155,10 +154,10 @@ sensor:
   - platform: template
     name: ${name}_${inverter_name}_battery_discharging_current
     id: ${inverter_name}_battery_discharging_current
-    unit_of_measurement: 'W'
+    unit_of_measurement: 'A'
     accuracy_decimals: 2
     update_interval: ${inverter_template_update}
-    icon: mdi:power  
+    icon: mdi:current-dc  
     lambda: |-
       if (id(${inverter_name}_battery_current).state < 0) {
         return ( - id(${inverter_name}_battery_current).state );
@@ -291,6 +290,7 @@ sensor:
     address: 191
     unit_of_measurement: 'A'
     accuracy_decimals: 2
+    icon: mdi:current-dc
     device_class: current
     state_class: measurement
     value_type: S_WORD
@@ -302,6 +302,7 @@ sensor:
     name: ${name}_${inverter_name}_battery_max_charge_current
     register_type: holding
     unit_of_measurement: 'A'
+    icon: mdi:current-dc
     accuracy_decimals: 0
     device_class: current
     address: 210
@@ -312,6 +313,7 @@ sensor:
     name: ${name}_${inverter_name}_battery_max_discharge_current
     register_type: holding
     unit_of_measurement: 'A'
+    icon: mdi:current-dc
     accuracy_decimals: 0
     device_class: current
     address: 211
@@ -662,6 +664,7 @@ sensor:
     address: 110
     unit_of_measurement: 'A'
     accuracy_decimals: 2
+    icon: mdi:current-dc
     device_class: current
     state_class: measurement
     filters:
@@ -675,6 +678,7 @@ sensor:
     register_type: holding
     address: 112
     unit_of_measurement: 'A'
+    icon: mdi:current-dc
     accuracy_decimals: 2
     device_class: current
     state_class: measurement
@@ -770,6 +774,7 @@ sensor:
     register_type: holding
     address: 164
     unit_of_measurement: 'A'
+    icon: mdi:current-dc
     accuracy_decimals: 2
     device_class: current
     state_class: measurement
@@ -980,6 +985,7 @@ number:
     name: ${name}_${inverter_name}_battery_max_charge_current
     id: ${inverter_name}_battery_max_charge_current_number
     unit_of_measurement: 'A'
+    icon: mdi:current-dc
     address: 210
     value_type: U_WORD
     min_value: 5
@@ -993,6 +999,7 @@ number:
     name: ${name}_${inverter_name}_battery_max_discharge_current
     id: ${inverter_name}_battery_max_discharge_current_number
     unit_of_measurement: 'A'
+    icon: mdi:current-dc
     address: 211
     value_type: U_WORD
     min_value: 0
@@ -1006,6 +1013,7 @@ number:
     name: ${name}_${inverter_name}_grid_charge_battery_current
     id: ${inverter_name}_grid_charge_battery_current_number
     unit_of_measurement: 'A'
+    icon: mdi:current-dc
     address: 230
     value_type: U_WORD
     min_value: 0
