@@ -6,6 +6,29 @@ modbus_controller:
     setup_priority: -10
     update_interval: ${inverter_update_interval}
     
+globals:  
+  - id: ${inverter_name}_pv_energy_yesterday_global
+    type: float
+    restore_value: yes    
+  - id: ${inverter_name}_ac_output_energy_yesterday_global
+    type: float
+    restore_value: yes
+
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:           
+          - globals.set:
+              id: ${inverter_name}_pv_energy_yesterday_global
+              value: !lambda return ( id(${inverter_name}_pv_energy_yesterday_global) =  float( id(${inverter_name}_pv_energy_today).state) );                    
+          - globals.set:
+              id: ${inverter_name}_ac_output_energy_yesterday_global
+              value: !lambda return ( id(${inverter_name}_ac_output_energy_yesterday_global) =  float( id(${inverter_name}_ac_output_energy_today).state) );
+    
 text_sensor:
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -42,7 +65,7 @@ sensor:
     unit_of_measurement: 'V'
     state_class: 'measurement'
     device_class: 'voltage'
-    icon: 'mdi:alpha-v-circle-outline'
+    icon: 'mdi:sine-wave'
     value_type: U_WORD
     accuracy_decimals: 1
     filters:
@@ -57,7 +80,7 @@ sensor:
     unit_of_measurement: 'A'
     state_class: 'measurement'
     device_class: 'current'
-    icon: 'mdi:alpha-a-circle-outline'
+    icon: 'mdi:current-dc'
     value_type: U_WORD
     accuracy_decimals: 2
     filters:
@@ -70,6 +93,7 @@ sensor:
     register_type: holding
     address: 0x000A
     unit_of_measurement: 'W'
+    accuracy_decimals: 1
     state_class: 'measurement'
     device_class: 'power'
     icon: 'mdi:solar-power'
@@ -77,6 +101,29 @@ sensor:
     filters:
       - multiply: 10    
 
+  - platform: total_daily_energy
+    name: ${name}_${inverter_name}_pv_energy_today
+    id: ${inverter_name}_pv_energy_today
+    power_id: ${inverter_name}_pv_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1   
+    method: trapezoid
+    filters:
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter    
+      
+  - platform: template
+    name: ${name}_${inverter_name}_pv_energy_yesterday
+    id: ${inverter_name}_pv_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: ${inverter_template_update}
+    lambda: |-
+      return ( id(${inverter_name}_pv_energy_yesterday).state = id(${inverter_name}_pv_energy_yesterday_global) );  
+     
+      
 ########## Output Grid Data  #########
 
   - platform: modbus_controller
@@ -86,9 +133,10 @@ sensor:
     register_type: holding
     address: 0x000C
     unit_of_measurement: 'W'
+    accuracy_decimals: 1
     state_class: 'measurement'
     device_class: 'power'
-    icon: 'mdi:solar-power-variant-outline'
+    icon: mdi:power
     value_type: U_WORD
     filters:
       - multiply: 10
@@ -100,8 +148,9 @@ sensor:
     register_type: holding
     address: 0x000D 
     unit_of_measurement: 'kVar'
+    accuracy_decimals: 1
     state_class: 'measurement'
-    icon: 'mdi:math-cos'
+    icon: mdi:math-cos
     value_type: S_WORD
     filters:
       - multiply: 10
@@ -114,7 +163,7 @@ sensor:
     address: 0x000E                
     unit_of_measurement: 'Hz'
     state_class: 'measurement'
-    icon: 'mdi:current-ac'
+    icon: mdi:sine-wave
     value_type: U_WORD
     accuracy_decimals: 2
     filters:
@@ -129,7 +178,7 @@ sensor:
     unit_of_measurement: 'V'
     state_class: 'measurement'
     device_class: 'voltage'
-    icon: 'mdi:alpha-v-circle'
+    icon: mdi:sine-wave
     value_type: U_WORD
     accuracy_decimals: 1
     filters:
@@ -144,7 +193,7 @@ sensor:
     unit_of_measurement: 'A'
     state_class: 'measurement'
     device_class: 'current'
-    icon: 'mdi:alpha-a-circle'
+    icon: mdi:current-ac
     value_type: U_WORD
     accuracy_decimals: 2
     filters:
@@ -162,7 +211,7 @@ sensor:
     accuracy_decimals: 1
     device_class: 'energy'
     state_class: 'total_increasing'
-    icon: 'mdi:solar-power-variant-outline'
+    icon: mdi:counter
     value_type: U_DWORD
     
   - platform: modbus_controller
@@ -172,7 +221,7 @@ sensor:
     register_type: holding
     address: 0x0017
     unit_of_measurement: 'min'
-    icon: 'mdi:timeline-clock'
+    icon: mdi:timeline-clock
     value_type: U_DWORD
     
   - platform: modbus_controller
@@ -180,16 +229,26 @@ sensor:
     name: ${name}_${inverter_name}_ac_output_energy_today
     id: ${inverter_name}_ac_output_energy_today
     register_type: holding
-    address: 0x0685
+    address: 0x0019
     unit_of_measurement: 'kWh'
     state_class: 'measurement'
     device_class: 'energy'
-    icon: 'mdi:solar-power-variant-outline'
+    icon: mdi:counter
     value_type: U_WORD
     accuracy_decimals: 1
     filters:
       - multiply: 0.01    
-
+      
+  - platform: template
+    name: ${name}_${inverter_name}_ac_output_energy_yesterday
+    id: ${inverter_name}_ac_output_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: ${inverter_template_update}
+    lambda: |-
+      return ( id(${inverter_name}_ac_output_energy_yesterday).state = id(${inverter_name}_ac_output_energy_yesterday_global) );    
+     
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_ac_output_energy_today_duration
@@ -197,7 +256,7 @@ sensor:
     register_type: holding
     address: 0x001A
     unit_of_measurement: 'min'
-    icon: 'mdi:timeline-clock'
+    icon: mdi:timeline-clock
     value_type: U_WORD 
       
   ########## Inverter inner sensors #########
@@ -209,9 +268,10 @@ sensor:
     register_type: holding
     address: 0x001B
     unit_of_measurement: '°C'
+    accuracy_decimals: 1
     state_class: 'measurement'
     device_class: 'temperature'
-    icon: 'mdi:temperature-celsius'
+    icon: mdi:thermometer
     value_type: U_WORD
       
   - platform: modbus_controller
@@ -221,9 +281,10 @@ sensor:
     register_type: holding
     address: 0x001C
     unit_of_measurement: '°C'
+    accuracy_decimals: 1
     state_class: 'measurement'
     device_class: 'temperature'
-    icon: 'mdi:temperature-celsius'
+    icon: mdi:thermometer
     value_type: U_WORD
    
   - platform: modbus_controller
@@ -235,7 +296,7 @@ sensor:
     unit_of_measurement: 'V'
     state_class: 'measurement'
     device_class: 'voltage'
-    icon: 'mdi:alpha-v-circle-outline'
+    icon: mdi:sine-wave
     value_type: U_WORD
     accuracy_decimals: 1
     filters:
@@ -248,7 +309,7 @@ sensor:
     register_type: holding
     address: 0x0024
     unit_of_measurement: 'Ohm'
+    accuracy_decimals: 1
     state_class: 'measurement'
-    icon: 'mdi:omega'
+    icon: mdi:omega
     value_type: U_WORD
-       
