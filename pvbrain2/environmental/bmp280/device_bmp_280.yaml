@@ -3,7 +3,7 @@
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
 sensor:
-  - platform: bmp280
+  - platform: bmp280_i2c
     temperature:
       name: ${name}_${environnemental_name}_temperature
       accuracy_decimals: 1
