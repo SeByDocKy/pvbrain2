@@ -399,6 +399,19 @@ packages:
   #     inverter_modbus_throttle: '200ms'
   #     inverter_update_interval: '1s'
 
+  # inverter_7: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/inverter/sofar/device_sofar_KTLG3.yaml
+  #   vars:
+  #     inverter_name: 'sofar'
+  #     inverter_modbus_id: 'modbus_9600_1'
+  #     inverter_modbus_address: '1'
+  #     inverter_modbus_throttle: '200ms'
+  #     inverter_update_interval: '3s'
+  #     inverter_template_update: '3s'
+
+
   ################### AC powermeter  ################
    
   # powermeter_1: !include
