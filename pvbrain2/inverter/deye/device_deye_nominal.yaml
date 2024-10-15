@@ -87,8 +87,8 @@ sensor:
     register_type: holding
     value_type: U_WORD
     address: 37
-    filters:
-      - offset: 1
+    # filters:
+    #   - offset: 1
     
   - platform: modbus_controller            # 55/01 Limiter
     modbus_controller_id: ${inverter_name}_modbus_controller
