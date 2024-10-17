@@ -1,6 +1,8 @@
-# Updated : 2024.07.17
-# Version : 1.4.2
+# Updated : 2024.10.03
+# Version : 1.2.3
 # GitHub  : https://github.com/syssi/esphome-jk-bms
+
+# YamBMS ( Yet another multi-BMS Merging Solution )
 
 # This YAML is free software: you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -14,6 +16,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/gpl.html>.
+
+substitutions:
+  bms_model: "JK-B"
+  bms_protocol: "UART"
 
 packages:
   bms_base: !include bms_base.yaml
@@ -67,10 +73,7 @@ switch:
       name: "${name} ${bms_name} Charge switch"
     discharging:
       name: "${name} ${bms_name} Discharge switch"
-    # Do not uncomment unless balancer switch over UART starts working in the future
-    # balancer:
-    #   id: bms${bms_id}_switch_balancing
-    #   name: "${name} ${bms_name} Balance switch"
+    # It is not possible to control the balancer from UART-TTL (confirmed by @syssi)
 
 sensor:
   - platform: jk_bms
@@ -140,38 +143,30 @@ sensor:
     cell_voltage_16:
       id: bms${bms_id}_cell_v_16
       name: "${name} ${bms_name} cell voltage 16"
-    cell_voltage_17:
-      id: bms${bms_id}_cell_v_17
-      name: "${name} ${bms_name} cell voltage 17"
-      disabled_by_default: true
-    cell_voltage_18:
-      id: bms${bms_id}_cell_v_18
-      name: "${name} ${bms_name} cell voltage 18"
-      disabled_by_default: true
-    cell_voltage_19:
-      id: bms${bms_id}_cell_v_19
-      name: "${name} ${bms_name} cell voltage 19"
-      disabled_by_default: true
-    cell_voltage_20:
-      id: bms${bms_id}_cell_v_20
-      name: "${name} ${bms_name} cell voltage 20"
-      disabled_by_default: true
-    cell_voltage_21:
-      id: bms${bms_id}_cell_v_21
-      name: "${name} ${bms_name} cell voltage 21"
-      disabled_by_default: true
-    cell_voltage_22:
-      id: bms${bms_id}_cell_v_22
-      name: "${name} ${bms_name} cell voltage 22"
-      disabled_by_default: true
-    cell_voltage_23:
-      id: bms${bms_id}_cell_v_23
-      name: "${name} ${bms_name} cell voltage 23"
-      disabled_by_default: true
-    cell_voltage_24:
-      id: bms${bms_id}_cell_v_24
-      name: "${name} ${bms_name} cell voltage 24"
-      disabled_by_default: true
+    # cell_voltage_17:
+    #   id: bms${bms_id}_cell_v_17
+    #   name: "${name} ${bms_name} cell voltage 17"
+    # cell_voltage_18:
+    #   id: bms${bms_id}_cell_v_18
+    #   name: "${name} ${bms_name} cell voltage 18"
+    # cell_voltage_19:
+    #   id: bms${bms_id}_cell_v_19
+    #   name: "${name} ${bms_name} cell voltage 19"
+    # cell_voltage_20:
+    #   id: bms${bms_id}_cell_v_20
+    #   name: "${name} ${bms_name} cell voltage 20"
+    # cell_voltage_21:
+    #   id: bms${bms_id}_cell_v_21
+    #   name: "${name} ${bms_name} cell voltage 21"
+    # cell_voltage_22:
+    #   id: bms${bms_id}_cell_v_22
+    #   name: "${name} ${bms_name} cell voltage 22"
+    # cell_voltage_23:
+    #   id: bms${bms_id}_cell_v_23
+    #   name: "${name} ${bms_name} cell voltage 23"
+    # cell_voltage_24:
+    #   id: bms${bms_id}_cell_v_24
+    #   name: "${name} ${bms_name} cell voltage 24"
     power_tube_temperature:
       id: bms${bms_id}_power_tube_temperature
       name: "${name} ${bms_name} power tube temperature"
@@ -198,10 +193,10 @@ sensor:
       name: "${name} ${bms_name} discharging power"
     capacity_remaining:
       id: bms${bms_id}_state_of_charge
-      name: "${name} ${bms_name} capacity remaining"
+      name: "${name} ${bms_name} state of charge"
     capacity_remaining_derived:
       id: bms${bms_id}_capacity_remaining_ah
-      name: "${name} ${bms_name} capacity remaining derived"
+      name: "${name} ${bms_name} capacity remaining"
     temperature_sensors:
       name: "${name} ${bms_name} temperature sensors"
       entity_category: diagnostic
