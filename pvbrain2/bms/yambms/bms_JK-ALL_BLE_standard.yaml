@@ -162,6 +162,86 @@ sensor:
     errors_bitmask:
       id: bms${bms_id}_errors_bitmask
       name: "${name} ${bms_name} errors bitmask"
+    cell_voltage_1:
+      id: bms${bms_id}_cell_v_01
+      name: "${name} ${bms_name} cell voltage 01"
+    cell_voltage_2:
+      id: bms${bms_id}_cell_v_02
+      name: "${name} ${bms_name} cell voltage 02"
+    cell_voltage_3:
+      id: bms${bms_id}_cell_v_03
+      name: "${name} ${bms_name} cell voltage 03"
+    cell_voltage_4:
+      id: bms${bms_id}_cell_v_04
+      name: "${name} ${bms_name} cell voltage 04"
+    cell_voltage_5:
+      id: bms${bms_id}_cell_v_05
+      name: "${name} ${bms_name} cell voltage 05"
+    cell_voltage_6:
+      id: bms${bms_id}_cell_v_06
+      name: "${name} ${bms_name} cell voltage 06"
+    cell_voltage_7:
+      id: bms${bms_id}_cell_v_07
+      name: "${name} ${bms_name} cell voltage 07"
+    cell_voltage_8:
+      id: bms${bms_id}_cell_v_08
+      name: "${name} ${bms_name} cell voltage 08"
+    cell_voltage_9:
+      id: bms${bms_id}_cell_v_09
+      name: "${name} ${bms_name} cell voltage 09"
+    cell_voltage_10:
+      id: bms${bms_id}_cell_v_10
+      name: "${name} ${bms_name} cell voltage 10"
+    cell_voltage_11:
+      id: bms${bms_id}_cell_v_11
+      name: "${name} ${bms_name} cell voltage 11"
+    cell_voltage_12:
+      id: bms${bms_id}_cell_v_12
+      name: "${name} ${bms_name} cell voltage 12"
+    cell_voltage_13:
+      id: bms${bms_id}_cell_v_13
+      name: "${name} ${bms_name} cell voltage 13"
+    cell_voltage_14:
+      id: bms${bms_id}_cell_v_14
+      name: "${name} ${bms_name} cell voltage 14"
+    cell_voltage_15:
+      id: bms${bms_id}_cell_v_15
+      name: "${name} ${bms_name} cell voltage 15"
+    cell_voltage_16:
+      id: bms${bms_id}_cell_v_16
+      name: "${name} ${bms_name} cell voltage 16"
+    cell_resistance_1:
+      name: "${name} ${bms_name} cell resistance 01"
+    cell_resistance_2:
+      name: "${name} ${bms_name} cell resistance 02"
+    cell_resistance_3:
+      name: "${name} ${bms_name} cell resistance 03"
+    cell_resistance_4:
+      name: "${name} ${bms_name} cell resistance 04"
+    cell_resistance_5:
+      name: "${name} ${bms_name} cell resistance 05"
+    cell_resistance_6:
+      name: "${name} ${bms_name} cell resistance 06"
+    cell_resistance_7:
+      name: "${name} ${bms_name} cell resistance 07"
+    cell_resistance_8:
+      name: "${name} ${bms_name} cell resistance 08"
+    cell_resistance_9:
+      name: "${name} ${bms_name} cell resistance 09"
+    cell_resistance_10:
+      name: "${name} ${bms_name} cell resistance 10"
+    cell_resistance_11:
+      name: "${name} ${bms_name} cell resistance 11"
+    cell_resistance_12:
+      name: "${name} ${bms_name} cell resistance 12"
+    cell_resistance_13:
+      name: "${name} ${bms_name} cell resistance 13"
+    cell_resistance_14:
+      name: "${name} ${bms_name} cell resistance 14"
+    cell_resistance_15:
+      name: "${name} ${bms_name} cell resistance 15"
+    cell_resistance_16:
+      name: "${name} ${bms_name} cell resistance 16"
 
 text_sensor:
   - platform: jk_bms_ble

@@ -34,7 +34,8 @@ jk_rs485_sniffer:
     protocol_version: ${sniffer_protocol}
     rx_timeout: 500ms
     uart_id: ${sniffer_uart_id}
-
+    talk_pin: ${sniffer_talk_pin}
+ 
 switch:
   - platform: template
     name: ${name} JK-PB RS485 sniffer Broadcast changes to all BMS
