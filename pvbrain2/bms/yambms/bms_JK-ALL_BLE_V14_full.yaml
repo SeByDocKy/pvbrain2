@@ -79,6 +79,9 @@ binary_sensor:
       name: "${name} ${bms_name} discharging"
     online_status:
       name: "${name} ${bms_name} Online Status"
+    # Commits 2024.01.27 : Expose heating status/current (ALL)
+    heating:
+      name: "${name} ${bms_name} heating"
 
 switch:
   - platform: jk_bms_ble
@@ -92,6 +95,18 @@ switch:
     balancer:
       id: bms${bms_id}_switch_balancing
       name: "${name} ${bms_name} Balance switch"
+    # Commits 2024.01.20 : Add new switch entities of firmware version 14 (from V11)
+    heating:
+      name: "${name} ${bms_name} heating"
+    smart_sleep:
+      name: "${name} ${bms_name} smart sleep"
+    disable_pcl_module:
+      name: "${name} ${bms_name} disable pcl module"
+    timed_stored_data:
+      name: "${name} ${bms_name} timed stored data"
+    charging_float_mode:
+      name: "${name} ${bms_name} charging float mode"
+
     # +--------------------------------------+
   - platform: ble_client
     ble_client_id: client_bms${bms_id}
@@ -254,15 +269,6 @@ sensor:
     discharging_power:
       id: bms${bms_id}_discharging_power
       name: "${name} ${bms_name} discharging power"
-    power_tube_temperature:
-      id: bms${bms_id}_power_tube_temperature
-      name: "${name} ${bms_name} power tube temperature"
-    temperature_sensor_1:
-      id: bms${bms_id}_temperature_sensor_1
-      name: "${name} ${bms_name} temperature sensor 1"
-    temperature_sensor_2:
-      id: bms${bms_id}_temperature_sensor_2
-      name: "${name} ${bms_name} temperature sensor 2"
     state_of_charge:
       id: bms${bms_id}_state_of_charge
       name: "${name} ${bms_name} state of charge"
@@ -284,12 +290,38 @@ sensor:
     errors_bitmask:
       id: bms${bms_id}_errors_bitmask
       name: "${name} ${bms_name} errors bitmask"
+    power_tube_temperature:
+      id: bms${bms_id}_power_tube_temperature
+      name: "${name} ${bms_name} power tube temperature"
+    temperature_sensor_1:
+      id: bms${bms_id}_temperature_sensor_1
+      name: "${name} ${bms_name} temperature sensor 1"
+    temperature_sensor_2:
+      id: bms${bms_id}_temperature_sensor_2
+      name: "${name} ${bms_name} temperature sensor 2"
+    # Commits 2024.07.07 : Add new temperature sensor of the v14 model (V14)
+    temperature_sensor_3:
+      name: "${name} ${bms_name} temperature sensor 3"
+    temperature_sensor_4:
+      name: "${name} ${bms_name} temperature sensor 4"
+    temperature_sensor_5:
+      name: "${name} ${bms_name} temperature sensor 5"
+    # Commits 2024.01.21 : Expose emergency time countdown and add feedback to the switch (from V11)
+    emergency_time_countdown:
+      name: "${name} emergency time countdown"
+    # Commits 2024.01.27 : Expose heating status/current (ALL)
+    heating_current:
+      name: "${name} ${bms_name} heating current"
+    # Commits 2024.07.07 : Improve the support of the JK-PBs series (ALL)
+    balancing:
+      name: "${name} ${bms_name} balancing"   
 
 text_sensor:
   - platform: jk_bms_ble
     jk_bms_ble_id: bms${bms_id}
     errors:
       name: "${name} ${bms_name} errors"
+      entity_category: diagnostic
     total_runtime_formatted:
       name: "${name} ${bms_name} total runtime formatted"
       entity_category: diagnostic
@@ -334,6 +366,51 @@ number:
     balance_trigger_voltage:
       id: bms${bms_id}_balance_trigger_voltage
       name: "${name} ${bms_name} balance trigger voltage"
+    # Commits 2024.07.07 : Improve the support of the JK-PBs series (from V11)
+    smart_sleep_voltage:
+      name: "${name} ${bms_name} smart sleep voltage"
+    cell_soc100_voltage:
+      name: "${name} ${bms_name} cell soc100 voltage"
+    cell_soc0_voltage:
+      name: "${name} ${bms_name} cell soc0 voltage"
+    cell_request_charge_voltage:
+      name: "${name} ${bms_name} cell request charge voltage"
+    cell_request_float_voltage:
+      name: "${name} ${bms_name} cell request float voltage"
+    # Commits 2024.07.26 : Add controls for some more protection settings (ALL)
+    charge_overcurrent_protection_delay:
+      name: "${name} ${bms_name} charge overcurrent protection delay"
+    charge_overcurrent_protection_recovery_time:
+      name: "${name} ${bms_name} charge overcurrent protection recovery time"
+    discharge_overcurrent_protection_delay:
+      name: "${name} ${bms_name} discharge overcurrent protection delay"
+    discharge_overcurrent_protection_recovery_time:
+      name: "${name} ${bms_name} discharge overcurrent protection recovery time"
+    short_circuit_protection_delay:
+      name: "${name} ${bms_name} short circuit protection delay"
+    short_circuit_protection_recovery_time:
+      name: "${name} ${bms_name} short circuit protection recovery time"
+    charge_overtemperature_protection:
+      name: "${name} ${bms_name} charge overtemperature protection"
+    charge_overtemperature_protection_recovery:
+      name: "${name} ${bms_name} charge overtemperature protection recovery"
+    discharge_overtemperature_protection:
+      name: "${name} ${bms_name} discharge overtemperature protection"
+    discharge_overtemperature_protection_recovery:
+      name: "${name} ${bms_name} discharge overtemperature protection recovery"
+    charge_undertemperature_protection:
+      name: "${name} ${bms_name} charge undertemperature protection"
+    charge_undertemperature_protection_recovery:
+      name: "${name} ${bms_name} charge undertemperature protection recovery"
+    power_tube_overtemperature_protection:
+      name: "${name} ${bms_name} power tube overtemperature protection"
+    power_tube_overtemperature_protection_recovery:
+      name: "${name} ${bms_name} power tube overtemperature protection recovery"
+    # Commits 2024.07.29 : Make "RCV Time" and "RFV Time" controllable (from V14)
+    cell_request_charge_voltage_time:
+      name: "${name} cell request charge voltage time"
+    cell_request_float_voltage_time:
+      name: "${name} cell request float voltage time"
 
 button:
   - platform: jk_bms_ble
