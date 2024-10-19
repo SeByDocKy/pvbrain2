@@ -14,7 +14,7 @@ wk2168_spi:
     cs_pin: 
       number: GPIO46
       ignore_strapping_warning: true    # Delete warning for the strapping pin
-    data_rate: 4MHz
+    data_rate: ${spi_data_rate}
     #test_mode: 1
     uart:
       - id: uart_spi_8
