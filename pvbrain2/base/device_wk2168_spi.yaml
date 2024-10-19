@@ -15,7 +15,7 @@ wk2168_spi:
   - id: uart_bridge0
     spi_id: spi0_bus
     cs_pin: GPIO19
-    data_rate: 4MHz
+    data_rate: ${spi_data_rate}
     #test_mode: 1
     uart:
       - id: uart_spi_0
@@ -36,7 +36,7 @@ wk2168_spi:
   - id: uart_bridge1
     spi_id: spi0_bus
     cs_pin: GPIO20
-    data_rate: 4MHz
+    data_rate: ${spi_data_rate}
     uart:
       - id: uart_spi_4
         channel: 0
