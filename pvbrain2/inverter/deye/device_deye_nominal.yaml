@@ -24,9 +24,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:           
           - globals.set:
               id: ${inverter_name}_pv_energy_total_yesterday_global
@@ -61,6 +61,15 @@ binary_sensor:
     address: 46
     # skip: 10
     
+  - platform: modbus_controller          # 47 MPPT number 
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_mppt_number
+    id: ${name}_${inverter_name}_mppt_number
+    register_type: holding
+    # value_type: U_WORD
+    address: 47
+
+
   - platform: modbus_controller          # 48 GFDI mode
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_GFDI_mode
@@ -77,7 +86,6 @@ binary_sensor:
     register_type: holding
     address: 194  
 
-    
 sensor:
 
   - platform: modbus_controller            # 37/01 Modbus address
@@ -87,8 +95,8 @@ sensor:
     register_type: holding
     value_type: U_WORD
     address: 37
-    # filters:
-    #   - offset: 1
+    filters:
+      - offset: 1
     
   - platform: modbus_controller            # 55/01 Limiter
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -545,6 +553,19 @@ sensor:
     register_type: holding
     address: 280
     value_type: U_WORD
+    
+  - platform: modbus_controller            # 293 Grid Peak Shaving Power
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_grid_peak_shaving_power
+    id: ${inverter_name}_grid_peak_shaving_power
+    address: 293
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: 'W'
+    accuracy_decimals: 2
+    device_class: power
+    state_class: measurement
+    icon: mdi:power   
       
     
   - platform: modbus_controller            # 081 Grid Export Energy Total (Sell)
@@ -944,6 +965,38 @@ sensor:
     update_interval: ${inverter_template_update}
     
 switch:
+
+  - platform: modbus_controller          # 243 Priority Load
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_low_power_mode
+    id: ${inverter_name}_low_power_mode
+    register_type: holding
+    address: 28
+    bitmask: 2
+    icon: mdi:toggle-switch
+    
+  - platform: modbus_controller          # 243 Priority Load
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_mppt_multipoint_scanning
+    id: ${inverter_name}_mppt_multipoint_scanning
+    register_type: holding
+    address: 28
+    bitmask: 5
+    icon: mdi:toggle-switch
+    
+  - platform: modbus_controller          # 243 Priority Load
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_low_noise_mode
+    id: ${inverter_name}_low_noise_mode
+    register_type: holding
+    address: 34
+    bitmask: 1
+    icon: mdi:toggle-switch  
+  
+
   - platform: modbus_controller          # 247 Toggle Solar Sell
     use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -954,17 +1007,7 @@ switch:
     bitmask: 1
     entity_category: config
     icon: mdi:toggle-switch
-  
-  - platform: modbus_controller          # 243 Priority Load
-    use_write_multiple: true
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_toggle_priority_load
-    id: ${inverter_name}_toggle_priority_load
-    register_type: holding
-    address: 243
-    bitmask: 1
-    icon: mdi:toggle-switch
-  
+    
   - platform: modbus_controller          # 326 Toggle Force Generator
     use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -1069,20 +1112,7 @@ number:
     max_value: 185
     step: 5
     mode: 'slider'
-        
-  - platform: modbus_controller            # 293 Grid Peak Shaving Power
-    use_write_multiple: true
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_grid_peak_shaving_power
-    id: ${inverter_name}_grid_peak_shaving_power_number
-    address: 293
-    value_type: U_WORD
-    unit_of_measurement: 'W'
-    min_value: 0
-    max_value: 8000
-    step: 500
-    mode: 'slider'
-    
+
   - platform: modbus_controller            # 245 Max Sell Power
     use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -1095,6 +1125,22 @@ number:
     max_value: 8000
     step: 500
     mode: 'slider'
+
+    
+  - platform: modbus_controller            # 293 Grid Peak Shaving Power
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_grid_peak_shaving_power
+    id: ${inverter_name}_grid_peak_shaving_power_number
+    address: 293
+    value_type: U_WORD
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    min_value: 0
+    max_value: 8000
+    step: 500
+    mode: 'slider'
+    
     
 select:
 
@@ -1113,8 +1159,20 @@ select:
   - platform: modbus_controller                   #243 Select Energy Patern
     use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_operate
+    id: ${inverter_name}_battery_operate
+    address: 213
+    value_type: U_WORD
+    optionsmap:
+      "According to the voltage": 0
+      "According to the capacity": 1
+      "No battery": 2
+  
+  - platform: modbus_controller                   #243 Select Energy Patern
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_energy_pattern
-    id: ${inverter_name}_energy_pattern_select
+    id: ${inverter_name}_energy_pattern
     address: 243
     value_type: U_WORD
     optionsmap:
@@ -1125,7 +1183,7 @@ select:
     use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_work_mode
-    id: ${inverter_name}_work_mode_select
+    id: ${inverter_name}_work_mode
     address: 244
     value_type: U_WORD
     optionsmap:
