@@ -24,9 +24,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 59
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:           
           - globals.set:
               id: ${inverter_name}_pv_energy_total_yesterday_global
@@ -1027,6 +1027,31 @@ switch:
 
 number:
 
+  - platform: template         # 201 Battery Equalization Voltage
+    name: ${name}_${inverter_name}_battery_equalization_voltage
+    id: ${inverter_name}_battery_equalization_voltage_number
+    unit_of_measurement: 'V'
+    optimistic: true
+    icon: mdi:sine-wave
+    min_value: 50.00
+    max_value: 61.00
+    step: 0.05
+    initial_value: 55.90
+    restore_value: true
+    mode: 'slider'
+    on_value:
+      then: 
+        - lambda: |-
+            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+            std::vector<uint16_t> battery_settings(1);
+            battery_settings[0]  = uint16_t(  (id(${inverter_name}_battery_absorption_voltage_number).state)*100 );
+                    
+            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 201, battery_settings.size() ,
+                                                                                          battery_settings);
+            delay(200);
+            controller->queue_command(battery_command);
+            delay(200);
+
   - platform: template         # 202 Battery Absorption Voltage
     name: ${name}_${inverter_name}_battery_absorption_voltage
     id: ${inverter_name}_battery_absorption_voltage_number
@@ -1076,6 +1101,57 @@ number:
             delay(200);
             controller->queue_command(battery_command);
             delay(200);
+            
+            
+  - platform: template         # 220 Battery Shuntdown Voltage
+    name: ${name}_${inverter_name}_battery_shuntdown_voltage
+    id: ${inverter_name}_battery_low_shuntdown_number
+    unit_of_measurement: 'V'
+    optimistic: true
+    icon: mdi:sine-wave
+    min_value: 40.00
+    max_value: 52.00
+    step: 0.05
+    initial_value: 47.00
+    restore_value: true
+    mode: 'slider'
+    on_value:
+      then: 
+        - lambda: |-
+            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+            std::vector<uint16_t> battery_settings(1);
+            battery_settings[0]  = uint16_t(  (id(${inverter_name}_battery_float_voltage_number).state)*100 );
+                    
+            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 220, battery_settings.size() ,
+                                                                                          battery_settings);
+            delay(200);
+            controller->queue_command(battery_command);
+            delay(200);            
+            
+  - platform: template         # 222 Battery Low Voltage
+    name: ${name}_${inverter_name}_battery_low_voltage
+    id: ${inverter_name}_battery_low_voltage_number
+    unit_of_measurement: 'V'
+    optimistic: true
+    icon: mdi:sine-wave
+    min_value: 40.00
+    max_value: 52.00
+    step: 0.05
+    initial_value: 48.50
+    restore_value: true
+    mode: 'slider'
+    on_value:
+      then: 
+        - lambda: |-
+            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+            std::vector<uint16_t> battery_settings(1);
+            battery_settings[0]  = uint16_t(  (id(${inverter_name}_battery_float_voltage_number).state)*100 );
+                    
+            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 222, battery_settings.size() ,
+                                                                                          battery_settings);
+            delay(200);
+            controller->queue_command(battery_command);
+            delay(200);            
     
   
   - platform: modbus_controller         # 210 Battery Max Charge current
