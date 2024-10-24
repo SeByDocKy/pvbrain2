@@ -24,9 +24,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:           
           - globals.set:
               id: ${inverter_name}_pv_energy_total_yesterday_global
@@ -1035,7 +1035,7 @@ number:
     icon: mdi:sine-wave
     min_value: 50.00
     max_value: 61.00
-    step: 0.05
+    step: 0.1
     initial_value: 55.90
     restore_value: true
     mode: 'slider'
@@ -1060,7 +1060,7 @@ number:
     icon: mdi:sine-wave
     min_value: 50.00
     max_value: 61.00
-    step: 0.05
+    step: 0.1
     initial_value: 55.90
     restore_value: true
     mode: 'slider'
@@ -1085,7 +1085,7 @@ number:
     icon: mdi:sine-wave
     min_value: 50.00
     max_value: 61.00
-    step: 0.05
+    step: 0.1
     initial_value: 55.90
     restore_value: true
     mode: 'slider'
@@ -1111,7 +1111,7 @@ number:
     icon: mdi:sine-wave
     min_value: 40.00
     max_value: 52.00
-    step: 0.05
+    step: 0.1
     initial_value: 47.00
     restore_value: true
     mode: 'slider'
@@ -1136,7 +1136,7 @@ number:
     icon: mdi:sine-wave
     min_value: 40.00
     max_value: 52.00
-    step: 0.05
+    step: 0.1
     initial_value: 48.50
     restore_value: true
     mode: 'slider'
