@@ -9,7 +9,7 @@ light:
     rmt_channel: 1
     chipset: ws2812
     effects: !include
-      file: ../environmental/light/effect_addressable_monoled.yaml
+      file: ../environmental/light/effects/addressable_monoled.yaml
     entity_category: config
 
   - platform: partition
@@ -20,7 +20,7 @@ light:
         from: 0
         to: 0
     effects: !include
-      file: ../environmental/light/effect_addressable_monoled.yaml
+      file: ../environmental/light/effects/addressable_monoled.yaml
   - platform: partition
     name: ${name}_led_strip_2
     id: ${name}_led_strip_2
@@ -29,7 +29,7 @@ light:
         from: 1
         to: 1
     effects: !include
-      file: ../environmental/light/effect_addressable_monoled.yaml
+      file: ../environmental/light/effects/addressable_monoled.yaml
 
   - platform: partition
     name: ${name}_led_strip_3
@@ -39,7 +39,7 @@ light:
         from: 2
         to: 2
     effects: !include
-      file: ../environmental/light/effect_addressable_monoled.yaml
+      file: ../environmental/light/effects/addressable_monoled.yaml
 
   - platform: partition
     name: ${name}_led_strip_4
@@ -49,7 +49,7 @@ light:
         from: 3
         to: 3
     effects: !include
-      file: ../environmental/light/effect_addressable_monoled.yaml
+      file: ../environmental/light/effects/addressable_monoled.yaml
 
   - platform: partition
     name: ${name}_led_strip_5
@@ -59,7 +59,7 @@ light:
         from: 4
         to: 4
     effects: !include
-      file: ../environmental/light/effect_addressable_monoled.yaml
+      file: ../environmental/light/effects/addressable_monoled.yaml
 
   - platform: partition
     name: ${name}_led_strip_6
@@ -69,7 +69,7 @@ light:
         from: 5
         to: 5
     effects: !include
-      file: ../environmental/light/effect_addressable_monoled.yaml
+      file: ../environmental/light/effects/addressable_monoled.yaml
 
   - platform: partition
     name: ${name}_led_strip_7
@@ -86,7 +86,7 @@ light:
         from: 7
         to: 7
     effects: !include
-      file: ../environmental/light/effect_addressable_monoled.yaml
+      file: ../environmental/light/effects/addressable_monoled.yaml
 
 
 
