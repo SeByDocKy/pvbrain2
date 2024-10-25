@@ -1,7 +1,4 @@
 light:  
-
-
-
 # https://esphome.io/components/light/esp32_rmt_led_strip
   - platform: esp32_rmt_led_strip
     id: out_board_light_io14
