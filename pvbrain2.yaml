@@ -251,7 +251,7 @@ packages:
 #       linky_update_interval: '5s'
     
 
-  ################# AC dimmer/SSR  ##############
+  ################# AC dimmer/SSR LSA  ##############
   
   # ac_dimmer_1: !include
   #   # url: ${git_url}
@@ -271,14 +271,24 @@ packages:
   #     ac_dimmer_gate_gpio: GPIO03
   #     ac_dimmer_zc_gpio: GPIO42
 
-  # ssr_1: !include
+  # lsa_sx1509_1: !include
   #   # url: ${git_url}
   #   # refresh: 0s
-  #   file: pvbrain2/ac_dimmer/device_ssr.yaml
+  #   file: pvbrain2/ac_dimmer/device_lsa_sx1509.yaml
   #   vars:
-  #     ssr_name: 'ssr'
-  #     ssr_hub: 'sx1509_hub1'
-  #     ssr_pin: '12'
+  #     lsa_sx1509_name: 'lsa1'
+  #     lsa_sx1509_hub: 'sx1509_hub1'
+  #     lsa_sx1509_pin: '4'
+
+  # lsa_gp8403_1: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/ac_dimmer/device_lsa_gp8403.yaml
+  #   vars:
+  #     lsa_gp8403_name: 'lsa1'
+  #     lsa_gp8403_channel: '0'
+  #     lsa_gp8403_i2c_id: 'i2c1_bus'
+  #     lsa_gp8403_i2c_address: '0x58'
 
   ################# Optocoupler (AC's presence detection)  ##############
   
