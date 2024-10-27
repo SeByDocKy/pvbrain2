@@ -30,8 +30,7 @@ substitutions:
   uart9_baudrate: '38400'
   uart10_baudrate: '19200'
   uart11_baudrate: '9600'
-######### spi data rate frequency for all wk2168 ########
-  spi_data_rate: '4MHz'
+
   
   
   #### Example of '!extend' for 'builtin ESP32_S3_UART' special cases ######
