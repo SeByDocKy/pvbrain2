@@ -1,0 +1,11 @@
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [ statistics ]
+    refresh: 0s
+    
+sensor:
+  - platform: statistics
+    id: ${name}_${statistics_name}_id
+    name: ${name}_${statistics_name}
+    entity_id: ${statistics_id}
+    method: ${statistics_method}    
