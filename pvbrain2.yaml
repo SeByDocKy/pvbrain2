@@ -688,6 +688,32 @@ packages:
   #     total_production_pv_source4: 'srne2_pv_power'
   #     total_production_pv_template_update: '3s'
 
+
+########################## statistics ###########
+
+  # statistics_1:  !include
+  #   file: pvbrain2/miscellaneous/statistics/device_statistics.yaml
+  #   vars:  
+  #     statistics_name: 'soc_max'
+  #     statistics_id: 'smartshunt_soc'
+  #     statistics_method: 'max'
+
+  # statistics_2:  !include
+  #   file: pvbrain2/miscellaneous/statistics/device_statistics.yaml
+  #   vars:  
+  #     statistics_name: 'soc_min'
+  #     statistics_id: 'smartshunt_soc'
+  #     statistics_method: 'min'
+
+  # statistics_3:  !include
+  #   file: pvbrain2/miscellaneous/statistics/device_statistics.yaml
+  #   vars:  
+  #     statistics_name: 'total_production_pv_power_max'
+  #     statistics_id: 'total_production_pv_power_total'
+  #     statistics_method: 'max' 
+
+
+
     ################# MULTIBMS/MULTICAN  ##############
 
   # virtual_canbus_1: !include
