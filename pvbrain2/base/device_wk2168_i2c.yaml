@@ -2,9 +2,6 @@
 # Version : 1.0.2
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
-substitutions:
-  uart_hub_bus: 'i2c'
-
 i2c:
   - id: i2c1_bus
     sda: GPIO41 
