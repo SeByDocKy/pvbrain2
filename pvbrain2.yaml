@@ -287,7 +287,7 @@ packages:
   #   vars:
   #     lsa_gp8403_name: 'lsa1'
   #     lsa_gp8403_channel: '0'
-  #     lsa_gp8403_i2c_id: 'i2c1_bus'
+  #     lsa_gp8403_i2c_id: 'i2c0_bus'
   #     lsa_gp8403_i2c_address: '0x58'
 
   ################# Optocoupler (AC's presence detection)  ##############
