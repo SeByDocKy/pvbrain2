@@ -1,7 +1,3 @@
-substitutions:
-  inverter_max_power: '3000'
-  inverter_balance_loop_delay: '5s'
-  
 modbus_controller:
   - id: ${inverter_name}_modbus_controller
     address: ${inverter_modbus_address}
