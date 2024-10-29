@@ -1,11 +1,6 @@
-# substitutions:
-  # ${inverter_max_power}: '3000'
-  # balance_loop_delay: '5s'
-
-# modbus:
-  # - id: ${inverter_name}_modbus
-    # uart_id: ${inverter_uart_id}
-    # send_wait_time: ${inverter_modbus_send_wait_time}
+substitutions:
+  inverter_max_power: '3000'
+  inverter_balance_loop_delay: '5s'
   
 modbus_controller:
   - id: ${inverter_name}_modbus_controller
