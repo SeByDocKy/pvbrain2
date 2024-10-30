@@ -198,6 +198,6 @@ sensor:
       accuracy_decimals: 1
 
     state_of_charge:
-      name: ${name}_${powermeter_name}_state_of_charge
-      id: ${powermeter_name}_state_of_charge
+      name: ${name}_${powermeter_name}_soc
+      id: ${powermeter_name}_soc
       
