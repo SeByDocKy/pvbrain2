@@ -1,3 +1,6 @@
+# Updated : 2024.11.01
+# Version : 1.0.1
+
 substitutions:
    offset_select: '2'
 
@@ -7,19 +10,19 @@ external_components:
     refresh: 0s
     
 globals:
-  - id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix1}
+  - id: ${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix1}
     type: float
     restore_value: yes
     
-  - id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix1}
+  - id: ${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix1}
     type: float
     restore_value: yes    
     
-  - id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix2}
+  - id: ${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix2}
     type: float
     restore_value: yes
     
-  - id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix2}
+  - id: ${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix2}
     type: float
     restore_value: yes    
    
@@ -32,20 +35,20 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix1}
-              value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix1}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_suffix1}).state) );
+              id: ${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix1}
+              value: !lambda return ( id(${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix1}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_suffix1}).state) );
 
           - globals.set:
-              id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix1}
-              value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix1}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_suffix1}).state) );                
+              id: ${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix1}
+              value: !lambda return ( id(${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix1}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_suffix1}).state) );                
                 
           - globals.set:
-              id: ${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix2}
-              value: !lambda return ( id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix2}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_suffix2}).state) );
+              id: ${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix2}
+              value: !lambda return ( id(${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix2}) =  float( id(${powermeter_name}_pos_energy_today_${powermeter_suffix2}).state) );
 
           - globals.set:
-              id: ${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix2}
-              value: !lambda return ( id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix2}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_suffix2}).state) );                
+              id: ${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix2}
+              value: !lambda return ( id(${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix2}) =  float( id(${powermeter_name}_neg_energy_today_${powermeter_suffix2}).state) );                
     
 # modbus:
    # - id: ${powermeter_name}_modbus_${powermeter_suffix1}
@@ -230,14 +233,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix1}
-    id: template_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix1}
+    name: ${name}_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix1}
+    id: template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix1}).state = id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix1}));  
+      return (id(template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix1}).state = id(${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix1}));  
  
     ##### Negative energy1 ####
     
@@ -268,14 +271,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix1}
-    id: template_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix1}
+    name: ${name}_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix1}
+    id: template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix1}).state = id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix1}));  
+      return (id(template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix1}).state = id(${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix1}));  
  
  
  
@@ -308,14 +311,14 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix2}
-    id: template_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix2}
+    name: ${name}_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix2}
+    id: template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_pos_energy_yesteday_${powermeter_suffix2}).state = id(${powermeter_name}_pos_energy_yesteday_global_${powermeter_suffix2}));  
+      return (id(template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix2}).state = id(${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix2}));  
  
     ##### Negative energy2 ####
     
@@ -346,13 +349,13 @@ sensor:
     icon: mdi:counter
     
   - platform: template
-    name: ${name}_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix2}
-    id: template_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix2}
+    name: ${name}_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix2}
+    id: template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:power
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(template_${powermeter_name}_neg_energy_yesteday_${powermeter_suffix2}).state = id(${powermeter_name}_neg_energy_yesteday_global_${powermeter_suffix2}));
+      return (id(template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix2}).state = id(${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix2}));
         
     
