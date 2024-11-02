@@ -3,7 +3,8 @@ modbus_controller:
     address: ${inverter_modbus_address}
     modbus_id: ${inverter_modbus_id}
     command_throttle: ${inverter_modbus_throttle}
-    setup_priority: -10
+    # offline_skip_updates: ${inverter_modbus_offline_skip_updates}
+    setup_priority: -20
     update_interval: ${inverter_update_interval}
     
 globals:  
@@ -18,9 +19,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:           
           - globals.set:
               id: ${inverter_name}_pv_energy_yesterday_global
@@ -40,7 +41,7 @@ text_sensor:
     icon: 'mdi:information-outline'
     raw_encode: HEXBYTES
     lambda: |-
-      auto z = "Unknown";
+      // auto z = "Unknown";
       char value = data[item->offset+1];
       switch (value) {
         case 0: return std::string("Waiting");
@@ -74,7 +75,7 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_pv_current
-    id: _${inverter_name}_pv_current
+    id: ${inverter_name}_pv_current
     register_type: holding
     address: 0x0007
     unit_of_measurement: 'A'
@@ -313,3 +314,87 @@ sensor:
     state_class: 'measurement'
     icon: mdi:omega
     value_type: U_WORD
+    
+    
+    
+ ############################ CT readings anti-reflux #############
+ 
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_sign_ct_current
+    id: ${inverter_name}_sign_ct_current
+    register_type: holding
+    address: 0x0028
+    bitmask: 0x8000
+    icon: 'mdi:numeric'
+    value_type: U_WORD
+    accuracy_decimals: 0
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_raw_ct_current
+    id: ${inverter_name}_raw_ct_current
+    register_type: holding
+    address: 0x0028
+    bitmask: 0x7FFF
+    unit_of_measurement: 'A'
+    state_class: 'measurement'
+    device_class: 'current'
+    icon: 'mdi:current-dc'
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+      
+  - platform: template
+    name: ${name}_${inverter_name}_ct_current
+    id: ${inverter_name}_ct_current
+    unit_of_measurement: 'A'
+    accuracy_decimals: 2
+    state_class: 'measurement'
+    device_class: 'current'
+    icon: 'mdi:current-dc'
+    update_interval: ${inverter_template_update}
+    lambda: |-
+      return ( ((1.0f - (id(${inverter_name}_sign_ct_current).state)) * (id(${inverter_name}_raw_ct_current).state)) - ((id(${inverter_name}_sign_ct_current).state) * (id(${inverter_name}_raw_ct_current).state)));
+
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_sign_ct_power
+    id: ${inverter_name}_sign_ct_power
+    register_type: holding
+    address: 0x0029
+    bitmask: 0x8000
+    icon: 'mdi:numeric'
+    value_type: U_WORD
+    accuracy_decimals: 0
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_raw_ct_power
+    id: ${inverter_name}_raw_ct_power
+    register_type: holding
+    address: 0x0029
+    bitmask: 0x7FFF
+    unit_of_measurement: 'W'
+    state_class: 'measurement'
+    device_class: 'power'
+    icon: 'mdi:power'
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 10
+      
+  - platform: template
+    name: ${name}_${inverter_name}_ct_power
+    id: ${inverter_name}_ct_power
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    state_class: 'measurement'
+    device_class: 'power'
+    icon: 'mdi:solar-power'
+    update_interval: ${inverter_template_update}
+    lambda: |-
+      return ( ((1.0f - id(${inverter_name}_sign_ct_power).state) * id(${inverter_name}_raw_ct_power).state) - (id(${inverter_name}_sign_ct_power).state * id(${inverter_name}_raw_ct_power).state));
+       
