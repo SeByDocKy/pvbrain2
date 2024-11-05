@@ -1,0 +1,174 @@
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [solarpid]
+    refresh: 0s  
+    
+number:
+    
+  - platform: template
+    name: ${name}_${solar_router_name}_setpoint
+    id: ${solar_router_name}_setpoint
+    optimistic: true
+    # unit_of_measurement: 'A'
+    # icon: mdi:current-dc
+    min_value: -80
+    max_value: 80
+    step: 0.1
+    mode: 'slider'
+    initial_value: 0
+    restore_value: true
+    on_value:
+       then:
+         - solarpid.set_point: 
+            id: ${solar_router_id}
+            new_setpoint: !lambda |-
+              return (float(id(${solar_router_name}_setpoint).state));
+         # - solarpid.pid_update:
+            # id: ${solar_router_id}    
+
+  - platform: template
+    name: ${name}_${solar_router_name}_setkp
+    id: ${solar_router_name}_setkp
+    optimistic: true
+    # unit_of_measurement: 'A'
+    # icon: mdi:current-dc
+    min_value: 0.0
+    max_value: 100.0
+    step: 0.1
+    mode: 'slider'
+    initial_value: 10.0
+    restore_value: true
+    on_value:
+       then:
+         - solarpid.set_kp: 
+            id: ${solar_router_id}
+            new_kp: !lambda |-
+              return (float(id(${solar_router_name}_setkp).state));
+         # - solarpid.pid_update:
+            # id: ${solar_router_id}    
+
+  - platform: template
+    name: ${name}_${solar_router_name}_setki
+    id: ${solar_router_name}_setki
+    optimistic: true
+    # unit_of_measurement: 'A'
+    # icon: mdi:current-dc
+    min_value: 0.0
+    max_value: 0.5
+    step: 0.01
+    mode: 'slider'
+    initial_value: 0.0
+    restore_value: true
+    on_value:
+       then:
+         - solarpid.set_ki: 
+            id: ${solar_router_id}
+            new_ki: !lambda |-
+              return (float(id(${solar_router_name}_setki).state));
+         # - solarpid.pid_update:
+            # id: ${solar_router_id}
+
+  - platform: template
+    name: ${name}_${solar_router_name}_setkd 
+    id: ${solar_router_name}_setkd
+    optimistic: true
+    # unit_of_measurement: 'A'
+    # icon: mdi:current-dc
+    min_value: 0.0
+    max_value: 1.0
+    step: 0.01
+    mode: 'slider'
+    initial_value: 0.0
+    restore_value: true
+    on_value:
+       then:
+         - solarpid.set_kd: 
+            id: ${solar_router_id}
+            new_kd: !lambda |-
+              return (float(id(${solar_router_name}_setkd).state));                                   
+         # - solarpid.pid_update:
+            # id: ${solar_router_id}
+
+
+  - platform: template
+    name: ${name}_${solar_router_name}_setoutputmin 
+    id: ${solar_router_name}_setoutputmin
+    optimistic: true
+    # unit_of_measurement: 'A'
+    # icon: mdi:current-dc
+    min_value: 0.0
+    max_value: 1.0
+    step: 0.01
+    mode: 'slider'
+    initial_value: 0.14
+    restore_value: true
+    on_value:
+       then:
+         - solarpid.set_output_min: 
+            id: ${solar_router_id}
+            new_output_min: !lambda |-
+              return (float(id(${solar_router_name}_setoutputmin).state));                                   
+         # - solarpid.pid_update:
+            # id: ${solar_router_id}
+
+  - platform: template
+    name: ${name}_${solar_router_name}_setoutputmax 
+    id: ${solar_router_name}_setoutputmax
+    optimistic: true
+    # unit_of_measurement: 'A'
+    # icon: mdi:current-dc
+    min_value: 0.0
+    max_value: 1.0
+    step: 0.01
+    mode: 'slider'
+    initial_value: 0.85
+    restore_value: true
+    on_value:
+       then:
+         - solarpid.set_output_max: 
+            id: ${solar_router_id}
+            new_output_max: !lambda |-
+              return (float(id(${solar_router_name}_setoutputmax).state));                                   
+         # - solarpid.pid_update:
+            # id: ${solar_router_id} 
+switch:
+  - platform: template
+    name: ${name}_${solar_router_name}_activation
+    id: ${solar_router_name}_activation
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_OFF
+    
+sensor:
+         
+  - platform: solarpid
+    id: ${solar_router_id}
+    activation_id: ${solar_router_name}_activation
+    input_id: ${solar_router_name}_input
+    setpoint: 0
+    kp: 8.8
+    ki: 0.08
+    kd: 0.3
+    output_id: ${solar_router_output_id}
+    output_min: 0.13
+    output_max: 0.85
+    power_id: ${solar_router_power_id}
+    pwm_restart: 0.40
+    error:
+      name: ${name}_${solar_router_name}_error
+      accuracy_decimals: 2
+    pwm_output:
+      name: ${name}_${solar_router_name}_pwm_output
+      accuracy_decimals: 2    
+    
+  - platform: copy
+    source_id: ${solar_router_input_id}
+    id: ${solar_router_name}_input
+    filters:
+      - sliding_window_moving_average:
+          window_size: ${solar_router_windows_size}
+          send_every: ${solar_router_windows_size}
+    on_value:
+      then:
+        - solarpid.pid_update:
+           id: ${solar_router_id} 
+  
