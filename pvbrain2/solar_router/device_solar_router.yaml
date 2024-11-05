@@ -9,8 +9,8 @@ number:
     name: ${name}_${solar_router_name}_setpoint
     id: ${solar_router_name}_setpoint
     optimistic: true
-    # unit_of_measurement: 'A'
-    # icon: mdi:current-dc
+    unit_of_measurement: 'A'
+    icon: mdi:current-dc
     min_value: -80
     max_value: 80
     step: 0.1
@@ -23,15 +23,11 @@ number:
             id: ${solar_router_id}
             new_setpoint: !lambda |-
               return (float(id(${solar_router_name}_setpoint).state));
-         # - solarpid.pid_update:
-            # id: ${solar_router_id}    
-
+           
   - platform: template
     name: ${name}_${solar_router_name}_setkp
     id: ${solar_router_name}_setkp
     optimistic: true
-    # unit_of_measurement: 'A'
-    # icon: mdi:current-dc
     min_value: 0.0
     max_value: 100.0
     step: 0.1
@@ -44,15 +40,11 @@ number:
             id: ${solar_router_id}
             new_kp: !lambda |-
               return (float(id(${solar_router_name}_setkp).state));
-         # - solarpid.pid_update:
-            # id: ${solar_router_id}    
-
+           
   - platform: template
     name: ${name}_${solar_router_name}_setki
     id: ${solar_router_name}_setki
     optimistic: true
-    # unit_of_measurement: 'A'
-    # icon: mdi:current-dc
     min_value: 0.0
     max_value: 0.5
     step: 0.01
@@ -65,15 +57,11 @@ number:
             id: ${solar_router_id}
             new_ki: !lambda |-
               return (float(id(${solar_router_name}_setki).state));
-         # - solarpid.pid_update:
-            # id: ${solar_router_id}
-
+         
   - platform: template
     name: ${name}_${solar_router_name}_setkd 
     id: ${solar_router_name}_setkd
     optimistic: true
-    # unit_of_measurement: 'A'
-    # icon: mdi:current-dc
     min_value: 0.0
     max_value: 1.0
     step: 0.01
@@ -86,16 +74,11 @@ number:
             id: ${solar_router_id}
             new_kd: !lambda |-
               return (float(id(${solar_router_name}_setkd).state));                                   
-         # - solarpid.pid_update:
-            # id: ${solar_router_id}
-
-
+  
   - platform: template
     name: ${name}_${solar_router_name}_setoutputmin 
     id: ${solar_router_name}_setoutputmin
     optimistic: true
-    # unit_of_measurement: 'A'
-    # icon: mdi:current-dc
     min_value: 0.0
     max_value: 1.0
     step: 0.01
@@ -108,15 +91,11 @@ number:
             id: ${solar_router_id}
             new_output_min: !lambda |-
               return (float(id(${solar_router_name}_setoutputmin).state));                                   
-         # - solarpid.pid_update:
-            # id: ${solar_router_id}
-
+       
   - platform: template
     name: ${name}_${solar_router_name}_setoutputmax 
     id: ${solar_router_name}_setoutputmax
     optimistic: true
-    # unit_of_measurement: 'A'
-    # icon: mdi:current-dc
     min_value: 0.0
     max_value: 1.0
     step: 0.01
@@ -147,8 +126,24 @@ number:
          - solarpid.set_starting_battery_voltage: 
             id: ${solar_router_id}
             new_starting_battery_voltage: !lambda |-
-              return (float(id(${solar_router_name}_setstartingbatteryvoltage).state));              
-         
+              return (float(id(${solar_router_name}_setstartingbatteryvoltage).state));
+
+  - platform: template
+    name: ${name}_${solar_router_name}_setoutputrestart
+    id: ${solar_router_name}_setoutputrestart
+    optimistic: true
+    min_value: 0.0
+    max_value: 1.0
+    step: 0.05
+    mode: 'slider'
+    initial_value: 0.40
+    restore_value: true
+    on_value:
+       then:
+         - solarpid.set_output_restart: 
+            id: ${solar_router_id}
+            new_output_restart: !lambda |-
+              return (float(id(${solar_router_name}_setoutputrestart).state));                   
 switch:
   - platform: template
     name: ${name}_${solar_router_name}_activation
@@ -170,14 +165,14 @@ sensor:
     output_min: 0.13
     output_max: 0.85
     power_id: ${solar_router_power_id}
-    pwm_restart: ${solar_router_pwm_restart}
+    # output_restart: 0.4
     battery_voltage_id: ${solar_router_battery_voltage_id}
-    starting_battery_voltage: ${solar_router_starting_battery_voltage}
+    # starting_battery_voltage: ${solar_router_starting_battery_voltage}
     error:
       name: ${name}_${solar_router_name}_error
       accuracy_decimals: 2
-    pwm_output:
-      name: ${name}_${solar_router_name}_pwm_output
+    output:
+      name: ${name}_${solar_router_name}_output
       accuracy_decimals: 2    
     
   - platform: copy
