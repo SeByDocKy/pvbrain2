@@ -773,3 +773,15 @@ packages:
   #     fan_control_template_update: '10s'
   #     fan_control_text_update: '10s'
 
+  ############################# Solar Router ##########
+
+  solar_router_1: !include
+    file: pvbrain2/solar_router/device_solar_router.yaml
+    vars:
+      solar_router_name: 'solar_router'
+      solar_router_id: 'solar_routeur_id'
+      solar_router_input_id: 'smartshunt_battery_current'
+      solar_router_power_id: 'pzem_router_power'
+      solar_router_output_id: 'lsa1_output'
+      solar_router_windows_size: '3'
+
