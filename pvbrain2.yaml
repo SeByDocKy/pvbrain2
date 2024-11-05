@@ -775,13 +775,15 @@ packages:
 
   ############################# Solar Router ##########
 
-  solar_router_1: !include
-    file: pvbrain2/solar_router/device_solar_router.yaml
-    vars:
-      solar_router_name: 'solar_router'
-      solar_router_id: 'solar_routeur_id'
-      solar_router_input_id: 'smartshunt_battery_current'
-      solar_router_power_id: 'pzem_router_power'
-      solar_router_output_id: 'lsa1_output'
-      solar_router_windows_size: '3'
-
+# solar_router_2: !include
+  #   file: pvbrain2/solar_router/device_solar_router.yaml
+  #   vars:
+  #     solar_router_name: 'solar_router'
+  #     solar_router_id: 'solar_routeur_id'
+  #     solar_router_input_id: 'smartshunt_battery_current'
+  #     solar_router_power_id: 'pzem_router_power'
+  #     solar_router_pwm_restart: '0.40'
+  #     solar_router_battery_voltage_id: 'smartshunt_battery_voltage'
+  #     solar_router_starting_battery_voltage: '54.0'
+  #     solar_router_output_id: 'lsa1_output'
+  #     solar_router_windows_size: '4'
