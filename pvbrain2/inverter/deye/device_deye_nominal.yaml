@@ -24,9 +24,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:           
           - globals.set:
               id: ${inverter_name}_pv_energy_total_yesterday_global
@@ -269,7 +269,7 @@ sensor:
     register_type: holding
     address: 183
     unit_of_measurement: 'V'
-    icon: 'mdi:sine-wave'
+    icon: mdi:sine-wave
     accuracy_decimals: 1
     device_class: voltage
     state_class: measurement
@@ -836,6 +836,21 @@ sensor:
     
    ############### ACout & aux data & statistics  #####
 
+  - platform: modbus_controller            # 164 Inverter Output Current
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_output_voltage
+    id: ${inverter_name}_ac_output_voltage
+    register_type: holding
+    address: 154
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    accuracy_decimals: 1
+    device_class: voltage
+    state_class: measurement
+    value_type: S_WORD
+    filters:
+      - multiply: 0.1
+  
   - platform: modbus_controller            # 164 Inverter Output Current
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_ac_output_current
