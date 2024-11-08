@@ -7,26 +7,20 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:  
           - globals.set:
               id: ${powermeter_name}_energy_yesterday_global
               value: !lambda return ( id(${powermeter_name}_energy_yesterday_global) =  float( id(${powermeter_name}_energy_today).state) );         
- 
-# modbus:
-   # - id: ${powermeter_name}_modbus
-     # uart_id: ${powermeter_uart_id}
-     # send_wait_time: ${powermeter_modbus_send_wait_time}
-   
+    
 button:
   - platform: template
     name: ${name}_${powermeter_name}_reset_energy
     on_press:
       then:
         - pzemac.reset_energy: ${powermeter_name}_id
-   
    
 sensor:
   - platform: pzemac
@@ -53,20 +47,13 @@ sensor:
       accuracy_decimals: 2
       id: ${powermeter_name}_power_factor
     energy:
-      name: ${name}_${powermeter_name}_energy
-      unit_of_measurement: 'Wh'
+      name: ${name}_${powermeter_name}_energy_total
+      unit_of_measurement: 'kWh'
       accuracy_decimals: 1
-      id: ${powermeter_name}_energy
+      id: ${powermeter_name}_energy_total
+      filters: 
+      - multiply: 0.001
     update_interval: ${powermeter_update_interval}
-
-    
-  - platform: template
-    name: ${name}_${powermeter_name}_energy_total
-    unit_of_measurement: 'kWh'
-    accuracy_decimals: 1
-    update_interval: ${powermeter_template_update}
-    icon: mdi:power
-    lambda: return (( (id(${powermeter_name}_energy).state)/1000.0));
     
   - platform: total_daily_energy
     name: ${name}_${powermeter_name}_energy_today
@@ -74,7 +61,8 @@ sensor:
     power_id: ${powermeter_name}_power
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    method: trapezoid
+    method: right
+    restore: true
     filters:
         # Multiplication factor from W to kW is 0.001
       - multiply: 0.001
