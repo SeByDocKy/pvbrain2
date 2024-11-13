@@ -678,15 +678,24 @@ packages:
    ################# TEMPLATE SENSORS  ##############
 
   
-  # total_production_pv_4sources: !include
-  #   file: pvbrain2/template/sensors/total_production_pv_4sources.yaml
+  # total_power_1: !include
+  #   file: pvbrain2/template/sensors/total_5powers.yaml
   #   vars:
-  #     total_production_pv_name: 'total_production_pv'
-  #     total_production_pv_source1: 'axpert_pv1_power' 
-  #     total_production_pv_source2: 'axpert_pv2_power'
-  #     total_production_pv_source3: 'srne1_pv_power'
-  #     total_production_pv_source4: 'srne2_pv_power'
-  #     total_production_pv_template_update: '3s'
+  #     total_power_name: 'total_pv'
+  #     total_power_source1: 'deye_pv1_power' 
+  #     total_power_source2: 'deye_pv2_power'
+  #     total_power_source3: 'srne1_pv_power'
+  #     total_power_source4: 'srne2_pv_power'
+  #     total_power_source5: 'sofar_pv_power'
+  #     total_power_template_update: '2s'
+
+  # total_power_2: !include
+  #   file: pvbrain2/template/sensors/total_2powers.yaml
+  #   vars:
+  #     total_power_name: 'total_ac_ouput'
+  #     total_power_source1: 'deye_ac_output_power' 
+  #     total_power_source2: 'sofar_ac_output_power'
+  #     total_power_template_update: '2s'        
 
 
 ########################## statistics ###########
