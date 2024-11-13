@@ -1,0 +1,72 @@
+
+globals:  
+  - id: ${total_power_name}_energy_yesterday_global
+    type: float
+    restore_value: yes
+
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+  
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:           
+          - globals.set:
+              id: ${total_power_name}_energy_yesterday_global
+              value: !lambda return ( id(${total_power_name}_energy_yesterday_global) =  float( id(${total_power_name}_energy_today).state) );                    
+    
+sensor:
+  - platform: template
+    id: ${total_power_name}_power
+    name: ${name}_${total_power_name}_power
+    accuracy_decimals: 1
+    icon: mdi:power
+    unit_of_measurement: 'W'
+    update_interval: ${total_power_template_update}
+    lambda: |-
+      float power = 0.0f;
+      if (id(${total_power_source1}).has_state()){
+        power += id(${total_power_source1}).state;
+      }
+      if (id(${total_power_source2}).has_state()){
+        power += id(${total_power_source2}).state;
+      }
+      if (id(${total_power_source3}).has_state()){
+        power += id(${total_power_source3}).state;
+      }
+      if (id(${total_power_source4}).has_state()){
+        power += id(${total_power_source4}).state;
+      }
+      if (id(${total_power_source5}).has_state()){
+        power += id(${total_power_source5}).state;
+      }
+      if (id(${total_power_source6}).has_state()){
+        power += id(${total_power_source6}).state;
+      }
+      return power;
+
+      
+  - platform: total_daily_energy
+    name: ${name}_${total_power_name}_energy_today
+    id: ${total_power_name}_energy_today
+    power_id: ${total_power_name}_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter
+  
+  - platform: template
+    name: ${name}_${total_power_name}_energy_yesterday
+    id: ${total_power_name}_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${total_power_template_update}
+    lambda: |-
+      return ( id(${total_power_name}_energy_yesterday).state = id(${total_power_name}_energy_yesterday_global) );  
+      
