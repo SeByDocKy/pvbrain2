@@ -71,7 +71,6 @@ sensor:
       name: ${name}_${powermeter_name}_energy
       unit_of_measurement: 'Wh'
       accuracy_decimals: 1
-      id: ${powermeter_name}_energy
     update_interval: ${powermeter_update_interval}
     
   # - platform: template
