@@ -151,11 +151,18 @@ switch:
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
     
+  - platform: template
+    name: ${name}_${solar_router_name}_manual_override
+    id: ${solar_router_name}_manual_override
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_OFF  
+    
 sensor:
          
   - platform: solarpid
     id: ${solar_router_id}
     activation_id: ${solar_router_name}_activation
+    manual_override_id: ${solar_router_name}_manual_override
     input_id: ${solar_router_name}_input
     setpoint: 0
     kp: 10.0
@@ -165,7 +172,6 @@ sensor:
     output_min: 0.13
     output_max: 0.85
     power_id: ${solar_router_power_id}
-    # output_restart: 0.4
     battery_voltage_id: ${solar_router_battery_voltage_id}
     # starting_battery_voltage: ${solar_router_starting_battery_voltage}
     error:
@@ -187,3 +193,10 @@ sensor:
         - solarpid.pid_update:
            id: ${solar_router_id} 
   
+# binary_sensor:
+  # - platform: solarpid
+    # solarpid_id: ${solar_router_id}
+    # thermostat_cut:
+      # name: ${name}_${solar_router_name}_thermostat_cut
+      # id: ${solar_router_name}_thermostat_cut
+    
