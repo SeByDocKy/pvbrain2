@@ -397,4 +397,18 @@ sensor:
     update_interval: ${inverter_template_update}
     lambda: |-
       return ( ((1.0f - id(${inverter_name}_sign_ct_power).state) * id(${inverter_name}_raw_ct_power).state) - (id(${inverter_name}_sign_ct_power).state * id(${inverter_name}_raw_ct_power).state));
-       
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ct_antireflux_power
+    id: ${inverter_name}_ct_antireflux_power
+    register_type: holding
+    address: 0x002E
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    state_class: 'measurement'
+    device_class: 'power'
+    icon: 'mdi:transmission-tower-export'
+    value_type: U_WORD
+    filters:
+      - multiply: 10    
