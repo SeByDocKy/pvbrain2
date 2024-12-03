@@ -404,6 +404,7 @@ sensor:
     id: ${inverter_name}_ct_antireflux_power
     register_type: holding
     address: 0x002E
+    bitmask: 0xFFF8   #bits 15-3 power, bits 2-1 <=> 0 disable, 1 Reflux CT mode, 2 Reflux eMeter mode, 3 Reflux ARPC mode
     unit_of_measurement: 'W'
     accuracy_decimals: 1
     state_class: 'measurement'
