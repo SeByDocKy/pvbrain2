@@ -669,7 +669,7 @@ packages:
   #   vars:
   #     bms_name: 'jkpb1'
   #     bms_modbus_id: 'modbus_115200_id'
-  #     bms_modbus_address: '0'
+  #     bms_modbus_address: '1'
   #     bms_update_interval: '5s'
   #     bms_template_update: '5s'
   #     bms_text_update: '5s'
