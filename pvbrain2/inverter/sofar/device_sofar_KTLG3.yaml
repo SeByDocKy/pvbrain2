@@ -19,9 +19,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:           
           - globals.set:
               id: ${inverter_name}_pv_energy_yesterday_global
@@ -52,6 +52,39 @@ text_sensor:
         default: return std::string("Unknown");
       }
       return x;
+      
+select:
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ct_antireflux_power
+    id: ${inverter_name}_ct_antireflux_power_select
+    address: 0x9007
+    optionsmap:
+      "CT antireflux enable": 0
+      "CT antireflux disable": 1
+    write_lambda: |-
+      esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+      std::vector<uint8_t> cmd_data(7);
+      if (value == 0) { 
+        cmd_data ={${inverter_modbus_address},0x56,0x90,0x07,0x55,0x00,0x00};
+      }
+      if (value == 1) {
+        cmd_data ={${inverter_modbus_address},0x56,0x90,0x07,0xAA,0x00,0x00};
+      }
+      auto write_cmd = esphome::modbus_controller::ModbusCommandItem::create_custom_command(controller, cmd_data, nullptr);        
+      controller->queue_command(write_cmd); 
+      return {};
+        
+binary_sensor:
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ct_enabled
+    id: ${inverter_name}_ct_enabled
+    register_type: holding
+    address: 0x002E
+    bitmask: 0x0002   #bits 15-3 power, bits 2-1 <=> 0 disable, 1 Reflux CT mode, 2 Reflux eMeter mode, 3 Reflux ARPC mode
+    icon: 'mdi:tape-measure'
       
 sensor:
 
@@ -225,20 +258,32 @@ sensor:
     icon: mdi:timeline-clock
     value_type: U_DWORD
     
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
+  # - platform: modbus_controller
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_ac_output_energy_today
+    # id: ${inverter_name}_ac_output_energy_today
+    # register_type: holding
+    # address: 0x0019
+    # unit_of_measurement: 'kWh'
+    # state_class: 'measurement'
+    # device_class: 'energy'
+    # icon: mdi:counter
+    # value_type: U_WORD
+    # accuracy_decimals: 1
+    # filters:
+      # - multiply: 0.01
+
+  - platform: total_daily_energy
     name: ${name}_${inverter_name}_ac_output_energy_today
     id: ${inverter_name}_ac_output_energy_today
-    register_type: holding
-    address: 0x0019
+    power_id: ${inverter_name}_ac_output_power
     unit_of_measurement: 'kWh'
-    state_class: 'measurement'
-    device_class: 'energy'
-    icon: mdi:counter
-    value_type: U_WORD
-    accuracy_decimals: 1
+    accuracy_decimals: 1   
+    method: trapezoid
     filters:
-      - multiply: 0.01    
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter      
       
   - platform: template
     name: ${name}_${inverter_name}_ac_output_energy_yesterday
@@ -397,19 +442,20 @@ sensor:
     update_interval: ${inverter_template_update}
     lambda: |-
       return ( ((1.0f - id(${inverter_name}_sign_ct_power).state) * id(${inverter_name}_raw_ct_power).state) - (id(${inverter_name}_sign_ct_power).state * id(${inverter_name}_raw_ct_power).state));
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_ct_antireflux_power
-    id: ${inverter_name}_ct_antireflux_power
-    register_type: holding
-    address: 0x002E
-    bitmask: 0xFFF8   #bits 15-3 power, bits 2-1 <=> 0 disable, 1 Reflux CT mode, 2 Reflux eMeter mode, 3 Reflux ARPC mode
-    unit_of_measurement: 'W'
-    accuracy_decimals: 1
-    state_class: 'measurement'
-    device_class: 'power'
-    icon: 'mdi:transmission-tower-export'
-    value_type: U_WORD
-    filters:
-      - multiply: 10    
+      
+  # - platform: modbus_controller
+    # modbus_controller_id: ${inverter_name}_modbus_controller
+    # name: ${name}_${inverter_name}_ct_antireflux_power
+    # id: ${inverter_name}_ct_antireflux_power
+    # register_type: holding
+    # address: 0x002E
+    # # bitmask: 0xFFF8   #bits 15-3 power, bits 2-1 <=> 0 disable, 1 Reflux CT mode, 2 Reflux eMeter mode, 3 Reflux ARPC mode
+    # unit_of_measurement: 'W'
+    # accuracy_decimals: 1
+    # state_class: 'measurement'
+    # device_class: 'power'
+    # icon: 'mdi:transmission-tower-export'
+    # value_type: U_WORD
+    # filters:
+      # - multiply: 10     
+       
