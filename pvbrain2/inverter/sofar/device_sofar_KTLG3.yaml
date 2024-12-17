@@ -54,29 +54,33 @@ text_sensor:
       return x;
       
 select:
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
+      
+  - platform: template
     name: ${name}_${inverter_name}_ct_antireflux_mode
     id: ${inverter_name}_ct_antireflux_power_mode
-    address: 0x9007
-    optionsmap:
-      "CT antireflux enable": 0
-      "CT antireflux disable": 1
-    write_lambda: |-
-      esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
-      std::vector<uint8_t> cmd_data(7);
-      if (value == 0) { 
-        cmd_data ={${inverter_modbus_address},0x56,0x90,0x07,0x55,0x00,0x00};
-      }
-      if (value == 1) {
-        cmd_data ={${inverter_modbus_address},0x56,0x90,0x07,0xAA,0x00,0x00};
-      }
-      auto write_cmd = esphome::modbus_controller::ModbusCommandItem::create_custom_command(controller, cmd_data, nullptr);        
-      delay(200);
-      controller->queue_command(write_cmd);
-      delay(200) ;
-      return {};
-        
+    options:
+      - "CT enable"
+      - "CT disable"
+    optimistic: True
+    restore_value: True    
+    initial_option: "CT enable"
+    on_value: 
+      - lambda: |-
+          esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+          std::vector<uint8_t> cmd_data(7);
+          if (i == 0) { 
+            cmd_data ={${inverter_modbus_address},0x56,0x90,0x07,0x55,0x00,0x00};
+            ESP_LOGVV("CT antireflux enabled");
+          }
+          if (i == 1) {
+            cmd_data ={${inverter_modbus_address},0x56,0x90,0x07,0xAA,0x00,0x00};
+            ESP_LOGVV("CT antireflux disabled");
+          }
+          auto write_cmd = esphome::modbus_controller::ModbusCommandItem::create_custom_command(controller, cmd_data, nullptr);        
+          delay(200);
+          controller->queue_command(write_cmd);
+          delay(200);
+       
 binary_sensor:
 
   - platform: modbus_controller
