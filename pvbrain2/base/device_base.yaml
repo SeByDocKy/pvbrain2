@@ -18,7 +18,7 @@ packages:
   device_sx1509: !include device_sx1509.yaml
   device_uart_esp: !include device_uart_esp.yaml
   device_wk2168_spi: !include device_wk2168_spi.yaml
-  device_out_board_led_strip: !include device_out_board_led_strip.yaml
+  # device_out_board_led_strip: !include device_out_board_led_strip.yaml
   # device_wk2132_i2c: !include device_wk2132_i2c.yaml
   # device_wk2132_spi: !include device_wk2132_spi.yaml
   # device_wk2168_i2c: !include device_wk2168_i2c.yaml
@@ -57,17 +57,17 @@ light:
     entity_category: config
 
 # https://esphome.io/components/light/esp32_rmt_led_strip
-  - platform: esp32_rmt_led_strip
-    name: ${name}_on_board_light_io48
-    id: on_board_light_io48
-    rgb_order: GRB
-    pin: GPIO48
-    num_leds: 1
-    rmt_channel: 0
-    chipset: ws2812
-    effects: !include
-      file: ../environmental/light/effects/addressable_monoled.yaml
-    entity_category: config
+  # - platform: esp32_rmt_led_strip
+  #   name: ${name}_on_board_light_io48
+  #   id: on_board_light_io48
+  #   rgb_order: GRB
+  #   pin: GPIO48
+  #   num_leds: 1
+  #   rmt_channel: 0
+  #   chipset: ws2812
+  #   effects: !include
+  #     file: ../environmental/light/effects/addressable_monoled.yaml
+  #   entity_category: config
 
 switch:
 # https://esphome.io/components/switch/restart
