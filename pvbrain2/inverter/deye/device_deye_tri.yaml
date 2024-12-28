@@ -1,0 +1,4 @@
+packages:
+  deye_tri_nominal: !include device_deye_tri_nominal.yaml
+  # deye_tri_advanced: !include device_deye_tri_advanced.yaml
+
