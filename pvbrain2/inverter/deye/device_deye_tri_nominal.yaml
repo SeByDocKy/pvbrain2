@@ -24,9 +24,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: ${my_second}
-        minutes: ${my_minute}
-        hours: ${my_hours}
+      - seconds: 59
+        minutes: 59
+        hours: 23
         then:           
           - globals.set:
               id: ${inverter_name}_pv_energy_total_yesterday_global
