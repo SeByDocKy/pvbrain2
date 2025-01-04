@@ -1301,7 +1301,7 @@ number:
     unit_of_measurement: 'A'
     icon: mdi:current-dc
     min_value: 2
-    max_value: 60
+    max_value: 100
     step:  2
     mode: 'slider'
     multiply: 100
