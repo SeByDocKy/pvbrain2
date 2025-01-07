@@ -1,10 +1,10 @@
-# Updated : 2024.09.30
-# Version : 1.0.2
+# Updated : 2025.01.07
+# Version : 1.0.3
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
 substitutions:
   name: 'pvbrain2'
-  pvbrain2_version: '1.0.2'
+  pvbrain2_version: '1.0.3'
   git_url: 'https://github.com/SeByDocKy/pvbrain2@main'
 
   ###### For builtin ESP32 S3 UART ports ######
@@ -675,6 +675,43 @@ packages:
   #     bms_template_update: '5s'
   #     bms_text_update: '5s'
   #     bms_modbus_throttle: '200ms'
+
+  #
+  # @txubelaxu JK_RS485 component
+  # The 4 blocks below are an example of importing 3x JK-PB BMS supervised from the RS485 bus (two right ports)
+  #
+
+  # sniffer1: !include
+  #   file: pvbrain2/bms/jikong/device_JK-PB_RS485_sniffer.yaml
+  #   vars:
+  #     sniffer_protocol: 'JK02_32S'
+  #     sniffer_uart_id: uart_${uart_hub_bus}_4
+
+  # # Mode1 : configure the DIP switches of your BMS from 0x00 to 0x0F (max 16 BMS)
+  # # Mode2 : configure the DIP switches of your BMS from 0x01 to 0x0F (don't use the 0x00 address, maximum 15 BMS)
+  # bms1: !include
+  #   file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+  #   vars:
+  #     bms_id: '1' # must be a number
+  #     bms_name: 'JK-BMS 1'
+  #     bms_address: '0x00' # BMS 1 DIP switch
+  #     bms_update_interval: '3s' # going below '3s' can cause problems
+  
+  # bms2: !include
+  #   file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+  #   vars:
+  #     bms_id: '2' # must be a number
+  #     bms_name: 'JK-BMS 2'
+  #     bms_address: '0x01' # BMS 2 DIP switch
+  #     bms_update_interval: '3s' # going below '3s' can cause problems
+
+  # bms3: !include
+  #   file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+  #   vars:
+  #     bms_id: '3' # must be a number
+  #     bms_name: 'JK-BMS 3'
+  #     bms_address: '0x02' # BMS 3 DIP switch
+  #     bms_update_interval: '3s' # going below '3s' can cause problems
 
    ################# TEMPLATE SENSORS  ##############
 
