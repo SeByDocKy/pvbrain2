@@ -1,0 +1,47 @@
+# Updated : 2025.01.07
+# Version : 1.1.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
+# +--------------------------------------+
+# | Packages                             |
+# +--------------------------------------+
+packages:
+
+  # PVbrain2 core
+  # Your current pvbrain2.yaml
+  pvbrain2_core: !include pvbrain2_core.yaml
+
+  # The sniffer represents the ESP node connected to the JK-BMS PB RS485 bus
+  # If address 0x00 is not detected on the RS485 bus, the sniffer will act directly as a master BMS (mode 2, max 15 BMS)
+
+  sniffer1: !include
+    file: pvbrain2/bms/jikong/device_JK-PB_RS485_sniffer.yaml
+    vars:
+      sniffer_protocol: 'JK02_32S'
+      sniffer_uart_id: uart_${uart_hub_bus}_4
+
+  # Mode1 : configure the DIP switches of your BMS from 0x00 to 0x0F (max 16 BMS)
+  # Mode2 : configure the DIP switches of your BMS from 0x01 to 0x0F (don't use the 0x00 address, maximum 15 BMS)
+  bms1: !include
+    file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+    vars:
+      bms_id: '1' # must be a number
+      bms_name: 'JK-BMS 1'
+      bms_address: '0x00' # BMS 1 DIP switch
+      bms_update_interval: '3s' # going below '3s' can cause problems
+  
+  bms2: !include
+    file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+    vars:
+      bms_id: '2' # must be a number
+      bms_name: 'JK-BMS 2'
+      bms_address: '0x01' # BMS 2 DIP switch
+      bms_update_interval: '3s' # going below '3s' can cause problems
+
+  bms3: !include
+    file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+    vars:
+      bms_id: '3' # must be a number
+      bms_name: 'JK-BMS 3'
+      bms_address: '0x02' # BMS 3 DIP switch
+      bms_update_interval: '3s' # going below '3s' can cause problems
