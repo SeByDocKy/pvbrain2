@@ -1,5 +1,5 @@
-# Updated : 2025.01.07
-# Version : 1.1.1
+# Updated : 2025.01.08
+# Version : 1.1.2
 # GitHub  : https://github.com/txubelaxu/esphome-jk-bms
 
 # YamBMS ( Yet another multi-BMS Merging Solution )
@@ -44,9 +44,9 @@ jk_rs485_sniffer:
 
 switch:
   - platform: template
-    name: ${name} JK-PB RS485 broadcast changes to all BMS
+    name: ${name} Broadcasting JK-PB settings to all BMS
     icon: "mdi:cast"
-    restore_mode: RESTORE_DEFAULT_ON
+    restore_mode: RESTORE_DEFAULT_OFF
     optimistic: true
     entity_category: config
     turn_on_action:
