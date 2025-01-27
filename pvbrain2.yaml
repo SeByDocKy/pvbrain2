@@ -374,7 +374,7 @@ packages:
   #   vars:
   #     inverter_name: 'deye'
   #     inverter_modbus_id: 'modbus_9600_id'
-  #     inverter_modbus_address: '4'
+  #     inverter_modbus_address: '1'
   #     inverter_modbus_throttle: '50ms'
   #     inverter_update_interval: '1s'
   #     inverter_template_update: '2s'
