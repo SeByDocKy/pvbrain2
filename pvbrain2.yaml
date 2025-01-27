@@ -15,7 +15,7 @@ substitutions:
  
   ###### For extended UART ports with the 2 WK2168 ######
 
-  uart0_baudrate: '2400'    #WKS         {RJ45-UART0} 
+  uart0_baudrate: '2400'    #2400 for WKS, 9600 for DEYE {RJ45-UART0} 
   uart1_baudrate: '38400'   #JSY193
   uart2_baudrate: '19200'   #smartshunt
   uart3_baudrate: '9600'    #SRNE        {RJ45-UART3} 
@@ -156,7 +156,7 @@ packages:
   #   file: pvbrain2/base/device_modbus.yaml
   #   vars:
   #     modbus_id: 'modbus_9600_id'
-  #     modbus_uart_id: uart_${uart_hub_bus}_3
+  #     modbus_uart_id: uart_${uart_hub_bus}_3   # uart_${uart_hub_bus}_0 for deye
   #     modbus_send_wait_time: '200ms'
 
   # modbus_19200: !include
