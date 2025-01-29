@@ -23,12 +23,6 @@
 # The psram: platform is already declared in the main YAML 'pvbrain2.yam'
 # psram:
 
-
-external_components:
-  - source: "github://SeByDocKy/myESPhome/"
-    components: [ debug ]
-    refresh: 0s
-
 debug:
   update_interval: ${debug_update_interval}
 
