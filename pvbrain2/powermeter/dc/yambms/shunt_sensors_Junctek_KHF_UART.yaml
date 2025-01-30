@@ -1,5 +1,5 @@
-# Updated : 2024.10.17
-# Version : 1.1.2
+# Updated : 2024.12.23
+# Version : 1.1.3
 # GitHub  : https://github.com/Sleeper85/esphome-junctek_khf
 
 # YamBMS ( Yet another multi-BMS Merging Solution )
@@ -19,11 +19,35 @@
 
 packages:
   shunt_base: !include shunt_base.yaml
-  shunt_combine: !include shunt_combine.yaml
+
+# +--------------------------------------+
+# | Component settings                   |
+# +--------------------------------------+
 
 external_components:
   - source: github://Sleeper85/esphome-junctek_khf@main
     refresh: 0s
+  # - source:
+  #     type: local
+  #     path: components
+
+# UART baud_rate : 115200
+
+# +--------------------------------------+
+# | Component entities                   |
+# +--------------------------------------+
+
+binary_sensor:
+  # Required sensors cannot be retrieved from Shunt
+  # online_status
+  - platform: template
+    id: shunt${shunt_id}_online_status
+    name: "${name} ${shunt_name} Online Status"
+    lambda: |-
+      if (id(shunt${shunt_id}_voltage).state > 0)
+        return true;
+      else
+        return false;
 
 # Platform :
 # junctek_khf : version with the screen connected (UART and RS485)
@@ -48,9 +72,9 @@ sensor:
     temperature:
       name: ${name} ${shunt_name} Temperature
     charged_kwh:
-      name: ${name} ${shunt_name} Charged Power
+      name: ${name} ${shunt_name} Charged Energy
     discharged_kwh:
-      name: ${name} ${shunt_name} Discharged Power
+      name: ${name} ${shunt_name} Discharged Energy
     battery_capacity_ah:
       name: ${name} ${shunt_name} Battery Capacity
     soc100_voltage:

@@ -1,5 +1,5 @@
-# Updated : 2024.10.03
-# Version : 1.2.4
+# Updated : 2025.01.25
+# Version : 1.2.7
 # GitHub  : https://github.com/txubelaxu/esphome-jk-bms
 
 # YamBMS ( Yet another multi-BMS Merging Solution )
@@ -21,26 +21,36 @@ substitutions:
   bms_model: "JK-PB"
   bms_protocol: "RS485"
 
-external_components:
- - source: github://txubelaxu/esphome-jk-bms@main
-   refresh: 0s
-   components: [ jk_rs485_sniffer , jk_rs485_bms ]
-
 logger:
   tx_buffer_size: 1024
+
+# +--------------------------------------+
+# | Component settings                   |
+# +--------------------------------------+
+
+external_components:
+  - source: github://Sleeper85/esphome-components@main
+    refresh: 0s
+    components: [ jk_rs485_sniffer , jk_rs485_bms ]
+  # - source:
+  #     type: local
+  #     path: ../esphome-components/components
 
 jk_rs485_sniffer:
   - id: ${sniffer_id}
     protocol_version: ${sniffer_protocol}
     rx_timeout: 500ms
     uart_id: ${sniffer_uart_id}
-    talk_pin: ${sniffer_talk_pin}
- 
+
+# +--------------------------------------+
+# | Component entities                   |
+# +--------------------------------------+
+
 switch:
   - platform: template
-    name: ${name} JK-PB RS485 sniffer Broadcast changes to all BMS
+    name: ${name} Broadcasting JK-PB settings to all BMS
     icon: "mdi:cast"
-    restore_mode: RESTORE_DEFAULT_ON
+    restore_mode: RESTORE_DEFAULT_OFF
     optimistic: true
     entity_category: config
     turn_on_action:
