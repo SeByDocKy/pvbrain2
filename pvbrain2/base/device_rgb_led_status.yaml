@@ -1,6 +1,20 @@
-# Updated : 2025.01.30
+# Updated : 2025.01.31
 # Version : 1.1.1
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
+
+# RGB LED status
+
+# The flash speed depends on the inverter model, this represents
+# the inverter heartbeat (reception of canbus ACK 0x305).
+
+# +---------------+---------------------------+
+# |     Color     |          Status           |
+# |---------------|---------------------------|
+# | Fixed Red     | HA or MQTT KO + CANBUS KO |
+# | Fixed Green   | HA or MQTT OK + CANBUS KO |
+# | Flashing Blue | HA or MQTT KO + CANBUS OK |
+# | Flashing Cyan | HA or MQTT OK + CANBUS OK |
+# +---------------+---------------------------+
 
 binary_sensor:
   # Inverter communication status (CANBUS / RS485)
