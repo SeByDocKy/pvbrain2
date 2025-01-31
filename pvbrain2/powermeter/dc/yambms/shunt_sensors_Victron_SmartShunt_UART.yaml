@@ -1,5 +1,5 @@
-# Updated : 2024.10.17
-# Version : 1.1.2
+# Updated : 2024.12.23
+# Version : 1.1.3
 # GitHub  : https://github.com/KinDR007/VictronMPPT-ESPHOME
 
 # YamBMS ( Yet another multi-BMS Merging Solution )
@@ -19,7 +19,10 @@
 
 packages:
   shunt_base: !include shunt_base.yaml
-  shunt_combine: !include shunt_combine.yaml
+
+# +--------------------------------------+
+# | Component settings                   |
+# +--------------------------------------+
 
 external_components:
   - source: github://KinDR007/VictronMPPT-ESPHOME@main
@@ -29,6 +32,26 @@ victron:
   - uart_id: ${shunt_uart_id}
     id: victron${shunt_id}
     throttle: ${shunt_update_interval}
+
+# +--------------------------------------+
+# | Component entities                   |
+# +--------------------------------------+
+
+binary_sensor:
+  - platform: victron
+    victron_id: victron${shunt_id}
+    relay_state:
+      name: "${name} ${shunt_name} relay state"
+  # Required sensors cannot be retrieved from Shunt
+  # online_status
+  - platform: template
+    id: shunt${shunt_id}_online_status
+    name: "${name} ${shunt_name} Online Status"
+    lambda: |-
+      if (id(shunt${shunt_id}_voltage).state > 0)
+        return true;
+      else
+        return false;
 
 sensor:
   - platform: victron
@@ -113,9 +136,3 @@ text_sensor:
       name: "${name} ${shunt_name} serial number"
     dc_monitor_mode:
       name: "${name} ${shunt_name} dc monitor mode"
-
-binary_sensor:
-  - platform: victron
-    victron_id: victron${shunt_id}
-    relay_state:
-      name: "${name} ${shunt_name} relay state"

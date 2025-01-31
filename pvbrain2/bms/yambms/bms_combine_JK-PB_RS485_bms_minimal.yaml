@@ -1,5 +1,5 @@
-# Updated : 2024.08.08
-# Version : 1.2.1
+# Updated : 2025.01.25
+# Version : 1.2.4
 # GitHub  : https://github.com/txubelaxu/esphome-jk-bms
 
 # YamBMS ( Yet another multi-BMS Merging Solution )
@@ -20,26 +20,35 @@
 packages:
   bms_base: !include bms_base.yaml
   bms_combine: !include bms_combine.yaml
+  bms_temperature_sensor: !include bms_temperature_sensor_5.yaml
+  bms_errors_bitmask: !include bms_errors_bitmask_JK-PB_RS485.yaml
+
+# +--------------------------------------+
+# | Component settings                   |
+# +--------------------------------------+
 
 jk_rs485_bms:
-  - id: bms${bms_id}
-    rs485_address: ${bms_rs485_address}
+  - id: jk_rs485_bms${bms_id}
+    rs485_address: ${bms_address}
     jk_rs485_sniffer_id: ${sniffer_id}
     update_interval: ${bms_update_interval}
 
+# +--------------------------------------+
+# | Component entities                   |
+# +--------------------------------------+
+
 switch:
   - platform: jk_rs485_bms
-    jk_rs485_bms_id: bms${bms_id}
+    jk_rs485_bms_id: jk_rs485_bms${bms_id}
     precharging:
       name: "${name} ${bms_name} precharging"
     charging:
-      id: bms${bms_id}_switch_charging
+      id: bms${bms_id}_charge_switch
       name: "${name} ${bms_name} charging"
     discharging:
-      id: bms${bms_id}_switch_discharging
+      id: bms${bms_id}_discharge_switch
       name: "${name} ${bms_name} discharging"
     balancing:
-      id: bms${bms_id}_switch_balancing
       name: "${name} ${bms_name} balancing"
     emergency:
       name: "${name} ${bms_name} emergency"
@@ -66,24 +75,27 @@ switch:
 
 binary_sensor:
   - platform: jk_rs485_bms
-    jk_rs485_bms_id: bms${bms_id}
+    jk_rs485_bms_id: jk_rs485_bms${bms_id}
     status_balancing:
       id: bms${bms_id}_equalizing
       name: "${name} ${bms_name} status balancing"
     status_precharging:
       name: "${name} ${bms_name} status precharging"
     status_charging:
+      id: bms${bms_id}_charging_allowed
       name: "${name} ${bms_name} status charging"
     status_discharging:
+      id: bms${bms_id}_discharging_allowed
       name: "${name} ${bms_name} status discharging"
     status_online:
+      id: bms${bms_id}_online_status
       name: "${name} ${bms_name} status online"
     status_heating:
       name: "${name} ${bms_name} status heating"
 
 sensor:
   - platform: jk_rs485_bms
-    jk_rs485_bms_id: bms${bms_id}
+    jk_rs485_bms_id: jk_rs485_bms${bms_id}
     balancing_direction:
       name: "${name} ${bms_name} balancing direction"
     cell_voltage_min:
@@ -101,6 +113,7 @@ sensor:
     cell_delta_voltage:
       name: "${name} ${bms_name} cell delta voltage"
     cell_average_voltage:
+      id: bms${bms_id}_average_cell_voltage
       name: "${name} ${bms_name} cell average voltage"
     cell_resistance_min:
       name: "${name} ${bms_name} cell resistance min"
@@ -175,7 +188,7 @@ sensor:
 
 text_sensor:
   - platform: jk_rs485_bms
-    jk_rs485_bms_id: bms${bms_id}
+    jk_rs485_bms_id: jk_rs485_bms${bms_id}
     errors:
       name: "${name} ${bms_name} errors"
     operation_status:
@@ -203,7 +216,7 @@ text_sensor:
 
 number:
   - platform: jk_rs485_bms
-    jk_rs485_bms_id: bms${bms_id}
+    jk_rs485_bms_id: jk_rs485_bms${bms_id}
     cell_smart_sleep_voltage:
       name: "${name} ${bms_name} cell smart sleep voltage"
     battery_capacity_total_settings:
@@ -236,6 +249,7 @@ number:
     cell_soc0_voltage:
       name: "${name} ${bms_name} cell soc0 voltage"
     cell_undervoltage_protection:
+      id: bms${bms_id}_cell_uvp
       name: "${name} ${bms_name} cell undervoltage protection"
     cell_undervoltage_protection_recovery:
       id: bms${bms_id}_cell_uvpr
