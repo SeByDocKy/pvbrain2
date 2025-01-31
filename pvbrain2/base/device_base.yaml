@@ -1,5 +1,5 @@
-# Updated : 2024.09.30
-# Version : 1.0.3
+# Updated : 2025.01.31
+# Version : 1.0.4
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
 substitutions:
@@ -39,7 +39,7 @@ binary_sensor:
 # https://esphome.io/components/binary_sensor/status  
   - platform: status
     name: ${name}_status
-    id: ${name}_status
+    id: esp32_status
 
 light:
 # https://esphome.io/components/light/status_led
@@ -60,61 +60,66 @@ light:
     entity_category: config
 
 # https://esphome.io/components/light/esp32_rmt_led_strip
-  # - platform: esp32_rmt_led_strip
-  #   name: ${name}_on_board_light_io48
-  #   id: on_board_light_io48
-  #   rgb_order: GRB
-  #   pin: GPIO48
-  #   num_leds: 1
-  #   rmt_channel: 0
-  #   chipset: ws2812
-  #   effects: !include
-  #     file: ../environmental/light/effects/addressable_monoled.yaml
-  #   entity_category: config
+  - platform: esp32_rmt_led_strip
+    name: ${name}_on_board_light_io48
+    id: on_board_light_io48
+    rgb_order: GRB
+    pin: GPIO48
+    num_leds: 1
+    rmt_channel: 0
+    chipset: ws2812
+    default_transition_length: 0ms
+    effects: !include
+      file: ../environmental/light/effects/addressable_monoled.yaml
+    entity_category: config
 
-switch:
+button:
 # https://esphome.io/components/switch/restart
   - platform: restart
     name: ${name}_restart
-    id: ${name}_restart    
+    id: esp32_restart    
 
 # https://esphome.io/components/switch/safe_mode
   - platform: safe_mode
     name: ${name}_safe_mode
-    id: ${name}_safe_mode
+    id: esp32_safe_mode
 
 # https://esphome.io/components/switch/shutdown
   - platform: shutdown
     name: ${name}_shutdown
-    id: ${name}_shutdown
+    id: esp32_shutdown
 
 sensor:
 # https://esphome.io/components/sensor/wifi_signal 
   - platform: wifi_signal
     name: ${name}_wifi_power
-    id: ${name}_wifi_power
-    update_interval: 10s
+    id: esp32_wifi_power
+    update_interval: 30s
     entity_category: diagnostic
 
-  - platform: copy # Reports the WiFi signal strength in %
-    source_id: ${name}_wifi_power
+  # Reports the WiFi signal strength in %
+  - platform: template
     name: ${name}_wifi_power_percent
     id: wifi_power_percent
-    filters:
-      - lambda: 'return min(max(2 * (x + 100.0), 0.0), 100.0);'
+    update_interval: 30s
     unit_of_measurement: '%'
+    icon: mdi:wifi
     entity_category: diagnostic
+    accuracy_decimals: 0
+    lambda: |-
+      float wifi_power_dbm = id(esp32_wifi_power).state;
+      return min(max(2 * (wifi_power_dbm + 100.0), 0.0), 100.0);
 
 # https://esphome.io/components/sensor/internal_temperature
   - platform: internal_temperature
     name: ${name}_internal_temperature
-    id: ${name}_internal_temperature
+    id: esp32_internal_temperature
     update_interval: 10s
     entity_category: diagnostic
 
 # https://esphome.io/components/sensor/uptime
   - platform: uptime
-    id: ${name}_uptime_sec
+    id: esp32_uptime_sec
     update_interval: 10s
     internal: true
 
@@ -123,38 +128,38 @@ text_sensor:
   - platform: wifi_info
     ip_address:
       name: ${name}_ip_address
-      id: ${name}_ip_address
+      id: esp32_ip_address
     ssid:
       name: ${name}_connected_ssid
-      id: ${name}_connected_ssid
+      id: esp32_connected_ssid
     bssid:
       name: ${name}_connected_bssid
-      id: ${name}_connected_bssid
+      id: esp32_connected_bssid
     mac_address:
       name: ${name}_mac_wifi_address
-      id: ${name}_mac_wifi_address
+      id: esp32_mac_wifi_address
     scan_results:
       name: ${name}_latest_scan_results
-      id: ${name}_latest_scan_results
+      id: esp32_latest_scan_results
     dns_address:
       name: ${name}_dns_address
-      id: ${name}_dns_address
+      id: esp32_dns_address
 
 # https://esphome.io/components/text_sensor/version
   - platform: version
     name: ${name}_esphomelib_version
-    id: ${name}_esphomelib_version
+    id: esp32_esphomelib_version
     hide_timestamp: false #true
     entity_category: diagnostic
 
   - platform: template
     name: ${name}_uptime
-    id: ${name}_uptime
+    id: esp32_uptime
     update_interval: 10s
     icon: mdi:clock-start
     entity_category: diagnostic
     lambda: |-
-      int uptime_sec = id(${name}_uptime_sec).state;
+      int uptime_sec = id(esp32_uptime_sec).state;
       int days = uptime_sec / 86400;
       int hours = (uptime_sec % 86400) / 3600;
       int minutes = (uptime_sec % 3600) / 60;
