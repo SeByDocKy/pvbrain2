@@ -322,7 +322,7 @@ packages:
   #   file: pvbrain2/environmental/bmp280/device_bmp_280.yaml
   #   vars:
   #     environnemental_name: 'bmp280'
-  #     environnemental_address: '0x77'
+  #     environnemental_address: '0x76'
   #     environnemental_i2c_bus: 'i2c0_bus'
   #     environnemental_update_interval: '5s'
 
