@@ -592,7 +592,7 @@ sensor:
       
     ####### House load data & statistics  #####  
 
-  - platform: modbus_controller            # 084 Daily Load
+  - platform: modbus_controller            # 084 Load Energy Today
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_load_energy_today
     id: ${inverter_name}_load_energy_today
@@ -607,15 +607,15 @@ sensor:
       - multiply: 0.1
     value_type: U_WORD
 
-  - platform: modbus_controller            # 085 Total Load Power
+  - platform: modbus_controller            # 085 Load Energy Total
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_total_load_power
-    id: ${inverter_name}_total_load_power
+    name: ${name}_${inverter_name}_load_energy_total
+    id: ${inverter_name}_load_energy_total
     register_type: holding
     address: 85
-    unit_of_measurement: 'W'
-    icon: mdi:power
-    accuracy_decimals: 2
+    unit_of_measurement: 'kWh'
+    icon: mdi:counter
+    accuracy_decimals: 1
     device_class: energy
     state_class: total_increasing
     value_type: U_DWORD_R
