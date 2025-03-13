@@ -470,7 +470,7 @@ packages:
   #   file: pvbrain2/powermeter/dc/peacefair/device_pzemdc.yaml
   #   vars:
   #     powermeter_name: 'pzemdc'
-  #     powermeter_modbus_id: 'modbus_115200_id'
+  #     powermeter_modbus_id: 'modbus_9600_id'
   #     powermeter_address: '1'
   #     powermeter_update_interval: '1s'
   #     powermeter_template_update: '2s'
