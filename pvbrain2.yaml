@@ -459,7 +459,7 @@ packages:
   #   file: pvbrain2/powermeter/ac/peacefair/device_pzem004tv3.yaml
   #   vars:
   #     powermeter_name: 'pzem_solar'
-  #     powermeter_modbus_id: 'modbus_115200_id'
+  #     powermeter_modbus_id: 'modbus_9600_id'
   #     powermeter_modbus_address: '1'
   #     powermeter_update_interval: '1s'
   #     powermeter_template_update: '2s'
