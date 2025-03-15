@@ -674,7 +674,7 @@ packages:
   #     bms_update_interval: '5s'
   #     bms_template_update: '5s'
   #     bms_text_update: '5s'
-  #     bms_modbus_throttle: '200ms'
+  #     bms_modbus_throttle: '50ms'
 
   #
   # @txubelaxu JK_RS485 component
