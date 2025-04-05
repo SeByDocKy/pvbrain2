@@ -585,7 +585,7 @@ sensor:
     name: ${name}_${bms_name}_total_voltage
     address: 0x1290
     register_type: holding
-    value_type: U_DWORD_R
+    value_type: U_DWORD
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
