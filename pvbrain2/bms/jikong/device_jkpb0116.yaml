@@ -599,11 +599,11 @@ sensor:
     id: ${bms_name}_battery_power
     address: 0x1294
     register_type: holding
-    value_type: U_DWORD_R
+    value_type: S_DWORD
     unit_of_measurement: "W"
     device_class: power
     state_class: measurement
-    accuracy_decimals: 3
+    accuracy_decimals: 2
     filters:
       - multiply: 0.001
       
