@@ -631,6 +631,10 @@ sensor:
     state_class: measurement
     accuracy_decimals: 2
     filters:
+      - lambda: |-
+          return id(current).state < 0
+            ? x * -1
+            : x;
       - multiply: 0.001
       
   - platform: modbus_controller
