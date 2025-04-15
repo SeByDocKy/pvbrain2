@@ -94,6 +94,12 @@ esp32:
     # platform_version: 6.7.0
 
 # Enable PSRAM. Comment for disabled if you don't have PSRAM on your ESP.
+
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [psram]
+    refresh: 0s
+    
 psram:
   mode: octal
   speed: 80MHz
