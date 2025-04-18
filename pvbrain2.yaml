@@ -430,6 +430,19 @@ packages:
   #     inverter_update_interval: '3s'
   #     inverter_template_update: '3s'
 
+  # inverter_8: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/inverter/solax/device_solax_x1ac.yaml
+  #   vars:
+  #     inverter_name: 'solax'
+  #     inverter_modbus_id: 'modbus_115200_1'
+  #     inverter_modbus_address: '10'
+  #     inverter_modbus_throttle: '200ms'
+  #     inverter_modbus_offline_skip_updates: '10'
+  #     inverter_update_interval: '3s'
+  #     inverter_template_update: '3s'
+
 
   ################### AC powermeter  ################
    
