@@ -11,7 +11,7 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_battery_backup_voltage
-    id: ${inverter_name}_battery_backup_voltage
+    id: ${inverter_name}_battery_backup_voltage ################### gives zero value ################
     address: 0x00A8
     register_type: holding
     value_type: U_WORD
@@ -39,7 +39,7 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_grid_current
-    id: ${inverter_name}_grid_current
+    id: ${inverter_name}_grid_current         ############### needs checking #############
     address: 0x0001
     register_type: read
     value_type: S_WORD
@@ -65,7 +65,7 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_grid_frequency
-    id: ${inverter_name}_grid_frequency
+    id: ${inverter_name}_grid_frequency          ############### needs checking #############
     address: 0x0007
     register_type: read
     value_type: U_WORD
@@ -88,16 +88,16 @@ sensor:
     device_class: temperature
     state_class: measurement
     
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_run_mode
-    id: ${inverter_name}_run_mode
-    address: 0x0009
-    register_type: read
-    value_type: U_WORD
-    accuracy_decimals: 0
+#  - platform: modbus_controller
+#    modbus_controller_id: ${inverter_name}_modbus_controller
+#    name: ${name}_${inverter_name}_run_mode
+#    id: ${inverter_name}_run_mode
+#    address: 0x0009
+#    register_type: read
+#    value_type: U_WORD
+#    accuracy_decimals: 0
     # device_class: enum
-    state_class: measurement  
+#    state_class: measurement  
     # filters:
       # - multiply: 0.01
       
@@ -144,7 +144,7 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_battery_temperature
-    id: ${inverter_name}_battery_temperature
+    id: ${inverter_name}_battery_temperature          ############### needs checking #############
     address: 0x0018
     register_type: read
     value_type: S_WORD
@@ -153,17 +153,17 @@ sensor:
     device_class: temperature
     state_class: measurement
     
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_grid_status
-    id: ${inverter_name}_grid_status
-    address: 0x001A
-    register_type: read
-    value_type: U_WORD
-    accuracy_decimals: 0
+#  - platform: modbus_controller
+#    modbus_controller_id: ${inverter_name}_modbus_controller
+#    name: ${name}_${inverter_name}_grid_status
+#    id: ${inverter_name}_grid_status         ############### needs checking #############
+#    address: 0x001A
+#    register_type: read
+#    value_type: U_WORD
+#    accuracy_decimals: 0
     # unit_of_measurement: '°C'
     # device_class: enum
-    state_class: measurement  
+#    state_class: measurement  
   
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -237,8 +237,8 @@ sensor:
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_max_charging_current
     id: ${inverter_name}_max_charging_current
-    address: 0x0024
-    register_type: read
+    address: 0x0090
+    register_type: holding
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'A'
@@ -251,8 +251,8 @@ sensor:
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_max_discharging_current
     id: ${inverter_name}_max_discharging_current
-    address: 0x0025
-    register_type: read
+    address: 0x0091
+    register_type: holding
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'A'
@@ -280,7 +280,7 @@ sensor:
     id: ${inverter_name}_ac_power
     address: 0x0046
     register_type: read
-    value_type: S_DWORD
+    value_type: S_DWORD_R
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     device_class: power
@@ -382,166 +382,183 @@ sensor:
     filters:
       - multiply: 0.1
 
-select:
+#select:
   
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_solar_charger_user_mode
-    id: ${inverter_name}_solar_charger_user_mode
-    address: 0x001F
-    value_type: U_WORD
-    optionsmap:
-      "Self Use mode": 0
-      "Feed in priority": 1
-      "Back-up mode": 2
-      "Manual mode": 3
+#  - platform: modbus_controller
+#    modbus_controller_id: ${inverter_name}_modbus_controller
+#    name: ${name}_${inverter_name}_solar_charger_user_mode
+#    id: ${inverter_name}_solar_charger_user_mode
+#    address: 0x001F
+#    value_type: U_WORD
+#    optionsmap:
+#      "Self Use mode": 0
+#      "Feed in priority": 1
+#      "Back-up mode": 2
+#      "Manual mode": 3
       
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_manual_mode
-    id: ${inverter_name}_manual_mode
-    address: 0x0020
-    value_type: U_WORD
-    optionsmap:
-      "Stop charge & discharge": 0
-      "Force charge": 1
-      "Force discharge": 2    
+#  - platform: modbus_controller
+#    modbus_controller_id: ${inverter_name}_modbus_controller
+#    name: ${name}_${inverter_name}_manual_mode
+#    id: ${inverter_name}_manual_mode
+#    address: 0x0020
+#    value_type: U_WORD
+#    optionsmap:
+#      "Stop charge & discharge": 0
+#      "Force charge": 1
+#      "Force discharge": 2    
 
 
-number:
+#number:
   
-  - platform: template         # 0x22=34
-    name: ${name}_${inverter_name}_charge_float_voltage
-    id: ${inverter_name}_charge_float_voltage_number
-    unit_of_measurement: 'V'
-    optimistic: true
-    icon: mdi:sine-wave
-    min_value: 85
-    max_value: 400
-    step: 10
-    initial_value: 200
-    restore_value: true
-    mode: 'slider'
-    on_value:
-      then: 
-        - lambda: |-
-            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
-            std::vector<uint16_t> battery_settings(1);
-            battery_settings[0]  = uint16_t(  (id(${inverter_name}_charge_float_voltage_number).state)*10 );
+#  - platform: template         # 0x22=34
+#    name: ${name}_${inverter_name}_charge_float_voltage
+#    id: ${inverter_name}_charge_float_voltage_number
+#    unit_of_measurement: 'V'
+#    optimistic: true
+#    icon: mdi:sine-wave
+#    min_value: 85
+#    max_value: 400
+#    step: 10
+#    initial_value: 200
+#    restore_value: true
+#    mode: 'slider'
+#    on_value:
+#      then: 
+#        - lambda: |-
+#            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+#            std::vector<uint16_t> battery_settings(1);
+#            battery_settings[0]  = uint16_t(  (id(${inverter_name}_charge_float_voltage_number).state)*10 );
                     
-            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 35, battery_settings.size() ,
-                                                                                          battery_settings);
-            delay(200);
-            controller->queue_command(battery_command);
-            delay(200);
+#            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 35, battery_settings.size() ,
+#                                                                                          battery_settings);
+#            delay(200);
+#            controller->queue_command(battery_command);
+#            delay(200);
             
-  - platform: template         # 0x23=35
-    name: ${name}_${inverter_name}_discharge_cutoff_voltage
-    id: ${inverter_name}_discharge_cutoff_voltage_number
-    unit_of_measurement: 'V'
-    optimistic: true
-    icon: mdi:sine-wave
-    min_value: 85
-    max_value: 400
-    step: 10
-    initial_value: 200
-    restore_value: true
-    mode: 'slider'
-    on_value:
-      then: 
-        - lambda: |-
-            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
-            std::vector<uint16_t> battery_settings(1);
-            battery_settings[0]  = uint16_t(  (id(${inverter_name}_discharge_cutoff_voltage_number).state)*10 );
+#  - platform: template         # 0x23=35
+#    name: ${name}_${inverter_name}_discharge_cutoff_voltage
+#    id: ${inverter_name}_discharge_cutoff_voltage_number
+#    unit_of_measurement: 'V'
+#    optimistic: true
+#    icon: mdi:sine-wave
+#    min_value: 85
+#    max_value: 400
+#    step: 10
+#    initial_value: 200
+#    restore_value: true
+#    mode: 'slider'
+#    on_value:
+#      then: 
+#        - lambda: |-
+#            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+#            std::vector<uint16_t> battery_settings(1);
+#            battery_settings[0]  = uint16_t(  (id(${inverter_name}_discharge_cutoff_voltage_number).state)*10 );
                     
-            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 34, battery_settings.size() ,
-                                                                                          battery_settings);
-            delay(200);
-            controller->queue_command(battery_command);
-            delay(200);          
+#            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 34, battery_settings.size() ,
+#                                                                                          battery_settings);
+#            delay(200);
+#            controller->queue_command(battery_command);
+#            delay(200);          
   
-  - platform: template         # 0x24=36
-    name: ${name}_${inverter_name}_charging_battery_current
-    id: ${inverter_name}_charging_battery_current_number
-    unit_of_measurement: 'A'
-    optimistic: true
-    icon: mdi:sine-wave
-    min_value: 0
-    max_value: 100
-    step: 1
-    initial_value: 20
-    restore_value: true
-    mode: 'slider'
-    on_value:
-      then: 
-        - lambda: |-
-            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
-            std::vector<uint16_t> battery_settings(1);
-            battery_settings[0]  = uint16_t(  (id(${inverter_name}_charging_battery_current_number).state)*10 );
-                    
-            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 36, battery_settings.size() ,
-                                                                                          battery_settings);
-            delay(200);
-            controller->queue_command(battery_command);
-            delay(200);
+#  - platform: template         # 0x24=36
+#    name: ${name}_${inverter_name}_charging_battery_current
+#    id: ${inverter_name}_charging_battery_current_number
+#    unit_of_measurement: 'A'
+#    optimistic: true
+#    icon: mdi:sine-wave
+#    min_value: 0
+#    max_value: 20
+#    step: 0.1
+#    initial_value: 9.5
+#    restore_value: true
+#    mode: 'slider'
+#    on_value:
+#      then: 
+#        - lambda: |-
+#            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+#            std::vector<uint16_t> battery_settings(1);
+#            battery_settings[0]  = uint16_t(  (id(${inverter_name}_charging_battery_current_number).state)*10 );
+#                    
+#            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 36, battery_settings.size() ,
+#                                                                                          battery_settings);
+#            delay(200);
+#            controller->queue_command(battery_command);
+#            delay(200);
 
-  - platform: template         # 0x25=37
-    name: ${name}_${inverter_name}_discharging_battery_current
-    id: ${inverter_name}_discharging_battery_current_number
-    unit_of_measurement: 'A'
-    optimistic: true
-    icon: mdi:sine-wave
-    min_value: 0
-    max_value: 100
-    step: 1
-    initial_value: 20
-    restore_value: true
-    mode: 'slider'
-    on_value:
-      then: 
-        - lambda: |-
-            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
-            std::vector<uint16_t> battery_settings(1);
-            battery_settings[0]  = uint16_t(  (id(${inverter_name}_discharging_battery_current_number).state)*10 );
+#  - platform: template         # 0x25=37
+#    name: ${name}_${inverter_name}_discharging_battery_current
+#    id: ${inverter_name}_discharging_battery_current_number
+#    unit_of_measurement: 'A'
+#    optimistic: true
+#    icon: mdi:sine-wave
+#    min_value: 0
+#    max_value: 100
+#    step: 1
+#    initial_value: 20
+#    restore_value: true
+#    mode: 'slider'
+#    on_value:
+#      then: 
+#        - lambda: |-
+#            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+#            std::vector<uint16_t> battery_settings(1);
+#            battery_settings[0]  = uint16_t(  (id(${inverter_name}_discharging_battery_current_number).state)*10 );
                     
-            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 37, battery_settings.size() ,
-                                                                                          battery_settings);
-            delay(200);
-            controller->queue_command(battery_command);
-            delay(200); 
+#            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 37, battery_settings.size() ,
+#                                                                                          battery_settings);
+#            delay(200);
+#            controller->queue_command(battery_command);
+#            delay(200); 
             
-  - platform: template         # 0x23=38
-    name: ${name}_${inverter_name}_discharge_backup_voltage
-    id: ${inverter_name}_discharge_backup_voltage_number
-    unit_of_measurement: 'V'
-    optimistic: true
-    icon: mdi:sine-wave
-    min_value: 85
-    max_value: 400
-    step: 10
-    initial_value: 200
-    restore_value: true
-    mode: 'slider'
-    on_value:
-      then: 
-        - lambda: |-
-            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
-            std::vector<uint16_t> battery_settings(1);
-            battery_settings[0]  = uint16_t(  (id(${inverter_name}_discharge_backup_voltage_number).state)*10 );
+#  - platform: template         # 0x23=38
+#    name: ${name}_${inverter_name}_discharge_backup_voltage
+#    id: ${inverter_name}_discharge_backup_voltage_number
+#    unit_of_measurement: 'V'
+#    optimistic: true
+#    icon: mdi:sine-wave
+#    min_value: 85
+#    max_value: 400
+#    step: 10
+#    initial_value: 200
+#    restore_value: true
+#    mode: 'slider'
+#    on_value:
+#      then: 
+#        - lambda: |-
+#            esphome::modbus_controller::ModbusController *controller = id(${inverter_name}_modbus_controller);
+#            std::vector<uint16_t> battery_settings(1);
+#            battery_settings[0]  = uint16_t(  (id(${inverter_name}_discharge_backup_voltage_number).state)*10 );
                     
-            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 38, battery_settings.size() ,
-                                                                                          battery_settings);
-            delay(200);
-            controller->queue_command(battery_command);
-            delay(200);          
+#            esphome::modbus_controller::ModbusCommandItem battery_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 38, battery_settings.size() ,
+#                                                                                          battery_settings);
+#            delay(200);
+#            controller->queue_command(battery_command);
+#            delay(200);          
 
       
 text_sensor:
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_status
-    id: ${inverter_name}_status
+    name: ${name}_${inverter_name}_grid_status
+    id: ${inverter_name}_grid_status
     address: 0x001A
+    register_type: read
+    # value_type: U_WORD
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("On Grid");
+        case 1: return std::string("Off Grid");
+        default: return std::string("Unknown");
+      }
+      return x;        
+        
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_run_mode
+    id: ${inverter_name}_run_mode
+    address: 0x0009
     register_type: read
     # value_type: U_WORD
     raw_encode: HEXBYTES
@@ -552,11 +569,32 @@ text_sensor:
         case 1: return std::string("Checking");
         case 2: return std::string("Normal Mode");
         case 3: return std::string("Off Mode");
+        case 4: return std::string("Permanent Fault");
+        case 5: return std::string("Update Mode");
+        case 6: return std::string("EPS Check Mode");
         case 7: return std::string("EPS Mode");
+        case 8: return std::string("Self Test");
         case 9: return std::string("Idle Mode");
-        default: return std::string("Unknown");
+        case 10: return std::string("Standby");
+        default: return std::string("Unknown");        
       }
       return x;
       
- 
-           
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_charger_use_mode
+    id: ${inverter_name}_charger_use_mode
+    address: 0x001F
+    register_type: read
+    # value_type: U_WORD
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("Self Use Mode");
+        case 1: return std::string("Force Time Use");
+        case 2: return std::string("Back Up Mode");
+        case 3: return std::string("Feedin Priority");
+        default: return std::string("Unknown");
+      }
+      return x;        
