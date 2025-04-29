@@ -1,22 +1,20 @@
 modbus_controller:
- - id: ${pyranometer_name}_modbus_controller
-   address: ${pyranometer_modbus_address}
-   modbus_id: ${pyranometer_modbus_id}
-   command_throttle: ${pyranometer_modbus_throttle}
+ - id: ${environnemental_name}_modbus_controller
+   address: ${environnemental_modbus_address}
+   modbus_id: ${environnemental_modbus_id}
+   command_throttle: ${environnemental_modbus_throttle}
    setup_priority: -10
-   update_interval: ${pyranometer_update_interval}
-   
+   update_interval: ${environnemental_update_interval}
    
 sensor:
-
   - platform: modbus_controller
-    modbus_controller_id: ${name}
-    name: ${name}_${pyranometer_name}_solar_radiation
-    id: ${pyranometer_name}_solar_radiation
+    modbus_controller_id: ${environnemental_name}_modbus_controller
+    name: ${name}_${environnemental_name}_solar_radiation
+    id: ${environnemental_name}_solar_radiation
     address: 0x0000
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
     icon: mdi:sun-wireless
     skip_updates: 1
-    unit_of_measurement: "W/m²"
+    unit_of_measurement: 'W/m²'
