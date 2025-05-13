@@ -95,10 +95,10 @@ esp32:
 
 # Enable PSRAM. Comment for disabled if you don't have PSRAM on your ESP.
 
-# external_components:
-#   - source: "github://SeByDocKy/myESPhome/"
-#     components: [psram]
-#     refresh: 0s
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [esp32,debug]
+    refresh: 0s
     
 psram:
   mode: octal
