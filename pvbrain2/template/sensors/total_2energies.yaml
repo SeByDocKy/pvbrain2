@@ -1,0 +1,18 @@
+sensor:
+  - platform: template
+    id: ${total_energy_name}
+    name: ${name}_${total_energy_name}
+    accuracy_decimals: 1
+    icon: mdi:home-lightning-bolt-outline
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    update_interval: ${total_energy_template_update}
+    lambda: |-
+      float energy = 0.0f;
+      if (id(${total_energy_source1}).has_state()){
+        energy += id(${total_energy_source1}).state;
+      }
+      if (id(${total_energy_source2}).has_state()){
+        energy += id(${total_energy_source2}).state;
+      }
+      return energy;
