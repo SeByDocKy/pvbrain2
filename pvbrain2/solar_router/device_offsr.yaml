@@ -1,0 +1,73 @@
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [offsr]
+    refresh: 0s  
+    
+offsr: 
+  - id: ${offsr_id}
+    battery_current_id: ${offsr_name}_input
+    battery_voltage_id: ${offsr_battery_voltage_id}
+    output_id: ${offsr_output_id}
+    power_id: ${offsr_power_id}
+    
+binary_sensor:
+  - platform: offsr
+    offsr_id: ${offsr_id}
+    thermostat_cut: 
+      name: ${name}_${offsr_name}_thermostat_cut    
+      
+sensor:
+  - platform: offsr
+    offsr_id: ${offsr_id}
+    error: 
+      name: ${name}_${offsr_name}_regulation_error    
+    output: 
+      name: ${name}_${offsr_name}_output_lsa
+    target:
+      name: ${name}_${offsr_name}_target_current
+      
+  - platform: copy
+    source_id: ${offsr_battery_current_id}
+    id: ${offsr_name}_input
+    filters:
+      - sliding_window_moving_average:
+          window_size: ${offsr_windows_size}
+          send_every: 1 #${offsr_windows_size}    
+
+switch:
+  - platform: offsr
+    offsr_id: ${offsr_id}
+    activation: 
+      name: ${name}_${offsr_name}_activation
+    manual_override: 
+      name: ${name}_${offsr_name}_manual_override
+    pid_mode: 
+      name: ${name}_${offsr_name}_pid_mode
+
+number:
+  - platform: offsr
+    offsr_id: ${offsr_id}
+    charging_setpoint: 
+      name: ${name}_${offsr_name}_charging_setpoint
+    absorbing_setpoint: 
+      name: ${name}_${offsr_name}_absorbing_setpoint
+    floating_setpoint: 
+      name: ${name}_${offsr_name}_floating_setpoint
+    starting_battery_voltage: 
+      name: ${name}_${offsr_name}_starting_battery_voltage
+    charged_battery_voltage: 
+      name: ${name}_${offsr_name}_charged_battery_voltage
+    discharged_battery_voltage: 
+      name: ${name}_${offsr_name}_discharged_battery_voltage
+    kp: 
+      name: ${name}_${offsr_name}_kp
+    ki: 
+      name: ${name}_${offsr_name}_ki
+    kd: 
+      name: ${name}_${offsr_name}_kd
+    output_min: 
+      name: ${name}_${offsr_name}_output_min
+    output_max: 
+      name: ${name}_${offsr_name}_output_max
+    output_restart: 
+      name: ${name}_${offsr_name}_output_restart
