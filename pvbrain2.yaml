@@ -81,12 +81,24 @@ esp32:
   framework:
     type: esp-idf
     version: 4.4.8 # 5.2.1
-    platform_version: 5.4.0 
-    # platform_version: 6.7.0  # required with esp-idf branch >5.1x
-    # sdkconfig_options:
-    #   CONFIG_ESPTOOLPY_FLASHSIZE_32MB: "y"
-    #   COMPILER_OPTIMIZATION_SIZE: y
-    #   CONFIG_COMPILER_OPTIMIZATION_PERF: y
+    platform_version: 5.4.0
+    sdkconfig_options:
+      CONFIG_SPIRAM_SUPPORT: y
+      CONFIG_SPIRAM_USE_MALLOC: y
+      CONFIG_SPIRAM_MALLOC_RESERVE_INTERNAL: "53248"
+      CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL: "5108"
+      CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY: y
+      CONFIG_SPIRAM_ALLOW_NOINIT_SEG_EXTERNAL_MEMORY: y
+      CONFIG_SPIRAM_ALLOW_STACK_EXTERNAL_MEMORY: y
+      CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP: y
+      CONFIG_BT_NIMBLE_MEM_ALLOC_MODE_EXTERNAL: y
+      CONFIG_BLE_MESH_MEM_ALLOC_MODE_EXTERNAL: y
+      CONFIG_BLE_MESH_FREERTOS_STATIC_ALLOC_EXTERNAL: y
+      CONFIG_FATFS_ALLOC_PREFER_EXTRAM: y
+      CONFIG_MBEDTLS_EXTERNAL_MEM_ALLOC: y
+      COMPILER_OPTIMIZATION_SIZE: y
+      CONFIG_COMPILER_OPTIMIZATION_PERF: y
+      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: y
 
 # If you prefer to compile in Arduino (not recommended)
     # type: arduino
@@ -863,6 +875,16 @@ packages:
   #     solar_router_power_id: 'deye_aux_output_power'
   #     solar_router_pwm_restart: '0.40'
   #     solar_router_battery_voltage_id: 'deye_battery_voltage'
-  #     solar_router_starting_battery_voltage: '51.0'  # 51.0v for pylontech (15S), 54.0V for 16S DIY
   #     solar_router_output_id: 'lsa1_output'
-  #     solar_router_windows_size: '1'  
+  #     solar_router_windows_size: '3'  
+  
+# solar_router_3: !include
+    # file: pvbrain2/solar_router/device_offsr.yaml
+    # vars:
+      # offsr_name: 'offsr'
+      # offsr_id: 'offsr_id'
+      # offsr_battery_current_id: 'smartshunt_battery_current'
+      # offsr_battery_voltage_id: 'smartshunt_battery_voltage'
+      # offsr_output_id: 'lsa1_output'
+      # offsr_power_id: 'pzem_router_power'
+      # offsr_windows_size: '3'  
