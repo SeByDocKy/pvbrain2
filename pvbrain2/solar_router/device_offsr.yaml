@@ -28,6 +28,7 @@ sensor:
       
   - platform: copy
     source_id: ${offsr_battery_current_id}
+    name: ${offsr_name}_battery_current_smoothed
     id: ${offsr_name}_input
     filters:
       - sliding_window_moving_average:
