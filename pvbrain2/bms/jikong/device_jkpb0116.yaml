@@ -11,9 +11,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:  
           - globals.set:
               id: ${bms_name}_battery_charging_energy_yesterday_global
@@ -274,6 +274,20 @@ sensor:
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_16
     address: 0x121E
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: measurement
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  # 0x1220   32    UINT16    2    R    CellVol16   mV
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_cell_voltage_17
+    address: 0x1220
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: "V"
@@ -598,7 +612,7 @@ sensor:
     address: 0x128A
     register_type: holding
     value_type: S_WORD
-    unit_of_measurement: "°C"
+    unit_of_measurement: '°C'
     state_class: measurement
     accuracy_decimals: 3
     filters:
@@ -626,13 +640,13 @@ sensor:
     address: 0x1294
     register_type: holding
     value_type: S_DWORD
-    unit_of_measurement: "W"
+    unit_of_measurement: 'W'
     device_class: power
     state_class: measurement
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     filters:
       - lambda: |-
-          return id(${bms_name}_battery_current).state < 0
+          return id(current).state < 0
             ? x * -1
             : x;
       - multiply: 0.001
@@ -644,10 +658,26 @@ sensor:
     address: 0x1298
     register_type: holding
     value_type: S_DWORD
-    unit_of_measurement: "A"
+    unit_of_measurement: 'A'
     device_class: current
     state_class: measurement
     accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_capacity_remaining
+    id: ${bms_name}_capacity_remaining
+    address: 0x12A8
+    register_type: holding
+    value_type: U_DWORD
+    register_count: 4
+    response_size: 4
+    state_class: measurement
+    device_class: energy_storage
+    unit_of_measurement: 'Ah'
+    accuracy_decimals: 0
     filters:
       - multiply: 0.001    
 
