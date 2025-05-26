@@ -646,7 +646,7 @@ sensor:
     accuracy_decimals: 1
     filters:
       - lambda: |-
-          return id(current).state < 0
+          return id(${bms_name}_battery_current).state < 0
             ? x * -1
             : x;
       - multiply: 0.001
