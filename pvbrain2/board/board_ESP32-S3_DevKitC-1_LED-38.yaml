@@ -4,7 +4,7 @@
 
 substitutions:
   board_chip: "ESP32-S3"
-  board_name: "DevKitC-1"
+  board_name: "PVbrain2"
 
 packages:
   board_base: !include board_base.yaml
