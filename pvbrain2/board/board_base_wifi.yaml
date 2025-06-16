@@ -1,0 +1,46 @@
+# Updated : 2025.06.16
+# Version : 1.1.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
+sensor:
+  # https://esphome.io/components/sensor/wifi_signal
+  - platform: wifi_signal
+    name: ${name} ESP32 WiFi power
+    id: esp32_wifi_power
+    update_interval: 30s
+    entity_category: diagnostic
+
+  # Reports the WiFi signal strength in %
+  - platform: template
+    name: ${name} ESP32 WiFi power (%)
+    id: esp32_wifi_power_percent
+    update_interval: 30s
+    unit_of_measurement: '%'
+    icon: mdi:wifi
+    entity_category: diagnostic
+    accuracy_decimals: 0
+    lambda: |-
+      float wifi_power_dbm = id(esp32_wifi_power).state;
+      return min(max(2 * (wifi_power_dbm + 100.0), 0.0), 100.0);
+
+text_sensor:
+  # https://esphome.io/components/text_sensor/wifi_info
+  - platform: wifi_info
+    ip_address:
+      name: ${name} ESP32 IP address
+      id: esp32_ip_address
+    ssid:
+      name: ${name} ESP32 connected SSID
+      id: esp32_connected_ssid
+    bssid:
+      name: ${name} ESP32 connected BSSID
+      id: esp32_connected_bssid
+    mac_address:
+      name: ${name} ESP32 MAC address
+      id: esp32_mac_address
+    scan_results:
+      name: ${name} ESP32 latest scan results
+      id: esp32_latest_scan_results
+    dns_address:
+      name: ${name} ESP32 DNS address
+      id: esp32_dns_address
