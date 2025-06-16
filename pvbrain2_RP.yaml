@@ -1,0 +1,944 @@
+# Updated : 2025.06.17
+# Version : 1.1.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+# GitHub  : https://github.com/Sleeper85/pvbrain2
+
+######################## PVbrain2 Remote Packages Version ########################
+
+# You can compile this YAML directly without the `pvbrain2` folder.
+# The packages will be automatically downloaded from GitHub.
+# Don't forget to configure your WiFi credentials in the secrets.yaml
+
+################################################################################
+
+substitutions:
+  # PVbrain2 name and version
+  name: '' # Name that can be added as a second prefix after the friendly name, you can leave it blank.
+  hostname: 'pvbrain2' # This is the name of the node. It should always be unique in your ESPHome network.
+  friendly_name : 'PVbrain2' # Prefix added in front of all entity names and also to classify them.
+  pvbrain2_version: '1.1.1'
+  esphome_min_version: '2025.5.0'
+  # PVbrain2 settings
+  my_second: '59'
+  my_minute: '59'
+  my_hours: '23'
+  uart_hub_bus: 'spi' # 'i2c' or 'spi' - for 'spi' don't forget to jump/solder the two pairs of pin together located back of WK2168 boards !
+  spi_data_rate: '4Mhz'
+  i2c_data_rate: '100kHz'
+
+  ########## For builtin ESP32 S3 UART ports ##########
+  
+  uart_esp0_baudrate: '115200'
+  uart_esp1_baudrate: '9600'
+  uart_esp2_baudrate: '9600'    # Linky   #1200 if historique >> #9600 if standard
+ 
+  ########## For extended UART ports with the 2 WK2168 ##########
+
+  uart0_baudrate: '2400'        # 2400 for WKS, 9600 for DEYE {RJ45-UART0} 
+  uart1_baudrate: '38400'       # JSY193
+  uart2_baudrate: '19200'       # SmartShunt
+  uart3_baudrate: '9600'        # SRNE        {RJ45-UART3} 
+  uart4_baudrate: '115200'      # JK-BMS 1
+  uart5_baudrate: '115200'      # JK-BMS 2
+  uart6_baudrate: '115200'      # Pylontech
+  uart7_baudrate: '9600'        # Epever      {RJ45-UART7} 
+
+  ########## With uart extender addon board ##########
+
+  uart8_baudrate: '2400'
+  uart9_baudrate: '38400'
+  uart10_baudrate: '19200'
+  uart11_baudrate: '9600'
+
+########## Example of '!extend' for 'builtin ESP32_S3_UART' special cases ##########
+# uart:
+#   - id: !extend uart_esp_0              # ID of the UART to modify; Here for Linky.
+#     parity: EVEN                        # Is requiered for Teleinfo
+#     data_bits: 7                        # Is requiered for Teleinfo
+
+########## Example of '!extend' for 'WK2168_UART' or similar special cases ##########
+# wk2168_spi:
+#   - id: !extend  uart_bridge1             # ID of the 'WK_UART_Bridge' to modify
+#     uart:
+#       - id: !extend uart_spi_6            # ID of the 'WK_UART' to modify
+#         stop_bits: 2                      # For the example, with Pylontech batteries, it is recommended to set the stop_bits to 2
+
+########## Example of '!remove' a component ##########
+# sx1509: !remove
+# dallas: !remove
+
+# esphome:
+#   name: ${hostname}
+#   friendly_name: ${friendly_name}
+#   # comment: 'Solar system braining and more !'
+#   # area: 'Technical local'
+#   project:
+#     name: Reseautonome.PVbrain2
+#     version: ${pvbrain2_version}
+#   min_version: ${esphome_min_version}
+
+wifi:
+  # If needed, configure a static IP here
+  # manual_ip:
+  #   static_ip: 192.168.0.85
+  #   gateway: 192.168.0.1
+  #   subnet: 255.255.255.0
+  #   dns1: 8.8.8.8
+  #   dns2: 8.8.4.4
+  # Enable fallback hotspot in case wifi connection fails
+  ap:
+    ssid: "Pvbrain2 Fallback Hotspot"
+    password: !secret ap_password
+
+logger:
+  level: DEBUG # VERBOSE / DEBUG / INFO / WARN
+
+ota:
+  - platform: esphome
+    # password: "b82b9faf767e862e00fd6aba6c360b7f"
+
+# Please use the native `api` component instead of the `mqtt` section.
+# If you use Home Assistant, the native API is more lightweight.
+# If there is no HA server connected to this API, the ESP32 reboots every 15 minutes to try to resolve the problem.
+# The "reboot_timeout: 0s" option will keep your ESP32 up and running even if you lose connection to your HA server.
+api:
+  reboot_timeout: 0s
+  # encryption:
+  #   key: "vR4R7EBch24hzs8Fga1ATBfRa6YWxpw9PfzRLJFoqY4="
+
+# If you don't want to use ESPHome's native API you can use MQTT instead.
+# In this case don't forget to remove the 'api:' section.
+# mqtt:
+#   broker: !secret mqtt_host
+#   username: !secret mqtt_username
+#   password: !secret mqtt_password
+#   id: mqtt_client
+
+# Please note that enabling this component will take up a lot of memory and may decrease
+# stability and be the cause of reboot depending on the capabilities of the board used.
+# web_server:
+#   port: 80
+#   log: false
+#   ota: false
+
+# +--------------------------------------+
+# | Remote Packages Section              |
+# +--------------------------------------+
+packages:
+
+  ##########  PVbrain2 Base ##########
+  
+  pvbrain2:
+    url: https://github.com/SeByDocKy/pvbrain2
+    ref: main
+    refresh: 0s
+    files:
+      # Board
+      - path: 'pvbrain2/board/board_ESP32-S3_DevKitC-1_LED-48.yaml'
+      # - path: 'pvbrain2/board/board_ESP32-S3_DevKitC-1_LED-38.yaml'
+      # Board options
+      # - path: 'pvbrain2/board/board_options_ESP32-S3_PSRAM.yaml'
+      # BUS
+      - path: 'pvbrain2/base/device_bus_i2c0.yaml' # SX1509 and BME280/BMP280
+      - path: 'pvbrain2/base/device_bus_spi1.yaml' # MCP2515
+      - path: 'pvbrain2/base/device_bus_one_wire.yaml' # Dallas
+      # Devices
+      - path: 'pvbrain2/base/device_uart_esp.yaml'
+      - path: 'pvbrain2/base/device_wk2168_spi.yaml'
+      # - path: 'pvbrain2/base/device_wk2168_i2c.yaml'
+      # - path: 'pvbrain2/base/device_sx1509.yaml'
+      # - path: 'pvbrain2/base/device_canbus_esp32can.yaml' # canbus_node1
+      # - path: 'pvbrain2/base/device_canbus_mcp2515.yaml'  # canbus_node2
+
+  ########## DEBUG ##########
+
+  debug:
+    url: https://github.com/SeByDocKy/pvbrain2
+    ref: main
+    refresh: 0s
+    files:
+      # With PSRAM
+      # - path: 'pvbrain2/base/device_debug.yaml'
+      #   vars:
+      #     debug_name: 'Debug'
+      #     debug_update_interval: '5s'
+      # Without PSRAM
+      - path: 'pvbrain2/base/device_debug_no_psram.yaml'
+        vars:
+          debug_name: 'Debug'
+          debug_update_interval: '5s'
+
+  ########## Modbus RS485 interfaces ##########
+
+  # Define here RS485/modbus intefaces you have installed on your PVbrain2
+  # In general, one per databaud. Each modbus_uart_id must point one of the uart_x defined above in term of databaud
+  
+  # modbus_interfaces:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # modbus_9600
+  #     - path: pvbrain2/base/device_modbus.yaml
+  #       vars:
+  #         modbus_id: 'modbus_9600_id'
+  #         modbus_uart_id: uart_${uart_hub_bus}_3 # uart_${uart_hub_bus}_0 for deye
+  #         modbus_send_wait_time: '200ms'
+  #     # modbus_19200
+  #     - path: pvbrain2/base/device_modbus.yaml
+  #       vars:
+  #         modbus_id: 'modbus_19200_id'
+  #         modbus_uart_id: uart_${uart_hub_bus}_2
+  #         modbus_send_wait_time: '200ms'
+  #     # modbus_115200
+  #     - path: pvbrain2/base/device_modbus.yaml
+  #       vars:
+  #         modbus_id: 'modbus_115200_id'
+  #         modbus_uart_id: uart_${uart_hub_bus}_5
+  #         modbus_send_wait_time: '200ms'
+  #     # modbus_38400
+  #     - path: pvbrain2/base/device_modbus.yaml
+  #       vars:
+  #         modbus_id: 'modbus_38400_id'
+  #         modbus_uart_id: uart_${uart_hub_bus}_1
+  #         modbus_send_wait_time: '200ms'
+
+  ########## UART expander ##########
+
+  # device_uart_expander_addon:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/addons/uart_extender_addon/device_wk2168_addon_spi.yaml
+    
+  # light_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/environmental/light/device_ws2812b.yaml
+  #       vars:
+  #         light_name: ws2812b
+  #         light_num_leds: '2'
+  #         light_order: 'GRB'
+
+  ########## RELAYS (over SX1509) ##########
+
+  # relays_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/relay/device_relay.yaml
+  #       vars:
+  #         relays_name: 'relay'
+  #         relays_hub: 'sx1509_hub0'
+  #         relays_channel0: 'inverter'
+  #         relays_channel0_pin: '0'
+  #         relays_channel1: 'ats_control'
+  #         relays_channel1_pin: '1'
+  #         relays_channel2: '2'
+  #         relays_channel2_pin: '2'
+  #         relays_channel3: '3'
+  #         relays_channel3_pin: '3'
+  #         relays_channel4: '4'
+  #         relays_channel4_pin: '4'
+  #         relays_channel5: '5'
+  #         relays_channel5_pin: '5'
+  #         relays_channel6: '6'
+  #         relays_channel6_pin: '6'
+  #         relays_channel7: '7'
+  #         relays_channel7_pin: '7'
+
+  # fil_pilote:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/addons/fil_pilote/device_fp_x8.yaml  # REPLACE THE LOCATION OF "x8" BY NUMBER OF HEATER ZONES : 1 to 8
+  #     # - path: pvbrain2/addons/fil_pilote/device_fp_x4.yaml  # << EXEMPLE
+  #       vars:
+  #         fpilote_bus: sx1509_hub1
+  #         fpilote_name: 'chauffage_zone'
+  #         fpilote_initial_option: 'Hors-gel'
+
+  # teleinfo:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/addons/teleinfo/historique.yaml      # IF COUNTER IN MODE "Historique"
+  #     # - path: pvbrain2/addons/teleinfo/standard.yaml        # IF COUNTER IN MODE "Standard"
+  #       vars:
+  #         linky_name: 'myteleinfo'                          # /!\ teleinfo not work with WK UART /!\
+  #         linky_uartid: uart_esp_0                          # Need to modify UART baudrate: '1200' if historique >> '9600' if standard
+  #         linky_update_interval: '5s'
+
+  ########## AC dimmer / SSR LSA ##########
+  
+  # ac_dimmer_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/ac_dimmer/device_robotdyn.yaml
+  #       vars:
+  #         ac_dimmer_name: 'ac_dimmer'
+  #         ac_dimmer_gate_gpio: GPIO07
+  #         ac_dimmer_zc_gpio: GPIO42
+
+  # ac_dimmer_2:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/ac_dimmer/device_robotdyn.yaml
+  #       vars:
+  #         ac_dimmer_name: 'ac_dimmer'
+  #         ac_dimmer_gate_gpio: GPIO03
+  #         ac_dimmer_zc_gpio: GPIO42
+
+  # lsa_sx1509_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/ac_dimmer/device_lsa_sx1509.yaml
+  #       vars:
+  #         lsa_sx1509_name: 'lsa1'
+  #         lsa_sx1509_hub: 'sx1509_hub1'
+  #         lsa_sx1509_pin: '4'
+
+  # lsa_gp8403_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/ac_dimmer/device_lsa_gp8403.yaml
+  #       vars:
+  #         lsa_gp8403_name: 'lsa1'
+  #         lsa_gp8403_channel: '0'
+  #         lsa_gp8403_i2c_id: 'i2c0_bus'
+  #         lsa_gp8403_i2c_address: '0x58'
+
+  ########## Optocoupler (AC's presence detection) ##########
+
+  # opto:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # Opto 1
+  #     - path: pvbrain2/optocoupler/device_opto.yaml
+  #       vars:
+  #         opto_name: 'opto_grid_230V'
+  #         opto_gpio: GPIO05
+  #     # Opto 2
+  #     - path: pvbrain2/optocoupler/device_opto.yaml
+  #       vars:
+  #         opto_name: 'opto_solar_230V'
+  #         opto_gpio: GPIO04 
+  
+  ########## Environnemental sensors ##########
+
+  # environnemental:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # BME 280
+  #     - path: pvbrain2/environmental/bme280/device_bme_280.yaml
+  #       vars:
+  #         environnemental_name: 'bme280'
+  #         environnemental_address: '0x76'
+  #         environnemental_i2c_bus: 'i2c0_bus'
+  #         environnemental_update_interval: '5s'
+  #     # BMP 280
+  #     - path: pvbrain2/environmental/bmp280/device_bmp_280.yaml
+  #       vars:
+  #         environnemental_name: 'bmp280'
+  #         environnemental_address: '0x76'
+  #         environnemental_i2c_bus: 'i2c0_bus'
+  #         environnemental_update_interval: '5s'
+  #     # Dallas Sensors
+  #     - path: pvbrain2/environmental/dallas/device_dallas.yaml
+  #       vars:
+  #         environnemental_name: 'dallas1'
+  #         environnemental_address: '0x9f3c01f09613re85'
+  #         environnemental_update_interval: '5s'
+
+  ########## Automatic Transfert Switch ##########
+
+  # ats_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/ats/device_ats.yaml
+  #       vars:
+  #         ats_name: 'ats'
+
+  ########## Solar Inverter (ongrid/hybrid/offgrid) ##########
+  
+  # inverter_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/inverter/voltronic/device_axpert_max.yaml
+  #       vars:
+  #         inverter_uart_id: uart_${uart_hub_bus}_0  # 'uart_i2c_0'
+  #         inverter_name: 'axpert'
+  #         inverter_update_interval: '1s'
+  #         inverter_template_update: '2s'
+  #         inverter_text_update: '5s'
+
+  # inverter_2:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/inverter/victron/device_multirs.yaml
+  #       vars:
+  #         inverter_uart_id: uart_${uart_hub_bus}_6  # 'uart_i2c_6'
+  #         inverter_name: 'multirs'
+  #         inverter_throttle: '5s'
+  #         inverter_update_interval: '3s'
+  #         inverter_template_update: '5s'
+  #         inverter_text_update: '5s'    
+  
+  # inverter_3:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/inverter/deye/device_deye.yaml
+  #       vars:
+  #         inverter_name: 'deye'
+  #         inverter_modbus_id: 'modbus_9600_id'
+  #         inverter_modbus_address: '1'
+  #         inverter_modbus_throttle: '50ms'
+  #         inverter_update_interval: '1s'
+  #         inverter_template_update: '2s'
+  #         inverter_text_update: '5s'
+
+  # inverter_4:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/inverter/growatt/device_growatt.yaml
+  #       vars:
+  #         inverter_name: 'growatt'
+  #         inverter_modbus_id: 'modbus_9600_id'
+  #         inverter_modbus_address: '5'
+  #         inverter_update_interval: '1s'
+
+  # inverter_5:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/inverter/sofar/device_sofar.yaml
+  #       vars:
+  #         inverter_name: 'sofar'
+  #         inverter_modbus_id: 'modbus_9600_id'
+  #         inverter_modbus_address: '6'
+  #         inverter_modbus_throttle: '100ms'
+  #         inverter_update_interval: '1s'
+
+  # inverter_6:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/inverter/EASUN/device_smg2.yaml
+  #       vars:
+  #         inverter_name: 'easun'
+  #         inverter_modbus_id: 'modbus_9600_id'
+  #         inverter_modbus_address: '1'
+  #         inverter_modbus_throttle: '200ms'
+  #         inverter_update_interval: '1s'
+
+  # inverter_7:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/inverter/sofar/device_sofar_KTLG3.yaml
+  #       vars:
+  #         inverter_name: 'sofar'
+  #         inverter_modbus_id: 'modbus_9600_1'
+  #         inverter_modbus_address: '1'
+  #         inverter_modbus_throttle: '200ms'
+  #         inverter_update_interval: '3s'
+  #         inverter_template_update: '3s'
+
+  # inverter_8:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/inverter/solax/device_solax_x1ac.yaml
+  #       vars:
+  #         inverter_name: 'solax'
+  #         inverter_modbus_id: 'modbus_115200_1'
+  #         inverter_modbus_address: '10'
+  #         inverter_modbus_throttle: '200ms'
+  #         inverter_modbus_offline_skip_updates: '10'
+  #         inverter_update_interval: '3s'
+  #         inverter_template_update: '3s'
+
+  ########## AC powermeter ##########
+   
+  # powermeter_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/powermeter/ac/jsy/device_jsy193.yaml
+  #       vars:
+  #         powermeter_name: 'jsy193'
+  #         powermeter_modbus_id: 'modbus_9600_id'
+  #         powermeter_modbus_address: '1'
+  #         powermeter_suffix1: 'solar'
+  #         powermeter_suffix2: 'grid'
+  #         powermeter_update_interval: '1s'
+  #         powermeter_template_update: '2s'
+  
+  # powermeter_2:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/powermeter/ac/jsy/device_jsy194.yaml
+  #       vars:
+  #         powermeter_name: 'jsy194'
+  #         powermeter_modbus_id: 'modbus_9600_id'
+  #         powermeter_modbus_address: '2'
+  #         powermeter_suffix1: 'solar'
+  #         powermeter_suffix2: 'grid'
+  #         powermeter_update_interval: '1s'
+  #         powermeter_template_update: '2s'
+
+  # powermeter_3:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/powermeter/ac/peacefair/device_pzem004tv3.yaml
+  #       vars:
+  #         powermeter_name: 'pzem_solar'
+  #         powermeter_modbus_id: 'modbus_9600_id'
+  #         powermeter_modbus_address: '1'
+  #         powermeter_update_interval: '1s'
+  #         powermeter_template_update: '2s'
+
+  # powermeter_4:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/powermeter/dc/peacefair/device_pzemdc.yaml
+  #       vars:
+  #         powermeter_name: 'pzemdc'
+  #         powermeter_modbus_id: 'modbus_9600_id'
+  #         powermeter_address: '1'
+  #         powermeter_update_interval: '1s'
+  #         powermeter_template_update: '2s'
+  #         powermeter_offset_current: '0'
+  #         powermeter_offset_voltage: '-9.1'
+  #         powermeter_offset_power: '0'
+
+  # powermeter_5:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/powermeter/ac/eastron/device_sdm.yaml
+  #       vars:
+  #         powermeter_name: 'sdm120_solar'
+  #         powermeter_modbus_id: 'modbus_115200_id'
+  #         powermeter_modbus_address: '1'
+  #         powermeter_update_interval: '2s'
+  #         powermeter_template_update: '2s'
+
+  # powermeter_6:
+  #     - path: pvbrain2/powermeter/dc/texas_instruments/device_ina3221.yaml
+  #       vars:
+  #         powermeter_name: 'ina3221'
+  #         powermeter_address: '0x40'
+  #         powermeter_i2c_bus: i2c0_bus
+  #         powermeter_update_interval: '5s'
+
+  ########## DC powermeter ##########
+
+  # powermeter_7:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # Victron SmartShunt
+  #     - path: pvbrain2/powermeter/dc/victron/device_smartshunt.yaml
+  #       vars:
+  #         powermeter_uart_id: uart_${uart_hub_bus}_2
+  #         powermeter_name: 'smartshunt'
+  #         powermeter_update_interval: '3s'
+  #         powermeter_template_update: '3s'
+  #     # JSY231
+  #     - path: pvbrain2/powermeter/dc/jsy/device_jsy231.yaml
+  #       vars:
+  #         powermeter_name: 'jsy231'
+  #         powermeter_modbus_id: 'modbus_38400_id'
+  #         powermeter_modbus_address: '1'
+  #         powermeter_update_interval: '3s'
+  #         powermeter_template_update: '3s' #
+
+  ########## Solar Charge Controller MPPT (DC coupling) ##########
+
+  # solar_charge_controller:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # SRNE 1
+  #     - path: pvbrain2/solar_charger/srne/device_srne.yaml
+  #       vars:
+  #         solar_charger_name: 'srne1'
+  #         solar_charger_modbus_id: 'modbus_9600_id'
+  #         solar_charger_modbus_address: '1'
+  #         solar_charger_update_interval: '1s'
+  #         solar_charger_template_update: '2s'
+  #         solar_charger_text_update: '5s'
+  #         solar_charger_modbus_throttle: '200ms'
+  #     # SRNE 2
+  #     - path: pvbrain2/solar_charger/srne/device_srne.yaml
+  #       vars:
+  #         solar_charger_name: 'srne2'
+  #         solar_charger_modbus_id: 'modbus_9600_id'
+  #         solar_charger_modbus_address: '2'
+  #         solar_charger_update_interval: '1s'
+  #         solar_charger_template_update: '2s'
+  #         solar_charger_text_update: '5s'
+  #         solar_charger_modbus_throttle: '200ms'
+  #     # Smart Solar
+  #     - path: pvbrain2/solar_charger/victron/device_smartsolar.yaml
+  #       vars:
+  #         solar_charger_uart_id: uart_${uart_hub_bus}_6
+  #         solar_charger_name: 'smartsolar'
+  #         solar_charger_throttle: '5s'
+  #         solar_charger_update_interval: '1s'
+  #         solar_charger_template_update: '2s'
+  #         solar_charger_text_update: '5s'
+  #     # eSmart3
+  #     - path: pvbrain2/solar_charger/esmart3/device_esmart3.yaml
+  #       vars:
+  #         solar_charger_uart_id: uart_${uart_hub_bus}_6
+  #         solar_charger_name: 'esmart3'
+  #         solar_charger_update_interval: '1s'
+
+  # # Epever
+  # epever_scc:
+  #   url: https://github.com/Sleeper85/esphome-packages
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: 'packages/solar_charge_controller/epever/epever_scc_full.yaml'
+  #       vars:
+  #         scc_name: 'SCC_1'                                         # Name without space (modbus controller id)
+  #         scc_modbus_id: 'modbus_115200_id'
+  #         scc_modbus_address: '1'
+  #         scc_modbus_throttle: '0ms'
+  #         scc_update_interval: '5s'
+  #         scc_input_number_mode: 'box'                              # box / slider
+  #         scc_skip_updates_1: "30"                                  # 30s
+  #         scc_skip_updates_2: "300"                                 # 5min
+  #         # When the battery type is "USE" the Lithium battery voltage parameters follow the following logic :
+  #         # A. Over Voltage Disconnect Voltage > Over Charging Protection Voltage (BMS)+0.2V
+  #         # B. Over Voltage Disconnect Voltage > Over Voltage Reconnect Voltage = Charging Limit Voltage
+  #         #    ≥ Equalize Charging Voltage = Boost Charging Voltage ≥ Float Charging Voltage > Boost Reconnect Charging Voltage
+  #         # C. Low Voltage Reconnect Voltage > Low Voltage Disconnect Voltage ≥ Discharging Limit Voltage
+  #         # D. Under Voltage Alarm Reconnect Voltage > Under Voltage Alarm Voltage ≥ Discharging Limit Voltage
+  #         # E. Boost Reconnect Charging voltage > Low Voltage Reconnect Voltage
+  #         # F. Low Voltage Disconnect Voltage ≥ Discharging Limit Voltage (BMS)+0.2V
+  #         scc_overvoltage_disconnect_voltage: '29.0'                # 3.625V/cell
+  #         scc_charging_limit_voltage: '28.0'                        # 3.5V/cell
+  #         scc_overvoltage_reconnect_voltage: '28.0'                 # 3.5V/cell
+  #         scc_equalization_charging_voltage: '27.6'                 # 3.45V/cell
+  #         scc_boost_charging_voltage: '27.6'                        # 3.45V/cell
+  #         scc_float_charging_voltage: '27.0'                        # 3.375V/cell
+  #         scc_boost_reconnect_charging_voltage: '26.4'              # 3.3V/cell
+  #         scc_low_voltage_reconnect_voltage: '25.0'                 # 3.125V/cell
+  #         scc_undervoltage_alarm_recovery_voltage: '25.0'           # 3.125V/cell
+  #         scc_undervoltage_alarm_voltage: '24.8'                    # 3.1V/cell
+  #         scc_low_voltage_disconnect_voltage: '24.0'                # 3.0V/cell
+  #         scc_discharging_limit_voltage: '22.4'                     # 2.8V/cell
+
+  ########## Battery Management System (BMS) ##########
+  
+  # bms:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # JK-B BMS 1
+  #     - path: pvbrain2/bms/jikong/device_jkbms.yaml
+  #       vars:
+  #         bms_uart_id: uart_${uart_hub_bus}_4
+  #         bms_name: 'jkbms1'
+  #         bms_update_interval: '1s'
+  #         bms_template_update: '2s'
+  #         bms_text_update: '5s'
+  #     # JK-B BMS 2
+  #     - path: pvbrain2/bms/jikong/device_jkbms.yaml
+  #       vars:
+  #         bms_uart_id: uart_${uart_hub_bus}_5
+  #         bms_name: 'jkbms2'
+  #         bms_update_interval: '1s'
+  #         bms_template_update: '2s'
+  #         bms_text_update: '5s'
+  #     # JK-PB BMS
+  #     - path: pvbrain2/bms/jikong/device_jkpbbms.yaml
+  #       vars:
+  #         bms_name: 'jkpb1'
+  #         bms_modbus_id: 'modbus_115200_id'
+  #         bms_modbus_address: '1'
+  #         bms_update_interval: '5s'
+  #         bms_template_update: '5s'
+  #         bms_text_update: '5s'
+  #         bms_modbus_throttle: '50ms'
+  #     # SEPLOS V1 V2
+  #     - path: pvbrain2/bms/seplos/device_seplosbms.yaml
+  #       vars:
+  #         bms_uart_id: uart_${uart_hub_bus}_7
+  #         bms_name: 'seplos'
+  #         bms_modbus_address: '0'
+  #         bms_protocol: '0x20'  # 0x20 (Seplos), 0x26 (Boqiang)
+  #         bms_update_interval: '5s'
+  #         bms_template_update: '5s'
+  #         bms_rx_timeout: '150ms'
+  #     # SEPLOS V3
+  #     - path: pvbrain2/bms/seplos/device_seplosbmsv3.yaml
+  #       vars:
+  #         bms_name: 'seplosv3'
+  #         bms_modbus_id: 'modbus_19200_id'
+  #         bms_modbus_address: '0'
+  #         bms_update_interval: '1s'
+  #         bms_template_update: '2s'
+  #         bms_text_update: '5s'
+  #         bms_modbus_throttle: '200ms'
+  #     # Ant BMS
+  #     - path: pvbrain2/bms/ant/device_antbms.yaml
+  #       vars:
+  #         bms_uart_id: uart_${uart_hub_bus}_6
+  #         bms_name: 'antbms'
+  #         bms_update_interval: '5s'
+  #         bms_rx_timeout: '50ms'
+  #         bms_password: "12345678"
+  #         bms_supports_new_commands: 'true'
+  #     # Ant BMS OLD
+  #     - path: pvbrain2/bms/ant/device_antbms_old.yaml
+  #       vars:
+  #         bms_uart_id: uart_${uart_hub_bus}_6
+  #         bms_name: 'antbms'
+  #         bms_update_interval: '10s'
+  #         bms_rx_timeout: '50ms'
+  #         bms_password: "12345678"
+  #     # Pylontech
+  #     - path: pvbrain2/bms/pylontech/device_pylontech.yaml
+  #       vars:
+  #         pylon_uart_id: uart_${uart_hub_bus}_4
+  #         pylon_name: pylontech
+  #         pylon_number: '1' # Battery number queried
+  #         pylon_update_interval: '5s'
+  #     # Pace BMS
+  #     - path: pvbrain2/bms/pace/device_pacebms.yaml
+  #       vars:
+  #         bms_name: 'pacebms'
+  #         bms_modbus_id: 'modbus_19200_id'
+  #         bms_modbus_address: '1'
+  #         bms_update_interval: '1s'
+  #         bms_template_update: '2s'
+  #         bms_text_update: '5s'
+  #         bms_modbus_throttle: '100ms'
+
+  ########## BMS JK RS485 component
+  ########## The 4 blocks below are an example of importing 3x JK-PB BMS supervised from the RS485 bus (two right ports)
+  ########## https://github.com/Sleeper85/esphome-yambms/blob/main/documents/README/BMS_JK-PB.md
+
+  # jk_rs485:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # JK RS485 sniffer
+  #     - path: pvbrain2/bms/jikong/device_JK-PB_RS485_sniffer.yaml
+  #       vars:
+  #         sniffer_protocol: 'JK02_32S'
+  #         sniffer_uart_id: uart_${uart_hub_bus}_4
+  #     # Mode1 : configure the DIP switches of your BMS from 0x00 to 0x0F (max 16 BMS)
+  #     # Mode2 : configure the DIP switches of your BMS from 0x01 to 0x0F (don't use the 0x00 address, maximum 15 BMS)
+  #     # JK-BMS 1
+  #     - path: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+  #       vars:
+  #         bms_id: '1' # must be a number
+  #         bms_name: 'JK-BMS 1'
+  #         bms_address: '0x00' # BMS 1 DIP switch
+  #         bms_update_interval: '3s' # going below '3s' can cause problems
+  #     # JK-BMS 2
+  #     - path: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+  #       vars:
+  #         bms_id: '2' # must be a number
+  #         bms_name: 'JK-BMS 2'
+  #         bms_address: '0x01' # BMS 2 DIP switch
+  #         bms_update_interval: '3s' # going below '3s' can cause problems
+  #     # JK-BMS 3
+  #     - path: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
+  #       vars:
+  #         bms_id: '3' # must be a number
+  #         bms_name: 'JK-BMS 3'
+  #         bms_address: '0x02' # BMS 3 DIP switch
+  #         bms_update_interval: '3s' # going below '3s' can cause problems
+
+  ########## Multi-BMS / Multi-CAN ##########
+
+  # yambms1: !include configuration_examples/YamBMS_RP_JK-B_UART.yaml
+  # yambms2: !include configuration_examples/YamBMS_RP_JK-B_RS485.yaml
+  # yambms3: !include configuration_examples/YamBMS_RP_JK-PB_RS485.yaml
+  # yambms4: !include configuration_examples/YamBMS_RP_JBD_UART.yaml
+  # yambms5: !include configuration_examples/YamBMS_RP_SEPLOS_V1_V2_RS485.yaml
+
+  ########## TEMPLATE SENSORS ##########
+
+  # total_power_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/template/sensors/total_5powers.yaml
+  #       vars:
+  #         total_power_name: 'total_pv'
+  #         total_power_source1: 'deye_pv1_power' 
+  #         total_power_source2: 'deye_pv2_power'
+  #         total_power_source3: 'srne1_pv_power'
+  #         total_power_source4: 'srne2_pv_power'
+  #         total_power_source5: 'sofar_pv_power'
+  #         total_power_template_update: '2s'
+
+  # total_power_2:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/template/sensors/total_2powers.yaml
+  #       vars:
+  #         total_power_name: 'total_ac_ouput'
+  #         total_power_source1: 'deye_ac_output_power' 
+  #         total_power_source2: 'sofar_ac_output_power'
+  #         total_power_template_update: '2s'        
+
+  ########## Statistics ###########
+
+  # statistics:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # soc_max
+  #     - path: pvbrain2/miscellaneous/statistics/device_statistics.yaml
+  #       vars:  
+  #         statistics_name: 'soc_max'
+  #         statistics_id: 'smartshunt_soc'
+  #         statistics_method: 'max'
+  #     # soc_min
+  #     - path: pvbrain2/miscellaneous/statistics/device_statistics.yaml
+  #       vars:  
+  #         statistics_name: 'soc_min'
+  #         statistics_id: 'smartshunt_soc'
+  #         statistics_method: 'min'
+  #     # total_production_pv_power_max
+  #     - path: pvbrain2/miscellaneous/statistics/device_statistics.yaml
+  #       vars:  
+  #         statistics_name: 'total_production_pv_power_max'
+  #         statistics_id: 'total_production_pv_power_total'
+  #         statistics_method: 'max' 
+      
+  ########## Actions/Automations ##########
+
+  # ats_control_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: pvbrain2/actions/ats_control/action_ats_control_offgrid_grid_on_total_voltage.yaml
+  #       vars:
+  #         ats_control_name: ats_control
+  #         ats_control_id: 'ats_automatic_control'
+  #         ats_control_voltage_id: 'smartshunt_battery_voltage'
+  #         ats_control_relay_inverter_id: 'relay0_axpert'
+  #         ats_control_relay_ats_id: 'relay0_ats_control'
+  #         ats_control_solar_to_grid_voltage_threshold_id: 'ats_voltage_solar_to_grid_number'
+  #         ats_control_grid_to_solar_voltage_threshold_id: 'ats_voltage_grid_to_solar_number'
+  #         ats_control_delay_grid_to_solar: '13s'
+  #         ats_control_delay_solar_to_grid: '2s'
+  #         ats_control_grid_input: 'axpert_grid_input'
+  #         ats_control_inverter_switch: 'axpert_switch_on'
+  #         ats_control_grid: 'opto_grid_230V'
+  #         ats_control_solar: 'opto_solar_230V'
+  #         # ats_control_inverteur_mode: 'axpert_output_source_priority_select'
+
+  # fan_control_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path:  pvbrain2/actions/fan_control/action_fan_control_with_sun.yaml
+  #       vars:
+  #         fan_control_name: 'fan_control'
+  #         fan_control_relay0_id: 'relay0_fan_extraction'
+  #         fan_control_relay1_id: 'relay0_fan_axpert'
+  #         fan_control_relay2_id: 'relay0_fan_general'
+  #         fan_control_template_update: '10s'
+  #         fan_control_text_update: '10s'
+
+  ########## Solar Router ##########
+
+  # solar_router:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     # solar_router_1
+  #     - path: pvbrain2/solar_router/device_solar_router.yaml
+  #       vars:
+  #         solar_router_name: 'solar_router'
+  #         solar_router_id: 'solar_routeur_id'
+  #         solar_router_input_id: 'smartshunt_battery_current'
+  #         solar_router_power_id: 'pzem_router_power'
+  #         solar_router_pwm_restart: '0.40'
+  #         solar_router_battery_voltage_id: 'smartshunt_battery_voltage'
+  #         solar_router_starting_battery_voltage: '54.0'
+  #         solar_router_output_id: 'lsa1_output'
+  #         solar_router_windows_size: '4'
+  #     # solar_router_2
+  #     - path: pvbrain2/solar_router/device_solar_router.yaml   ### Example where all measurements are coming from a DEYE inverter. Solar router is wired on the GEN port
+  #       vars:
+  #         solar_router_name: 'solar_router'
+  #         solar_router_id: 'solar_routeur_id'
+  #         solar_router_input_id: 'deye_battery_current'
+  #         solar_router_power_id: 'deye_aux_output_power'
+  #         solar_router_pwm_restart: '0.40'
+  #         solar_router_battery_voltage_id: 'deye_battery_voltage'
+  #         solar_router_output_id: 'lsa1_output'
+  #         solar_router_windows_size: '3'  
+  #     # solar_router_3
+  #     - path: pvbrain2/solar_router/device_offsr.yaml
+  #       vars:
+  #         offsr_name: 'offsr'
+  #         offsr_id: 'offsr_id'
+  #         offsr_battery_current_id: 'smartshunt_battery_current'
+  #         offsr_battery_voltage_id: 'smartshunt_battery_voltage'
+  #         offsr_output_id: 'lsa1_output'
+  #         offsr_power_id: 'pzem_router_power'
+  #         offsr_windows_size: '3'  
