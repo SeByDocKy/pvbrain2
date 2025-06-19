@@ -60,18 +60,18 @@ light:
     entity_category: config
 
 # https://esphome.io/components/light/esp32_rmt_led_strip
-  - platform: esp32_rmt_led_strip
-    name: ${name}_on_board_light_io48
-    id: on_board_light_io48
-    rgb_order: GRB
-    pin: GPIO48
-    num_leds: 1
-    # rmt_channel: 0
-    chipset: ws2812
-    default_transition_length: 0ms
-    effects: !include
-      file: ../environmental/light/effects/addressable_monoled.yaml
-    entity_category: config
+  # - platform: esp32_rmt_led_strip
+  #   name: ${name}_on_board_light_io48
+  #   id: on_board_light_io48
+  #   rgb_order: GRB
+  #   pin: GPIO48
+  #   num_leds: 1
+  #   # rmt_channel: 0
+  #   chipset: ws2812
+  #   default_transition_length: 0ms
+  #   effects: !include
+  #     file: ../environmental/light/effects/addressable_monoled.yaml
+  #   entity_category: config
 
 button:
 # https://esphome.io/components/switch/restart
