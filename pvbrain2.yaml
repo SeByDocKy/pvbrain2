@@ -73,6 +73,7 @@ esphome:
 
 esp32:
   board: esp32-s3-devkitc-1
+  cpu_frequency: 240Mhz
   # flash_size: 16MB  #32 MB                          # Ajust according to your particular ESP32 S3....
 
 # Only if during the flash, the size of it is eroded. Other partitions files is in this folder:
@@ -107,10 +108,10 @@ esp32:
 
 # Enable PSRAM. Comment for disabled if you don't have PSRAM on your ESP.
 
-external_components:
-  - source: "github://SeByDocKy/myESPhome/"
-    components: [esp32,debug]
-    refresh: 0s
+# external_components:
+#   - source: "github://SeByDocKy/myESPhome/"
+#     components: [esp32,debug]
+#     refresh: 0s
     
 psram:
   mode: octal
