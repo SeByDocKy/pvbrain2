@@ -6,7 +6,7 @@ tasks:
       pip install --upgrade pyyaml &&
       pip install colorama &&
       pip install tornado &&
-      pip install git+https://github.com/esphome/esphome.git@e337bd7beb41d28c8d06026cb18f37c725e684dd &&
+      pip install git+https://github.com/esphome/esphome.git &&
       pip install esphome_dashboard &&
       gp sync-done bundle # 'bundle' is an arbitrary name
     command: esphome dashboard ./
