@@ -1,0 +1,28 @@
+# Updated : 2025.06.16
+# Version : 1.1.1
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
+interval:
+  - interval: 1s
+    then:
+      - lambda: |-
+            if (id(inverter_com_status).state)
+            {
+              auto call = id(esp_light).make_call();
+              call.set_brightness(0.5);      // 1.0 is full brightness
+              if (id(esp32_online_status).state)
+                call.set_rgb(0.0, 1.0, 1.0); // green + blue
+              else
+                call.set_rgb(0.0, 0.0, 1.0); // blue
+              call.perform();                // perform action
+            }
+            else
+            {
+              auto call = id(esp_light).turn_on();
+              call.set_brightness(0.5);      // 1.0 is full brightness
+              if (id(esp32_online_status).state)
+                call.set_rgb(0.0, 1.0, 0.0); // green
+              else
+                call.set_rgb(1.0, 0.0, 0.0); // red
+              call.perform();                // perform action
+            }
