@@ -1,5 +1,5 @@
-# Updated : 2025.06.17
-# Version : 1.1.1
+# Updated : 2025.06.22
+# Version : 1.1.2
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 # GitHub  : https://github.com/Sleeper85/pvbrain2
 
@@ -16,8 +16,8 @@ substitutions:
   name: '' # Name that can be added as a second prefix after the friendly name, you can leave it blank.
   hostname: 'pvbrain2' # This is the name of the node. It should always be unique in your ESPHome network.
   friendly_name : 'PVbrain2' # Prefix added in front of all entity names and also to classify them.
-  pvbrain2_version: '1.1.1'
-  esphome_min_version: '2025.5.0'
+  pvbrain2_version: '1.1.2'
+  esphome_min_version: '2025.6.0'
   # PVbrain2 settings
   my_second: '59'
   my_minute: '59'
