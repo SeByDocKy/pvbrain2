@@ -6,14 +6,10 @@ esphome:
 time:
   - platform: homeassistant #sntp
     id: !extend my_time
-    # id: ${solar_charger_name}_time   
-    # timezone: "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00" #https://sites.google.com/a/usapiens.com/opnode/time-zones
-    # servers: "de.pool.ntp.org"
-
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:  
           - globals.set:
               id: ${solar_charger_name}_pv_energy_yesterday_global
@@ -41,12 +37,7 @@ globals:
   - id: ${solar_charger_name}_battery_charging_energy_yesterday_global
     type: float
     restore_value: yes
- 
-# modbus:
-  # - id: ${solar_charger_name}_modbus
-    # uart_id: ${solar_charger_uart_id}
-    # send_wait_time: ${solar_charger_modbus_send_wait_time}
-  
+   
 modbus_controller:
   - id: ${solar_charger_name}_modbus_controller
     address: ${solar_charger_modbus_address}
@@ -68,7 +59,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     unit_of_measurement: 'V'
-    skip_updates: 1 
+    skip_updates: 10
     icon: mdi:sine-wave
     bitmask: 0xFF00 #(Bits 15-8)
 
@@ -79,60 +70,60 @@ sensor:
     address: 0x000A
     register_type: holding
     value_type: U_WORD
-    skip_updates: 1 
+    skip_updates: 10
     accuracy_decimals: 0
     icon: mdi:current-dc
     unit_of_measurement: 'A'
     bitmask: 0x00FF #(Bits 7-0)
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_rated_discharging_current
-    name: ${name}_${solar_charger_name}_rated_discharging_current
-    address: 0x000B
-    register_type: holding
-    value_type: U_WORD
-    skip_updates: 1 
-    accuracy_decimals: 0
-    icon: mdi:current-dc
-    unit_of_measurement: 'A'
-    bitmask: 0xFF00 #(Bits 15-8)  
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_rated_discharging_current
+    # name: ${name}_${solar_charger_name}_rated_discharging_current
+    # address: 0x000B
+    # register_type: holding
+    # value_type: U_WORD
+    # skip_updates: 1 
+    # accuracy_decimals: 0
+    # icon: mdi:current-dc
+    # unit_of_measurement: 'A'
+    # bitmask: 0xFF00 #(Bits 15-8)  
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_software_version
-    name: ${name}_${solar_charger_name}_software_version
-    register_type: holding
-    address: 0x014
-    value_type: U_DWORD
-    #response_size: 4
-    register_count: 2
-    skip_updates: 1
-    #raw_encode: NONE   
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_software_version
+    # name: ${name}_${solar_charger_name}_software_version
+    # register_type: holding
+    # address: 0x014
+    # value_type: U_DWORD
+    # #response_size: 4
+    # register_count: 2
+    # skip_updates: 10
+    # #raw_encode: NONE   
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_hardware_version
-    name: ${name}_${solar_charger_name}_hardware_version
-    register_type: holding
-    address: 0x016
-    #response_size: 4
-    value_type: U_DWORD
-    #response_size: 4
-    register_count: 2
-    #raw_encode: NONE   
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_hardware_version
+    # name: ${name}_${solar_charger_name}_hardware_version
+    # register_type: holding
+    # address: 0x016
+    # #response_size: 4
+    # value_type: U_DWORD
+    # #response_size: 4
+    # register_count: 2
+    # #raw_encode: NONE   
     
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_product_serial_number
-    name: ${name}_${solar_charger_name}_product_serial_number
-    register_type: holding
-    address: 0x018
-    value_type: U_DWORD
-    #response_size: 4
-    register_count: 2
-    #response_size: 4
-    #raw_encode: NONE
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_product_serial_number
+    # name: ${name}_${solar_charger_name}_product_serial_number
+    # register_type: holding
+    # address: 0x018
+    # value_type: U_DWORD
+    # #response_size: 4
+    # register_count: 2
+    # #response_size: 4
+    # #raw_encode: NONE
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -142,7 +133,7 @@ sensor:
     address: 0x01A
     value_type: U_WORD
     bitmask: 0xFF #(Bits 7-0)
-    skip_updates: 1
+    skip_updates: 10
     icon: mdi:numeric
 
       ################ Controller dynamic information# ##############################
@@ -166,7 +157,7 @@ sensor:
     address: 0x101
     register_type: holding
     value_type: U_WORD
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     unit_of_measurement: 'V'
     skip_updates: 1 
     icon: mdi:sine-wave
@@ -181,7 +172,7 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     icon: mdi:current-dc
     unit_of_measurement: 'A'
     filters:
@@ -196,7 +187,7 @@ sensor:
   - platform: template
     id: ${solar_charger_name}_charging_power
     name: ${name}_${solar_charger_name}_charging_power
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     icon: mdi:power
     unit_of_measurement: 'W'
     update_interval: ${solar_charger_template_update}
@@ -263,45 +254,45 @@ sensor:
     icon: mdi:thermometer
     bitmask: 0x7F #(Bits 7-0)
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_load_dc_voltage
-    name: ${name}_${solar_charger_name}_load_dc_voltage
-    address: 0x104
-    register_type: holding
-    value_type: U_WORD
-    accuracy_decimals: 1
-    unit_of_measurement: 'V'
-    skip_updates: 1 
-    icon: mdi:sine-wave
-    filters:
-      - multiply: 0.1
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_load_dc_voltage
+    # name: ${name}_${solar_charger_name}_load_dc_voltage
+    # address: 0x104
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 1
+    # unit_of_measurement: 'V'
+    # skip_updates: 1 
+    # icon: mdi:sine-wave
+    # filters:
+      # - multiply: 0.1
   
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_load_dc_current
-    name: ${name}_${solar_charger_name}_load_dc_current
-    address: 0x105
-    register_type: holding
-    value_type: U_WORD
-    skip_updates: 1 
-    accuracy_decimals: 1
-    icon: mdi:current-dc
-    unit_of_measurement: 'A'
-    filters:
-      - multiply: 0.01
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_load_dc_current
+    # name: ${name}_${solar_charger_name}_load_dc_current
+    # address: 0x105
+    # register_type: holding
+    # value_type: U_WORD
+    # skip_updates: 1 
+    # accuracy_decimals: 2
+    # icon: mdi:current-dc
+    # unit_of_measurement: 'A'
+    # filters:
+      # - multiply: 0.01
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_load_dc_power
-    name: ${name}_${solar_charger_name}_load_dc_power
-    address: 0x106
-    register_type: holding
-    value_type: U_WORD
-    skip_updates: 1 
-    accuracy_decimals: 1
-    icon: mdi:power
-    unit_of_measurement: 'W'
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_load_dc_power
+    # name: ${name}_${solar_charger_name}_load_dc_power
+    # address: 0x106
+    # register_type: holding
+    # value_type: U_WORD
+    # skip_updates: 1 
+    # accuracy_decimals: 2
+    # icon: mdi:power
+    # unit_of_measurement: 'W'
 
          ############################## Solar Panel Informations ##################
 
@@ -312,7 +303,7 @@ sensor:
     address: 0x107
     register_type: holding
     value_type: U_WORD
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     unit_of_measurement: 'V'
     skip_updates: 1 
     icon: mdi:sine-wave
@@ -327,7 +318,7 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     icon: mdi:current-dc
     unit_of_measurement: 'A'
     filters:
@@ -341,9 +332,10 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     icon: mdi:power
     unit_of_measurement: 'W'
+    register_count: 2
 
   - platform: total_daily_energy
     id: ${solar_charger_name}_pv_energy_today
@@ -367,28 +359,28 @@ sensor:
     lambda: |-
       return (id( ${solar_charger_name}_pv_energy_yesterday).state = id( ${solar_charger_name}_pv_energy_yesterday_global ));
     
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_load_dc_charging_status
-    name: ${name}_${solar_charger_name}_load_dc_charging_status
-    address: 0x010A
-    register_type: holding
-    value_type: U_WORD
-    accuracy_decimals: 0
-    skip_updates: 1
-    bitmask: 1
-    icon: mdi:account-hard-hat
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_load_dc_charging_status
+    # name: ${name}_${solar_charger_name}_load_dc_charging_status
+    # address: 0x010A
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 0
+    # skip_updates: 1
+    # bitmask: 1
+    # icon: mdi:account-hard-hat
     
         ############################## Battery statistics  ############################
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_battery_minimum_voltage_current_today
-    name: ${name}_${solar_charger_name}_battery_minimum_voltage_current_today
+    id: ${solar_charger_name}_battery_minimum_voltage_today
+    name: ${name}_${solar_charger_name}_battery_minimum_voltage_today
     address: 0x010B
     register_type: holding
     value_type: U_WORD
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     unit_of_measurement: 'V'
     skip_updates: 1 
     icon: mdi:sine-wave
@@ -397,12 +389,12 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_battery_maximum_voltage_current_today
-    name: ${name}_${solar_charger_name}_battery_maximum_voltage_current_today
+    id: ${solar_charger_name}_battery_maximum_voltage_today
+    name: ${name}_${solar_charger_name}_battery_maximum_voltage_today
     address: 0x010C
     register_type: holding
     value_type: U_WORD
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     unit_of_measurement: 'V'
     skip_updates: 1 
     icon: mdi:sine-wave
@@ -417,7 +409,7 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     icon: mdi:current-dc
     unit_of_measurement: 'A'
     filters:
@@ -431,7 +423,7 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     icon: mdi:current-dc
     unit_of_measurement: 'A'
     filters:
@@ -445,7 +437,7 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     icon: mdi:power
     unit_of_measurement: 'W'
  
@@ -457,9 +449,10 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 1
+    accuracy_decimals: 2
     icon: mdi:power
     unit_of_measurement: 'W'
+    register_count: 3
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -473,21 +466,22 @@ sensor:
     icon: mdi:power
     unit_of_measurement: 'kWh'
     filters:
-      - multiply: 0.001 
+      - multiply: 0.001
+    register_count: 2  
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_energy_consumption_today
-    name: ${name}_${solar_charger_name}_energy_consumption_today
-    address: 0x0114
-    register_type: holding
-    value_type: U_WORD
-    skip_updates: 1 
-    accuracy_decimals: 1
-    icon: mdi:power
-    unit_of_measurement: 'kWh'
-    filters:
-      - multiply: 0.001       
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_energy_consumption_today
+    # name: ${name}_${solar_charger_name}_energy_consumption_today
+    # address: 0x0114
+    # register_type: holding
+    # value_type: U_WORD
+    # skip_updates: 1 
+    # accuracy_decimals: 1
+    # icon: mdi:power
+    # unit_of_measurement: 'kWh'
+    # filters:
+      # - multiply: 0.001       
   
       #################### Historical data information ##################
 
@@ -534,19 +528,20 @@ sensor:
     skip_updates: 1 
     accuracy_decimals: 0
     icon: mdi:power
-    unit_of_measurement: 'Ah' 
+    unit_of_measurement: 'Ah'
+    register_count: 4
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_total_discharging_ah_battery
-    name: ${name}_${solar_charger_name}_total_discharging_ah_battery
-    address: 0x011A
-    register_type: holding
-    value_type: U_DWORD
-    skip_updates: 1 
-    accuracy_decimals: 0
-    icon: mdi:power
-    unit_of_measurement: 'Ah'     
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_total_discharging_ah_battery
+    # name: ${name}_${solar_charger_name}_total_discharging_ah_battery
+    # address: 0x011A
+    # register_type: holding
+    # value_type: U_DWORD
+    # skip_updates: 1 
+    # accuracy_decimals: 0
+    # icon: mdi:power
+    # unit_of_measurement: 'Ah'     
     
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -561,20 +556,21 @@ sensor:
     unit_of_measurement: 'kWh'
     filters:
       - multiply: 0.001
+    register_count: 5  
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_energy_consumption_total
-    name: ${name}_${solar_charger_name}_energy_consumption_total
-    address: 0x011E
-    register_type: holding
-    value_type: U_DWORD
-    skip_updates: 1 
-    accuracy_decimals: 1
-    icon: mdi:power
-    unit_of_measurement: 'kWh'
-    filters:
-      - multiply: 0.001    
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_energy_consumption_total
+    # name: ${name}_${solar_charger_name}_energy_consumption_total
+    # address: 0x011E
+    # register_type: holding
+    # value_type: U_DWORD
+    # skip_updates: 1 
+    # accuracy_decimals: 1
+    # icon: mdi:power
+    # unit_of_measurement: 'kWh'
+    # filters:
+      # - multiply: 0.001    
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -628,29 +624,29 @@ sensor:
 
              ################## Load informations  ####################
   
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_street_light_status
-    name: ${name}_${solar_charger_name}_street_light
-    icon: mdi:outdoor-lamp
-    bitmask: 0x8000
-    register_type: holding
-    value_type: U_DWORD
-    skip_updates: 1
-    accuracy_decimals: 0
-    address: 0x0120
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_street_light_status
+    # name: ${name}_${solar_charger_name}_street_light
+    # icon: mdi:outdoor-lamp
+    # bitmask: 0x8000
+    # register_type: holding
+    # value_type: U_DWORD
+    # skip_updates: 1
+    # accuracy_decimals: 0
+    # address: 0x0120
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_street_brightness_level
-    name: ${name}_${solar_charger_name}_street_brightness_level
-    icon: mdi:outdoor-lamp
-    bitmask: 0x7F00
-    register_type: holding
-    value_type: U_DWORD
-    skip_updates: 1 
-    accuracy_decimals: 0
-    address: 0x0120  
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_street_brightness_level
+    # name: ${name}_${solar_charger_name}_street_brightness_level
+    # icon: mdi:outdoor-lamp
+    # bitmask: 0x7F00
+    # register_type: holding
+    # value_type: U_DWORD
+    # skip_updates: 1 
+    # accuracy_decimals: 0
+    # address: 0x0120  
     
       ############################ Battery parameters ###################
 
@@ -798,7 +794,8 @@ sensor:
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
-    icon: mdi:sine-wave 
+    icon: mdi:sine-wave
+
 
             ######## 6 ########
 
@@ -944,35 +941,35 @@ sensor:
     filters:
       - multiply: -1
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_load_working_mode
-    name: ${name}_${solar_charger_name}_load_working_mode
-    address: 0xE01D
-    register_type: holding
-    value_type: U_WORD
-    accuracy_decimals: 0
-    icon: mdi:account-hard-hat
-    skip_updates: 1
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_load_working_mode
+    # name: ${name}_${solar_charger_name}_load_working_mode
+    # address: 0xE01D
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 0
+    # icon: mdi:account-hard-hat
+    # skip_updates: 1
 
-switch:
+# switch:
   
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_load_on_off_command
-    name: ${name}_${solar_charger_name}_load_on_off_command
-    register_type: holding
-    address: 0x010A
-    bitmask: 1
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_load_on_off_command
+    # name: ${name}_${solar_charger_name}_load_on_off_command
+    # register_type: holding
+    # address: 0x010A
+    # bitmask: 1
 
-  - platform: template
-    id: ${solar_charger_name}_load_dc_on_off_command
-    name: ${name}_${solar_charger_name}_load_dc_on_off_command
-    optimistic: true
-    turn_on_action:
-      - script.execute: ${solar_charger_name}_turn_on_dc_load_script
-    turn_off_action:
-      - script.execute: ${solar_charger_name}_turn_off_dc_load_script
+  # - platform: template
+    # id: ${solar_charger_name}_load_dc_on_off_command
+    # name: ${name}_${solar_charger_name}_load_dc_on_off_command
+    # optimistic: true
+    # turn_on_action:
+      # - script.execute: ${solar_charger_name}_turn_on_dc_load_script
+    # turn_off_action:
+      # - script.execute: ${solar_charger_name}_turn_off_dc_load_script
 
 select:
 
@@ -998,32 +995,32 @@ select:
         - script.execute: 
             id: ${solar_charger_name}_write_E003_register_script
 
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_load_charging_mode_select
-    name: ${name}_${solar_charger_name}_load_charging_mode_select
-    address: 0xE01D
-    value_type: U_WORD
-    icon: mdi:list-status
-    optionsmap:
-      "Sole control, light control over on/off of load": 0
-      "Load turned on by light control and goes off after +1h": 1
-      "Load turned on by light control and goes off after +2h": 2
-      "Load turned on by light control and goes off after +3h": 3
-      "Load turned on by light control and goes off after +4h": 4
-      "Load turned on by light control and goes off after +5h": 5
-      "Load turned on by light control and goes off after +6h": 6
-      "Load turned on by light control and goes off after +7h": 7
-      "Load turned on by light control and goes off after +8h": 8
-      "Load turned on by light control and goes off after +9h": 9
-      "Load turned on by light control and goes off after +10h": 10
-      "Load turned on by light control and goes off after +11h": 11
-      "Load turned on by light control and goes off after +12h": 12
-      "Load turned on by light control and goes off after +13h": 13
-      "Load turned on by light control and goes off after +14h": 14
-      "Manual mode": 15
-      "Debugging mode": 16
-      "Normal mode": 17
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_load_charging_mode_select
+    # name: ${name}_${solar_charger_name}_load_charging_mode_select
+    # address: 0xE01D
+    # value_type: U_WORD
+    # icon: mdi:list-status
+    # optionsmap:
+      # "Sole control, light control over on/off of load": 0
+      # "Load turned on by light control and goes off after +1h": 1
+      # "Load turned on by light control and goes off after +2h": 2
+      # "Load turned on by light control and goes off after +3h": 3
+      # "Load turned on by light control and goes off after +4h": 4
+      # "Load turned on by light control and goes off after +5h": 5
+      # "Load turned on by light control and goes off after +6h": 6
+      # "Load turned on by light control and goes off after +7h": 7
+      # "Load turned on by light control and goes off after +8h": 8
+      # "Load turned on by light control and goes off after +9h": 9
+      # "Load turned on by light control and goes off after +10h": 10
+      # "Load turned on by light control and goes off after +11h": 11
+      # "Load turned on by light control and goes off after +12h": 12
+      # "Load turned on by light control and goes off after +13h": 13
+      # "Load turned on by light control and goes off after +14h": 14
+      # "Manual mode": 15
+      # "Debugging mode": 16
+      # "Normal mode": 17
  
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -1320,22 +1317,23 @@ number:
     mode: 'slider'
 
 text_sensor:
-  - platform: modbus_controller
-    modbus_controller_id: ${solar_charger_name}_modbus_controller
-    id: ${solar_charger_name}_product_type
-    name: ${name}_${solar_charger_name}_product_type
-    bitmask: 0
-    register_type: holding
-    address: 0x00B
-    raw_encode: HEXBYTES
-    lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
-      switch (value) {
-        case 0: return std::string("Controller");
-        case 1: return std::string("Inverter");
-        default: return std::string("Unknown");
-      }
-      return x;
+  # - platform: modbus_controller
+    # modbus_controller_id: ${solar_charger_name}_modbus_controller
+    # id: ${solar_charger_name}_product_type
+    # name: ${name}_${solar_charger_name}_product_type
+    # bitmask: 0
+    # register_type: holding
+    # address: 0x00B
+    # skip_updates: 10
+    # raw_encode: HEXBYTES
+    # lambda: |-
+      # uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      # switch (value) {
+        # case 0: return std::string("Controller");
+        # case 1: return std::string("Inverter");
+        # default: return std::string("Unknown");
+      # }
+      # return x;
 
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -1368,6 +1366,7 @@ text_sensor:
     address: 0x00C
     response_size: 16
     raw_encode: NONE
+    skip_updates: 10
   
   # - platform: template
     # id: ${solar_charger_name}_warnings_and_errors_hi_text
@@ -1493,57 +1492,57 @@ script:
           }
           id(${solar_charger_name}_warnings_and_errors_low_text).publish_state(errors_list);
           
-  - id: ${solar_charger_name}_turn_on_dc_load_script
-    then:
-      - globals.set:
-                id: ${solar_charger_name}_current_load_charging_mode_global
-                value: !lambda return ( id(${solar_charger_name}_current_load_charging_mode_global) =  int( id(${solar_charger_name}_load_working_mode).state) );
-      #- delay: 200ms
-      - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
-          std::vector<uint16_t> register_settings(1);
-          register_settings[0]  = uint16_t(15); //go in manual mode <=> write 15 in 0xE01D
-          //ESP_LOGD("script","value to be written in E01D = %d",register_settings[0]);
-          esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0xE01D, register_settings.size() ,
-                                                                                          register_settings);
-          delay(200);
-          controller->queue_command(register_command);
-          delay(200); 
-      - delay: 3s
-      - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
-          std::vector<uint16_t> register_settings(1);
-          register_settings[0]  = uint16_t(1); //turn on dc load  <=> write 1 in 0x010A
-          ESP_LOGD("script turn on regx010A","value to be written in x010A = %d",register_settings[0]);
-          esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0x010A, register_settings.size() ,
-                                                                                          register_settings);
-          delay(200);
-          controller->queue_command(register_command);
-          delay(200);              
+  # - id: ${solar_charger_name}_turn_on_dc_load_script
+    # then:
+      # - globals.set:
+                # id: ${solar_charger_name}_current_load_charging_mode_global
+                # value: !lambda return ( id(${solar_charger_name}_current_load_charging_mode_global) =  int( id(${solar_charger_name}_load_working_mode).state) );
+      # #- delay: 200ms
+      # - lambda: |-
+          # esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
+          # std::vector<uint16_t> register_settings(1);
+          # register_settings[0]  = uint16_t(15); //go in manual mode <=> write 15 in 0xE01D
+          # //ESP_LOGD("script","value to be written in E01D = %d",register_settings[0]);
+          # esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0xE01D, register_settings.size() ,
+                                                                                          # register_settings);
+          # delay(200);
+          # controller->queue_command(register_command);
+          # delay(200); 
+      # - delay: 3s
+      # - lambda: |-
+          # esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
+          # std::vector<uint16_t> register_settings(1);
+          # register_settings[0]  = uint16_t(1); //turn on dc load  <=> write 1 in 0x010A
+          # ESP_LOGD("script turn on regx010A","value to be written in x010A = %d",register_settings[0]);
+          # esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0x010A, register_settings.size() ,
+                                                                                          # register_settings);
+          # delay(200);
+          # controller->queue_command(register_command);
+          # delay(200);              
 
-  - id: ${solar_charger_name}_turn_off_dc_load_script
-    then:
-      - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
-          std::vector<uint16_t> register_settings(1);
-          register_settings[0]  = uint16_t(0); //turn off dc load  <=> write 1 in 0x010A
-          ESP_LOGD("script turn off regx010A","value to be written in 010A = %d",register_settings[0]);
-          esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0x010A, register_settings.size() ,
-                                                                                          register_settings);
-          delay(200);
-          controller->queue_command(register_command);
-          delay(200);                       
+  # - id: ${solar_charger_name}_turn_off_dc_load_script
+    # then:
+      # - lambda: |-
+          # esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
+          # std::vector<uint16_t> register_settings(1);
+          # register_settings[0]  = uint16_t(0); //turn off dc load  <=> write 1 in 0x010A
+          # ESP_LOGD("script turn off regx010A","value to be written in 010A = %d",register_settings[0]);
+          # esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0x010A, register_settings.size() ,
+                                                                                          # register_settings);
+          # delay(200);
+          # controller->queue_command(register_command);
+          # delay(200);                       
 
-      - lambda: |-
-          esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
-          std::vector<uint16_t> register_settings(1);
-          register_settings[0]  = uint16_t(id(${solar_charger_name}_current_load_charging_mode_global)); //return in previous mode <=> write in 0xE01D
-          //ESP_LOGD("script","value to be written in E01D = %d",register_settings[0]);
-          esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0xE01D, register_settings.size() ,
-                                                                                          register_settings);
-          delay(200);
-          controller->queue_command(register_command);
-          delay(200); 
+      # - lambda: |-
+          # esphome::modbus_controller::ModbusController *controller = id(${solar_charger_name}_modbus_controller);
+          # std::vector<uint16_t> register_settings(1);
+          # register_settings[0]  = uint16_t(id(${solar_charger_name}_current_load_charging_mode_global)); //return in previous mode <=> write in 0xE01D
+          # //ESP_LOGD("script","value to be written in E01D = %d",register_settings[0]);
+          # esphome::modbus_controller::ModbusCommandItem register_command = esphome::modbus_controller::ModbusCommandItem::create_write_multiple_command(controller, 0xE01D, register_settings.size() ,
+                                                                                          # register_settings);
+          # delay(200);
+          # controller->queue_command(register_command);
+          # delay(200); 
       
   - id: ${solar_charger_name}_update_template_numbers_script
     then:
