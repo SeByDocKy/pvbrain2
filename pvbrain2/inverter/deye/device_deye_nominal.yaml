@@ -487,11 +487,26 @@ sensor:
       - multiply: 0.1
     value_type: U_WORD
       
-     
-  - platform: modbus_controller            # 154 Grid Inverter Voltage
+  - platform: modbus_controller            # 150 Grid voltage
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_grid_voltage
     id: ${inverter_name}_grid_voltage
+    register_type: holding
+    address: 150
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    accuracy_decimals: 1
+    device_class: voltage
+    state_class: measurement
+    value_type: S_WORD
+    filters:
+      - multiply: 0.1
+    register_count: 4  
+  
+  - platform: modbus_controller            # 154 AC output Voltage
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_output_voltage
+    id: ${inverter_name}_ac_output_voltage
     register_type: holding
     address: 154
     unit_of_measurement: 'V'
@@ -502,6 +517,9 @@ sensor:
     filters:
       - multiply: 0.1
     value_type: U_WORD 
+    
+
+     
     
   - platform: modbus_controller            # 164 Inverter Output Current
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -961,23 +979,7 @@ sensor:
     lambda: |-
       return ( id(${inverter_name}_ac_output_energy_yesterday).state = id(${inverter_name}_ac_output_energy_yesterday_global) );  
     
-   ############### ACout & aux data & statistics  #####
 
-  # - platform: modbus_controller            # 164 Inverter Output Current
-    # modbus_controller_id: ${inverter_name}_modbus_controller
-    # name: ${name}_${inverter_name}_ac_output_voltage
-    # id: ${inverter_name}_ac_output_voltage
-    # register_type: holding
-    # address: 164
-    # unit_of_measurement: 'V'
-    # icon: mdi:sine-wave
-    # accuracy_decimals: 1
-    # device_class: voltage
-    # state_class: measurement
-    # value_type: S_WORD
-    # filters:
-      # - multiply: 0.1
-  
      
     
   - platform: template                   # Essential Power based on register 175 + 167 -166
