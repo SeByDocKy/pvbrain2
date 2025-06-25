@@ -1,0 +1,207 @@
+#############"  From  https://github.com/patagonaa/esphome-daly-hkms-bms   ############
+
+external_components:
+  - source: github://patagonaa/esphome-daly-hkms-bms@main
+    components: [daly_hkms_bms]
+    refresh: 0s
+
+
+globals:    
+  - id: ${bms_name}_battery_charging_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+  - id: ${bms_name}_battery_discharging_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:  
+          - globals.set:
+              id: ${bms_name}_battery_charging_energy_yesterday_global
+              value: !lambda return ( id(${bms_name}_battery_charging_energy_yesterday_global) =  float( id(${bms_name}_battery_charging_energy_today).state) ); 
+                
+          - globals.set:
+              id: ${bms_name}_battery_discharging_energy_yesterday_global
+              value: !lambda return ( id(${bms_name}_battery_discharging_energy_yesterday_global) =  float( id(${bms_name}_battery_discharging_energy_today).state) );    
+
+daly_hkms_bms:
+  - id: ${bms_name}_daly_hkms_bms
+    modbus_id: ${bms_modbus_id}
+    address: ${bms_modbus_address}
+    update_interval: ${bms_update_interval}
+   
+binary_sensor:
+  - platform: daly_hkms_bms
+    daly_hkms_bms_id: ${bms_name}_daly_hkms_bms
+    balancing_active:
+      name: ${name}_${bms_name}_balancing
+    charging_mos_enabled:
+      name: ${name}_${bms_name}_charging
+    discharging_mos_enabled:
+      name: ${name}_${bms_name}_discharging
+    has_warnings:
+      name: ${name}_${bms_name}_warnings
+    has_errors:
+      name: ${name}_${bms_name}_errors
+      
+   
+sensor:
+  - platform: daly_hkms_bms
+    daly_hkms_bms_id: ${bms_name}_daly_hkms_bms
+    voltage:
+      name: ${name}_${bms_name}_battery_voltage
+    current:
+      name: ${name}_${bms_name}_battery_current
+    power:
+      name: ${name}_${bms_name}_battery_power
+      id: ${bms_name}_battery_power
+    battery_level:
+      name: ${name}_${bms_name}_battery_soc
+    remaining_capacity:
+      name: ${name}_${bms_name}_remaining_capacity
+    cycles:
+      name: ${name}_${bms_name}_battery_cycles
+    temperature_mos:
+      name: ${name}_${bms_name}_temperature_mosfet
+    max_temperature:
+      name: ${name}_${bms_name}_temperature_max
+    min_temperature:
+      name: ${name}_${bms_name}_temperature_min
+    cell_1_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_1
+    cell_2_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_2
+    cell_3_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_3
+    cell_4_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_4
+    cell_5_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_5
+    cell_6_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_6
+    cell_7_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_7
+    cell_8_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_8
+    cell_9_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_9
+    cell_10_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_10
+    cell_11_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_11
+    cell_12_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_12
+    cell_13_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_13
+    cell_14_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_14
+    cell_15_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_15
+    cell_16_voltage: 
+      name: ${name}_${bms_name}_cell_voltage_16
+    max_cell_voltage:
+      name: ${name}_${bms_name}_cell_voltage_max
+    max_cell_voltage_number:
+      name: ${name}_${bms_name}_max_voltage_cell_number  
+    min_cell_voltage:
+      name: ${name}_${bms_name}_cell_voltage_min
+    min_cell_voltage_number:
+      name: ${name}_${bms_name}_min_voltage_cell_number  
+  
+  - platform: template
+    name: ${name}_${bms_name}_battery_charging_power
+    id: ${bms_name}_battery_charging_power
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${bms_template_update}
+    icon: mdi:power 
+    lambda: |-
+      if (float(id(${bms_name}_battery_power).state)> 0){
+        return ( (id(${bms_name}_battery_power).state) );   
+      }
+      else {
+        return 0.0;
+      }  
+      
+  - platform: total_daily_energy
+    name: ${name}_${bms_name}_battery_charging_energy_today
+    power_id: ${bms_name}_battery_charging_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    id: ${bms_name}_battery_charging_energy_today
+    method: trapezoid
+    filters:
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${bms_name}_battery_charging_energy_yesterday
+    id: ${bms_name}_battery_charging_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${bms_template_update}
+    lambda: |-
+      return ( id(${bms_name}_battery_charging_energy_yesterday).state = id(${bms_name}_battery_charging_energy_yesterday_global) );
+      
+  - platform: template
+    name: ${name}_${bms_name}_battery_discharging_power
+    id: ${bms_name}_battery_discharging_power
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    update_interval: ${bms_template_update}
+    icon: mdi:power 
+    lambda: |-
+      if (float(id(${bms_name}_battery_power).state)< 0){
+        return ( (id(${bms_name}_battery_power).state) );   
+      }
+      else {
+        return 0.0;
+      }
+  - platform: total_daily_energy
+    name: ${name}_${bms_name}_battery_discharging_energy_today
+    power_id: ${bms_name}_battery_discharging_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    id: ${bms_name}_battery_discharging_energy_today
+    method: trapezoid
+    filters:
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${bms_name}_battery_discharging_energy_yesterday
+    id: ${bms_name}_battery_discharging_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${bms_template_update}
+    lambda: |-
+      return ( id(${bms_name}_battery_discharging_energy_yesterday).state = id(${bms_name}_battery_discharging_energy_yesterday_global) );    
+          
+          
+switch:
+  - platform: daly_hkms_bms
+    daly_hkms_bms_id: ${bms_name}_daly_hkms_bms
+    charge_mos:
+      name: ${name}_${bms_name}_charge
+    discharge_mos:
+      name: ${name}_${bms_name}_discharge      
+    
+text_sensor:
+  - platform: daly_hkms_bms
+    daly_hkms_bms_id: ${bms_name}_daly_hkms_bms
+    status:
+      name: ${name}_${bms_name}_status
+    alerts:
+      name: ${name}_${bms_name}_alerts      
+    
