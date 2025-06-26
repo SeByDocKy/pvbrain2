@@ -13,9 +13,9 @@
 
 substitutions:
   # PVbrain2 name and version
-  name: '' # Name that can be added as a second prefix after the friendly name, you can leave it blank.
-  hostname: 'pvbrain2' # This is the name of the node. It should always be unique in your ESPHome network.
-  friendly_name : 'PVbrain2' # Prefix added in front of all entity names and also to classify them.
+  friendly_name : 'PVbrain2' # Prefix added in front of the `entity display name`, also used to classify them.
+  hostname: 'pvbrain2' # Name of your ESPHome node registered on the IP network (DNS name, must be unique) and prefix added in front of the `entity id`.
+  name: '' # This name can be added as a second prefix, both for the `entity display name` and the `entity id`, you can leave it blank.
   pvbrain2_version: '1.1.2'
   esphome_min_version: '2025.6.0'
   # PVbrain2 settings
