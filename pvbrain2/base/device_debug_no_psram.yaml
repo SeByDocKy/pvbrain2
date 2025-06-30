@@ -1,0 +1,65 @@
+# Updated : 2025.06.17
+# Version : 1.0.1
+# GitHub  : https://github.com/Dackara/
+
+# +--------------------------------------+
+# | Example of use                       |
+# +--------------------------------------+
+# | DEBUG ( logger level must be DEBUG ) |
+# +--------------------------------------+
+
+  # device_debug: !include
+  #   file: pvbrain2/base/device_debug.yaml
+  #   vars:
+  #     debug_name: 'Debug'
+  #     debug_update_interval: '5s'
+
+# +--------------------------------------+
+
+debug:
+  update_interval: ${debug_update_interval}
+
+text_sensor:
+  - platform: debug
+    device:
+      name: ${name}_${debug_name}_device_info
+      id: ${debug_name}_device_info
+    reset_reason:
+      name: ${name}_${debug_name}_reset_reason
+      id: ${debug_name}_reset_reason
+
+sensor:
+  - platform: debug
+    free:
+      name: ${name}_${debug_name}_heap_free
+      id: ${debug_name}_heap_free
+    block:
+      name: ${name}_${debug_name}_heap_max_block
+      id: ${debug_name}_heap_max_block
+    loop_time:
+      name: ${name}_${debug_name}_loop_time
+      id: ${debug_name}_loop_time
+
+  - platform: template
+    name: ${name}_${debug_name}_heap_free_percent
+    id: ${debug_name}_heap_free_percent
+    unit_of_measurement: '%'
+    accuracy_decimals: 2
+    icon: mdi:percent
+    update_interval: ${debug_update_interval}
+    entity_category: diagnostic
+    # 524288 B (SRAM total)
+    # 327680 B (DRAM usable)
+    lambda: return ( id(${debug_name}_heap_free).state * 100 / 327680 );
+
+  - platform: template
+    name: ${name}_${debug_name}_heap_max_block_percent
+    id: ${debug_name}_heap_max_block_percent
+    unit_of_measurement: '%'
+    accuracy_decimals: 2
+    icon: mdi:percent
+    update_interval: ${debug_update_interval}
+    entity_category: diagnostic
+    # 524288 B (SRAM total)
+    # 327680 B (DRAM usable)
+    lambda: return ( id(${debug_name}_heap_max_block).state * 100 / 327680 );
