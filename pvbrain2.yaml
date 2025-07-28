@@ -176,6 +176,20 @@ packages:
 
   ### End of Must include package ####
 
+  ############## Debug package #############
+  
+  # device_debug: !include
+  #   # url: ${git_url}
+  #   # ref: main
+  #   # refresh: 0s
+  #   file: pvbrain2/base/device_debug.yaml
+  #   vars:
+  #       debug_name: 'debug'
+  #       debug_update_interval: '5s'
+
+  ############## Debug package #############
+  
+
   ###### Define here RS485/modbus intefaces you have installed on your PVBRAIN2. 
   #####  In general, one per databaud. Each modbus_uart_id must point one of the uart_x defined above in term of databaud
   
