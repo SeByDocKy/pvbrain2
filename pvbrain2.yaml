@@ -185,6 +185,7 @@ packages:
   #   file: pvbrain2/base/device_debug.yaml
   #   vars:
   #       debug_name: 'debug'
+  #       debug_psram_size: '8388608'
   #       debug_update_interval: '5s'
 
   ############## Debug package #############
