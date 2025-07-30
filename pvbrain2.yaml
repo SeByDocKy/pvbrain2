@@ -1,10 +1,10 @@
 # Updated : 2025.01.07
-# Version : 1.0.3
+# Version : 1.0.4
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
 substitutions:
   name: 'pvbrain2'
-  pvbrain2_version: '1.0.3'
+  pvbrain2_version: '1.0.4'
   git_url: 'https://github.com/SeByDocKy/pvbrain2@main'
 
   ###### For builtin ESP32 S3 UART ports ######
@@ -80,9 +80,18 @@ esp32:
   # partitions: "pvbrain2/_my_pvbrain2_packages/base/partitions/large_littlefs_32MB.csv"   
 
   framework:
+    # type: esp-idf
+    # version: 4.4.8 # 5.2.1
+    # platform_version: 5.4.0
     type: esp-idf
-    version: 4.4.8 # 5.2.1
-    platform_version: 5.4.0
+    version: 5.5.0
+    release: "20250510"
+    platform_version: 55.03.30-alpha1
+    advanced:
+      enable_idf_experimental_features: yes
+      # enable_lwip_assert: false
+      compiler_optimization: size #perf
+      assertion_level: disable 
     sdkconfig_options:
       CONFIG_SPIRAM_SUPPORT: y
       CONFIG_SPIRAM_USE_MALLOC: y
@@ -123,6 +132,7 @@ logger:
 
 # Enable Home Assistant API
 api:
+  batch_delay: 50ms
   # encryption:
   #   key: "vR4R7EBch24hzs8Fga1ATBfRa6YWxpw9PfzRLJFoqY4="
 
@@ -165,6 +175,21 @@ packages:
     file: pvbrain2/base/device_base.yaml
 
   ### End of Must include package ####
+
+  ############## Debug package #############
+  
+  # device_debug: !include
+  #   # url: ${git_url}
+  #   # ref: main
+  #   # refresh: 0s
+  #   file: pvbrain2/base/device_debug.yaml
+  #   vars:
+  #       debug_name: 'debug'
+  #       debug_psram_size: '8388608'
+  #       debug_update_interval: '5s'
+
+  ############## Debug package #############
+  
 
   ###### Define here RS485/modbus intefaces you have installed on your PVBRAIN2. 
   #####  In general, one per databaud. Each modbus_uart_id must point one of the uart_x defined above in term of databaud
