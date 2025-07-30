@@ -1,5 +1,5 @@
-# Updated : 2025.06.22
-# Version : 1.1.2
+# Updated : 2025.07.30
+# Version : 1.1.3
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 # GitHub  : https://github.com/Sleeper85/pvbrain2
 
@@ -16,7 +16,7 @@ substitutions:
   friendly_name : 'PVbrain2' # Prefix added in front of the `entity display name`, also used to classify them.
   hostname: 'pvbrain2' # Name of your ESPHome node registered on the IP network (DNS name, must be unique) and prefix added in front of the `entity id`.
   name: '' # This name can be added as a second prefix, both for the `entity display name` and the `entity id`, you can leave it blank.
-  pvbrain2_version: '1.1.2'
+  pvbrain2_version: '1.1.3'
   esphome_min_version: '2025.6.0'
   # PVbrain2 settings
   my_second: '59'
@@ -137,7 +137,7 @@ packages:
       - path: 'pvbrain2/board/board_ESP32-S3_DevKitC-1_LED-48.yaml'
       # - path: 'pvbrain2/board/board_ESP32-S3_DevKitC-1_LED-38.yaml'
       # Board options
-      # - path: 'pvbrain2/board/board_options_ESP32-S3_PSRAM.yaml'
+      - path: 'pvbrain2/board/board_options_ESP32-S3_PSRAM.yaml'
       # BUS
       - path: 'pvbrain2/base/device_bus_i2c0.yaml' # SX1509 and BME280/BMP280
       - path: 'pvbrain2/base/device_bus_spi1.yaml' # MCP2515
@@ -157,16 +157,14 @@ packages:
     ref: main
     refresh: 0s
     files:
-      # With PSRAM
-      # - path: 'pvbrain2/base/device_debug.yaml'
-      #   vars:
-      #     debug_name: 'Debug'
-      #     debug_update_interval: '5s'
-      # Without PSRAM
-      - path: 'pvbrain2/base/device_debug_no_psram.yaml'
+      - path: 'pvbrain2/base/device_debug.yaml' # With PSRAM
+      # - path: 'pvbrain2/base/device_debug_no_psram.yaml' # Without PSRAM
         vars:
           debug_name: 'Debug'
           debug_update_interval: '5s'
+          # Size of your PSRAM in bits
+          # 8Mb='8388608' | 6Mb='6291456' | 4Mb='4194304' | 2Mb='2097152' | NoPSRAM='0'
+          debug_psram_size: '8388608'
 
   ########## Modbus RS485 interfaces ##########
 
