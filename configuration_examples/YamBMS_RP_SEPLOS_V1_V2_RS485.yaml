@@ -1,4 +1,4 @@
-# Updated : 2025.07.09
+# Updated : 2025.07.30
 # Version : 1.5.8
 # GitHub  : https://github.com/Sleeper85/esphome-yambms
 
@@ -63,7 +63,7 @@ substitutions:
   # The current requested will be proportional to the BMS count without ever exceeding this value.
   yambms_max_requested_discharge_current: '300' # in Amper
   # +--------------------------------------+
-  # | Shunt Settings                      |
+  # | Shunt Settings                       |
   # +--------------------------------------+
   shunt_update_interval: '3s'  # frequency at which Shunt data is refreshed
   shunt_combine_interval: '1s' # frequency at which Shunt data is combined in YamBMS
@@ -78,11 +78,19 @@ substitutions:
 # | Remote Packages Section              |
 # +--------------------------------------+
 
-# PLEASE READ : https://github.com/Sleeper85/esphome-yambms/blob/main/documents/README/YamBMS_main_YAML_HowTo.md
+# PLEASE READ : https://github.com/Sleeper85/esphome-yambms/blob/main/documents/README/YamBMS_RP_YAML.md
 
 packages:
+  # +------------------------------------------------------------------------------+
+  # | >>> YamBMS - BMS and Shunt
+  # +------------------------------------------------------------------------------+
 
   # You don't have to import a shunt but you must import at least one BMS.
+  # You can mix different BMS models, the only condition is that the `bms_id` are numbered in order starting from 1 !
+
+  # >>> Copy your BMS and Shunt packages here
+  # >>> You can find examples at this address :
+  # >>> https://github.com/Sleeper85/esphome-yambms/tree/main/examples/single-node/
 
   # shunt:
   #   url: https://github.com/Sleeper85/esphome-yambms
@@ -105,7 +113,7 @@ packages:
       - path: 'packages/bms/bms_combine_SEPLOS_V1_V2_RS485_modbus.yaml'
         vars:
           seplos_modbus_id: 'seplos_modbus1'
-          seplos_modbus_uart_id: 'uart_esp_1'
+          seplos_modbus_uart_id: 'uart_${uart_hub_bus}_4'
           seplos_modbus_baud_rate: '9600' # 9600 / 19200 ; please set the baudrate of your Seplos BMS model here
           seplos_modbus_rx_timeout: '150ms'
       # BMS 1
@@ -146,12 +154,20 @@ packages:
           bms_cell_uvp: '2.800' # V. Used by 'Auto DCL' functions and to calculate maximum discharge voltage
           bms_balance_trigger_voltage: '0.010' # V. Used by 'Auto CVL' functions
 
+  # +------------------------------------------------------------------------------+
+  # | >>> YamBMS core
+  # +------------------------------------------------------------------------------+
+
   yambms:
     url: https://github.com/Sleeper85/esphome-yambms
     ref: main
     refresh: 0s
     files:
       - path: 'packages/yambms/yambms.yaml'
+
+  # +------------------------------------------------------------------------------+
+  # | >>> YamBMS - CAN bus to Inverter
+  # +------------------------------------------------------------------------------+
 
   canbus:
     url: https://github.com/Sleeper85/esphome-yambms
@@ -167,3 +183,21 @@ packages:
           # The CANBUS link will be considered down if no response from the inverter (0x305 frame) for 5s
           # The Deye inverter sends the ACK 0x305 only when it receives the 0x356 frame.
           canbus_link_timer: '5s'
+
+  # +------------------------------------------------------------------------------+
+  # | >>> YamBMS - RS485 bus to Inverter
+  # +------------------------------------------------------------------------------+
+
+  # rs485_pylon:
+  #   url: https://github.com/Sleeper85/esphome-yambms
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: 'packages/yambms/yambms_rs485_pylon.yaml'
+  #       vars:
+  #         rs485_id: 'rs485_1'
+  #         rs485_name: 'RS485 1'
+  #         rs485_uart_id: 'uart_${uart_hub_bus}_7' # UART interface to which your inverter is connected
+  #         rs485_uart_baud_rate: '9600'
+  #         rs485_update_timeout: '5s'
+
