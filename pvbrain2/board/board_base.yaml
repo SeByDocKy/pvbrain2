@@ -1,5 +1,5 @@
-# Updated : 2025.06.16
-# Version : 1.1.1
+# Updated : 2025.07.30
+# Version : 1.1.2
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
 esphome:
@@ -32,6 +32,7 @@ binary_sensor:
     entity_category: diagnostic
   # Inverter communication status (CANBUS / RS485)
   - platform: template
+    name: ${name} Inverter communication status
     id: inverter_com_status
     entity_category: diagnostic
 
