@@ -1,0 +1,12 @@
+sensor:
+  - platform: template
+    name: ${name}_${solar_production_name}_theoric_power
+    id: ${solar_production_name}_theoric_power
+    accuracy_decimals: 1
+    icon: mdi:power
+    unit_of_measurement: 'W'
+    update_interval: ${solar_production_template_update}
+    lambda: |-
+      float power = 0.0f; 
+      power =(float($solar_production_area_panel))*(float($solar_production_nb_panel))*(float($solar_production_ratio_panel))*(float(id($solar_production_pyranometer).state));  
+      return power;
