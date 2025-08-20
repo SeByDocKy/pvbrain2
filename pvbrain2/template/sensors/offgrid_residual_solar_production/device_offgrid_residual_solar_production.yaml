@@ -27,7 +27,7 @@ sensor:
     update_interval: ${residual_solar_production_template_update}
     lambda: |-
       float power = 0.0f; 
-      if (float(id($residual_solar_production_battery_charging_power).state)>=0.0){
+      if (float(id($residual_solar_production_battery_current).state)>=0.0){
         power = (float(id($residual_solar_production_pyranometer_power).state)) -(float(id($residual_solar_production_load_power).state) + float(id($residual_solar_production_battery_charging_power).state)); 
        }
       return power;
