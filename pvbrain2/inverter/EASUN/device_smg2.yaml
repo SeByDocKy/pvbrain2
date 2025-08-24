@@ -1124,6 +1124,7 @@ number:
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_two_equalization_charging_intervals
+    id: ${inverter_name}_two_equalization_charging_intervals
     use_write_multiple: true
     address: 337
     register_type: holding
@@ -1131,7 +1132,7 @@ number:
     min_value: 0.0
     max_value: 90.0
     step: 1
-    unit_of_measurement: "day"
+    unit_of_measurement: 'day'
 
 # Button entities
 
