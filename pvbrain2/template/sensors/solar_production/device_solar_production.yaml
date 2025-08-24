@@ -1,3 +1,23 @@
+globals:  
+  - id: ${solar_production_name}_theoric_energy_yesterday_global
+    type: float
+    restore_value: yes
+
+
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: 59
+        minutes: 59
+        hours: 23
+        then:           
+          - globals.set:
+              id: ${solar_production_name}_theoric_energy_yesterday_global
+              value: !lambda return ( id(${solar_production_name}_theoric_energy_yesterday_global) =  float( id(${solar_production_name}_theoric_energy_today).state) );
+
+
+
 sensor:
   - platform: template
     name: ${name}_${solar_production_name}_theoric_power
@@ -8,5 +28,27 @@ sensor:
     update_interval: ${solar_production_template_update}
     lambda: |-
       float power = 0.0f; 
-      power =(float($solar_production_area_panel))*(float($solar_production_nb_panel))*(float($solar_production_ratio_panel))*(float(id($solar_production_pyranometer).state));  
+      power = (float($solar_production_area_panel))*(float($solar_production_nb_panel))*(float($solar_production_ratio_panel))*(float($solar_production_ratio_mppt))*(float(id($solar_production_pyranometer).state));  
       return power;
+      
+  - platform: total_daily_energy
+    name: ${name}_${solar_production_name}_theoric_energy_today
+    id: ${solar_production_name}_theoric_energy_today
+    power_id: ${solar_production_name}_theoric_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+       # Multiplication factor from W to kW is 0.001
+       - multiply: 0.001
+    icon: mdi:counter
+  
+  - platform: template
+    name: ${name}_${solar_production_name}_theoric_energy_yesterday
+    id: ${solar_production_name}_theoric_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${solar_production_template_update}
+    lambda: |-
+      return ( id(${solar_production_name}_theoric_energy_yesterday).state = id(${solar_production_name}_theoric_energy_yesterday_global) );      
