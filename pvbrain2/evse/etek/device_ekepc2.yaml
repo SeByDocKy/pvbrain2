@@ -14,3 +14,80 @@ output:
     register_type: holding
     value_type: U_WORD
     # multiply: 1000
+    
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_current
+    id: ${evse_name}_current
+    address: 146
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'A'
+    icon: mdi:current-ac
+    skip_updates: 1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_pwm
+    id: ${evse_name}_pwm
+    address: 152
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    icon: mdi:numeric
+    skip_updates: 1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_temperature
+    id: ${evse_name}_temperature
+    address: 157
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    unit_of_measurement: '°C'
+    icon: mdi:thermometer
+    skip_updates: 1  
+    
+    
+select:
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_rcmu
+    id: ${evse_name}_rcmu_select
+    address: 143
+    value_type: U_WORD
+    optionsmap:
+      "Not selected": 0
+      "Normal operation": 1
+      "Self-check failed": 2
+      "Leakage in charging circuit": 3
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_rfid
+    id: ${evse_name}_rfid_select
+    address: 144
+    value_type: U_WORD
+    optionsmap:
+      "Not selected": 0
+      "IC card not operating": 1
+      "IC card closed": 2
+      "IC card open": 3
+      
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_lock
+    id: ${evse_name}_lock_select
+    address: 145
+    value_type: U_WORD
+    optionsmap:
+      "Not selected": 0
+      "Locked": 1
+      "Unlocked": 2
+      "Fault": 3      
