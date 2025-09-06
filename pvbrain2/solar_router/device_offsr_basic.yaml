@@ -8,7 +8,7 @@ offsr:
     battery_current_id: ${offsr_name}_input
     battery_voltage_id: ${offsr_battery_voltage_id}
     output_id: ${offsr_output_id}
-    power_id: ${offsr_power_id}
+    # power_id: ${offsr_power_id}
     
 binary_sensor:
   - platform: offsr
