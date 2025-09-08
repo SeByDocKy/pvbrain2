@@ -344,7 +344,7 @@ select:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_pole_selection
     id: ${evse_name}_pole_selection_select
-    address: 126
+    address: 127
     value_type: U_WORD
     icon: mdi:multicast
     optionsmap:
