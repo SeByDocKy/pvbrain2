@@ -1,3 +1,20 @@
+globals:
+  - id: ${evse_name}_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:  
+          - globals.set:
+              id: ${evse_name}_energy_yesterday_global
+              value: !lambda return ( id(${evse_name}_energy_yesterday_global) =  float( id(${evse_name}_energy_today).state) );
+
 modbus_controller:
  - id: ${evse_name}_modbus_controller
    address: ${evse_modbus_address}
@@ -10,7 +27,7 @@ output:
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
     id: ${evse_name}_output 
-    address: 109   #6D
+    address: 109   #0x6D
     register_type: holding
     value_type: U_WORD
     multiply: 10000
@@ -30,19 +47,18 @@ button:
       then:
         - lambda: |-
             modbus_controller::ModbusController *controller = id(${evse_name}_modbus_controller);
-            modbus_controller::ModbusCommandItem start = modbus_controller::ModbusCommandItem::create_write_single_command(controller, 0x59, 1);
+            modbus_controller::ModbusCommandItem start = modbus_controller::ModbusCommandItem::create_write_single_command(controller, 89, 1);
             controller->queue_command(start);
-
 
   - platform: template
     id: ${evse_name}_remote_stop
-    name: ${name}_${evse_name}
+    name: ${name}_${evse_name}_remote_stop
     icon: mdi:car-off
     on_press:
       then:
         - lambda: |-
             modbus_controller::ModbusController *controller = id(${evse_name}_modbus_controller);
-            modbus_controller::ModbusCommandItem stop = modbus_controller::ModbusCommandItem::create_write_single_command(controller, 0x59, 2);
+            modbus_controller::ModbusCommandItem stop = modbus_controller::ModbusCommandItem::create_write_single_command(controller, 89, 2);
             controller->queue_command(stop);
             
 sensor:
@@ -51,7 +67,7 @@ sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_current_pwm
     id: ${evse_name}_current_pwm
-    address: 109  #6E
+    address: 109  #0x6D
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
@@ -62,7 +78,7 @@ sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_rcmu
     id: ${evse_name}_rcmu
-    address: 110  #6F
+    address: 110  #0x6E
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
@@ -73,7 +89,7 @@ sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_rfid
     id: ${evse_name}_rfid
-    address: 111  #6F
+    address: 111  #0x6F
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
@@ -84,7 +100,7 @@ sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_lock
     id: ${evse_name}_lock
-    address: 112  #70
+    address: 112  #0x70
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
@@ -95,20 +111,19 @@ sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_cable_function
     id: ${evse_name}_cable_function
-    address: 113  #71
+    address: 113  #0x71
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
     icon: mdi:cable-data
     state_class: "measurement"
-    #skip_updates: 1
-    # register_count: 6
+    # skip_updates: 50
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_dlb
     id: ${evse_name}_dlb
-    address: 114  #72
+    address: 114  #0x72
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
@@ -128,7 +143,7 @@ sensor:
     # register_count: 6
     filters:
       - multiply:  0.001    
-    #skip_updates: 1
+    skip_updates: 100
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -147,13 +162,13 @@ sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_current
     id: ${evse_name}_current
-    address: 147
+    address: 147  #0x93
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'A'
     icon: mdi:current-ac
-    state_class: "measurement"
+#    state_class: "measurement"
 #    skip_updates: 1
     register_count: 2
     
@@ -170,8 +185,8 @@ sensor:
     device_class: "power"
 #    skip_updates: 1
     register_count: 6    
-    # filters:
-      # - multiply:  0.01
+    filters:
+      - multiply:  0.01
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -196,8 +211,23 @@ sensor:
     icon: mdi:sine-wave
     state_class: "measurement"    
     # skip_updates: 1
-    # filters:
-      # - multiply:  0.01
+    filters:
+      - multiply:  0.01
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_cp_negative
+    id: ${evse_name}_cp_negative
+    address: 154
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    state_class: "measurement"    
+    # skip_updates: 1
+    filters:
+      - multiply:  -0.01    
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -213,7 +243,30 @@ sensor:
     state_class: "measurement"    
 #    skip_updates: 1
     filters:
-      - multiply:  0.1    
+      - multiply:  0.1
+         
+  - platform: total_daily_energy
+    name: ${name}_${evse_name}_energy_today
+    id: ${evse_name}_energy_today
+    power_id: ${evse_name}_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: right
+    restore: true
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${evse_name}_energy_yesterday
+    id: ${evse_name}_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: ${evse_template_update}
+    lambda: |-
+      return (id(${evse_name}_energy_yesterday).state = id(${evse_name}_energy_yesterday_global));      
     
 text_sensor:
 
@@ -221,7 +274,7 @@ text_sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_working_status
     id: ${evse_name}_working_status_text
-    address: 141  #8D
+    address: 141  #0x8D
     register_type: holding
     icon: mdi:list-status
     raw_encode: HEXBYTES
@@ -251,7 +304,7 @@ text_sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_rcmu_status
     id: ${evse_name}_rcmu_status
-    address: 143  #8F
+    address: 143  #0x8F
     register_type: holding
     icon: mdi:fence-electric
     raw_encode: HEXBYTES
@@ -270,7 +323,7 @@ text_sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_rfid_status
     id: ${evse_name}_rfid_status
-    address: 144  #90
+    address: 144  #0x90
     register_type: holding
     icon: mdi:qrcode-scan
     raw_encode: HEXBYTES
@@ -289,7 +342,7 @@ text_sensor:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_lock_status
     id: ${evse_name}_lock_status
-    address: 145  #91
+    address: 145  #0x91
     register_type: holding
     icon: mdi:lock
     raw_encode: HEXBYTES
@@ -323,7 +376,7 @@ select:
     name: ${name}_${evse_name}_rcmu_control
     id: ${evse_name}_rcmu_control_select
     icon: mdi:fence-electric
-    address: 110
+    address: 110  #0x6E
     value_type: U_WORD
     optionsmap:
       "Disable": 0
@@ -334,7 +387,7 @@ select:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_rfid_control
     id: ${evse_name}_rfid_control_select
-    address: 111
+    address: 111 #0x6F
     icon: mdi:qrcode-scan
     value_type: U_WORD
     optionsmap:
@@ -346,7 +399,7 @@ select:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_lock_control
     id: ${evse_name}_lock_control_select
-    address: 112
+    address: 112 #0x70
     icon: mdi:lock
     value_type: U_WORD
     optionsmap:
@@ -358,7 +411,7 @@ select:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_cable_function_control
     id: ${evse_name}_cable_function_control_select
-    address: 113
+    address: 113  #0x71
     value_type: U_WORD
     icon: mdi:cable-data
     optionsmap:
@@ -370,7 +423,7 @@ select:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_dlb_control
     id: ${evse_name}_dlb_control_select
-    address: 114
+    address: 114  #0x72
     icon: mdi:solar-power
     value_type: U_WORD
     optionsmap:
@@ -382,7 +435,7 @@ select:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_pole_selection
     id: ${evse_name}_pole_selection_select
-    address: 127
+    address: 127  #0x7F
     value_type: U_WORD
     icon: mdi:multicast
     optionsmap:
