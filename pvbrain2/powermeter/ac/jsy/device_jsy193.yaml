@@ -27,9 +27,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:  
           - globals.set:
               id: ${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix1}
@@ -71,64 +71,64 @@ button:
         - jsy193.reset_energy2: 
            id: ${powermeter_name}_id
 
-  - platform: template
-    name: ${name}_${powermeter_name}_write_register04
-    id: ${powermeter_name}_write_register04_${powermeter_suffix1}
-    icon: "mdi:button-pointer"
-    on_press:
-      then:
-        - jsy193.write_com_setting:
-            id: ${powermeter_name}_id
-            new_address: !lambda 'return stoi(id(${powermeter_name}_new_address_${powermeter_suffix1}).state);'
-            new_baudrate: !lambda |-
-              auto index = id(${powermeter_name}_new_baudrate_${powermeter_suffix1}).active_index();
-              return uint8_t( index.value() + ${offset_select}  );
+  # - platform: template
+    # name: ${name}_${powermeter_name}_write_register04
+    # id: ${powermeter_name}_write_register04_${powermeter_suffix1}
+    # icon: "mdi:button-pointer"
+    # on_press:
+      # then:
+        # - jsy193.write_com_setting:
+            # id: ${powermeter_name}_id
+            # new_address: !lambda 'return stoi(id(${powermeter_name}_new_address_${powermeter_suffix1}).state);'
+            # new_baudrate: !lambda |-
+              # auto index = id(${powermeter_name}_new_baudrate_${powermeter_suffix1}).active_index();
+              # return uint8_t( index.value() + ${offset_select}  );
           
-  - platform: template
-    name: ${name}_${powermeter_name}_read_register04
-    id: ${powermeter_name}_read_register04_${powermeter_suffix1}
-    icon: "mdi:button-pointer"
-    on_press:
-      then:
-        - lambda: |-
-           uint8_t current_address, current_baudrate;
-           esphome::jsy193::JSY193 *sen =  id(${powermeter_name}_id);
-           sen->read_register04();
-           current_address = sen->get_address();
-           auto address = id(${powermeter_name}_new_address_${powermeter_suffix1}).make_call();
-           address.set_value(std::to_string(current_address));
-           address.perform();
-           current_baudrate = sen->get_baudrate();
-           auto baudrate = id(${powermeter_name}_new_baudrate_${powermeter_suffix1}).make_call();
-           baudrate.set_index(current_baudrate - ${offset_select});
-           baudrate.perform();        
+  # - platform: template
+    # name: ${name}_${powermeter_name}_read_register04
+    # id: ${powermeter_name}_read_register04_${powermeter_suffix1}
+    # icon: "mdi:button-pointer"
+    # on_press:
+      # then:
+        # - lambda: |-
+           # uint8_t current_address, current_baudrate;
+           # esphome::jsy193::JSY193 *sen =  id(${powermeter_name}_id);
+           # sen->read_register04();
+           # current_address = sen->get_address();
+           # auto address = id(${powermeter_name}_new_address_${powermeter_suffix1}).make_call();
+           # address.set_value(std::to_string(current_address));
+           # address.perform();
+           # current_baudrate = sen->get_baudrate();
+           # auto baudrate = id(${powermeter_name}_new_baudrate_${powermeter_suffix1}).make_call();
+           # baudrate.set_index(current_baudrate - ${offset_select});
+           # baudrate.perform();        
 
-text:
-  - platform: template
-    name: ${name}_${powermeter_name}_new_address
-    id: ${powermeter_name}_new_address_${powermeter_suffix1}
-    optimistic: true
-    min_length: 0
-    max_length: 3
-    mode: text
-    initial_value: '   '
-    restore_value: false
+# text:
+  # - platform: template
+    # name: ${name}_${powermeter_name}_new_address
+    # id: ${powermeter_name}_new_address_${powermeter_suffix1}
+    # optimistic: true
+    # min_length: 0
+    # max_length: 3
+    # mode: text
+    # initial_value: '   '
+    # restore_value: false
 
-select:
-  - platform: template
-    name: ${name}_${powermeter_name}_new_baudrate
-    id: ${powermeter_name}_new_baudrate_${powermeter_suffix1}
-    optimistic: true
-    options:
-      - '              '
-      - '3 - 1200 bauds'
-      - '4 - 2400 bauds'
-      - '5 - 4800 bauds'
-      - '6 - 9600 bauds'
-      - '7 - 19200 bauds'
-      - '8 - 38400 bauds'
-    initial_option: '              '
-    restore_value: false
+# select:
+  # - platform: template
+    # name: ${name}_${powermeter_name}_new_baudrate
+    # id: ${powermeter_name}_new_baudrate_${powermeter_suffix1}
+    # optimistic: true
+    # options:
+      # - '              '
+      # - '3 - 1200 bauds'
+      # - '4 - 2400 bauds'
+      # - '5 - 4800 bauds'
+      # - '6 - 9600 bauds'
+      # - '7 - 19200 bauds'
+      # - '8 - 38400 bauds'
+    # initial_option: '              '
+    # restore_value: false
 
 sensor:
   - platform: jsy193
@@ -157,7 +157,6 @@ sensor:
     neg_energy1:
       name: ${name}_${powermeter_name}_neg_energy_${powermeter_suffix1}
       accuracy_decimals: 1
-
     current2:
       name: ${name}_${powermeter_name}_current_${powermeter_suffix2}
       accuracy_decimals: 2
@@ -167,7 +166,7 @@ sensor:
     power2:
       name: ${name}_${powermeter_name}_power_${powermeter_suffix2}
       id: ${powermeter_name}_power_${powermeter_suffix2}
-      unit_of_measurement: W
+      unit_of_measurement: 'W'
       accuracy_decimals: 2
     frequency2:
       name: ${name}_${powermeter_name}_frequency_${powermeter_suffix2}
@@ -216,7 +215,7 @@ sensor:
     id: template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix1}).state = id(${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix1}));  
@@ -254,7 +253,7 @@ sensor:
     id: template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix1}).state = id(${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix1}));  
@@ -294,7 +293,7 @@ sensor:
     id: template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix2}).state = id(${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix2}));  
@@ -332,8 +331,7 @@ sensor:
     id: template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix2}).state = id(${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix2}));
-    

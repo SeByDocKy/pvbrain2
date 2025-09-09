@@ -1,6 +1,3 @@
-# Updated : 2024.11.01
-# Version : 1.0.1
-
 substitutions:
    offset_select: '2'
 
@@ -30,9 +27,9 @@ time:
   - platform: homeassistant #sntp
     id: !extend my_time
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:  
           - globals.set:
               id: ${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix1}
@@ -237,7 +234,7 @@ sensor:
     id: template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix1}).state = id(${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix1}));  
@@ -275,12 +272,10 @@ sensor:
     id: template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix1}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix1}).state = id(${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix1}));  
- 
- 
  
     ##### Positive energy2 ####
     
@@ -315,7 +310,7 @@ sensor:
     id: template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(template_${powermeter_name}_pos_energy_yesterday_${powermeter_suffix2}).state = id(${powermeter_name}_pos_energy_yesterday_global_${powermeter_suffix2}));  
@@ -353,9 +348,7 @@ sensor:
     id: template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix2}
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(template_${powermeter_name}_neg_energy_yesterday_${powermeter_suffix2}).state = id(${powermeter_name}_neg_energy_yesterday_global_${powermeter_suffix2}));
-        
-    
