@@ -1,0 +1,496 @@
+globals:
+  - id: ${evse_name}_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:  
+          - globals.set:
+              id: ${evse_name}_energy_yesterday_global
+              value: !lambda return ( id(${evse_name}_energy_yesterday_global) =  float( id(${evse_name}_energy_today).state) );
+
+modbus_controller:
+ - id: ${evse_name}_modbus_controller
+   address: ${evse_modbus_address}
+   modbus_id: ${evse_modbus_id}
+   command_throttle: ${evse_modbus_throttle}
+   setup_priority: -10
+   update_interval: ${evse_update_interval}
+
+output:
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    id: ${evse_name}_output 
+    address: 109   #0x6D
+    register_type: holding
+    value_type: U_WORD
+    multiply: 10000
+    
+fan:
+  - platform: speed
+    id: ${evse_name}_command
+    name: ${name}_${evse_name}_command
+    output: ${evse_name}_output    
+
+button:
+  - platform: template
+    id: ${evse_name}_remote_start
+    name: ${name}_${evse_name}_remote_start
+    icon: mdi:car
+    on_press:
+      then:
+        - lambda: |-
+            modbus_controller::ModbusController *controller = id(${evse_name}_modbus_controller);
+            modbus_controller::ModbusCommandItem start = modbus_controller::ModbusCommandItem::create_write_single_command(controller, 89, 1);
+            controller->queue_command(start);
+
+  - platform: template
+    id: ${evse_name}_remote_stop
+    name: ${name}_${evse_name}_remote_stop
+    icon: mdi:car-off
+    on_press:
+      then:
+        - lambda: |-
+            modbus_controller::ModbusController *controller = id(${evse_name}_modbus_controller);
+            modbus_controller::ModbusCommandItem stop = modbus_controller::ModbusCommandItem::create_write_single_command(controller, 89, 2);
+            controller->queue_command(stop);
+            
+sensor:
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_current_pwm
+    id: ${evse_name}_current_pwm
+    address: 109  #0x6D
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    icon: mdi:gauge
+    state_class: "measurement"
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_rcmu
+    id: ${evse_name}_rcmu
+    address: 110  #0x6E
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    icon: mdi:fence-electric
+    state_class: "measurement"
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_rfid
+    id: ${evse_name}_rfid
+    address: 111  #0x6F
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    icon: mdi:qrcode-scan
+    state_class: "measurement"
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_lock
+    id: ${evse_name}_lock
+    address: 112  #0x70
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    icon: mdi:lock
+    state_class: "measurement"    
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_cable_function
+    id: ${evse_name}_cable_function
+    address: 113  #0x71
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    icon: mdi:cable-data
+    state_class: "measurement"
+    # skip_updates: 50
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_dlb
+    id: ${evse_name}_dlb
+    address: 114  #0x72
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    icon: mdi:solar-power
+    state_class: "measurement"    
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_software_version
+    id: ${evse_name}_software_version
+    address: 140  #8C
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    icon: mdi:numeric
+    state_class: "measurement"
+    # register_count: 6
+    filters:
+      - multiply:  0.001    
+    skip_updates: 100
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_status
+    id: ${evse_name}_status
+    address: 141  #8D
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    state_class: "measurement"    
+    icon: mdi:list-status
+    #skip_updates: 1
+    register_count: 6    
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_current
+    id: ${evse_name}_current
+    address: 147  #0x93
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'A'
+    icon: mdi:current-ac
+#    state_class: "measurement"
+#    skip_updates: 1
+    register_count: 2
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_power
+    id: ${evse_name}_power
+    address: 149
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    device_class: "power"
+#    skip_updates: 1
+    register_count: 6    
+    filters:
+      - multiply:  0.01
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_pwm
+    id: ${evse_name}_pwm
+    address: 152
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 0
+    icon: mdi:gauge
+    state_class: "measurement"
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_cp_positive
+    id: ${evse_name}_cp_positive
+    address: 153
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    state_class: "measurement"    
+    # skip_updates: 1
+    filters:
+      - multiply:  0.01
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_cp_negative
+    id: ${evse_name}_cp_negative
+    address: 154
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    state_class: "measurement"    
+    # skip_updates: 1
+    filters:
+      - multiply:  -0.01    
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_temperature
+    id: ${evse_name}_temperature
+    address: 157
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: '°C'
+    icon: mdi:thermometer
+    device_class: "temperature"
+    state_class: "measurement"    
+#    skip_updates: 1
+    filters:
+      - multiply:  0.1
+         
+  - platform: total_daily_energy
+    name: ${name}_${evse_name}_energy_today
+    id: ${evse_name}_energy_today
+    power_id: ${evse_name}_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: right
+    restore: true
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${evse_name}_energy_yesterday
+    id: ${evse_name}_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: ${evse_template_update}
+    lambda: |-
+      return (id(${evse_name}_energy_yesterday).state = id(${evse_name}_energy_yesterday_global));
+
+  - platform: integration
+    name: ${name}_${evse_name}_energy_total
+    id: ${evse_name}_energy_total
+    sensor: ${evse_name}_power
+    time_unit: h
+    restore: true
+    state_class: total_increasing
+    device_class: energy
+    unit_of_measurement: 'kWh'
+    icon: mdi:counter
+    accuracy_decimals: 1
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001        
+    
+text_sensor:
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_working_status
+    id: ${evse_name}_working_status_text
+    address: 141  #0x8D
+    register_type: holding
+    icon: mdi:list-status
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("0-Fault--1");
+        case 1: return std::string("1-Ready");
+        case 2: return std::string("2-RFID Waiting");
+        case 3: return std::string("3-Connected (CP connect to diode+2.7KO)");
+        case 4: return std::string("4-Connected (CP connect to diode+1.3KO)");
+        case 5: return std::string("5-Charging (CP connect to diode+2.7KO)");
+        case 6: return std::string("6-Fault--2# (CP connect to diode+2.7KO)");
+        case 7: return std::string("7-Fault--3# (CP line short circuit with PE)");
+        case 8: return std::string("8-Fault--4# (RCMU occurs residual current or self detect failed)");
+        case 9: return std::string("9-Fault--5# (Diode short circuit)");
+        case 10: return std::string("10-Fault--6# (PP line disconnection)");
+        case 11: return std::string("11-Fault--7# (Electromagnetic Lock failed)");
+        case 12: return std::string("12-Fault--8# (IC card failed)");
+        case 13: return std::string("13-Fault--9# (Circuit overload,DLB Mode activated)");
+        case 19: return std::string("19-Remote stop");
+        default: return std::string("Unknown");
+      }
+      return x;
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_rcmu_status
+    id: ${evse_name}_rcmu_status
+    address: 143  #0x8F
+    register_type: holding
+    icon: mdi:fence-electric
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("Not selected");
+        case 1: return std::string("Normal operation");
+        case 2: return std::string("Self-check failed");
+        case 3: return std::string("Leakage in charging circuit");
+        default: return std::string("Unknown");
+      }
+      return x;
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_rfid_status
+    id: ${evse_name}_rfid_status
+    address: 144  #0x90
+    register_type: holding
+    icon: mdi:qrcode-scan
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("Not selected");
+        case 1: return std::string("IC card not operating");
+        case 2: return std::string("IC card closed");
+        case 3: return std::string("IC card open");
+        default: return std::string("Unknown");
+      }
+      return x;
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_lock_status
+    id: ${evse_name}_lock_status
+    address: 145  #0x91
+    register_type: holding
+    icon: mdi:lock
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0: return std::string("Not selected");
+        case 1: return std::string("Locked");
+        case 2: return std::string("Unlocked");
+        case 3: return std::string("Fault");
+        default: return std::string("Unknown");
+      }
+      return x;      
+  
+select:
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_startstop_control
+    id: ${evse_name}_startstop_control_select
+    address: 89  # 0x59
+    value_type: U_WORD
+    icon: mdi:car-key
+    optionsmap:
+      "Invalid": 0
+      "Start": 1
+      "Stop": 2
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_rcmu_control
+    id: ${evse_name}_rcmu_control_select
+    icon: mdi:fence-electric
+    address: 110  #0x6E
+    value_type: U_WORD
+    optionsmap:
+      "Disable": 0
+      "Enable": 1
+      "Dip switch": 3
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_rfid_control
+    id: ${evse_name}_rfid_control_select
+    address: 111 #0x6F
+    icon: mdi:qrcode-scan
+    value_type: U_WORD
+    optionsmap:
+      "Disable": 0
+      "Enable": 1
+      "Dip switch": 3
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_lock_control
+    id: ${evse_name}_lock_control_select
+    address: 112 #0x70
+    icon: mdi:lock
+    value_type: U_WORD
+    optionsmap:
+      "Disable": 0
+      "Enable": 1
+      "Dip switch": 3
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_cable_function_control
+    id: ${evse_name}_cable_function_control_select
+    address: 113  #0x71
+    value_type: U_WORD
+    icon: mdi:cable-data
+    optionsmap:
+      "Disable": 0
+      "Enable": 1
+      "Dip switch": 3
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_dlb_control
+    id: ${evse_name}_dlb_control_select
+    address: 114  #0x72
+    icon: mdi:solar-power
+    value_type: U_WORD
+    optionsmap:
+      "Disable": 0
+      "Enable": 1
+      "Dip switch": 3
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_pole_selection
+    id: ${evse_name}_pole_selection_select
+    address: 127  #0x7F
+    value_type: U_WORD
+    icon: mdi:multicast
+    optionsmap:
+      "1P": 0
+      "3P": 1
+      
+
+  # - platform: modbus_controller
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_rcmu
+    # id: ${evse_name}_rcmu_select
+    # address: 143
+    # value_type: U_WORD
+    # optionsmap:
+      # "Not selected": 0
+      # "Normal operation": 1
+      # "Self-check failed": 2
+      # "Leakage in charging circuit": 3
+
+  # - platform: modbus_controller
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_rfid
+    # id: ${evse_name}_rfid_select
+    # address: 144
+    # value_type: U_WORD
+    # optionsmap:
+      # "Not selected": 0
+      # "IC card not operating": 1
+      # "IC card closed": 2
+      # "IC card open": 3
+      
+  # - platform: modbus_controller
+    # use_write_multiple: true
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_lock
+    # id: ${evse_name}_lock_select
+    # address: 145
+    # value_type: U_WORD
+    # optionsmap:
+      # "Not selected": 0
+      # "Locked": 1
+      # "Unlocked": 2
+      # "Fault": 3      
