@@ -72,7 +72,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     icon: mdi:gauge
-    state_class: "measurement"
+    state_class: 'measurement'
+    device_class: ''
 
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -82,8 +83,8 @@ sensor:
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
-    icon: mdi:fence-electric
-    state_class: "measurement"
+    icon: mdi:lightning-bolt
+    state_class: 'measurement'
 
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -94,7 +95,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     icon: mdi:qrcode-scan
-    state_class: "measurement"
+    state_class: 'measurement'
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -105,7 +106,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     icon: mdi:lock
-    state_class: "measurement"    
+    state_class: 'measurement'    
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -116,7 +117,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     icon: mdi:cable-data
-    state_class: "measurement"
+    state_class: 'measurement'
     # skip_updates: 50
     
   - platform: modbus_controller
@@ -128,7 +129,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     icon: mdi:solar-power
-    state_class: "measurement"    
+    state_class: 'measurement'    
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -139,7 +140,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     icon: mdi:numeric
-    state_class: "measurement"
+    state_class: 'measurement'
     # register_count: 6
     filters:
       - multiply:  0.001    
@@ -153,11 +154,23 @@ sensor:
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
-    state_class: "measurement"    
+    state_class: 'measurement'    
     icon: mdi:list-status
     #skip_updates: 1
     register_count: 6    
-    
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_dlb_current
+    id: ${evse_name}_dlb_current
+    address: 146  #0x92
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'A'
+    device_class: 'current'
+    icon: mdi:current-ac
+
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_current
@@ -167,6 +180,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'A'
+    device_class: 'current'
     icon: mdi:current-ac
 #    state_class: "measurement"
 #    skip_updates: 1
@@ -182,7 +196,7 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     icon: mdi:power
-    device_class: "power"
+    device_class: 'power'
 #    skip_updates: 1
     register_count: 6    
     filters:
@@ -197,7 +211,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     icon: mdi:gauge
-    state_class: "measurement"
+    state_class: 'measurement'
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -209,7 +223,7 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    state_class: "measurement"    
+    state_class: 'measurement'    
     # skip_updates: 1
     filters:
       - multiply:  0.01
@@ -224,7 +238,7 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    state_class: "measurement"    
+    state_class: 'measurement'    
     # skip_updates: 1
     filters:
       - multiply:  -0.01    
@@ -239,8 +253,8 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: '°C'
     icon: mdi:thermometer
-    device_class: "temperature"
-    state_class: "measurement"    
+    device_class: 'temperature'
+    state_class: 'measurement'    
 #    skip_updates: 1
     filters:
       - multiply:  0.1
@@ -321,7 +335,7 @@ text_sensor:
     id: ${evse_name}_rcmu_status
     address: 143  #0x8F
     register_type: holding
-    icon: mdi:fence-electric
+    icon: mdi:lightning-bolt
     raw_encode: HEXBYTES
     lambda: |-
       uint16_t value = modbus_controller::word_from_hex_str(x, 0);
@@ -390,7 +404,7 @@ select:
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_rcmu_control
     id: ${evse_name}_rcmu_control_select
-    icon: mdi:fence-electric
+    icon: mdi:lightning-bolt
     address: 110  #0x6E
     value_type: U_WORD
     optionsmap:
