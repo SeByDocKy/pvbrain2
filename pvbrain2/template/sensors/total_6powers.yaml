@@ -9,9 +9,9 @@ time:
     id: !extend my_time
   
     on_time:
-      - seconds: 59
-        minutes: 59
-        hours: 23
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
         then:           
           - globals.set:
               id: ${total_power_name}_energy_yesterday_global
@@ -24,6 +24,7 @@ sensor:
     accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'W'
+    device_class: power
     update_interval: ${total_power_template_update}
     lambda: |-
       float power = 0.0f;
@@ -53,6 +54,7 @@ sensor:
     id: ${total_power_name}_energy_today
     power_id: ${total_power_name}_power
     unit_of_measurement: 'kWh'
+    device_class: energy
     accuracy_decimals: 1
     method: trapezoid
     filters:
@@ -64,8 +66,9 @@ sensor:
     name: ${name}_${total_power_name}_energy_yesterday
     id: ${total_power_name}_energy_yesterday
     unit_of_measurement: 'kWh'
+    device_class: energy
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${total_power_template_update}
     lambda: |-
       return ( id(${total_power_name}_energy_yesterday).state = id(${total_power_name}_energy_yesterday_global) );  
