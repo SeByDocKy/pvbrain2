@@ -23,12 +23,24 @@ sensor:
       id: ${inverter_name}_ac_output_voltage
     yield_total:
       name: ${name}_${inverter_name}_yield_total
+      device_class: 'power'
+      unit_of_measurement: 'kWh'
+      filters:
+        - multiply:  0.001
     yield_today:
       name: ${name}_${inverter_name}_yield_today
+      device_class: 'power'
+      unit_of_measurement: 'kWh'
+      filters:
+        - multiply:  0.001
     max_power_today:
       name: ${name}_${inverter_name}_max_power_today
     yield_yesterday:
       name: ${name}_${inverter_name}_yield yesterday
+      device_class: 'power'
+      unit_of_measurement: 'kWh'
+      filters:
+        - multiply:  0.001
     max_power_yesterday:
       name: ${name}_${inverter_name}_max_power_yesterday
     day_number:
@@ -54,6 +66,10 @@ sensor:
    
   - platform: template
     name: ${name}_${inverter_name}_ac_output_active_power
+    icon: mdi:power
+    device_class: 'power'
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
     lambda: |-
        auto val = id(${inverter_name}_ac_output_voltage).state * id(${inverter_name}_ac_output_current).state;
        if (isnan(val))
@@ -63,6 +79,10 @@ sensor:
     
   - platform: template
     name: ${name}_${inverter_name}_pv_current
+    icon: mdi:current-dc
+    device_class: 'current'
+    unit_of_measurement: 'A'
+    accuracy_decimals: 1
     lambda: |-
        auto val = id(${inverter_name}_pv_power).state / id(${inverter_name}_pv_voltage).state;
        if (isnan(val))
