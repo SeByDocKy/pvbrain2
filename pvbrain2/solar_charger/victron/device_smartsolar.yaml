@@ -36,7 +36,7 @@ sensor:
     max_power_today:
       name: ${name}_${solar_charger_name}_max_power_today
     yield_yesterday:
-      name: ${name}_${solar_charger_name}_yield yesterday
+      name: ${name}_${solar_charger_name}_yield_yesterday
       device_class: 'power'
       unit_of_measurement: 'kWh'
       filters:
