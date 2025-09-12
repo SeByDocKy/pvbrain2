@@ -225,7 +225,7 @@ sensor:
     id: ${solar_charger_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${solar_charger_template_update}
     lambda: |-
       return (id(${solar_charger_name}_battery_charging_energy_yesterday).state = id(${solar_charger_name}_battery_charging_energy_yesterday_global));
@@ -354,7 +354,7 @@ sensor:
     name: ${name}_${solar_charger_name}_pv_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${solar_charger_template_update}
     lambda: |-
       return (id( ${solar_charger_name}_pv_energy_yesterday).state = id( ${solar_charger_name}_pv_energy_yesterday_global ));
