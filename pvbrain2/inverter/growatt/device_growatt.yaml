@@ -9,12 +9,7 @@ external_components:
   - source: github://SeByDocKy/myESPhome/
     components: [growatt]
     refresh: 0s    
-     
-# modbus:
- # - id: ${inverter_name}_modbus
-   # uart_id: ${inverter_uart_id}
-   # send_wait_time: ${inverter_modbus_send_wait_time}
-   
+    
 sensor:
   - platform: growatt
     id: ${inverter_name}_id
@@ -59,15 +54,19 @@ sensor:
     today_gen:
       name: ${name}_${inverter_name}_pv_energy_generated_today
       id: ${inverter_name}_pv_energy_generated_today
+      icon: mdi:counter
     total_gen:
       name: ${name}_${inverter_name}_pv_energy_generated_total
       id: ${inverter_name}_pv_energy_generated_total
+      icon: mdi:counter
     temperature:
       name: ${name}_${inverter_name}_temperature
       id: ${inverter_name}_temperature
     today_grid:
       name: ${name}_${inverter_name}_grid_energy_imported_today
       id: ${inverter_name}_grid_energy_imported_today
+      icon: mdi:counter
     total_grid:
       name: ${name}_${inverter_name}_grid_energy_imported_total
-      id: ${inverter_name}_grid_energy_imported_total      
+      id: ${inverter_name}_grid_energy_imported_total
+      icon: mdi:counter      
