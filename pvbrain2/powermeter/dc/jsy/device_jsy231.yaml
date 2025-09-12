@@ -41,62 +41,62 @@ button:
         - jsy22x.reset_energy: 
            id: ${powermeter_name}_id
 
-  - platform: template
-    name: ${name}_${powermeter_name}_write_register04
-    id: ${powermeter_name}_write_register04
-    icon: mdi:button-pointer
-    on_press:
-      then:
-        - jsy22x.write_com_setting:
-            id: ${powermeter_name}_id
-            new_address: !lambda 'return stoi(id(new_address).state);'
-            new_baudrate: !lambda |-
-              auto index = id(new_baudrate).active_index();
-              return uint8_t( index.value() + ${offset_select}  );
+  # - platform: template
+    # name: ${name}_${powermeter_name}_write_register04
+    # id: ${powermeter_name}_write_register04
+    # icon: mdi:button-pointer
+    # on_press:
+      # then:
+        # - jsy22x.write_com_setting:
+            # id: ${powermeter_name}_id
+            # new_address: !lambda 'return stoi(id(new_address).state);'
+            # new_baudrate: !lambda |-
+              # auto index = id(new_baudrate).active_index();
+              # return uint8_t( index.value() + ${offset_select}  );
           
-  - platform: template
-    name: ${name}_${powermeter_name}_read_register04
-    id: ${powermeter_name}_read_register04
-    icon: mdi:button-pointer
-    on_press:
-      then:
-        - lambda: |-
-           uint8_t current_address, current_baudrate;
-           esphome::jsy22x::JSY22X *sen =  id(${powermeter_name}_id);
-           sen->read_register04();
-           current_address = sen->get_address();
-           auto address = id(new_address).make_call();
-           address.set_value(std::to_string(current_address));
-           address.perform();
-           current_baudrate = sen->get_baudrate();
-           auto baudrate = id(new_baudrate).make_call();
-           baudrate.set_index(current_baudrate - ${offset_select});
-           baudrate.perform();        
+  # - platform: template
+    # name: ${name}_${powermeter_name}_read_register04
+    # id: ${powermeter_name}_read_register04
+    # icon: mdi:button-pointer
+    # on_press:
+      # then:
+        # - lambda: |-
+           # uint8_t current_address, current_baudrate;
+           # esphome::jsy22x::JSY22X *sen =  id(${powermeter_name}_id);
+           # sen->read_register04();
+           # current_address = sen->get_address();
+           # auto address = id(new_address).make_call();
+           # address.set_value(std::to_string(current_address));
+           # address.perform();
+           # current_baudrate = sen->get_baudrate();
+           # auto baudrate = id(new_baudrate).make_call();
+           # baudrate.set_index(current_baudrate - ${offset_select});
+           # baudrate.perform();        
 
-text:
-  - platform: template
-    name: ${name}_${powermeter_name}_new_address
-    id: new_address
-    optimistic: true
-    min_length: 0
-    max_length: 3
-    mode: text
-    initial_value: '   '
-    restore_value: false
+# text:
+  # - platform: template
+    # name: ${name}_${powermeter_name}_new_address
+    # id: new_address
+    # optimistic: true
+    # min_length: 0
+    # max_length: 3
+    # mode: text
+    # initial_value: '   '
+    # restore_value: false
 
-select:
-  - platform: template
-    name: ${name}_${powermeter_name}_new_baudrate
-    id: new_baudrate
-    optimistic: true
-    options:
-      - '              '
-      - '3 - 1200 bauds'
-      - '4 - 2400 bauds'
-      - '5 - 4800 bauds'
-      - '6 - 9600 bauds'
-    initial_option: '              '
-    restore_value: false
+# select:
+  # - platform: template
+    # name: ${name}_${powermeter_name}_new_baudrate
+    # id: new_baudrate
+    # optimistic: true
+    # options:
+      # - '              '
+      # - '3 - 1200 bauds'
+      # - '4 - 2400 bauds'
+      # - '5 - 4800 bauds'
+      # - '6 - 9600 bauds'
+    # initial_option: '              '
+    # restore_value: false
       
 sensor:
   - platform: jsy22x
@@ -180,7 +180,7 @@ sensor:
     id: ${powermeter_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(${powermeter_name}_battery_charging_energy_yesterday).state = id(${powermeter_name}_battery_charging_energy_yesterday_global));  
@@ -218,8 +218,7 @@ sensor:
     id: ${powermeter_name}_battery_discharging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
-      return (id(${powermeter_name}_battery_discharging_energy_yesterday).state = id(${powermeter_name}_battery_discharging_energy_yesterday_global));  
- 
+      return (id(${powermeter_name}_battery_discharging_energy_yesterday).state = id(${powermeter_name}_battery_discharging_energy_yesterday_global));
