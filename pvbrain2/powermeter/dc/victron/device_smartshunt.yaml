@@ -71,7 +71,7 @@ sensor:
     unit_of_measurement: 'kWh'
     device_class: 'energy'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return ( id(${powermeter_name}_battery_charging_energy_yesterday).state = id(${powermeter_name}_battery_charging_energy_yesterday_global) );    
@@ -111,7 +111,7 @@ sensor:
     unit_of_measurement: 'kWh'
     device_class: 'energy'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${powermeter_template_update}
     lambda: |-
       return ( id(${powermeter_name}_battery_discharging_energy_yesterday).state = id(${powermeter_name}_battery_discharging_energy_yesterday_global) );    
@@ -207,6 +207,7 @@ sensor:
       unit_of_measurement: 'kWh'
       device_class: 'energy_storage'
       accuracy_decimals: 1
+      icon: mdi:counter
 
     state_of_charge:
       name: ${name}_${powermeter_name}_soc
