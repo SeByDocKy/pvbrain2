@@ -15,4 +15,7 @@ sensor:
       if (id(${total_energy_source2}).has_state()){
         energy += id(${total_energy_source2}).state;
       }
+      if (id(${total_energy_source3}).has_state()){
+        energy += id(${total_energy_source3}).state;
+      }
       return energy;
