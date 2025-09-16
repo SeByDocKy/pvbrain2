@@ -29,7 +29,7 @@
 > - [x] Monitor _via_ a [JSY193](https://a.aliexpress.com/_EyMD1XJ), [JSY194T](https://a.aliexpress.com/_EHWOhZb) module <sup>_(modbus)_</sup> solar and network production.
 > - [x] Monitor _via_ a [JSY231](https://aliexpress.com/item/1005007472236141.html), [Smartshunt](https://www.amazon.fr/VICTRON-ENERGY-SmartShunt-Contr%C3%B4leur-SHU050150050/dp/B0856PHNLX/ref=sr_1_1) module <sup>_(modbus)_</sup> and <sup>_(VE.direct)_</sup> battery energetic flows
 > - [x] Control up to 32x relays with two i2c extension [SX1509](https://esphome.io/components/sx1509), _that is_ for ATS control or the reversing mode of a modern inverter.<br/> <sup>_(Axpert max I & II for example)_</sup>
-> - [x] A solar power diverter for pure resistive loads (hot water tank) thanks to [ROBOTDYN](https://a.aliexpress.com/_EwiP2jL) or [SSR](https://a.aliexpress.com/_EyikzBP) modules controlled in PWM or 0-10V.
+> - [x] A solar power diverter for pure resistive loads (eg. hot water tank) thanks to [ROBOTDYN](https://a.aliexpress.com/_EwiP2jL) or [SSR](https://a.aliexpress.com/_EyikzBP) modules controlled in PWM, 0-10V. Can be easily extented for Modbus RTU model.
 > - [x] Smart EVSE regulation _for_ a [ETEK ekepc2](https://fr.aliexpress.com/item/1005007472236141.html) module with AC active power, DC battery current or Pyranometer informations
 > - [x] Monitor your basement temperature/humidity/pressure with [BME280](https://esphome.io/components/sensor/bme280) <sup>_(you can set up alarms just in case)_</sup>.
 > - [x] Free I2C ports available for plugging in additional I2C sensors.
