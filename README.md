@@ -24,9 +24,10 @@
 > - [x] CANbus support. Possibility to translate informations from old generation BMS into modern CANbus protocols (Pylontech 1.2, Pylontech +, SMA, Victron)
 > - [x] The VEdirect for <sub>![VICTRON](https://img.shields.io/badge/VICTRON-_-black?logo=victronenergy&style=social)</sub> models with an insulated adapter provided. 
 > - [x] Important settings can be set directly from HA <sup>_(or the web server if enabled)_</sup>.
-> - [x] Monitor multiple BMS <sup>_(tested with JKBMS but should work with antBMS, DalyBMS PaceBMS or SeplosBMS)_</sup> with an insulated adapter provided.
+> - [x] Monitor multiple BMS <sup>_(tested with JKBMS but should work with antBMS, DalyBMS, PaceBMS or SeplosBMS)_</sup> with an insulated adapter provided.
 > - [x] Detect multiple AC sources <sup>_(solar/network/other)_</sup> (in order for example to do soft switching for the ATS part).
 > - [x] Monitor _via_ a [JSY193](https://a.aliexpress.com/_EyMD1XJ), [JSY194T](https://a.aliexpress.com/_EHWOhZb) module <sup>_(modbus)_</sup> solar and network production.
+> - [x] Monitor _via_ a [JSY231](https://aliexpress.com/item/1005007472236141.html), [Smartshunt](https://www.amazon.fr/VICTRON-ENERGY-SmartShunt-Contr%C3%B4leur-SHU050150050/dp/B0856PHNLX/ref=sr_1_1) module <sup>_(modbus)_</sup> and <sup>_(VE.direct)_</sup> battery energetic flows
 > - [x] Control up to 32x relays with two i2c extension [SX1509](https://esphome.io/components/sx1509), _that is_ for ATS control or the reversing mode of a modern inverter.<br/> <sup>_(Axpert max I & II for example)_</sup>
 > - [x] The solar power diverter thanks to [ROBOTDYN](https://a.aliexpress.com/_EwiP2jL) or [SSR](https://a.aliexpress.com/_EyikzBP) modules controlled in PWM.
 > - [x] Monitor your basement temperature/humidity/pressure with [BME280](https://esphome.io/components/sensor/bme280) <sup>_(you can set up alarms just in case)_</sup>.
