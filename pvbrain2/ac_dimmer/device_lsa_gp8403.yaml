@@ -21,5 +21,5 @@ fan:
   - platform: speed
     id: ${lsa_gp8403_name}_command
     name: ${name}_${lsa_gp8403_name}_command
-
     output: ${lsa_gp8403_name}_output    
+
