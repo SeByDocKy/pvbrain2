@@ -115,7 +115,21 @@ sensor:
     accuracy_decimals: 2
     device_class: power
     address: 55 
-  
+
+ - platform: modbus_controller            # 62 Today Gen Power
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_gen_energy_today
+    id: ${inverter_name}_gen_energy_today
+    register_type: holding
+    value_type: U_WORD
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 2
+    device_class: energy
+    icon: mdi:counter
+    address: 62
+    filters:
+      - multiply: 0.1
+      
       #### battery statistics 
       
   - platform: template
@@ -1372,4 +1386,5 @@ text_sensor:
         case 3: return std::string("alarm");
         case 4: return std::string("fault");
         default: return std::string("unknown");
+
       }      
