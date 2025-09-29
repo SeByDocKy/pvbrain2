@@ -116,7 +116,7 @@ sensor:
     device_class: power
     address: 55 
 
- - platform: modbus_controller            # 62 Today Gen Power
+  - platform: modbus_controller            # 62 Today Gen Power
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_gen_energy_today
     id: ${inverter_name}_gen_energy_today
@@ -1388,3 +1388,4 @@ text_sensor:
         default: return std::string("unknown");
 
       }      
+
