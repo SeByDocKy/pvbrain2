@@ -106,7 +106,7 @@ __Dummy procedure (for newbabies) :__
 
 | 3D View                   | Copper Area               |
 | :-----------------------: | :-----------------------: |
-|<img src="../main/hardware/pvbrain_v2/pvbrain_v2_3d_view.png" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_circuit_copper_area.png" width="490" /> |
+|<img src="../main/hardware/pvbrain_v2/pvbrain_v2_3d_view.PNG" width="1068" /> | <img src="../main/hardware/pvbrain_v2/pvbrain_v2_circuit_copper_area.png" width="490" /> |
 
 <details>
 <summary>Click here for show other views and schematic. :arrow_heading_down:</summary>
