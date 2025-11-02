@@ -10,7 +10,7 @@
 
 substitutions:
   name: 'pvbrain2'
-  pvbrain2_version: '1.0.4'
+  pvbrain2_version: '1.0.5'
   git_url: 'https://github.com/SeByDocKy/pvbrain2@main'
 
   ###### For builtin ESP32 S3 UART ports ######
@@ -65,7 +65,7 @@ esphome:
   project:
     name: esphome.pvbrain2
     version: ${pvbrain2_version}
-  min_version: 2024.6.3
+  min_version: 2025.10.3
   platformio_options:                ##### the following option is required for some ESP32 S3 with memory >= 16MB, eg. the N32R8V
     board_build.flash_mode: dio
     # upload_speed: 115200
@@ -90,9 +90,9 @@ esp32:
     # version: 4.4.8 # 5.2.1
     # platform_version: 5.4.0
     type: esp-idf
-    version: 5.5.0
-    release: "20250510"
-    platform_version: 55.03.30-alpha1
+    version: 5.5.1
+    # release: "20250510"
+    platform_version: 55.03.31-1
     advanced:
       enable_idf_experimental_features: yes
       # enable_lwip_assert: false
