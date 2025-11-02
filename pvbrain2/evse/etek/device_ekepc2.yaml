@@ -1,19 +1,19 @@
-globals:
-  - id: ${evse_name}_energy_yesterday_global
-    type: float
-    restore_value: yes
+# globals:
+  # - id: ${evse_name}_energy_yesterday_global
+    # type: float
+    # restore_value: yes
     
-time:
-  - platform: homeassistant #sntp
-    id: !extend my_time
-    on_time:
-      - seconds: ${my_second}
-        minutes: ${my_minute}
-        hours: ${my_hours}
-        then:  
-          - globals.set:
-              id: ${evse_name}_energy_yesterday_global
-              value: !lambda return ( id(${evse_name}_energy_yesterday_global) =  float( id(${evse_name}_energy_today).state) );
+# time:
+  # - platform: homeassistant #sntp
+    # id: !extend my_time
+    # on_time:
+      # - seconds: ${my_second}
+        # minutes: ${my_minute}
+        # hours: ${my_hours}
+        # then:  
+          # - globals.set:
+              # id: ${evse_name}_energy_yesterday_global
+              # value: !lambda return ( id(${evse_name}_energy_yesterday_global) =  float( id(${evse_name}_energy_today).state) );
 
 modbus_controller:
  - id: ${evse_name}_modbus_controller
@@ -170,37 +170,54 @@ sensor:
     unit_of_measurement: 'A'
     device_class: 'current'
     icon: mdi:current-ac
-
-  - platform: modbus_controller
-    modbus_controller_id: ${evse_name}_modbus_controller
-    name: ${name}_${evse_name}_current
-    id: ${evse_name}_current
-    address: 147  #0x93
-    register_type: holding
-    value_type: U_WORD
-    accuracy_decimals: 1
-    unit_of_measurement: 'A'
-    device_class: 'current'
-    icon: mdi:current-ac
-#    state_class: "measurement"
-#    skip_updates: 1
-    register_count: 2
+    register_count: 6 
     
-  - platform: modbus_controller
-    modbus_controller_id: ${evse_name}_modbus_controller
-    name: ${name}_${evse_name}_power
-    id: ${evse_name}_power
-    address: 149
-    register_type: holding
-    value_type: U_WORD
-    accuracy_decimals: 1
-    unit_of_measurement: 'W'
-    icon: mdi:power
-    device_class: 'power'
-#    skip_updates: 1
-    register_count: 6    
-    filters:
-      - multiply:  0.01
+
+  # - platform: modbus_controller
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_current
+    # id: ${evse_name}_current
+    # address: 147  #0x93
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 1
+    # unit_of_measurement: 'A'
+    # device_class: 'current'
+    # icon: mdi:current-ac
+# #    state_class: "measurement"
+# #    skip_updates: 1
+    # #register_count: 2
+    
+  # - platform: modbus_controller
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_voltage
+    # id: ${evse_name}_voltage
+    # address: 148  #0x93
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 1
+    # unit_of_measurement: 'V'
+    # device_class: 'voltage'
+    # icon: mdi:sine-wave
+# #    state_class: "measurement"
+# #    skip_updates: 1
+    # #register_count: 2  
+    
+  # - platform: modbus_controller
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_power
+    # id: ${evse_name}_power
+    # address: 149
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 1
+    # unit_of_measurement: 'W'
+    # icon: mdi:power
+    # device_class: 'power'
+# #    skip_updates: 1
+    # register_count: 3    
+    # filters:
+      # - multiply:  0.01
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -241,7 +258,8 @@ sensor:
     state_class: 'measurement'    
     # skip_updates: 1
     filters:
-      - multiply:  -0.01    
+      - multiply:  -0.01
+    register_count: 3  
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -258,44 +276,92 @@ sensor:
 #    skip_updates: 1
     filters:
       - multiply:  0.1
-         
-  - platform: total_daily_energy
-    name: ${name}_${evse_name}_energy_today
-    id: ${evse_name}_energy_today
-    power_id: ${evse_name}_power
-    unit_of_measurement: 'kWh'
-    accuracy_decimals: 1
-    method: right
-    restore: true
-    filters:
-        # Multiplication factor from W to kW is 0.001
-      - multiply: 0.001
-    icon: mdi:counter
+      
+  # - platform: modbus_controller
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_voltage
+    # id: ${evse_name}_voltage
+    # address: 159  #0x93
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 1
+    # unit_of_measurement: 'V'
+    # device_class: 'voltage'
+    # icon: mdi:sine-wave     
     
-  - platform: template
-    name: ${name}_${evse_name}_energy_yesterday
-    id: ${evse_name}_energy_yesterday
-    unit_of_measurement: 'kWh'
-    accuracy_decimals: 1
-    icon: mdi:counter
-    update_interval: ${evse_template_update}
-    lambda: |-
-      return (id(${evse_name}_energy_yesterday).state = id(${evse_name}_energy_yesterday_global));
+  # - platform: modbus_controller
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_current
+    # id: ${evse_name}_current
+    # address: 162  #0x93
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 1
+    # unit_of_measurement: 'A'
+    # device_class: 'current'
+    # icon: mdi:current-ac
+# #    state_class: "measurement"
+# #    skip_updates: 1
+    # #register_count: 2
+    
 
-  - platform: integration
-    name: ${name}_${evse_name}_energy_total
-    id: ${evse_name}_energy_total
-    sensor: ${evse_name}_power
-    time_unit: h
-    restore: true
-    state_class: total_increasing
-    device_class: energy
-    unit_of_measurement: 'kWh'
-    icon: mdi:counter
-    accuracy_decimals: 1
-    filters:
-        # Multiplication factor from W to kW is 0.001
-      - multiply: 0.001        
+# #    state_class: "measurement"
+# #    skip_updates: 1
+    # #register_count: 2  
+    
+  # - platform: modbus_controller
+    # modbus_controller_id: ${evse_name}_modbus_controller
+    # name: ${name}_${evse_name}_power
+    # id: ${evse_name}_power
+    # address: 163
+    # register_type: holding
+    # value_type: U_WORD
+    # accuracy_decimals: 1
+    # unit_of_measurement: 'W'
+    # icon: mdi:power
+    # device_class: 'power'
+# #    skip_updates: 1
+    # register_count: 6    
+    # filters:
+      # - multiply:  0.01     
+         
+  # - platform: total_daily_energy
+    # name: ${name}_${evse_name}_energy_today
+    # id: ${evse_name}_energy_today
+    # power_id: ${evse_name}_power
+    # unit_of_measurement: 'kWh'
+    # accuracy_decimals: 1
+    # method: right
+    # restore: true
+    # filters:
+        # # Multiplication factor from W to kW is 0.001
+      # - multiply: 0.001
+    # icon: mdi:counter
+    
+  # - platform: template
+    # name: ${name}_${evse_name}_energy_yesterday
+    # id: ${evse_name}_energy_yesterday
+    # unit_of_measurement: 'kWh'
+    # accuracy_decimals: 1
+    # icon: mdi:counter
+    # update_interval: ${evse_template_update}
+    # lambda: |-
+      # return (id(${evse_name}_energy_yesterday).state = id(${evse_name}_energy_yesterday_global));
+
+  # - platform: integration
+    # name: ${name}_${evse_name}_energy_total
+    # id: ${evse_name}_energy_total
+    # sensor: ${evse_name}_power
+    # time_unit: h
+    # restore: true
+    # state_class: total_increasing
+    # device_class: energy
+    # unit_of_measurement: 'kWh'
+    # icon: mdi:counter
+    # accuracy_decimals: 1
+    # filters:
+        # # Multiplication factor from W to kW is 0.001
+      # - multiply: 0.001        
     
 text_sensor:
 
