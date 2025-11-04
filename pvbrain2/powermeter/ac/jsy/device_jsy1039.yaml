@@ -52,11 +52,11 @@ sensor:
       accuracy_decimals: 2
     pos_energy:
       name: ${name}_${powermeter_name}_pos_energy
-      id: ${powermeter_name}_pos_energy
+      id: ${powermeter_name}_pos_energy_total
       accuracy_decimals: 1
     neg_energy:
       name: ${name}_${powermeter_name}_neg_energy
-      id: ${powermeter_name}_neg_energy
+      id: ${powermeter_name}_neg_energy_total
       accuracy_decimals: 1
 
 
@@ -130,3 +130,4 @@ sensor:
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(${powermeter_name}_neg_energy_yesterday).state = id(${powermeter_name}_neg_energy_yesterday_global));
+
