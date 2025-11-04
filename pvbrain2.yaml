@@ -531,6 +531,50 @@ packages:
   # powermeter_4: !include
   #   # url: ${git_url}
   #   # refresh: 0s
+  #   file: pvbrain2/powermeter/ac/eastron/device_sdm.yaml
+  #   vars:
+  #     powermeter_name: 'sdm120_solar'
+  #     powermeter_modbus_id: 'modbus_115200_id'
+  #     powermeter_modbus_address: '1'
+  #     powermeter_update_interval: '2s'
+  #     powermeter_template_update: '2s'
+
+  # powermeter_5: !include
+  #   file: pvbrain2/powermeter/dc/texas_instruments/device_ina3221.yaml
+  #   vars:
+  #     powermeter_name: 'ina3221'
+  #     powermeter_address: '0x40'
+  #     powermeter_i2c_bus: i2c0_bus
+  #     powermeter_update_interval: '5s'
+
+  # powermeter_6: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/powermeter/ac/jsy/device_jsy1039.yaml
+  #   vars:
+  #     powermeter_name: 'jsy1039'
+  #     powermeter_modbus_id: 'modbus_9600_id'
+  #     powermeter_modbus_address: '1'
+  #     powermeter_update_interval: '2s'
+  #     powermeter_template_update: '2s'
+
+  # powermeter_7: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
+  #   file: pvbrain2/powermeter/ac/sinotimer/device_dds6619.yaml
+  #   vars:
+  #     powermeter_name: 'dds6619'
+  #     powermeter_modbus_id: 'modbus_9600_id'
+  #     powermeter_modbus_address: '1'
+  #     powermeter_command_throttle: '50ms'
+  #     powermeter_update_interval: '2s'
+  #     powermeter_template_update: '2s'
+
+  ################### DC powermeter  ################
+
+  # powermeter_8: !include
+  #   # url: ${git_url}
+  #   # refresh: 0s
   #   file: pvbrain2/powermeter/dc/peacefair/device_pzemdc.yaml
   #   vars:
   #     powermeter_name: 'pzemdc'
@@ -542,28 +586,7 @@ packages:
   #     powermeter_offset_voltage: '-9.1'
   #     powermeter_offset_power: '0'
 
-  # powermeter_5: !include
-  #   # url: ${git_url}
-  #   # refresh: 0s
-  #   file: pvbrain2/powermeter/ac/eastron/device_sdm.yaml
-  #   vars:
-  #     powermeter_name: 'sdm120_solar'
-  #     powermeter_modbus_id: 'modbus_115200_id'
-  #     powermeter_modbus_address: '1'
-  #     powermeter_update_interval: '2s'
-  #     powermeter_template_update: '2s'
-
-  # powermeter_6: !include
-  #   file: pvbrain2/powermeter/dc/texas_instruments/device_ina3221.yaml
-  #   vars:
-  #     powermeter_name: 'ina3221'
-  #     powermeter_address: '0x40'
-  #     powermeter_i2c_bus: i2c0_bus
-  #     powermeter_update_interval: '5s'
-
-  ################### DC powermeter  ################
-
-  # powermeter_7: !include
+  # powermeter_9: !include
   #   # url: ${git_url}
   #   # refresh: 0s
   #   file: pvbrain2/powermeter/dc/victron/device_smartshunt.yaml
@@ -573,7 +596,7 @@ packages:
   #     powermeter_update_interval: '3s'
   #     powermeter_template_update: '3s'
 
-  # powermeter_8: !include
+  # powermeter_10: !include
   #   # url: ${git_url}
   #   # refresh: 0s
   #   file: pvbrain2/powermeter/dc/jsy/device_jsy231.yaml
