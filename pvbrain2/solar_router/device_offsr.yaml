@@ -46,6 +46,8 @@ switch:
       id: ${offsr_name}_manual_override
     pid_mode: 
       name: ${name}_${offsr_name}_pid_mode
+    reverse: 
+      name: ${name}_${offsr_name}_reverse  
 
 number:
   - platform: offsr
@@ -74,4 +76,5 @@ number:
       name: ${name}_${offsr_name}_output_max
     output_restart: 
       name: ${name}_${offsr_name}_output_restart
+
 
