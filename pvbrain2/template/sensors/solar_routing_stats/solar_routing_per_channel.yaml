@@ -1,0 +1,102 @@
+globals:
+  - id: ${solar_routing_name}_channel1_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+  - id: ${solar_routing_name}_channel2_energy_yesterday_global
+    type: float
+    restore_value: yes  
+    
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:  
+          - globals.set:
+              id: ${solar_routing_name}_channel1_energy_yesterday_global
+              value: !lambda return ( id(${solar_routing_name}_channel1_energy_yesterday_global) =  float( id(${solar_routing_name}_channel1_energy_today).state) );
+              
+          - globals.set:
+              id: ${solar_routing_name}_channel2_energy_yesterday_global
+              value: !lambda return ( id(${solar_routing_name}_channel2_energy_yesterday_global) =  float( id(${solar_routing_name}_channel2_energy_today).state) );
+
+sensor:
+  - platform: template
+    name: ${name}_${solar_routing_name}_channel1_power
+    id: ${solar_routing_name}_channel1_power
+    accuracy_decimals: 1
+    icon: mdi:power
+    unit_of_measurement: 'W'
+    device_class: power
+    update_interval: ${solar_routing_template_update}
+    lambda: |-
+      float power = 0.0f;
+      if (id(${solar_routing_channel1_activation}).state){
+        power = id(${solar_routing_power}).state;
+      }
+      return power;
+      
+  - platform: total_daily_energy
+    name: ${name}_${solar_routing_name}_channel1_energy_today
+    id: ${solar_routing_name}_channel1_energy_today
+    power_id: ${solar_routing_name}_channel1_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: right
+    restore: true
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${solar_routing_name}_channel1_energy_yesterday
+    id: ${solar_routing_name}_channel1_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: ${solar_routing_template_update}
+    lambda: |-
+      return (id(${solar_routing_name}_channel1_energy_yesterday).state = id(${solar_routing_name}_channel1_energy_yesterday_global));    
+      
+      
+  - platform: template
+    name: ${name}_${solar_routing_name}_channel2_power
+    id: ${solar_routing_name}_channel2_power
+    accuracy_decimals: 1
+    icon: mdi:power
+    unit_of_measurement: 'W'
+    device_class: power
+    update_interval: ${solar_routing_template_update}
+    lambda: |-
+      float power = 0.0f;
+      if (id(${solar_routing_channel2_activation})){
+        power = id(${solar_routing_power}).state;
+      }
+      return power;
+      
+  - platform: total_daily_energy
+    name: ${name}_${solar_routing_name}_channel2_energy_today
+    id: ${solar_routing_name}_channel2_energy_today
+    power_id: ${solar_routing_name}_channel2_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: right
+    restore: true
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${solar_routing_name}_channel2_energy_yesterday
+    id: ${solar_routing_name}_channel2_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: ${solar_routing_template_update}
+    lambda: |-
+      return (id(${solar_routing_name}_channel2_energy_yesterday).state = id(${solar_routing_name}_channel2_energy_yesterday_global));
