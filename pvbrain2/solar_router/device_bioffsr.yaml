@@ -1,0 +1,85 @@
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [bioffsr]
+    refresh: 0s  
+    
+bioffsr: 
+  - id: ${bioffsr_id}
+    battery_current_id: ${bioffsr_name}_input
+    battery_voltage_id: ${bioffsr_battery_voltage_id}
+    output1_id: ${bioffsr_output1_id}
+    output2_id: ${bioffsr_output2_id}
+    power_id: ${bioffsr_power_id}
+    
+binary_sensor:
+  - platform: bioffsr
+    bioffsr_id: ${bioffsr_id}
+    thermostat_cut: 
+      name: ${name}_${bioffsr_name}_thermostat_cut    
+      
+sensor:
+  - platform: bioffsr
+    bioffsr_id: ${bioffsr_id}
+    error: 
+      name: ${name}_${bioffsr_name}_regulation_error    
+    output: 
+      name: ${name}_${bioffsr_name}_output
+    target:
+      name: ${name}_${bioffsr_name}_target_current
+      
+  - platform: copy
+    source_id: ${bioffsr_battery_current_id}
+    name: ${bioffsr_name}_battery_current_smoothed
+    id: ${bioffsr_name}_input
+    filters:
+      - sliding_window_moving_average:
+          window_size: ${bioffsr_windows_size}
+          send_every: 1 #${bioffsr_windows_size}    
+
+switch:
+  - platform: bioffsr
+    bioffsr_id: ${bioffsr_id}
+    activation: 
+      name: ${name}_${bioffsr_name}_activation
+      id: ${bioffsr_name}_activation
+    manual_override: 
+      name: ${name}_${bioffsr_name}_manual_override
+      id: ${bioffsr_name}_manual_override
+    pid_mode: 
+      name: ${name}_${bioffsr_name}_pid_mode
+    reverse: 
+      name: ${name}_${bioffsr_name}_reverse
+    output1_enable:
+      name: ${name}_${bioffsr_name}_output1_enable
+      id: ${bioffsr_name}_output1_enable
+    output2_enable:
+      name: ${name}_${bioffsr_name}_output2_enable
+      id: ${bioffsr_name}_output2_enable  
+
+number:
+  - platform: bioffsr
+    bioffsr_id: ${bioffsr_id}
+    charging_setpoint: 
+      name: ${name}_${bioffsr_name}_charging_setpoint
+    absorbing_setpoint: 
+      name: ${name}_${bioffsr_name}_absorbing_setpoint
+    floating_setpoint: 
+      name: ${name}_${bioffsr_name}_floating_setpoint
+    starting_battery_voltage: 
+      name: ${name}_${bioffsr_name}_starting_battery_voltage
+    charged_battery_voltage: 
+      name: ${name}_${bioffsr_name}_charged_battery_voltage
+    discharged_battery_voltage: 
+      name: ${name}_${bioffsr_name}_discharged_battery_voltage
+    kp: 
+      name: ${name}_${bioffsr_name}_kp
+    ki: 
+      name: ${name}_${bioffsr_name}_ki
+    kd: 
+      name: ${name}_${bioffsr_name}_kd
+    output_min: 
+      name: ${name}_${bioffsr_name}_output_min
+    output_max: 
+      name: ${name}_${bioffsr_name}_output_max
+    output_restart: 
+      name: ${name}_${bioffsr_name}_output_restart
