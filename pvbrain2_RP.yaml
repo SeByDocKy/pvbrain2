@@ -939,4 +939,20 @@ packages:
   #         offsr_battery_voltage_id: 'smartshunt_battery_voltage'
   #         offsr_output_id: 'lsa1_output'
   #         offsr_power_id: 'pzem_router_power'
-  #         offsr_windows_size: '3'  
+  #         offsr_windows_size: '3'
+  #
+  ###########        Electric Vehicules   #########
+  #
+  # evse_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: 'pvbrain2/evse/etek/device_ekepc2.yaml'         
+  #       vars:
+  #         evse_name: 'evse'
+  #         evse_modbus_id: 'modbus_9600_2'
+  #         evse_modbus_address: '4'
+  #         evse_modbus_throttle: '00ms'
+  #         evse_update_interval: '2s'
+  #         evse_template_update: '2s'
