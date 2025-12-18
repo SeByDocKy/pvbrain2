@@ -517,7 +517,7 @@ sensor:
     state_class: measurement
     value_type: U_WORD
 
-  - platform: modbus_controller            # 113 PV3 Output Current
+  - platform: modbus_controller            # 114 PV3 Output Current
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_pv3_current
     id: ${inverter_name}_pv3_current
@@ -735,7 +735,21 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: U_WORD
-    register_count: 3    
+    # register_count: 3
+
+  - platform: modbus_controller            # 188 PV3 Power
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_pv3_power
+    id: ${inverter_name}_pv3_power
+    register_type: holding
+    address: 188
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    accuracy_decimals: 2
+    device_class: power
+    state_class: measurement
+    value_type: U_WORD
+    register_count: 2 
     
   - platform: modbus_controller            # 190 Battery Output Power
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -1419,6 +1433,7 @@ text_sensor:
         default: return std::string("unknown");
 
       }      
+
 
 
 
