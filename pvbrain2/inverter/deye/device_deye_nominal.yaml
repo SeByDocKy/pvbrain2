@@ -976,7 +976,7 @@ sensor:
     device_class: power
     state_class: measurement
     lambda: |-
-      return (id(${inverter_name}_pv1_power).state + id(${inverter_name}_pv2_power).state);
+      return (id(${inverter_name}_pv1_power).state + id(${inverter_name}_pv2_power).state + id(${inverter_name}_pv3_power).state);
     update_interval: ${inverter_template_update}
    
   - platform: total_daily_energy
@@ -1419,6 +1419,7 @@ text_sensor:
         default: return std::string("unknown");
 
       }      
+
 
 
 
