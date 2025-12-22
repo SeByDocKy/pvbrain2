@@ -84,6 +84,131 @@ sensor:
             else return (x) /1;
     icon: "mdi:clock"
 
+  #############################  Power ####################
+  
+  - platform: modbus_controller          # 256 Power Timezone1
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_power_timezone1
+    id: ${inverter_name}_power_timezone1
+    register_type: holding
+    address: 256
+    unit_of_measurement: 'W'
+    accuracy_decimals: 0
+    icon: mdi:power
+
+  - platform: modbus_controller          # 257 Power Timezone2
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_power_timezone2
+    id: ${inverter_name}_power_timezone2
+    register_type: holding
+    address: 257
+    unit_of_measurement: 'W'
+    accuracy_decimals: 0
+    icon: mdi:power
+
+  - platform: modbus_controller          # 258 Power Timezone3
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_power_timezone3
+    id: ${inverter_name}_power_timezone3
+    register_type: holding
+    address: 258
+    unit_of_measurement: 'W'
+    accuracy_decimals: 0
+    icon: mdi:power
+
+  - platform: modbus_controller          # 259 Power Timezone4
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_power_timezone4
+    id: ${inverter_name}_power_timezone4
+    register_type: holding
+    address: 259
+    unit_of_measurement: 'W'
+    accuracy_decimals: 0
+    icon: mdi:power
+
+  - platform: modbus_controller          # 260 Power Timezone5
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_power_timezone5
+    id: ${inverter_name}_power_timezone5
+    register_type: holding
+    address: 260
+    unit_of_measurement: 'W'
+    accuracy_decimals: 0
+    icon: mdi:power
+
+  - platform: modbus_controller          # 261 Power Timezone6
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_power_timezone6
+    id: ${inverter_name}_power_timezone6
+    register_type: holding
+    address: 261
+    unit_of_measurement: 'W'
+    accuracy_decimals: 0
+    icon: mdi:power  
+
+  #############################  Battery Voltage ####################
+  
+  - platform: modbus_controller          # 262 Battery Voltage Timezone1
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_voltage_timezone1
+    id: ${inverter_name}_battery_voltage_timezone1
+    register_type: holding
+    address: 262
+    unit_of_measurement: 'V'
+    accuracy_decimals: 1
+    icon: mdi:sine-wave
+
+  - platform: modbus_controller          # 263 Battery Voltage Timezone2
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_voltage_timezone2
+    id: ${inverter_name}_battery_voltage_timezone2
+    register_type: holding
+    address: 263
+    unit_of_measurement: 'V'
+    accuracy_decimals: 1
+    icon: mdi:sine-wave
+
+  - platform: modbus_controller          # 264 Battery Voltage Timezone3
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_voltage_timezone3
+    id: ${inverter_name}_battery_voltage_timezone3
+    register_type: holding
+    address: 264
+    unit_of_measurement: 'V'
+    accuracy_decimals: 1
+    icon: mdi:sine-wave
+
+  - platform: modbus_controller          # 265 Battery Voltage Timezone4
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_voltage_timezone4
+    id: ${inverter_name}_battery_voltage_timezone4
+    register_type: holding
+    address: 265
+    unit_of_measurement: 'V'
+    accuracy_decimals: 1
+    icon: mdi:sine-wave
+
+  - platform: modbus_controller          # 266 Battery Voltage Timezone5
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_voltage_timezone5
+    id: ${inverter_name}_battery_voltage_timezone5
+    register_type: holding
+    address: 266
+    unit_of_measurement: 'V'
+    accuracy_decimals: 1
+    icon: mdi:sine-wave
+
+  - platform: modbus_controller          # 267 Battery Voltage Timezone6
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_voltage_timezone6
+    id: ${inverter_name}_battery_voltage_timezone6
+    register_type: holding
+    address: 267
+    unit_of_measurement: 'V'
+    accuracy_decimals: 1
+    icon: mdi:sine-wave   
+
+ #############################  Battery SOC ####################
 
   - platform: modbus_controller          # 268 Settings SoC Timezone1
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -278,6 +403,7 @@ number:
     id: ${inverter_name}_set_power_timezone1
     unit_of_measurement: 'W'
     icon: mdi:power
+    accuracy_decimals: 0
     address: 256
     min_value: 0
     max_value: 8000
@@ -291,6 +417,7 @@ number:
     id: ${inverter_name}_set_power_timezone2
     unit_of_measurement: 'W'
     icon: mdi:power
+    accuracy_decimals: 0
     address: 257
     min_value: 0
     max_value: 8000
@@ -303,6 +430,7 @@ number:
     name: ${name}_${inverter_name}_set_power_timezone3
     id: ${inverter_name}_set_power_timezone3
     unit_of_measurement: 'W'
+    accuracy_decimals: 0
     icon: mdi:power
     address: 258
     min_value: 0
@@ -316,6 +444,7 @@ number:
     name: ${name}_${inverter_name}_set_power_timezone4
     id: ${inverter_name}_set_power_timezone4
     unit_of_measurement: 'W'
+    accuracy_decimals: 0
     icon: mdi:power
     address: 259
     min_value: 0
@@ -329,6 +458,7 @@ number:
     name: ${name}_${inverter_name}_set_power_timezone5
     id: ${inverter_name}_set_power_timezone5
     unit_of_measurement: 'W'
+    accuracy_decimals: 0
     icon: mdi:power
     address: 260
     min_value: 0
@@ -358,6 +488,7 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone1
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
+    accuracy_decimals: 1
     address: 262
     min_value: 45.0
     max_value: 63.0
@@ -375,6 +506,7 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone2
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
+    accuracy_decimals: 1
     address: 263
     min_value: 45.0
     max_value: 63.0
@@ -392,6 +524,7 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone3
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
+    accuracy_decimals: 1
     address: 264
     min_value: 45.0
     max_value: 63.0
@@ -409,6 +542,7 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone4
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
+    accuracy_decimals: 1
     address: 265
     min_value: 45.0
     max_value: 63.0
@@ -426,6 +560,7 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone5
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
+    accuracy_decimals: 1
     address: 266
     min_value: 45.0
     max_value: 63.0
@@ -443,6 +578,7 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone6
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
+    accuracy_decimals: 1
     address: 267
     min_value: 45.0
     max_value: 63.0
@@ -462,6 +598,7 @@ number:
     id: ${inverter_name}_set_soc_timezone1
     unit_of_measurement: '%'
     icon: mdi:percent
+    accuracy_decimals: 0
     address: 268
     min_value: 0
     max_value: 100
@@ -475,6 +612,7 @@ number:
     id: ${inverter_name}_set_soc_timezone2
     unit_of_measurement: '%'
     icon: mdi:percent
+    accuracy_decimals: 0
     address: 269
     min_value: 0
     max_value: 100
@@ -488,6 +626,7 @@ number:
     id: ${inverter_name}_set_soc_timezone3
     unit_of_measurement: '%'
     icon: mdi:percent
+    accuracy_decimals: 0
     address: 270
     min_value: 0
     max_value: 100
@@ -501,6 +640,7 @@ number:
     id: ${inverter_name}_set_soc_timezone4
     unit_of_measurement: '%'
     icon: mdi:percent
+    accuracy_decimals: 0
     address: 271
     min_value: 0
     max_value: 100
@@ -514,6 +654,7 @@ number:
     id: ${inverter_name}_set_soc_timezone5
     unit_of_measurement: '%'
     icon: mdi:percent
+    accuracy_decimals: 0
     address: 272
     min_value: 0
     max_value: 100
@@ -526,6 +667,7 @@ number:
     name: ${name}_${inverter_name}_set_soc_timezone6
     id: ${inverter_name}_set_soc_timezone6
     unit_of_measurement: '%'
+    accuracy_decimals: 0
     icon: mdi:percent
     address: 273
     min_value: 0
@@ -630,5 +772,6 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
