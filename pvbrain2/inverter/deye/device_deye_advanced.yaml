@@ -433,7 +433,7 @@ switch:
     id: ${inverter_name}_toggle_system_timer
     register_type: holding
     address: 248
-    bitmask: 1
+    bitmask: 0x01
     entity_category: config
     icon: "mdi:toggle-switch"
     
@@ -444,7 +444,7 @@ switch:
     id: ${inverter_name}_toggle_grid_charge_timezone1
     register_type: holding
     address: 274
-    bitmask: 1
+    bitmask: 0x01
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -455,7 +455,7 @@ switch:
     id: ${inverter_name}_toggle_grid_charge_timezone2
     register_type: holding
     address: 275
-    bitmask: 1
+    bitmask: 0x01
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -466,7 +466,7 @@ switch:
     id: ${inverter_name}_toggle_grid_charge_timezone3
     register_type: holding
     address: 276
-    bitmask: 1
+    bitmask: 0x01
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -477,7 +477,7 @@ switch:
     id: ${inverter_name}_toggle_grid_charge_timezone4
     register_type: holding
     address: 277
-    bitmask: 1
+    bitmask: 0x01
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -488,7 +488,7 @@ switch:
     id: ${inverter_name}_toggle_grid_charge_timezone5
     register_type: holding
     address: 278
-    bitmask: 1
+    bitmask: 0x01
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -499,7 +499,7 @@ switch:
     id: ${inverter_name}_toggle_grid_charge_timezone6
     register_type: holding
     address: 279
-    bitmask: 1
+    bitmask: 0x01
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -511,7 +511,7 @@ switch:
     id: ${inverter_name}_toggle_gen_charge_timezone1
     register_type: holding
     address: 274
-    bitmask: 2
+    bitmask: 0x02
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -522,7 +522,7 @@ switch:
     id: ${inverter_name}_toggle_gen_charge_timezone2
     register_type: holding
     address: 275
-    bitmask: 2
+    bitmask: 0x02
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -533,7 +533,7 @@ switch:
     id: ${inverter_name}_toggle_gen_charge_timezone3
     register_type: holding
     address: 276
-    bitmask: 2
+    bitmask: 0x02
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -544,7 +544,7 @@ switch:
     id: ${inverter_name}_toggle_gen_charge_timezone4
     register_type: holding
     address: 277
-    bitmask: 2
+    bitmask: 0x02
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -555,7 +555,7 @@ switch:
     id: ${inverter_name}_toggle_gen_charge_timezone5
     register_type: holding
     address: 278
-    bitmask: 2
+    bitmask: 0x02
     entity_category: config
     icon: "mdi:toggle-switch"
 
@@ -566,7 +566,7 @@ switch:
     id: ${inverter_name}_toggle_gen_charge_timezone6
     register_type: holding
     address: 279
-    bitmask: 2
+    bitmask: 0x02
     entity_category: config
     icon: "mdi:toggle-switch"    
 
@@ -756,7 +756,7 @@ number:
     multiply: 100
     # lambda: "return  x * 100;"  
 
-    ############ timezone ####
+    ############ SOC timezone ################
 
   - platform: modbus_controller         # 268 Settings SoC Timezone1
     use_write_multiple: true
@@ -939,6 +939,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
