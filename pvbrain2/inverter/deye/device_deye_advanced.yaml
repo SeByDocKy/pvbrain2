@@ -675,7 +675,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_1
     id: ${inverter_name}_time_slot_1
-    icon: mdi:timer-sand
+    icon: mdi:clock
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone1).state) {
@@ -692,7 +692,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_2
     id: ${inverter_name}_time_slot_2
-    icon: mdi:timer-sand
+    icon: mdi:clock
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone2).state) {
@@ -709,7 +709,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_3
     id: ${inverter_name}_time_slot_3
-    icon: mdi:timer-sand
+    icon: mdi:clock
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone3).state) {
@@ -726,7 +726,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_4
     id: ${inverter_name}_time_slot_4
-    icon: mdi:timer-sand
+    icon: mdi:clock
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone4).state) {
@@ -743,7 +743,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_5
     id: ${inverter_name}_time_slot_5
-    icon: mdi:timer-sand
+    icon: mdi:clock
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone5).state) {
@@ -760,7 +760,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_6
     id: ${inverter_name}_time_slot_6
-    icon: mdi:timer-sand
+    icon: mdi:clock
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone6).state) {
@@ -773,6 +773,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
