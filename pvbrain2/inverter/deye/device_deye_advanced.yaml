@@ -90,6 +90,8 @@ sensor:
     name: ${name}_${inverter_name}_setting_soc_timezone1
     id: ${inverter_name}_setting_soc_timezone1
     register_type: holding
+    unit_of_measurement: '%'
+    icon: mdi:percent
     address: 268
     value_type: U_WORD
 
@@ -98,6 +100,8 @@ sensor:
     name: ${name}_${inverter_name}_setting_soc_timezone2
     id: ${inverter_name}_setting_soc_timezone2
     register_type: holding
+    unit_of_measurement: '%'
+    icon: mdi:percent
     address: 269
     value_type: U_WORD
 
@@ -106,6 +110,8 @@ sensor:
     name: ${name}_${inverter_name}_setting_soc_timezone3
     id: ${inverter_name}_setting_soc_timezone3
     register_type: holding
+    unit_of_measurement: '%'
+    icon: mdi:percent
     address: 270
     value_type: U_WORD
 
@@ -114,6 +120,8 @@ sensor:
     name: ${name}_${inverter_name}_setting_soc_timezone4
     id: ${inverter_name}_setting_soc_timezone4
     register_type: holding
+    unit_of_measurement: '%'
+    icon: mdi:percent
     address: 271
     value_type: U_WORD
 
@@ -122,6 +130,8 @@ sensor:
     name: ${name}_${inverter_name}_setting_soc_timezone5
     id: ${inverter_name}_setting_soc_timezone5
     register_type: holding
+    unit_of_measurement: '%'
+    icon: mdi:percent
     address: 272
     value_type: U_WORD
 
@@ -130,6 +140,8 @@ sensor:
     name: ${name}_${inverter_name}_setting_soc_timezone6
     id: ${inverter_name}_setting_soc_timezone6
     register_type: holding
+    unit_of_measurement: '%'
+    icon: mdi:percent
     address: 273
     value_type: U_WORD
 
@@ -265,6 +277,7 @@ number:
     name: ${name}_${inverter_name}_set_soc_timezone1
     id: ${inverter_name}_set_soc_timezone1
     unit_of_measurement: '%'
+    icon: mdi:percent
     address: 268
     min_value: 0
     max_value: 100
@@ -277,6 +290,7 @@ number:
     name: ${name}_${inverter_name}_set_soc_timezone2
     id: ${inverter_name}_set_soc_timezone2
     unit_of_measurement: '%'
+    icon: mdi:percent
     address: 269
     min_value: 0
     max_value: 100
@@ -289,6 +303,7 @@ number:
     name: ${name}_${inverter_name}_set_soc_timezone3
     id: ${inverter_name}_set_soc_timezone3
     unit_of_measurement: '%'
+    icon: mdi:percent
     address: 270
     min_value: 0
     max_value: 100
@@ -301,6 +316,7 @@ number:
     name: ${name}_${inverter_name}_set_soc_timezone4
     id: ${inverter_name}_set_soc_timezone4
     unit_of_measurement: '%'
+    icon: mdi:percent
     address: 271
     min_value: 0
     max_value: 100
@@ -313,6 +329,7 @@ number:
     name: ${name}_${inverter_name}_set_soc_timezone5
     id: ${inverter_name}_set_soc_timezone5
     unit_of_measurement: '%'
+    icon: mdi:percent
     address: 272
     min_value: 0
     max_value: 100
@@ -325,6 +342,7 @@ number:
     name: ${name}_${inverter_name}_set_soc_timezone6
     id: ${inverter_name}_set_soc_timezone6
     unit_of_measurement: '%'
+    icon: mdi:percent
     address: 273
     min_value: 0
     max_value: 100
