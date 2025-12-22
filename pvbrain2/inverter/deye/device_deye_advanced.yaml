@@ -269,6 +269,172 @@ switch:
 
 number:
 
+    ################  power  ############
+
+  - platform: modbus_controller         # 256 Settings Power Timezone1
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_power_timezone1
+    id: ${inverter_name}_set_power_timezone1
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    address: 256
+    min_value: 0
+    max_value: 8000
+    step: 100
+    value_type: U_WORD
+
+  - platform: modbus_controller         # 257 Settings Power Timezone2
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_power_timezone2
+    id: ${inverter_name}_set_power_timezone2
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    address: 257
+    min_value: 0
+    max_value: 8000
+    step: 100
+    value_type: U_WORD
+
+  - platform: modbus_controller         # 258 Settings Power Timezone3
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_power_timezone3
+    id: ${inverter_name}_set_power_timezone3
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    address: 258
+    min_value: 0
+    max_value: 8000
+    step: 100
+    value_type: U_WORD 
+
+  - platform: modbus_controller         # 259 Settings Power Timezone4
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_power_timezone4
+    id: ${inverter_name}_set_power_timezone4
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    address: 259
+    min_value: 0
+    max_value: 8000
+    step: 100
+    value_type: U_WORD
+
+  - platform: modbus_controller         # 260 Settings Power Timezone5
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_power_timezone5
+    id: ${inverter_name}_set_power_timezone5
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    address: 260
+    min_value: 0
+    max_value: 8000
+    step: 100
+    value_type: U_WORD
+
+  - platform: modbus_controller         # 261 Settings Power Timezone6
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_power_timezone6
+    id: ${inverter_name}_set_power_timezone6
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    address: 261
+    min_value: 0
+    max_value: 8000
+    step: 100
+    value_type: U_WORD 
+
+    ################  Voltage  ############
+    
+  - platform: modbus_controller         # 262 Settings Battery voltage Timezone1
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_battery_voltage_timezone1
+    id: ${inverter_name}_set_battery_voltage_timezone1
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    address: 262
+    min_value: 45.0
+    max_value: 63.0
+    step: 0.1
+    value_type: U_WORD
+    lambda: "return  x * 100;"
+
+  - platform: modbus_controller         # 263 Settings Battery voltage Timezone2
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_battery_voltage_timezone2
+    id: ${inverter_name}_set_battery_voltage_timezone2
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    address: 263
+    min_value: 45.0
+    max_value: 63.0
+    step: 0.1
+    value_type: U_WORD
+    lambda: "return  x * 100;"
+
+  - platform: modbus_controller         # 264 Settings Battery voltage Timezone3
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_battery_voltage_timezone3
+    id: ${inverter_name}_set_battery_voltage_timezone3
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    address: 264
+    min_value: 45.0
+    max_value: 63.0
+    step: 0.1
+    value_type: U_WORD
+    lambda: "return  x * 100;"
+
+  - platform: modbus_controller         # 265 Settings Battery voltage Timezone4
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_battery_voltage_timezone4
+    id: ${inverter_name}_set_battery_voltage_timezone4
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    address: 265
+    min_value: 45.0
+    max_value: 63.0
+    step: 0.1
+    value_type: U_WORD
+    lambda: "return  x * 100;"
+
+  - platform: modbus_controller         # 266 Settings Battery voltage Timezone5
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_battery_voltage_timezone5
+    id: ${inverter_name}_set_battery_voltage_timezone5
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    address: 266
+    min_value: 45.0
+    max_value: 63.0
+    step: 0.1
+    value_type: U_WORD
+    lambda: "return  x * 100;"
+
+  - platform: modbus_controller         # 267 Settings Battery voltage Timezone6
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_set_battery_voltage_timezone6
+    id: ${inverter_name}_set_battery_voltage_timezone6
+    unit_of_measurement: 'V'
+    icon: mdi:sine-wave
+    address: 267
+    min_value: 45.0
+    max_value: 63.0
+    step: 0.1
+    value_type: U_WORD
+    lambda: "return  x * 100;"  
+
     ############ timezone ####
 
   - platform: modbus_controller         # 268 Settings SoC Timezone1
@@ -446,3 +612,4 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
