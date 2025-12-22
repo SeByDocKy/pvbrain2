@@ -403,7 +403,6 @@ number:
     id: ${inverter_name}_set_power_timezone1
     unit_of_measurement: 'W'
     icon: mdi:power
-    accuracy_decimals: 0
     address: 256
     min_value: 0
     max_value: 8000
@@ -417,7 +416,6 @@ number:
     id: ${inverter_name}_set_power_timezone2
     unit_of_measurement: 'W'
     icon: mdi:power
-    accuracy_decimals: 0
     address: 257
     min_value: 0
     max_value: 8000
@@ -430,7 +428,6 @@ number:
     name: ${name}_${inverter_name}_set_power_timezone3
     id: ${inverter_name}_set_power_timezone3
     unit_of_measurement: 'W'
-    accuracy_decimals: 0
     icon: mdi:power
     address: 258
     min_value: 0
@@ -444,7 +441,6 @@ number:
     name: ${name}_${inverter_name}_set_power_timezone4
     id: ${inverter_name}_set_power_timezone4
     unit_of_measurement: 'W'
-    accuracy_decimals: 0
     icon: mdi:power
     address: 259
     min_value: 0
@@ -458,7 +454,6 @@ number:
     name: ${name}_${inverter_name}_set_power_timezone5
     id: ${inverter_name}_set_power_timezone5
     unit_of_measurement: 'W'
-    accuracy_decimals: 0
     icon: mdi:power
     address: 260
     min_value: 0
@@ -488,7 +483,6 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone1
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    accuracy_decimals: 1
     address: 262
     min_value: 45.0
     max_value: 63.0
@@ -506,7 +500,6 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone2
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    accuracy_decimals: 1
     address: 263
     min_value: 45.0
     max_value: 63.0
@@ -524,7 +517,6 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone3
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    accuracy_decimals: 1
     address: 264
     min_value: 45.0
     max_value: 63.0
@@ -542,7 +534,6 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone4
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    accuracy_decimals: 1
     address: 265
     min_value: 45.0
     max_value: 63.0
@@ -560,7 +551,6 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone5
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    accuracy_decimals: 1
     address: 266
     min_value: 45.0
     max_value: 63.0
@@ -578,7 +568,6 @@ number:
     id: ${inverter_name}_set_battery_voltage_timezone6
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    accuracy_decimals: 1
     address: 267
     min_value: 45.0
     max_value: 63.0
@@ -598,7 +587,6 @@ number:
     id: ${inverter_name}_set_soc_timezone1
     unit_of_measurement: '%'
     icon: mdi:percent
-    accuracy_decimals: 0
     address: 268
     min_value: 0
     max_value: 100
@@ -612,7 +600,6 @@ number:
     id: ${inverter_name}_set_soc_timezone2
     unit_of_measurement: '%'
     icon: mdi:percent
-    accuracy_decimals: 0
     address: 269
     min_value: 0
     max_value: 100
@@ -626,7 +613,6 @@ number:
     id: ${inverter_name}_set_soc_timezone3
     unit_of_measurement: '%'
     icon: mdi:percent
-    accuracy_decimals: 0
     address: 270
     min_value: 0
     max_value: 100
@@ -640,7 +626,6 @@ number:
     id: ${inverter_name}_set_soc_timezone4
     unit_of_measurement: '%'
     icon: mdi:percent
-    accuracy_decimals: 0
     address: 271
     min_value: 0
     max_value: 100
@@ -654,7 +639,6 @@ number:
     id: ${inverter_name}_set_soc_timezone5
     unit_of_measurement: '%'
     icon: mdi:percent
-    accuracy_decimals: 0
     address: 272
     min_value: 0
     max_value: 100
@@ -667,7 +651,6 @@ number:
     name: ${name}_${inverter_name}_set_soc_timezone6
     id: ${inverter_name}_set_soc_timezone6
     unit_of_measurement: '%'
-    accuracy_decimals: 0
     icon: mdi:percent
     address: 273
     min_value: 0
@@ -680,6 +663,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_1
     id: ${inverter_name}_time_slot_1
+    icon: mdi:timer-sand
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone1).state) {
@@ -696,6 +680,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_2
     id: ${inverter_name}_time_slot_2
+    icon: mdi:timer-sand
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone2).state) {
@@ -712,6 +697,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_3
     id: ${inverter_name}_time_slot_3
+    icon: mdi:timer-sand
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone3).state) {
@@ -728,6 +714,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_4
     id: ${inverter_name}_time_slot_4
+    icon: mdi:timer-sand
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone4).state) {
@@ -744,6 +731,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_5
     id: ${inverter_name}_time_slot_5
+    icon: mdi:timer-sand
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone5).state) {
@@ -760,6 +748,7 @@ text_sensor:
   - platform: template
     name: ${name}_${inverter_name}_time_slot_6
     id: ${inverter_name}_time_slot_6
+    icon: mdi:timer-sand
     lambda: |-
         unsigned int minutes, hours;
         if (id(${inverter_name}_setting_timezone6).state) {
@@ -772,6 +761,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
