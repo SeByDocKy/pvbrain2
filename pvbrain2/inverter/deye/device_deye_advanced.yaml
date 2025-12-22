@@ -336,40 +336,40 @@ binary_sensor:
 
   - platform: modbus_controller          # 275 Settings Grid Charge Timezone2
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_grid_charge_timezone1
-    id: ${inverter_name}_setting_grid_charge_timezone1
+    name: ${name}_${inverter_name}_setting_grid_charge_timezone2
+    id: ${inverter_name}_setting_grid_charge_timezone2
     register_type: holding
     address: 275
     bitmask: 0x01
 
   - platform: modbus_controller          # 276 Settings Grid Charge Timezone3
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_grid_charge_timezone1
-    id: ${inverter_name}_setting_grid_charge_timezone1
+    name: ${name}_${inverter_name}_setting_grid_charge_timezone3
+    id: ${inverter_name}_setting_grid_charge_timezone3
     register_type: holding
     address: 276
     bitmask: 0x01
 
   - platform: modbus_controller          # 277 Settings Grid Charge Timezone4
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_grid_charge_timezone1
-    id: ${inverter_name}_setting_grid_charge_timezone1
+    name: ${name}_${inverter_name}_setting_grid_charge_timezone4
+    id: ${inverter_name}_setting_grid_charge_timezone4
     register_type: holding
     address: 277
     bitmask: 0x01
 
   - platform: modbus_controller          # 278 Settings Grid Charge Timezone5
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_grid_charge_timezone1
-    id: ${inverter_name}_setting_grid_charge_timezone1
+    name: ${name}_${inverter_name}_setting_grid_charge_timezone5
+    id: ${inverter_name}_setting_grid_charge_timezone5
     register_type: holding
     address: 278
     bitmask: 0x01
 
   - platform: modbus_controller          # 279 Settings Grid Charge Timezone6
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_grid_charge_timezone1
-    id: ${inverter_name}_setting_grid_charge_timezone1
+    name: ${name}_${inverter_name}_setting_grid_charge_timezone-
+    id: ${inverter_name}_setting_grid_charge_timezone6
     register_type: holding
     address: 279
     bitmask: 0x01
@@ -385,40 +385,40 @@ binary_sensor:
 
   - platform: modbus_controller          # 275 Settings Gen Charge Timezone2
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_gen_charge_timezone1
-    id: ${inverter_name}_setting_gen_charge_timezone1
+    name: ${name}_${inverter_name}_setting_gen_charge_timezone2
+    id: ${inverter_name}_setting_gen_charge_timezone2
     register_type: holding
     address: 275
     bitmask: 0x02
 
   - platform: modbus_controller          # 276 Settings Gen Charge Timezone3
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_gen_charge_timezone1
-    id: ${inverter_name}_setting_gen_charge_timezone1
+    name: ${name}_${inverter_name}_setting_gen_charge_timezone31
+    id: ${inverter_name}_setting_gen_charge_timezone3
     register_type: holding
     address: 276
     bitmask: 0x02
 
   - platform: modbus_controller          # 277 Settings Gen Charge Timezone4
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_gen_charge_timezone1
-    id: ${inverter_name}_setting_gen_charge_timezone1
+    name: ${name}_${inverter_name}_setting_gen_charge_timezone4
+    id: ${inverter_name}_setting_gen_charge_timezone4
     register_type: holding
     address: 277
     bitmask: 0x02
 
   - platform: modbus_controller          # 278 Settings Gen Charge Timezone5
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_gen_charge_timezone1
-    id: ${inverter_name}_setting_gen_charge_timezone1
+    name: ${name}_${inverter_name}_setting_gen_charge_timezone5
+    id: ${inverter_name}_setting_gen_charge_timezone5
     register_type: holding
     address: 278
     bitmask: 0x02
 
   - platform: modbus_controller          # 279 Settings Gen Charge Timezone6
     modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_setting_gen_charge_timezone1
-    id: ${inverter_name}_setting_gen_charge_timezone1
+    name: ${name}_${inverter_name}_setting_gen_charge_timezone6
+    id: ${inverter_name}_setting_gen_charge_timezone6
     register_type: holding
     address: 279
     bitmask: 0x02   
@@ -939,6 +939,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
