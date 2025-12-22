@@ -427,7 +427,7 @@ binary_sensor:
 switch:
 
   - platform: modbus_controller          # 248 Toggle System Timer
-    use_write_multiple: true
+    # use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_toggle_system_timer
     id: ${inverter_name}_toggle_system_timer
@@ -438,7 +438,7 @@ switch:
     icon: "mdi:toggle-switch"
     
   - platform: modbus_controller          # 274 Toggle Grid Charge Timezone1
-    use_write_multiple: true
+    # use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_toggle_grid_charge_timezone1
     id: ${inverter_name}_toggle_grid_charge_timezone1
@@ -450,7 +450,7 @@ switch:
 
   - platform: modbus_controller          # 275 Toggle Grid Charge Timezone2
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_grid_charge_timezone2
     id: ${inverter_name}_toggle_grid_charge_timezone2
     register_type: holding
@@ -461,7 +461,7 @@ switch:
 
   - platform: modbus_controller          # 276 Toggle Grid Charge Timezone3
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_grid_charge_timezone3
     id: ${inverter_name}_toggle_grid_charge_timezone3
     register_type: holding
@@ -472,7 +472,7 @@ switch:
 
   - platform: modbus_controller          # 277 Toggle Grid Charge Timezone4
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_grid_charge_timezone4
     id: ${inverter_name}_toggle_grid_charge_timezone4
     register_type: holding
@@ -483,7 +483,7 @@ switch:
 
   - platform: modbus_controller          # 278 Toggle Grid Charge Timezone5
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_grid_charge_timezone5
     id: ${inverter_name}_toggle_grid_charge_timezone5
     register_type: holding
@@ -494,7 +494,7 @@ switch:
 
   - platform: modbus_controller          # 279 Toggle Grid Charge Timezone6
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_grid_charge_timezone6
     id: ${inverter_name}_toggle_grid_charge_timezone6
     register_type: holding
@@ -505,7 +505,7 @@ switch:
 
 
   - platform: modbus_controller          # 274 Toggle Gen Charge Timezone1
-    use_write_multiple: true
+    # use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_toggle_gen_charge_timezone1
     id: ${inverter_name}_toggle_gen_charge_timezone1
@@ -517,7 +517,7 @@ switch:
 
   - platform: modbus_controller          # 275 Toggle Gen Charge Timezone2
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_gen_charge_timezone2
     id: ${inverter_name}_toggle_gen_charge_timezone2
     register_type: holding
@@ -528,7 +528,7 @@ switch:
 
   - platform: modbus_controller          # 276 Toggle Gen Charge Timezone3
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_gen_charge_timezone3
     id: ${inverter_name}_toggle_gen_charge_timezone3
     register_type: holding
@@ -539,7 +539,7 @@ switch:
 
   - platform: modbus_controller          # 277 Toggle Gen Charge Timezone4
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_gen_charge_timezone4
     id: ${inverter_name}_toggle_gen_charge_timezone4
     register_type: holding
@@ -550,7 +550,7 @@ switch:
 
   - platform: modbus_controller          # 278 Toggle Gen Charge Timezone5
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_gen_charge_timezone5
     id: ${inverter_name}_toggle_gen_charge_timezone5
     register_type: holding
@@ -561,7 +561,7 @@ switch:
 
   - platform: modbus_controller          # 279 Toggle Gen Charge Timezone6
     modbus_controller_id: ${inverter_name}_modbus_controller
-    use_write_multiple: true
+    # use_write_multiple: true
     name: ${name}_${inverter_name}_toggle_gen_charge_timezone6
     id: ${inverter_name}_toggle_gen_charge_timezone6
     register_type: holding
@@ -1007,6 +1007,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
