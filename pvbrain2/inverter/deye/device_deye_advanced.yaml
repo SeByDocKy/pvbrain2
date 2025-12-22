@@ -157,6 +157,8 @@ sensor:
     unit_of_measurement: 'V'
     accuracy_decimals: 1
     icon: mdi:sine-wave
+    filters:
+      - multiply: 0.01
 
   - platform: modbus_controller          # 263 Battery Voltage Timezone2
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -167,6 +169,8 @@ sensor:
     unit_of_measurement: 'V'
     accuracy_decimals: 1
     icon: mdi:sine-wave
+    filters:
+      - multiply: 0.01
 
   - platform: modbus_controller          # 264 Battery Voltage Timezone3
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -177,6 +181,8 @@ sensor:
     unit_of_measurement: 'V'
     accuracy_decimals: 1
     icon: mdi:sine-wave
+    filters:
+      - multiply: 0.01
 
   - platform: modbus_controller          # 265 Battery Voltage Timezone4
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -187,6 +193,8 @@ sensor:
     unit_of_measurement: 'V'
     accuracy_decimals: 1
     icon: mdi:sine-wave
+    filters:
+      - multiply: 0.01
 
   - platform: modbus_controller          # 266 Battery Voltage Timezone5
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -197,6 +205,8 @@ sensor:
     unit_of_measurement: 'V'
     accuracy_decimals: 1
     icon: mdi:sine-wave
+    filters:
+      - multiply: 0.01
 
   - platform: modbus_controller          # 267 Battery Voltage Timezone6
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -206,7 +216,9 @@ sensor:
     address: 267
     unit_of_measurement: 'V'
     accuracy_decimals: 1
-    icon: mdi:sine-wave   
+    icon: mdi:sine-wave
+    filters:
+      - multiply: 0.01
 
  #############################  Battery SOC ####################
 
@@ -761,6 +773,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
