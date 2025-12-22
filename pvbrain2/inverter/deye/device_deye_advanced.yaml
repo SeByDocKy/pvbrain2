@@ -363,7 +363,10 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    lambda: "return  x * 100;"
+    filters:
+      - multiply: 0.01
+    multiply: 100
+    # lambda: "return  x * 100;"
 
   - platform: modbus_controller         # 263 Settings Battery voltage Timezone2
     use_write_multiple: true
@@ -377,7 +380,10 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    lambda: "return  x * 100;"
+    filters:
+      - multiply: 0.01
+    multiply: 100
+    # lambda: "return  x * 100;"
 
   - platform: modbus_controller         # 264 Settings Battery voltage Timezone3
     use_write_multiple: true
@@ -391,7 +397,10 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    lambda: "return  x * 100;"
+    filters:
+      - multiply: 0.01
+    multiply: 100
+    # lambda: "return  x * 100;"
 
   - platform: modbus_controller         # 265 Settings Battery voltage Timezone4
     use_write_multiple: true
@@ -405,7 +414,10 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    lambda: "return  x * 100;"
+    filters:
+      - multiply: 0.01
+    multiply: 100
+    # lambda: "return  x * 100;"
 
   - platform: modbus_controller         # 266 Settings Battery voltage Timezone5
     use_write_multiple: true
@@ -419,7 +431,10 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    lambda: "return  x * 100;"
+    filters:
+      - multiply: 0.01
+    multiply: 100
+    # lambda: "return  x * 100;"
 
   - platform: modbus_controller         # 267 Settings Battery voltage Timezone6
     use_write_multiple: true
@@ -433,7 +448,10 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    lambda: "return  x * 100;"  
+    filters:
+      - multiply: 0.01
+    multiply: 100
+    # lambda: "return  x * 100;"  
 
     ############ timezone ####
 
@@ -612,4 +630,5 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
