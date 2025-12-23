@@ -424,6 +424,180 @@ binary_sensor:
     bitmask: 0x02   
 
 
+select:
+
+  - platform: modbus_controller          # 274 Charge type Timezone1
+    # use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_select_charge_timezone1
+    id: ${inverter_name}_select_charge_timezone1
+    # register_type: holding
+    address: 274
+    # bitmask: 0x01
+    entity_category: config
+    icon: "mdi:numeric"
+    optionsmap:
+      "Grid off, Gen off, GM off, BU off, CH off": 0
+      "Grid on, Gen off, GM off, BU off, CH off": 1
+      "Grid off, Gen on, GM off, BU off, CH off": 2
+      "Grid on, Gen on, GM off, BU off, CH off": 3
+      "Grid off, Gen off, GM on, BU off, CH off": 4
+      "Grid on, Gen off, GM on, BU off, CH off": 5
+      "Grid off, Gen on, GM on, BU off, CH off": 6
+      "Grid on, Gen on, GM on, BU off, CH off": 7
+      "Grid off, Gen off, GM off, BU on, CH off": 8
+      "Grid on, Gen off, GM off, BU on, CH off": 9
+      "Grid off, Gen on, GM off, BU on, CH off": 10
+      "Grid on, Gen on, GM off, BU on, CH off": 11
+      "Grid off, Gen off, GM off, BU off, CH on": 12
+      "Grid on, Gen off, GM off, BU off, CH on": 13
+      "Grid off, Gen on, GM off, BU off, CH on": 14
+      "Grid on, Gen on, GM off, BU off, CH on": 15
+
+  - platform: modbus_controller          # 275 Charge type Timezone2
+    # use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_select_charge_timezone2
+    id: ${inverter_name}_select_charge_timezone2
+    # register_type: holding
+    address: 275
+    # bitmask: 0x01
+    entity_category: config
+    icon: "mdi:numeric"
+    optionsmap:
+      "Grid off, Gen off, GM off, BU off, CH off": 0
+      "Grid on, Gen off, GM off, BU off, CH off": 1
+      "Grid off, Gen on, GM off, BU off, CH off": 2
+      "Grid on, Gen on, GM off, BU off, CH off": 3
+      "Grid off, Gen off, GM on, BU off, CH off": 4
+      "Grid on, Gen off, GM on, BU off, CH off": 5
+      "Grid off, Gen on, GM on, BU off, CH off": 6
+      "Grid on, Gen on, GM on, BU off, CH off": 7
+      "Grid off, Gen off, GM off, BU on, CH off": 8
+      "Grid on, Gen off, GM off, BU on, CH off": 9
+      "Grid off, Gen on, GM off, BU on, CH off": 10
+      "Grid on, Gen on, GM off, BU on, CH off": 11
+      "Grid off, Gen off, GM off, BU off, CH on": 12
+      "Grid on, Gen off, GM off, BU off, CH on": 13
+      "Grid off, Gen on, GM off, BU off, CH on": 14
+      "Grid on, Gen on, GM off, BU off, CH on": 15
+
+
+  - platform: modbus_controller          # 276 Charge type Timezone3
+    # use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_select_charge_timezone3
+    id: ${inverter_name}_select_charge_timezone3
+    # register_type: holding
+    address: 276
+    # bitmask: 0x01
+    entity_category: config
+    icon: "mdi:numeric"
+    optionsmap:
+      "Grid off, Gen off, GM off, BU off, CH off": 0
+      "Grid on, Gen off, GM off, BU off, CH off": 1
+      "Grid off, Gen on, GM off, BU off, CH off": 2
+      "Grid on, Gen on, GM off, BU off, CH off": 3
+      "Grid off, Gen off, GM on, BU off, CH off": 4
+      "Grid on, Gen off, GM on, BU off, CH off": 5
+      "Grid off, Gen on, GM on, BU off, CH off": 6
+      "Grid on, Gen on, GM on, BU off, CH off": 7
+      "Grid off, Gen off, GM off, BU on, CH off": 8
+      "Grid on, Gen off, GM off, BU on, CH off": 9
+      "Grid off, Gen on, GM off, BU on, CH off": 10
+      "Grid on, Gen on, GM off, BU on, CH off": 11
+      "Grid off, Gen off, GM off, BU off, CH on": 12
+      "Grid on, Gen off, GM off, BU off, CH on": 13
+      "Grid off, Gen on, GM off, BU off, CH on": 14
+      "Grid on, Gen on, GM off, BU off, CH on": 15
+
+  - platform: modbus_controller          # 277 Charge type Timezone4
+    # use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_select_charge_timezone4
+    id: ${inverter_name}_select_charge_timezone4
+    # register_type: holding
+    address: 277
+    # bitmask: 0x01
+    entity_category: config
+    icon: "mdi:numeric"
+    optionsmap:
+      "Grid off, Gen off, GM off, BU off, CH off": 0
+      "Grid on, Gen off, GM off, BU off, CH off": 1
+      "Grid off, Gen on, GM off, BU off, CH off": 2
+      "Grid on, Gen on, GM off, BU off, CH off": 3
+      "Grid off, Gen off, GM on, BU off, CH off": 4
+      "Grid on, Gen off, GM on, BU off, CH off": 5
+      "Grid off, Gen on, GM on, BU off, CH off": 6
+      "Grid on, Gen on, GM on, BU off, CH off": 7
+      "Grid off, Gen off, GM off, BU on, CH off": 8
+      "Grid on, Gen off, GM off, BU on, CH off": 9
+      "Grid off, Gen on, GM off, BU on, CH off": 10
+      "Grid on, Gen on, GM off, BU on, CH off": 11
+      "Grid off, Gen off, GM off, BU off, CH on": 12
+      "Grid on, Gen off, GM off, BU off, CH on": 13
+      "Grid off, Gen on, GM off, BU off, CH on": 14
+      "Grid on, Gen on, GM off, BU off, CH on": 15
+
+
+  - platform: modbus_controller          # 278 Charge type Timezone5
+    # use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_select_charge_timezone5
+    id: ${inverter_name}_select_charge_timezone5
+    # register_type: holding
+    address: 278
+    # bitmask: 0x01
+    entity_category: config
+    icon: "mdi:numeric"
+    optionsmap:
+      "Grid off, Gen off, GM off, BU off, CH off": 0
+      "Grid on, Gen off, GM off, BU off, CH off": 1
+      "Grid off, Gen on, GM off, BU off, CH off": 2
+      "Grid on, Gen on, GM off, BU off, CH off": 3
+      "Grid off, Gen off, GM on, BU off, CH off": 4
+      "Grid on, Gen off, GM on, BU off, CH off": 5
+      "Grid off, Gen on, GM on, BU off, CH off": 6
+      "Grid on, Gen on, GM on, BU off, CH off": 7
+      "Grid off, Gen off, GM off, BU on, CH off": 8
+      "Grid on, Gen off, GM off, BU on, CH off": 9
+      "Grid off, Gen on, GM off, BU on, CH off": 10
+      "Grid on, Gen on, GM off, BU on, CH off": 11
+      "Grid off, Gen off, GM off, BU off, CH on": 12
+      "Grid on, Gen off, GM off, BU off, CH on": 13
+      "Grid off, Gen on, GM off, BU off, CH on": 14
+      "Grid on, Gen on, GM off, BU off, CH on": 15
+
+
+  - platform: modbus_controller          # 279 Charge type Timezone6
+    # use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_select_charge_timezone6
+    id: ${inverter_name}_select_charge_timezone6
+    # register_type: holding
+    address: 279
+    # bitmask: 0x01
+    entity_category: config
+    icon: "mdi:numeric"
+    optionsmap:
+      "Grid off, Gen off, GM off, BU off, CH off": 0
+      "Grid on, Gen off, GM off, BU off, CH off": 1
+      "Grid off, Gen on, GM off, BU off, CH off": 2
+      "Grid on, Gen on, GM off, BU off, CH off": 3
+      "Grid off, Gen off, GM on, BU off, CH off": 4
+      "Grid on, Gen off, GM on, BU off, CH off": 5
+      "Grid off, Gen on, GM on, BU off, CH off": 6
+      "Grid on, Gen on, GM on, BU off, CH off": 7
+      "Grid off, Gen off, GM off, BU on, CH off": 8
+      "Grid on, Gen off, GM off, BU on, CH off": 9
+      "Grid off, Gen on, GM off, BU on, CH off": 10
+      "Grid on, Gen on, GM off, BU on, CH off": 11
+      "Grid off, Gen off, GM off, BU off, CH on": 12
+      "Grid on, Gen off, GM off, BU off, CH on": 13
+      "Grid off, Gen on, GM off, BU off, CH on": 14
+      "Grid on, Gen on, GM off, BU off, CH on": 15      
+
+
 switch:
 
   - platform: modbus_controller          # 248 Toggle System Timer
@@ -437,205 +611,205 @@ switch:
     entity_category: config
     icon: "mdi:toggle-switch"
     
-  - platform: modbus_controller          # 274 Toggle Grid Charge Timezone1
-    # use_write_multiple: true
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_toggle_grid_charge_timezone1
-    id: ${inverter_name}_toggle_grid_charge_timezone1
-    register_type: holding
-    address: 274
-    bitmask: 0x01
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 274 Toggle Grid Charge Timezone1
+  #   # use_write_multiple: true
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone1
+  #   id: ${inverter_name}_toggle_grid_charge_timezone1
+  #   register_type: holding
+  #   address: 274
+  #   bitmask: 0x01
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 275 Toggle Grid Charge Timezone2
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_grid_charge_timezone2
-    id: ${inverter_name}_toggle_grid_charge_timezone2
-    register_type: holding
-    address: 275
-    bitmask: 0x01
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 275 Toggle Grid Charge Timezone2
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone2
+  #   id: ${inverter_name}_toggle_grid_charge_timezone2
+  #   register_type: holding
+  #   address: 275
+  #   bitmask: 0x01
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 276 Toggle Grid Charge Timezone3
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_grid_charge_timezone3
-    id: ${inverter_name}_toggle_grid_charge_timezone3
-    register_type: holding
-    address: 276
-    bitmask: 0x01
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 276 Toggle Grid Charge Timezone3
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone3
+  #   id: ${inverter_name}_toggle_grid_charge_timezone3
+  #   register_type: holding
+  #   address: 276
+  #   bitmask: 0x01
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 277 Toggle Grid Charge Timezone4
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_grid_charge_timezone4
-    id: ${inverter_name}_toggle_grid_charge_timezone4
-    register_type: holding
-    address: 277
-    bitmask: 0x01
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 277 Toggle Grid Charge Timezone4
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone4
+  #   id: ${inverter_name}_toggle_grid_charge_timezone4
+  #   register_type: holding
+  #   address: 277
+  #   bitmask: 0x01
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 278 Toggle Grid Charge Timezone5
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_grid_charge_timezone5
-    id: ${inverter_name}_toggle_grid_charge_timezone5
-    register_type: holding
-    address: 278
-    bitmask: 0x01
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 278 Toggle Grid Charge Timezone5
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone5
+  #   id: ${inverter_name}_toggle_grid_charge_timezone5
+  #   register_type: holding
+  #   address: 278
+  #   bitmask: 0x01
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 279 Toggle Grid Charge Timezone6
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_grid_charge_timezone6
-    id: ${inverter_name}_toggle_grid_charge_timezone6
-    register_type: holding
-    address: 279
-    bitmask: 0x01
-    entity_category: config
-    icon: "mdi:toggle-switch"
-
-
-  - platform: modbus_controller          # 274 Toggle Gen Charge Timezone1
-    # use_write_multiple: true
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_toggle_gen_charge_timezone1
-    id: ${inverter_name}_toggle_gen_charge_timezone1
-    register_type: holding
-    address: 274
-    bitmask: 0x02
-    entity_category: config
-    icon: "mdi:toggle-switch"
-
-  - platform: modbus_controller          # 275 Toggle Gen Charge Timezone2
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gen_charge_timezone2
-    id: ${inverter_name}_toggle_gen_charge_timezone2
-    register_type: holding
-    address: 275
-    bitmask: 0x02
-    entity_category: config
-    icon: "mdi:toggle-switch"
-
-  - platform: modbus_controller          # 276 Toggle Gen Charge Timezone3
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gen_charge_timezone3
-    id: ${inverter_name}_toggle_gen_charge_timezone3
-    register_type: holding
-    address: 276
-    bitmask: 0x02
-    entity_category: config
-    icon: "mdi:toggle-switch"
-
-  - platform: modbus_controller          # 277 Toggle Gen Charge Timezone4
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gen_charge_timezone4
-    id: ${inverter_name}_toggle_gen_charge_timezone4
-    register_type: holding
-    address: 277
-    bitmask: 0x02
-    entity_category: config
-    icon: "mdi:toggle-switch"
-
-  - platform: modbus_controller          # 278 Toggle Gen Charge Timezone5
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gen_charge_timezone5
-    id: ${inverter_name}_toggle_gen_charge_timezone5
-    register_type: holding
-    address: 278
-    bitmask: 0x02
-    entity_category: config
-    icon: "mdi:toggle-switch"
-
-  - platform: modbus_controller          # 279 Toggle Gen Charge Timezone6
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gen_charge_timezone6
-    id: ${inverter_name}_toggle_gen_charge_timezone6
-    register_type: holding
-    address: 279
-    bitmask: 0x02
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 279 Toggle Grid Charge Timezone6
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone6
+  #   id: ${inverter_name}_toggle_grid_charge_timezone6
+  #   register_type: holding
+  #   address: 279
+  #   bitmask: 0x01
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
 
-  - platform: modbus_controller          # 274 Toggle GM Timezone1
-    # use_write_multiple: true
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_toggle_gm_timezone1
-    id: ${inverter_name}_toggle_gm_timezone1
-    register_type: holding
-    address: 274
-    bitmask: 0x04
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 274 Toggle Gen Charge Timezone1
+  #   # use_write_multiple: true
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone1
+  #   id: ${inverter_name}_toggle_gen_charge_timezone1
+  #   register_type: holding
+  #   address: 274
+  #   bitmask: 0x02
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 275 Toggle GM Timezone2
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gm_timezone2
-    id: ${inverter_name}_toggle_gm_timezone2
-    register_type: holding
-    address: 275
-    bitmask: 0x04
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 275 Toggle Gen Charge Timezone2
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone2
+  #   id: ${inverter_name}_toggle_gen_charge_timezone2
+  #   register_type: holding
+  #   address: 275
+  #   bitmask: 0x02
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 276 Toggle GM Timezone3
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gm_timezone3
-    id: ${inverter_name}_toggle_gm_timezone3
-    register_type: holding
-    address: 276
-    bitmask: 0x04
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 276 Toggle Gen Charge Timezone3
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone3
+  #   id: ${inverter_name}_toggle_gen_charge_timezone3
+  #   register_type: holding
+  #   address: 276
+  #   bitmask: 0x02
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 277 Toggle GM Timezone4
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gm_timezone4
-    id: ${inverter_name}_toggle_gm_timezone4
-    register_type: holding
-    address: 277
-    bitmask: 0x04
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 277 Toggle Gen Charge Timezone4
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone4
+  #   id: ${inverter_name}_toggle_gen_charge_timezone4
+  #   register_type: holding
+  #   address: 277
+  #   bitmask: 0x02
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 278 Toggle GM Timezone5
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gm_timezone5
-    id: ${inverter_name}_toggle_gm_timezone5
-    register_type: holding
-    address: 278
-    bitmask: 0x04
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 278 Toggle Gen Charge Timezone5
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone5
+  #   id: ${inverter_name}_toggle_gen_charge_timezone5
+  #   register_type: holding
+  #   address: 278
+  #   bitmask: 0x02
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
 
-  - platform: modbus_controller          # 279 Toggle GM Timezone6
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    # use_write_multiple: true
-    name: ${name}_${inverter_name}_toggle_gm_timezone6
-    id: ${inverter_name}_toggle_gm_timezone6
-    register_type: holding
-    address: 279
-    bitmask: 0x04
-    entity_category: config
-    icon: "mdi:toggle-switch"
+  # - platform: modbus_controller          # 279 Toggle Gen Charge Timezone6
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone6
+  #   id: ${inverter_name}_toggle_gen_charge_timezone6
+  #   register_type: holding
+  #   address: 279
+  #   bitmask: 0x02
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
+
+
+  # - platform: modbus_controller          # 274 Toggle GM Timezone1
+  #   # use_write_multiple: true
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   name: ${name}_${inverter_name}_toggle_gm_timezone1
+  #   id: ${inverter_name}_toggle_gm_timezone1
+  #   register_type: holding
+  #   address: 274
+  #   bitmask: 0x04
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
+
+  # - platform: modbus_controller          # 275 Toggle GM Timezone2
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gm_timezone2
+  #   id: ${inverter_name}_toggle_gm_timezone2
+  #   register_type: holding
+  #   address: 275
+  #   bitmask: 0x04
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
+
+  # - platform: modbus_controller          # 276 Toggle GM Timezone3
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gm_timezone3
+  #   id: ${inverter_name}_toggle_gm_timezone3
+  #   register_type: holding
+  #   address: 276
+  #   bitmask: 0x04
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
+
+  # - platform: modbus_controller          # 277 Toggle GM Timezone4
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gm_timezone4
+  #   id: ${inverter_name}_toggle_gm_timezone4
+  #   register_type: holding
+  #   address: 277
+  #   bitmask: 0x04
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
+
+  # - platform: modbus_controller          # 278 Toggle GM Timezone5
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gm_timezone5
+  #   id: ${inverter_name}_toggle_gm_timezone5
+  #   register_type: holding
+  #   address: 278
+  #   bitmask: 0x04
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
+
+  # - platform: modbus_controller          # 279 Toggle GM Timezone6
+  #   modbus_controller_id: ${inverter_name}_modbus_controller
+  #   # use_write_multiple: true
+  #   name: ${name}_${inverter_name}_toggle_gm_timezone6
+  #   id: ${inverter_name}_toggle_gm_timezone6
+  #   register_type: holding
+  #   address: 279
+  #   bitmask: 0x04
+  #   entity_category: config
+  #   icon: "mdi:toggle-switch"
     
 
 number:
@@ -1007,6 +1181,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
