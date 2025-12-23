@@ -1,4 +1,4 @@
- modbus_controller:
+modbus_controller:
   - id: ${inverter_name}_modbus_controller
     address: ${inverter_modbus_address}
     modbus_id: ${inverter_modbus_id}
@@ -42,7 +42,7 @@ text_sensor:
           return {"AC Charging & Bypass"};
         } else if ((id(${inverter_name}_status).state) == 11)  {
           return {"Bypass"};
-        } else if (id(status).state == 12)  {
+        } else if (id(${inverter_name}_status).state == 12)  {
           return {"PV Charge and Discharge"};
         } else {
           return {"Unknown"};
@@ -181,6 +181,21 @@ sensor:
     filters:
     - multiply: 1
 
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_in_frequency
+    id: ${inverter_name}_ac_in_frequency
+    address: 21
+    register_type: read
+    unit_of_measurement: 'Hz'
+    device_class: frequency
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:metronome
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+    - multiply: 0.01
 
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
