@@ -1,3 +1,7 @@
+################## For some model, need to wire on USB port <-> RS232 PVbrain2 converter  #####
+################## D+ <-> RX, D- <-> TX, databaud 9600                                    #####
+
+
 modbus_controller:
   - id: ${inverter_name}_modbus_controller
     address: ${inverter_modbus_address}
@@ -10,6 +14,509 @@ button:
   - platform: restart
     name: ${name}_${inverter_name}_restart
     id: ${inverter_name}_restart
+
+sensor:
+
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 60s
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_status
+    id: ${inverter_name}_status
+    address: 0
+    register_type: read
+    # internal: true
+    accuracy_decimals: 0
+    icon: mdi:numeric
+    
+# PPV 1 since only 1 PV input 
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_pv1_voltage
+    id: ${inverter_name}_pv1_voltage
+    address: 1
+    register_type: 'read'
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_pv1_power
+    id: ${inverter_name}_pv1_power
+    address: 3
+    register_type: 'read'
+    unit_of_measurement: 'W'
+    device_class: power
+    state_class: measurement
+    icon: mdi:solar-power-variant
+    value_type: U_DWORD
+    accuracy_decimals: 0
+    # internal: true    
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_in_current
+    id: ${inverter_name}_ac_in_current
+    address: 7
+    register_type: read
+    unit_of_measurement: 'A'
+    device_class: power
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:current-ac
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+
+# Load Related 
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_out_active_power
+    id: ${inverter_name}_ac_out_active_power
+    address: 9
+    register_type: 'read'
+    unit_of_measurement: 'W'
+    device_class: power
+    state_class: measurement
+    icon: mdi:solar-power-variant
+    value_type: U_DWORD
+    accuracy_decimals: 0
+    # internal: true
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_out_apparent_power
+    id: ${inverter_name}_ac_out_apparent_power
+    address: 11
+    register_type: 'read'
+    unit_of_measurement: 'VA'
+    device_class: power
+    state_class: measurement
+    icon: mdi:solar-power-variant
+    value_type: U_DWORD
+    accuracy_decimals: 0
+    # internal: true
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_voltage
+    id: ${inverter_name}_battery_voltage
+    address: 17
+    register_type: read
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_soc
+    id: ${inverter_name}_battery_soc
+    address: 18
+    register_type: read
+    unit_of_measurement: '%'
+    device_class: POWER_FACTOR
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 0
+    filters:
+      - multiply: 1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_in_frequency
+    id: ${inverter_name}_ac_in_frequency
+    address: 21
+    register_type: read
+    unit_of_measurement: 'Hz'
+    device_class: frequency
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:metronome
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_out_voltage
+    id: ${inverter_name}_ac_out_voltage
+    address: 22
+    register_type: read
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:sine-wave
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_dc_voltage
+    id: ${inverter_name}_dc_voltage
+    address: 24
+    register_type: read
+    unit_of_measurement: 'V'
+    device_class: voltage
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:sine-wave
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_inverter_temperature
+    id: ${inverter_name}_inverter_temperature
+    address: 25
+    register_type: read
+    unit_of_measurement: '°C'
+    device_class: temperature
+    entity_category: diagnostic
+    state_class: measurement
+    icon: mdi:thermometer
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_dc_bus_temperature
+    id: ${inverter_name}_dc_bus_temperature
+    address: 26
+    register_type: read
+    unit_of_measurement: '°C'
+    device_class: temperature
+    entity_category: diagnostic
+    state_class: measurement
+    icon: mdi:thermometer
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_out_load_percent
+    id: ${inverter_name}_ac_out_load_percent
+    address: 27
+    register_type: read
+    unit_of_measurement: '%'
+    device_class: POWER_FACTOR
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:flash
+    value_type: U_WORD
+    accuracy_decimals: 0
+    filters:
+      - multiply: 0.1
+    
+# Temperatures Monitors
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_pv_temperature
+    id: ${inverter_name}_pv_temperature
+    address: 32
+    register_type: read
+    unit_of_measurement: '°C'
+    device_class: temperature
+    entity_category: diagnostic
+    state_class: measurement
+    icon: mdi:thermometer
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1    
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_out_current
+    id: ${inverter_name}_ac_out_current
+    address: 34
+    register_type: read
+    unit_of_measurement: 'A'
+    device_class: current
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:current-ac
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_inverter_current
+    id: ${inverter_name}_inverter_current
+    address: 35
+    register_type: read
+    unit_of_measurement: 'A'
+    device_class: current
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:current-ac
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1   
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_in_power
+    id: ${inverter_name}_ac_in_power
+    address: 36
+    register_type: read
+    unit_of_measurement: 'W'
+    device_class: power
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:power
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_pv_energy_today
+    id: ${inverter_name}_pv_energy_today
+    address: 48
+    register_type: read
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:count
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_pv_energy_total
+    id: ${inverter_name}_pv_energy_total
+    address: 50
+    register_type: read
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:count
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_discharge_today
+    id: ${inverter_name}_battery_discharge_today
+    address: 60
+    register_type: read
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:count
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_discharge_total
+    id: ${inverter_name}_battery_discharge_total
+    address: 62
+    register_type: read
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:count
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1    
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_discharging_power
+    id: ${inverter_name}_battery_discharging_power
+    address: 73
+    register_type: read
+    unit_of_measurement: 'W'
+    device_class: power
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:battery-arrow-down
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_battery_charging_power
+    id: ${inverter_name}_battery_charging_power
+    address: 77
+    register_type: read
+    unit_of_measurement: 'W'
+    device_class: power
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:battery-arrow-up-outline
+    value_type: S_DWORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1    
+
+## %percentages ## 
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_mppt_charger_fan_speed
+    id: ${inverter_name}_mppt_charger_fan_speed
+    address: 81
+    register_type: read
+    unit_of_measurement: '%'
+    device_class: POWER_FACTOR
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:fan
+    value_type: U_WORD
+    accuracy_decimals: 0
+    filters:
+      - multiply: 1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_inverter_fan_speed
+    id: ${inverter_name}_inverter_fan_speed
+    address: 82
+    register_type: read
+    unit_of_measurement: '%'
+    device_class: POWER_FACTOR
+    state_class: measurement
+    entity_category: diagnostic
+    icon: mdi:fan
+    value_type: U_WORD
+    accuracy_decimals: 0
+    filters:
+      - multiply: 1
+    
+    
+number:
+
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_discharge_power_rate
+    id: ${inverter_name}_discharge_power_rate
+    address: 1070
+    icon: mdi:power
+    unit_of_measurement: 'W'
+    value_type: U_WORD
+    min_value: 10
+    max_value: 100
+    step: 1
+    skip_updates: 6
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_discharge_soc
+    id: ${inverter_name}_discharge_soc 
+    address: 1071
+    icon: mdi:percent
+    unit_of_measurement: '%'
+    value_type: U_WORD
+    min_value: 10
+    max_value: 100
+    step: 1
+    skip_updates: 6    
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_charge_power_rate
+    address: 1090
+    icon: mdi:current-ac
+    unit_of_measurement: 'A'
+    value_type: U_WORD
+    min_value: 10
+    max_value: 100
+    step: 1   
+    skip_updates: 6
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_charge_soc
+    id: ${inverter_name}_charge_soc
+    icon: mdi:percent
+    unit_of_measurement: '%'
+    address: 1091
+    value_type: U_WORD
+    min_value: 10
+    max_value: 100
+    step: 1
+    skip_updates: 6    
+    
+select:
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_ac_charging
+    icon: mdi:battery-charging-100
+    address: 1092
+    value_type: U_WORD
+    optionsmap:
+      "Disabled": 0
+      "Enabled": 1
+    skip_updates: 6
+
+  - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: ${name}_${inverter_name}_inverter_priority
+    icon: mdi:arrow-decision-outline
+    address: 1044
+    value_type: U_WORD
+    optionsmap:
+      "Load First": 0
+      "Battery First": 1
+      "Grid First": 2  
+    skip_updates: 6
 
 text_sensor:
   - platform: template
@@ -48,300 +555,28 @@ text_sensor:
           return {"Unknown"};
         }
 
-sensor:
-
-  - platform: wifi_signal
-    name: "WiFi Signal Sensor"
-    update_interval: 60s
-
-
   - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_status
-    id: ${inverter_name}_status
-    address: 0
-    register_type: read
-    # internal: true
-    accuracy_decimals: 0
-    icon: mdi:numeric
-    
-
-# PPV 1 since only 1 PV input 
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_pv1_voltage
-    id: ${inverter_name}_pv1_voltage
-    address: 1
-    register_type: 'read'
-    unit_of_measurement: 'V'
-    device_class: voltage
-    state_class: measurement
+    name: ${name}_${inverter_name}_fault_code
+    skip_updates: 6
+    address: 105
+    register_type: "read"
+    icon: mdi:eye
     entity_category: diagnostic
-    icon: mdi:flash
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_pv1_power
-    id: ${inverter_name}_pv1_power
-    address: 3
-    register_type: 'read'
-    unit_of_measurement: 'W'
-    device_class: power
-    state_class: measurement
-    icon: mdi:solar-power-variant
-    value_type: U_DWORD
-    accuracy_decimals: 0
-    # internal: true    
-    filters:
-    - multiply: 0.1
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_ac_in_current
-    id: ${inverter_name}_ac_in_current
-    address: 7
-    register_type: read
-    unit_of_measurement: 'A'
-    device_class: power
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:current-ac
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1
-
-
-# Load Related 
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_ac_out_active_power
-    id: ${inverter_name}_ac_out_active_power
-    address: 9
-    register_type: 'read'
-    unit_of_measurement: 'W'
-    device_class: power
-    state_class: measurement
-    icon: mdi:solar-power-variant
-    value_type: U_DWORD
-    accuracy_decimals: 0
-    # internal: true
-    filters:
-    - multiply: 0.1
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_ac_out_apparent_power
-    id: ${inverter_name}_ac_out_apparent_power
-    address: 11
-    register_type: 'read'
-    unit_of_measurement: 'VA'
-    device_class: power
-    state_class: measurement
-    icon: mdi:solar-power-variant
-    value_type: U_DWORD
-    accuracy_decimals: 0
-    # internal: true
-    filters:
-    - multiply: 0.1
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_battery_voltage
-    id: ${inverter_name}_battery_voltage
-    address: 17
-    register_type: read
-    unit_of_measurement: 'V'
-    device_class: voltage
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:flash
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_battery_soc
-    id: ${inverter_name}_battery_soc
-    address: 18
-    register_type: read
-    unit_of_measurement: '%'
-    device_class: POWER_FACTOR
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:flash
-    value_type: U_WORD
-    accuracy_decimals: 0
-    filters:
-    - multiply: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_ac_in_frequency
-    id: ${inverter_name}_ac_in_frequency
-    address: 21
-    register_type: read
-    unit_of_measurement: 'Hz'
-    device_class: frequency
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:metronome
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.01
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_ac_out_voltage
-    id: ${inverter_name}_ac_out_voltage
-    address: 22
-    register_type: read
-    unit_of_measurement: 'V'
-    device_class: voltage
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:sine-wave
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1
-    
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_dc_voltage
-    id: ${inverter_name}_dc_voltage
-    address: 24
-    register_type: read
-    unit_of_measurement: 'V'
-    device_class: voltage
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:sine-wave
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1
-    
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_inverter_temperature
-    id: ${inverter_name}_inverter_temperature
-    address: 25
-    register_type: read
-    unit_of_measurement: '°C'
-    device_class: temperature
-    entity_category: diagnostic
-    state_class: measurement
-    icon: mdi:thermometer
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_dc_bus_temperature
-    id: ${inverter_name}_dc_bus_temperature
-    address: 26
-    register_type: read
-    unit_of_measurement: '°C'
-    device_class: temperature
-    entity_category: diagnostic
-    state_class: measurement
-    icon: mdi:thermometer
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1
-
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_ac_out_load_percent
-    id: ${inverter_name}_ac_out_load_percent
-    address: 27
-    register_type: read
-    unit_of_measurement: '%'
-    device_class: POWER_FACTOR
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:flash
-    value_type: U_WORD
-    accuracy_decimals: 0
-    filters:
-    - multiply: 0.1
-    
-# Temperatures Monitors
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_pv_temperature
-    id: ${inverter_name}_pv_temperature
-    address: 32
-    register_type: read
-    unit_of_measurement: '°C'
-    device_class: temperature
-    entity_category: diagnostic
-    state_class: measurement
-    icon: mdi:thermometer
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1    
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_ac_out_current
-    id: ${inverter_name}_ac_out_current
-    address: 34
-    register_type: read
-    unit_of_measurement: 'A'
-    device_class: current
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:current-ac
-    value_type: U_WORD
-    accuracy_decimals: 1
-    filters:
-    - multiply: 0.1
-
-## %percentages ## 
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_mppt_charger_fan_speed
-    id: ${inverter_name}_mppt_charger_fan_speed
-    address: 81
-    register_type: read
-    unit_of_measurement: '%'
-    device_class: POWER_FACTOR
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:fan
-    value_type: U_WORD
-    accuracy_decimals: 0
-    filters:
-    - multiply: 1
-
-  - platform: modbus_controller
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_inverter_fan_speed
-    id: ${inverter_name}_inverter_fan_speed
-    address: 82
-    register_type: read
-    unit_of_measurement: '%'
-    device_class: POWER_FACTOR
-    state_class: measurement
-    entity_category: diagnostic
-    icon: mdi:fan
-    value_type: U_WORD
-    accuracy_decimals: 0
-    filters:
-    - multiply: 1
+    raw_encode: HEXBYTES
+    lambda: |-
+      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      switch (value) {
+        case 0:  return std::string("No error");
+        case 24: return std::string("Auto test failed");
+        case 25: return std::string("No AC connection");
+        case 26: return std::string("PV isolation low");
+        case 27: return std::string("Residual I high");
+        case 28: return std::string("Output high DCI");
+        case 29: return std::string("PV voltage high");
+        case 30: return std::string("AC voltage out of range");
+        case 31: return std::string("AC frequency out of range");
+        case 32: return std::string("Module too hot");
+        // case 1~23 " Error: 99+x
+        default: return std::string("Fault code: " + to_string(value));
+      }
+      return x;    
