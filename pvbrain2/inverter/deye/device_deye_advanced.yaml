@@ -601,7 +601,7 @@ select:
 switch:
 
   - platform: modbus_controller          # 248 Toggle System Timer
-    # use_write_multiple: true
+    use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_toggle_system_timer
     id: ${inverter_name}_toggle_system_timer
@@ -1181,6 +1181,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
