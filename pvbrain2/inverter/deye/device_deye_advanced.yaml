@@ -427,7 +427,7 @@ binary_sensor:
 select:
 
   - platform: modbus_controller          # 274 Charge type Timezone1
-    # use_write_multiple: true
+    use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_select_charge_timezone1
     id: ${inverter_name}_select_charge_timezone1
@@ -455,7 +455,7 @@ select:
       "Grid on, Gen on, GM off, BU off, CH on": 15
 
   - platform: modbus_controller          # 275 Charge type Timezone2
-    # use_write_multiple: true
+    use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_select_charge_timezone2
     id: ${inverter_name}_select_charge_timezone2
@@ -484,7 +484,7 @@ select:
 
 
   - platform: modbus_controller          # 276 Charge type Timezone3
-    # use_write_multiple: true
+    use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_select_charge_timezone3
     id: ${inverter_name}_select_charge_timezone3
@@ -512,7 +512,7 @@ select:
       "Grid on, Gen on, GM off, BU off, CH on": 15
 
   - platform: modbus_controller          # 277 Charge type Timezone4
-    # use_write_multiple: true
+    use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_select_charge_timezone4
     id: ${inverter_name}_select_charge_timezone4
@@ -541,7 +541,7 @@ select:
 
 
   - platform: modbus_controller          # 278 Charge type Timezone5
-    # use_write_multiple: true
+    use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_select_charge_timezone5
     id: ${inverter_name}_select_charge_timezone5
@@ -570,7 +570,7 @@ select:
 
 
   - platform: modbus_controller          # 279 Charge type Timezone6
-    # use_write_multiple: true
+    use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_select_charge_timezone6
     id: ${inverter_name}_select_charge_timezone6
@@ -1181,6 +1181,7 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
 
 
 
