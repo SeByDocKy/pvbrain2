@@ -10,7 +10,7 @@
 
 substitutions:
   name: 'pvbrain2'
-  pvbrain2_version: '1.0.5'
+  pvbrain2_version: '1.0.6'
   git_url: 'https://github.com/SeByDocKy/pvbrain2@main'
 
   ###### For builtin ESP32 S3 UART ports ######
