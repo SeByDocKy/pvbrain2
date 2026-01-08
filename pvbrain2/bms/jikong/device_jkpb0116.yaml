@@ -721,11 +721,12 @@ sensor:
   # 0x12D8   216   UINT16    2    R    VolChargCur     mV
   # 0x12DA   218   UINT16    2    R    VolDischargCur  mV
 
-switch:
-  - platform: modbus_controller
-    modbus_controller_id: ${bms_name}_modbus_controller
-    name: ${name}_${bms_name}_discharging
-    custom_command: [0x00, 0x03, 0x10, 0x74, 0x00, 0x02]
+# switch:
+#   - platform: modbus_controller
+#     modbus_controller_id: ${bms_name}_modbus_controller
+#     name: ${name}_${bms_name}_discharging
+#     id: ${bms_name}_discharging
+#     custom_command: [0x00, 0x03, 0x10, 0x74, 0x00, 0x02]
     # write_lambda: |-
     #   payload.push_back(0x00);
     #   payload.push_back(0x10);
@@ -813,6 +814,7 @@ text_sensor:
       return value;      
 
     
+
 
 
 
