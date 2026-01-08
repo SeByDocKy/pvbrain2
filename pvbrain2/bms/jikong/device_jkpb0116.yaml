@@ -795,6 +795,41 @@ sensor:
   #     }
   #     return (data[3] == 1);
 
+select:
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_charging
+    icon: "mdi:battery-charging-100"
+    address: 0x1070
+    value_type: U_DWORD
+    skip_updates: 5
+    optionsmap:
+      "Off": 0
+      "On": 1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_discharging
+    icon: "mdi:power-plug-battery"
+    address: 0x1074
+    value_type: U_DWORD
+    skip_updates: 5
+    optionsmap:
+      "Off": 0
+      "On": 1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${bms_name}_modbus_controller
+    name: ${name}_${bms_name}_balancing
+    icon: mdi:scale-balance
+    address: 0x1078
+    value_type: U_DWORD
+    skip_updates: 5
+    optionsmap:
+      "Off": 0
+      "On": 1
+
+
 text_sensor:
   - platform: template
     name: ${name}_${bms_name}_total_runtime_formatted
@@ -814,6 +849,7 @@ text_sensor:
       return value;      
 
     
+
 
 
 
