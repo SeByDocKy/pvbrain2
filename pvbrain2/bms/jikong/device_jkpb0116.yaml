@@ -1,11 +1,11 @@
-# globals:    
-#   - id: ${bms_name}_battery_charging_energy_yesterday_global
-#     type: float
-#     restore_value: yes
+globals:    
+  - id: ${bms_name}_battery_charging_energy_yesterday_global
+    type: float
+    restore_value: yes
     
-#   - id: ${bms_name}_battery_discharging_energy_yesterday_global
-#     type: float
-#     restore_value: yes
+  - id: ${bms_name}_battery_discharging_energy_yesterday_global
+    type: float
+    restore_value: yes
 
 # time:
 #   - platform: homeassistant #sntp
@@ -813,6 +813,7 @@ sensor:
 #       return value;      
 
     
+
 
 
 
