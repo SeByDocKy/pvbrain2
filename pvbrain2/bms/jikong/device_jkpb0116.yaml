@@ -726,19 +726,19 @@ switch:
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_discharging
     custom_command: [0x00, 0x03, 0x10, 0x74, 0x00, 0x02]
-    write_lambda: |-
-      payload.push_back(0x00);
-      payload.push_back(0x10);
-      payload.push_back(0x10);
-      payload.push_back(0x74);
-      payload.push_back(0x00);
-      payload.push_back(0x02);
-      payload.push_back(0x04);
-      payload.push_back(0x00);
-      payload.push_back(0x00);
-      payload.push_back(0x00);
-      payload.push_back(x);
-      return true;
+    # write_lambda: |-
+    #   payload.push_back(0x00);
+    #   payload.push_back(0x10);
+    #   payload.push_back(0x10);
+    #   payload.push_back(0x74);
+    #   payload.push_back(0x00);
+    #   payload.push_back(0x02);
+    #   payload.push_back(0x04);
+    #   payload.push_back(0x00);
+    #   payload.push_back(0x00);
+    #   payload.push_back(0x00);
+    #   payload.push_back(x);
+    #   return true;
     # lambda: |-
     #   if (data.size() != 4 ) {
     #     ESP_LOGE("Custom", "Invalid data size %d",data.size());
@@ -813,6 +813,7 @@ text_sensor:
       return value;      
 
     
+
 
 
 
