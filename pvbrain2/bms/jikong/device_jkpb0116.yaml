@@ -1,35 +1,35 @@
-# globals:    
-#   - id: ${bms_name}_battery_charging_energy_yesterday_global
-#     type: float
-#     restore_value: yes
+globals:    
+  - id: ${bms_name}_battery_charging_energy_yesterday_global
+    type: float
+    restore_value: yes
     
-#   - id: ${bms_name}_battery_discharging_energy_yesterday_global
-#     type: float
-#     restore_value: yes
+  - id: ${bms_name}_battery_discharging_energy_yesterday_global
+    type: float
+    restore_value: yes
 
-# time:
-#   - platform: homeassistant #sntp
-#     id: !extend my_time
-#     on_time:
-#       - seconds: ${my_second}
-#         minutes: ${my_minute}
-#         hours: ${my_hours}
-#         then:  
-#           - globals.set:
-#               id: ${bms_name}_battery_charging_energy_yesterday_global
-#               value: !lambda return ( id(${bms_name}_battery_charging_energy_yesterday_global) =  float( id(${bms_name}_battery_charging_energy_today).state) ); 
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:  
+          - globals.set:
+              id: ${bms_name}_battery_charging_energy_yesterday_global
+              value: !lambda return ( id(${bms_name}_battery_charging_energy_yesterday_global) =  float( id(${bms_name}_battery_charging_energy_today).state) ); 
                 
-#           - globals.set:
-#               id: ${bms_name}_battery_discharging_energy_yesterday_global
-#               value: !lambda return ( id(${bms_name}_battery_discharging_energy_yesterday_global) =  float( id(${bms_name}_battery_discharging_energy_today).state) );
+          - globals.set:
+              id: ${bms_name}_battery_discharging_energy_yesterday_global
+              value: !lambda return ( id(${bms_name}_battery_discharging_energy_yesterday_global) =  float( id(${bms_name}_battery_discharging_energy_today).state) );
 
-# modbus_controller:
-#   - id: ${bms_name}_modbus_controller
-#     address: ${bms_modbus_address}
-#     modbus_id: ${bms_modbus_id}
-#     command_throttle: ${bms_modbus_throttle}
-#     setup_priority: -10
-#     update_interval: ${bms_update_interval}
+modbus_controller:
+  - id: ${bms_name}_modbus_controller
+    address: ${bms_modbus_address}
+    modbus_id: ${bms_modbus_id}
+    command_throttle: ${bms_modbus_throttle}
+    setup_priority: -10
+    update_interval: ${bms_update_interval}
 
 # binary_sensor:
 #   - platform: modbus_controller
@@ -813,3 +813,4 @@
 #       return value;      
 
     
+
