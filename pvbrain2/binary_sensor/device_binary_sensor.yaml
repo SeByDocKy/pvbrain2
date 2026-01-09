@@ -12,7 +12,7 @@ binary_sensor:
         pullup: true
       inverted: ${binary_sensor_channel0_inverted}
     filters:
-      - delayed_on: 200ms
+      - delayed_on: ${binary_sensor_delay}
            
   - platform: gpio
     name: ${name}_${binary_sensor_name}_${binary_sensor_channel1}
@@ -25,7 +25,7 @@ binary_sensor:
         pullup: true
       inverted: ${binary_sensor_channel1_inverted}
     filters:
-      - delayed_on: 200ms
+      - delayed_on: ${binary_sensor_delay}
       
   - platform: gpio
     name: ${name}_${binary_sensor_name}_${binary_sensor_channel2}
@@ -38,7 +38,7 @@ binary_sensor:
         pullup: true
       inverted: ${binary_sensor_channel2_inverted}
     filters:
-      - delayed_on: 200ms
+      - delayed_on: ${binary_sensor_delay}
       
   - platform: gpio
     name: ${name}_${binary_sensor_name}_${binary_sensor_channel3}
@@ -51,4 +51,4 @@ binary_sensor:
         pullup: true
       inverted: ${binary_sensor_channel3_inverted}    
     filters:
-      - delayed_on: 200ms
+      - delayed_on: ${binary_sensor_delay}
