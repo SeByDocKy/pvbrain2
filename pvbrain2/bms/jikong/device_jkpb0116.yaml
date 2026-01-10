@@ -538,8 +538,9 @@ sensor:
     name: ${name}_${bms_name}_battery_charging_power
     id: ${bms_name}_battery_charging_power
     unit_of_measurement: 'W'
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     update_interval: ${bms_template_update}
+    state_class: measurement
     icon: mdi:power 
     lambda: |-
       if (float(id(${bms_name}_battery_power).state)> 0){
@@ -553,20 +554,25 @@ sensor:
     name: ${name}_${bms_name}_battery_charging_energy_today
     power_id: ${bms_name}_battery_charging_power
     unit_of_measurement: 'kWh'
+    icon: mdi:counter
+    state_class: measurement
+    device_class: energy
     accuracy_decimals: 1
     id: ${bms_name}_battery_charging_energy_today
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
        - multiply: 0.001
-    icon: mdi:counter
+    
     
   - platform: template
     name: ${name}_${bms_name}_battery_charging_energy_yesterday
     id: ${bms_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    state_class: measurement
+    device_class: energy
+    icon: mdi:count
     update_interval: ${bms_template_update}
     lambda: |-
       return ( id(${bms_name}_battery_charging_energy_yesterday).state = id(${bms_name}_battery_charging_energy_yesterday_global) );
@@ -577,6 +583,7 @@ sensor:
     unit_of_measurement: 'W'
     accuracy_decimals: 1
     update_interval: ${bms_template_update}
+    device_class: power
     icon: mdi:power 
     lambda: |-
       if (float(id(${bms_name}_battery_power).state)< 0){
@@ -587,22 +594,27 @@ sensor:
       }
   - platform: total_daily_energy
     name: ${name}_${bms_name}_battery_discharging_energy_today
+    id: ${bms_name}_battery_discharging_energy_today
     power_id: ${bms_name}_battery_discharging_power
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    id: ${bms_name}_battery_discharging_energy_today
+    state_class: measurement
+    device_class: energy
+    icon: mdi:counter
     method: trapezoid
     filters:
        # Multiplication factor from W to kW is 0.001
        - multiply: 0.001
-    icon: mdi:counter
+    
     
   - platform: template
     name: ${name}_${bms_name}_battery_discharging_energy_yesterday
     id: ${bms_name}_battery_discharging_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:count
+    state_class: measurement
+    device_class: energy
     update_interval: ${bms_template_update}
     lambda: |-
       return ( id(${bms_name}_battery_discharging_energy_yesterday).state = id(${bms_name}_battery_discharging_energy_yesterday_global) );
@@ -617,7 +629,7 @@ sensor:
     value_type: S_WORD
     unit_of_measurement: '°C'
     state_class: measurement
-    accuracy_decimals: 3
+    accuracy_decimals: 1
     filters:
       - multiply: 0.1
 
@@ -630,10 +642,10 @@ sensor:
     address: 0x1290
     register_type: holding
     value_type: U_DWORD
-    unit_of_measurement: "V"
+    unit_of_measurement: 'V'
     device_class: voltage
     state_class: measurement
-    accuracy_decimals: 3
+    accuracy_decimals: 1
     filters:
       - multiply: 0.001
   
@@ -853,6 +865,7 @@ text_sensor:
       return value;      
 
     
+
 
 
 
