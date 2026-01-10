@@ -677,7 +677,8 @@ sensor:
     unit_of_measurement: 'A'
     device_class: current
     state_class: measurement
-    accuracy_decimals: 3
+    icon: mdi:current-dc
+    accuracy_decimals: 1
     filters:
       - multiply: 0.001
       
@@ -865,6 +866,7 @@ text_sensor:
       return value;      
 
     
+
 
 
 
