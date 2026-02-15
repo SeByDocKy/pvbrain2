@@ -173,51 +173,51 @@ sensor:
     register_count: 6 
     
 
-  # - platform: modbus_controller
-    # modbus_controller_id: ${evse_name}_modbus_controller
-    # name: ${name}_${evse_name}_current
-    # id: ${evse_name}_current
-    # address: 147  #0x93
-    # register_type: holding
-    # value_type: U_WORD
-    # accuracy_decimals: 1
-    # unit_of_measurement: 'A'
-    # device_class: 'current'
-    # icon: mdi:current-ac
-# #    state_class: "measurement"
-# #    skip_updates: 1
-    # #register_count: 2
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_current
+    id: ${evse_name}_current
+    address: 147  #0x93
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'A'
+    device_class: 'current'
+    icon: mdi:current-ac
+#    state_class: "measurement"
+#    skip_updates: 1
+    #register_count: 2
     
-  # - platform: modbus_controller
-    # modbus_controller_id: ${evse_name}_modbus_controller
-    # name: ${name}_${evse_name}_voltage
-    # id: ${evse_name}_voltage
-    # address: 148  #0x93
-    # register_type: holding
-    # value_type: U_WORD
-    # accuracy_decimals: 1
-    # unit_of_measurement: 'V'
-    # device_class: 'voltage'
-    # icon: mdi:sine-wave
-# #    state_class: "measurement"
-# #    skip_updates: 1
-    # #register_count: 2  
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_voltage
+    id: ${evse_name}_voltage
+    address: 148  #0x93
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'V'
+    device_class: 'voltage'
+    icon: mdi:sine-wave
+#    state_class: "measurement"
+#    skip_updates: 1
+    #register_count: 2  
     
-  # - platform: modbus_controller
-    # modbus_controller_id: ${evse_name}_modbus_controller
-    # name: ${name}_${evse_name}_power
-    # id: ${evse_name}_power
-    # address: 149
-    # register_type: holding
-    # value_type: U_WORD
-    # accuracy_decimals: 1
-    # unit_of_measurement: 'W'
-    # icon: mdi:power
-    # device_class: 'power'
-# #    skip_updates: 1
-    # register_count: 3    
-    # filters:
-      # - multiply:  0.01
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_power
+    id: ${evse_name}_power
+    address: 149
+    register_type: holding
+    value_type: U_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'W'
+    icon: mdi:power
+    device_class: 'power'
+#    skip_updates: 1
+    register_count: 3    
+    filters:
+      - multiply:  0.01
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -573,4 +573,5 @@ select:
       # "Not selected": 0
       # "Locked": 1
       # "Unlocked": 2
+
       # "Fault": 3      
