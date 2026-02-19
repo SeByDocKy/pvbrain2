@@ -23,6 +23,7 @@ sensor:
       name: ${name}_${offsr_name}_regulation_error    
     output: 
       name: ${name}_${offsr_name}_output
+      id: ${offsr_name}_output
     target:
       name: ${name}_${offsr_name}_target_current
       
@@ -76,5 +77,6 @@ number:
       name: ${name}_${offsr_name}_output_max
     output_restart: 
       name: ${name}_${offsr_name}_output_restart
+
 
 
