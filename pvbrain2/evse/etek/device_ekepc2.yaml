@@ -474,16 +474,16 @@ number:
     address: 109
     value_type: U_WORD
     # accuracy_decimals: 0
-    min_value: 0
+    min_value: 1000
     max_value: 22000
     step: 100
     icon: mdi:power
     mode: slider
     unit_of_measurement: 'W'
     lambda: |- 
-      return (x*(100/138)); 
+      return int(x*(100.0/138.0)); 
     write_lambda: |-
-      return (x*(138/100));
+      return int(x*(138.0/100.0));
       
   
 select:
@@ -609,6 +609,7 @@ select:
       # "Unlocked": 2
 
       # "Fault": 3      
+
 
 
 
