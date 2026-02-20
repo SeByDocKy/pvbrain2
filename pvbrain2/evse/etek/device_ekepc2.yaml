@@ -461,7 +461,27 @@ text_sensor:
         case 3: return std::string("Fault");
         default: return std::string("Unknown");
       }
-      return x;      
+      return x; 
+
+number:
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_power_control
+    id: ${evse_name}_power_control
+    address: 109
+    value_type: U_WORD
+    # accuracy_decimals: 0
+    min_value: 0
+    max_value: 22000
+    step: 100
+    icon: mdi:power
+    mode: slider
+    unit_of_measurement: 'W'
+    lambda: |- 
+      return (x*(100/138)); 
+    write_lambda: |-
+      return (x*(138/100));
+      
   
 select:
 
@@ -586,4 +606,5 @@ select:
       # "Unlocked": 2
 
       # "Fault": 3      
+
 
