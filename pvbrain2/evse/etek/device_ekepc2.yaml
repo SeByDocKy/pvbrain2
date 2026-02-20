@@ -235,7 +235,7 @@ sensor:
     id: ${evse_name}_power
     unit_of_measurement: 'W'
     accuracy_decimals: 1
-    icon: mdi:counter
+    icon: mdi:power
     update_interval: ${evse_template_update}
     lambda: |-
       return ((id(${evse_name}_pwm).state/100)*0.6);
@@ -606,5 +606,6 @@ select:
       # "Unlocked": 2
 
       # "Fault": 3      
+
 
 
