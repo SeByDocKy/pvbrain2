@@ -1,0 +1,59 @@
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [rylr998]
+    refresh: 10s
+     
+rylr998:
+  - id: ${rylr998_id}
+    uart_id: ${rylr998_uart_id}
+    address: ${rylr998_address}
+    frequency: 868MHz
+    spreading_factor: 10
+    signal_bandwidth: 125kHz
+    coding_rate: 1
+    preamble_length: 12
+    network_id: 10
+    tx_power: 20
+    # setup_priority: 1000
+    
+packet_transport:
+  platform: rylr998
+  rylr998_id: ${rylr998_id}
+  update_interval: ${rylr998_update_interval}
+  encryption: !secret encryption_key
+  sensors:
+    - ${rylr998_sensor_output_id}
+  providers:
+    - name: ${rylr998_controller}
+      encryption: !secret encryption_key 
+
+sensor:
+  - platform: packet_transport
+    provider: ${rylr998_controller}
+    name: ${name}_${rylr998_name}_power_received
+    internal: false
+    id: ${rylr998_name}_power_received
+    remote_id: ${rylr998_remote_id}
+    accuracy_decimals: 1
+    device_class: power
+    icon: mdi:power
+    
+  - platform: rylr998
+    rssi:
+      name: ${name}_${rylr998_name}_rssi
+    snr:
+      name: ${name}_${rylr998_name}_snr
+    last_error:
+      name: ${name}_${rylr998_name}_last_error   
+
+output:    
+  - platform: template
+    id: ${rylr998_fake_output_id}
+    type: float
+    write_action:
+      - lambda: 'return;'
+
+number:
+  - platform: rylr998
+    tx_power:
+      name: ${name}_${rylr998_name}_tx_power      
