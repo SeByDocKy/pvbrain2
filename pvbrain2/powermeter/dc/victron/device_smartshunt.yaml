@@ -129,6 +129,7 @@ sensor:
       name: ${name}_${powermeter_name}_battery_current
       id: ${powermeter_name}_battery_current
       accuracy_decimals: 2
+      icon: mdi:current-dc
 
     # fw_version:
       # name: ${name}_${powermeter_name}_fw_version
@@ -212,4 +213,3 @@ sensor:
     state_of_charge:
       name: ${name}_${powermeter_name}_soc
       id: ${powermeter_name}_soc
-      
