@@ -778,7 +778,7 @@ sensor:
     state_class: measurement
     value_type: S_WORD
     filters:
-      - multiply: -0.01
+      - multiply: -0.1
       
   - platform: modbus_controller            # 192 Load Frequency
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -1433,6 +1433,7 @@ text_sensor:
         default: return std::string("unknown");
 
       }      
+
 
 
 
