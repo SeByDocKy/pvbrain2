@@ -51,8 +51,9 @@ sensor:
       unit_of_measurement: 'kWh'
       accuracy_decimals: 1
       id: ${powermeter_name}_energy_total
+      icon: mdi:counter
       filters: 
-      - multiply: 0.001
+        - multiply: 0.001
     update_interval: ${powermeter_update_interval}
     
   - platform: total_daily_energy
@@ -100,4 +101,5 @@ sensor:
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
+
     lambda: return (  id(${powermeter_name}_apparent_power).state*sin(acos( id(${powermeter_name}_power_factor).state ))  );   
