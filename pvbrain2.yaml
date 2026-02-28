@@ -956,4 +956,30 @@ packages:
       # offsr_battery_voltage_id: 'smartshunt_battery_voltage'
       # offsr_output_id: 'lsa1_output'
       # offsr_power_id: 'pzem_router_power'
-      # offsr_windows_size: '3'  
+      # offsr_windows_size: '3'
+
+   # ##### Offgrid Routing over LoRa ####
+
+  # rylr998: !include
+  #   file: pvbrain2/lora/reyax/device_rylr998.yaml
+  #   vars:
+  #     rylr998_name: 'lora'
+  #     rylr998_id: 'lora'
+  #     rylr998_uart_id: uart_esp_1 #uart_${uart_hub_bus}_10  #uart_esp_1
+  #     rylr998_address: '1'
+  #     rylr998_update_interval: '2500ms'
+  #     rylr998_sensor_output_id: 'offlora_output'
+  #     rylr998_fake_output_id: 'lora_fake_output'
+  #     rylr998_controller: 'lora_router'
+  #     rylr998_remote_id: 'power'
+  
+  # solar_router_6: !include
+  #   file: pvbrain2/solar_router/device_offsr.yaml
+  #   vars:
+  #     offsr_name: 'offlora'
+  #     offsr_id: 'offlora_id'
+  #     offsr_battery_current_id: 'smartshunt_battery_current'
+  #     offsr_battery_voltage_id: 'smartshunt_battery_voltage'
+  #     offsr_output_id: 'lora_fake_output'
+  #     offsr_power_id: 'lora_power_received'
+  #     offsr_windows_size: '3'      
