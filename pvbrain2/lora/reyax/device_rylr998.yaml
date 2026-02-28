@@ -9,7 +9,7 @@ rylr998:
     address: ${rylr998_address}
     frequency: 868MHz
     spreading_factor: 10
-    signal_bandwidth: 125kHz
+    signal_bandwidth: 250kHz
     coding_rate: 1
     preamble_length: 12
     network_id: 10
@@ -36,6 +36,7 @@ sensor:
     remote_id: ${rylr998_remote_id}
     accuracy_decimals: 1
     device_class: power
+    unit_of_measurement: 'W'
     icon: mdi:power
     
   - platform: rylr998
