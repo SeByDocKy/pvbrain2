@@ -430,7 +430,7 @@ packages:
   #     inverter_update_interval: '1s'
   #     inverter_template_update: '2s'
   #     inverter_text_update: '5s'
-  #     inverter_factor: '1'  #1 for non-3 mppt models, 0.1 for 3 mppt variant
+  #     inverter_factor: '1'  #1 for non-3 mppt models, 10 for 3 mppt variant
 
   # inverter_4: !include
   #   # url: ${git_url}
