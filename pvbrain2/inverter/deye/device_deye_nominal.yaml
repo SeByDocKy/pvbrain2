@@ -114,7 +114,9 @@ sensor:
     unit_of_measurement: 'W'
     accuracy_decimals: 2
     device_class: power
-    address: 55 
+    address: 55
+    filters:
+      - lambda: return x * ${inverter_factor};
 
   - platform: modbus_controller            # 62 Today Gen Power
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -594,6 +596,8 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: S_WORD
+    filters:
+      - lambda: return x * ${inverter_factor};
     
     
   - platform: modbus_controller             # 167 Grid Power
@@ -608,6 +612,8 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: S_WORD
+    filters:
+      - lambda: return x * ${inverter_factor};
 
   - platform: modbus_controller             # 169 Grid Power
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -621,6 +627,8 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: S_WORD
+    filters:
+      - lambda: return x * ${inverter_factor};
     
   - platform: modbus_controller            # 172 Grid External Power
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -634,6 +642,8 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: S_WORD
+    filters:
+      - lambda: return x * ${inverter_factor};
     register_count: 3
 
   - platform: modbus_controller            # 175 Inverter Output Power
@@ -647,6 +657,8 @@ sensor:
     accuracy_decimals: 2
     device_class: power
     value_type: S_WORD
+    filters:
+      - lambda: return x * ${inverter_factor};
     register_count: 3
 
   - platform: modbus_controller            # 178 Load Power
@@ -661,6 +673,8 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: S_WORD
+    filters:
+      - lambda: return x * ${inverter_factor};
     register_count: 4
     
      
@@ -723,7 +737,7 @@ sensor:
     state_class: measurement
     value_type: U_WORD
     filters:
-      - lambda: return x * ${inverter_factor} 
+      - lambda: return x * ${inverter_factor};
     
   - platform: modbus_controller            # 187 PV2 Power
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -738,7 +752,7 @@ sensor:
     state_class: measurement
     value_type: U_WORD
     filters:
-      - lambda: return x * ${inverter_factor} 
+      - lambda: return x * ${inverter_factor};
     # register_count: 3
 
   - platform: modbus_controller            # 188 PV3 Power
@@ -753,9 +767,9 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: U_WORD
-    register_count: 2
     filters:
-      - lambda: return x * ${inverter_factor} 
+      - lambda: return x * ${inverter_factor};
+    register_count: 2 
     
   - platform: modbus_controller            # 190 Battery Output Power
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -769,8 +783,7 @@ sensor:
     device_class: power
     value_type: S_WORD
     filters:
-      - lambda: return -x * ${inverter_factor} 
-      # - multiply: -1
+      - lambda: return -x * ${inverter_factor};
 
   - platform: modbus_controller            # 191 Battery Output Current
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -986,7 +999,9 @@ sensor:
     accuracy_decimals: 2
     device_class: power
     state_class: measurement
-    icon: mdi:power   
+    icon: mdi:power
+    filters:
+      - lambda: return x * ${inverter_factor};  
       
   - platform: template                   # Sum of PV1 and PV2 to get total PV Power
     name: ${name}_${inverter_name}_pv_power_total
@@ -1438,14 +1453,4 @@ text_sensor:
         case 3: return std::string("alarm");
         case 4: return std::string("fault");
         default: return std::string("unknown");
-
       }      
-
-
-
-
-
-
-
-
-
