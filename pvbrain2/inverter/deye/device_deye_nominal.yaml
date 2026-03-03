@@ -1000,8 +1000,6 @@ sensor:
     device_class: power
     state_class: measurement
     icon: mdi:power
-    filters:
-      - lambda: return x * ${inverter_factor};  
       
   - platform: template                   # Sum of PV1 and PV2 to get total PV Power
     name: ${name}_${inverter_name}_pv_power_total
