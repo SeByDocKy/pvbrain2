@@ -95,6 +95,8 @@ sensor:
     unit_of_measurement: 'W'
     accuracy_decimals: 0
     icon: mdi:power
+    filters:
+      - lambda: return x * ${inverter_factor};
 
   - platform: modbus_controller          # 257 Power Timezone2
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -105,6 +107,8 @@ sensor:
     unit_of_measurement: 'W'
     accuracy_decimals: 0
     icon: mdi:power
+    filters:
+      - lambda: return x * ${inverter_factor};
 
   - platform: modbus_controller          # 258 Power Timezone3
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -115,6 +119,8 @@ sensor:
     unit_of_measurement: 'W'
     accuracy_decimals: 0
     icon: mdi:power
+    filters:
+      - lambda: return x * ${inverter_factor};
 
   - platform: modbus_controller          # 259 Power Timezone4
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -125,6 +131,8 @@ sensor:
     unit_of_measurement: 'W'
     accuracy_decimals: 0
     icon: mdi:power
+    filters:
+      - lambda: return x * ${inverter_factor};
 
   - platform: modbus_controller          # 260 Power Timezone5
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -135,6 +143,8 @@ sensor:
     unit_of_measurement: 'W'
     accuracy_decimals: 0
     icon: mdi:power
+    filters:
+      - lambda: return x * ${inverter_factor};
 
   - platform: modbus_controller          # 261 Power Timezone6
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -144,7 +154,9 @@ sensor:
     address: 261
     unit_of_measurement: 'W'
     accuracy_decimals: 0
-    icon: mdi:power  
+    icon: mdi:power
+    filters:
+      - lambda: return x * ${inverter_factor};  
 
   #############################  Battery Voltage ####################
   
@@ -1181,21 +1193,3 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
