@@ -158,7 +158,9 @@ sensor:
     update_interval: ${inverter_template_update}
     icon: mdi:power  
     lambda: return ( (id(${inverter_name}_battery_voltage).state) * (id(${inverter_name}_battery_charging_current).state) );
-   
+    filters:
+      - lambda: return x * ${inverter_factor};
+
   - platform: modbus_controller            # 070 Battery Charge Day
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_battery_charging_energy_today
@@ -206,6 +208,8 @@ sensor:
     update_interval: ${inverter_template_update}
     icon: mdi:power  
     lambda: return ( (id(${inverter_name}_battery_voltage).state) * (id(${inverter_name}_battery_discharging_current).state) );
+    filters:
+      - lambda: return -x * ${inverter_factor};
 
   - platform: modbus_controller            # 071 Battery Discharge Day
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -657,8 +661,8 @@ sensor:
     accuracy_decimals: 2
     device_class: power
     value_type: S_WORD
-    filters:
-      - lambda: return x * ${inverter_factor};
+    # filters:
+    #   - lambda: return x * ${inverter_factor};
     register_count: 3
 
   - platform: modbus_controller            # 178 Load Power
@@ -782,8 +786,8 @@ sensor:
     accuracy_decimals: 2
     device_class: power
     value_type: S_WORD
-    filters:
-      - lambda: return -x * ${inverter_factor};
+    # filters:
+    #   - lambda: return -x * ${inverter_factor};
 
   - platform: modbus_controller            # 191 Battery Output Current
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -1452,3 +1456,4 @@ text_sensor:
         case 4: return std::string("fault");
         default: return std::string("unknown");
       }      
+
