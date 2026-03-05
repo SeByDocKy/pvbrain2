@@ -438,6 +438,23 @@ binary_sensor:
 
 select:
 
+  # REG 248 — Jours TOU (complète le switch ON/OFF existant)
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: "${name}_${inverter_name}_tou_jours_semaine"
+    id: ${inverter_name}_tou_jours_semaine
+    address: 248
+    value_type: U_WORD
+    entity_category: config
+    icon: "mdi:calendar-clock"
+    optionsmap:
+      "❌ Désactivé": 0
+      "✅ Tous les jours": 255
+      "Lun – Ven": 63
+      "Sam – Dim": 193
+
+
   - platform: modbus_controller          # 274 Charge type Timezone1
     use_write_multiple: true
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -826,6 +843,86 @@ switch:
 
 number:
 
+  # REG 250-255 — Écriture heures de début (HHMM)
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: "${name}_${inverter_name}_set_timezone1"
+    id: ${inverter_name}_set_timezone1
+    address: 250
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    step: 1
+    mode: box
+    icon: "mdi:clock-edit"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: "${name}_${inverter_name}_set_timezone2"
+    id: ${inverter_name}_set_timezone2
+    address: 251
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    step: 1
+    mode: box
+    icon: "mdi:clock-edit"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: "${name}_${inverter_name}_set_timezone3"
+    id: ${inverter_name}_set_timezone3
+    address: 252
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    step: 1
+    mode: box
+    icon: "mdi:clock-edit"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: "${name}_${inverter_name}_set_timezone4"
+    id: ${inverter_name}_set_timezone4
+    address: 253
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    step: 1
+    mode: box
+    icon: "mdi:clock-edit"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: "${name}_${inverter_name}_set_timezone5"
+    id: ${inverter_name}_set_timezone5
+    address: 254
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    step: 1
+    mode: box
+    icon: "mdi:clock-edit"
+
+  - platform: modbus_controller
+    use_write_multiple: true
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    name: "${name}_${inverter_name}_set_timezone6"
+    id: ${inverter_name}_set_timezone6
+    address: 255
+    value_type: U_WORD
+    min_value: 0
+    max_value: 2359
+    step: 1
+    mode: box
+    icon: "mdi:clock-edit"
+
+
     ################  power  ############
 
   - platform: modbus_controller         # 256 Settings Power Timezone1
@@ -1193,3 +1290,5 @@ text_sensor:
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
         return esphome::optional<std::string>(formatted_time);    
+
+
