@@ -1,8 +1,8 @@
 modbus_controller:
   - id: ${powermeter_name}_modbus_controller
-    address: ${powermeter_modbus_address}
+    address: ${powermeter_address}
     modbus_id: ${powermeter_modbus_id}
-    command_throttle: ${powermeter_modbus_throttle}
+    command_throttle: ${powermeter_throttle}
     setup_priority: -10
     update_interval: ${powermeter_update_interval}
    
