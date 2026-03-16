@@ -113,6 +113,7 @@ sensor:
     value_type: U_WORD
     icon: mdi: power
     accuracy_decimals: 1
+    force_new_range: true
 
   - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
