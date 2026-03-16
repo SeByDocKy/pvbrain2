@@ -198,3 +198,54 @@ sensor:
     state_class: measurement
     value_type: U_DWORD
     accuracy_decimals: 1
+
+
+  # ── Apparent Power (per phase, unit = VA) ─────────────────────────────────
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_a_apparent_power
+    id: ${powermeter_name}_phase_a_apparent_power
+    register_type: holding
+    address: 0x0110
+    unit_of_measurement: 'VA'
+    device_class: apparent_power
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_b_apparent_power
+    id: ${powermeter_name}_phase_b_apparent_power
+    register_type: holding
+    address: 0x0111
+    unit_of_measurement: 'VA'
+    device_class: apparent_power
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_c_apparent_power
+    id: ${powermeter_name}_phase_c_apparent_power
+    register_type: holding
+    address: 0x0112
+    unit_of_measurement: 'VA'
+    device_class: apparent_power
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 0
+
+  # Three-phase total apparent power – 32-bit (0x0113 high, 0x0114 low)
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_total_apparent_power
+    id: ${powermeter_name}_total_apparent_power
+    register_type: holding
+    address: 0x0113
+    unit_of_measurement: 'VA'
+    device_class: apparent_power
+    state_class: measurement
+    value_type: U_DWORD
+    accuracy_decimals: 0    
