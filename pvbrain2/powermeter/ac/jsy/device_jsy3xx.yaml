@@ -249,3 +249,77 @@ sensor:
     state_class: measurement
     value_type: U_DWORD
     accuracy_decimals: 0    
+
+
+ # ── Frequency ──────────────────────────────────────────────────────────────
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_frequency
+    id: frequency
+    register_type: holding
+    address: 0x0115
+    unit_of_measurement: 'Hz'
+    device_class: frequency
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 2
+    icon: mdi:metronome
+    filters:
+      - multiply: 0.01     # value = DATA / 100
+
+  # ── Power Factors (value = DATA / 1000) ────────────────────────────────────
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_a_power_factor
+    id: ${powermeter_name}_phase_a_power_factor
+    register_type: holding
+    address: 0x0116
+    unit_of_measurement: ""
+    device_class: power_factor
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_v_power_factor
+    id: ${powermeter_name}_phase_b_power_factor
+    register_type: holding
+    address: 0x0117
+    unit_of_measurement: ""
+    device_class: power_factor
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_c_power_factor
+    id: ${powermeter_name}_phase_c_power_factor
+    register_type: holding
+    address: 0x0118
+    unit_of_measurement: ""
+    device_class: power_factor
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_total_power_factor
+    id: ${powermeter_name}_total_power_factor
+    register_type: holding
+    address: 0x0119
+    unit_of_measurement: ""
+    device_class: power_factor
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 3
+    filters:
+      - multiply: 0.001
