@@ -386,3 +386,60 @@ sensor:
     icon: mdi:counter
     filters:
       - multiply: 0.01
+
+  # ── Reactive Energy per phase – 32-bit, unit = kvarh (DATA/100) ───────────
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_a_reactive_energy
+    id: ${powermeter_name}_phase_a_reactive_energy
+    register_type: holding
+    address: 0x0122
+    unit_of_measurement: 'kvarh'
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_b_reactive_energy
+    id: ${powermeter_name}_phase_b_reactive_energy
+    register_type: holding
+    address: 0x0124
+    unit_of_measurement: 'kvarh'
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_c_reactive_energy
+    id: ${powermeter_name}_phase_c_reactive_energy
+    register_type: holding
+    address: 0x0126
+    unit_of_measurement: 'kvarh'
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_total_reactive_energy
+    id: ${powermeter_name}_total_reactive_energy
+    register_type: holding
+    address: 0x0128
+    unit_of_measurement: 'kvarh'
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
