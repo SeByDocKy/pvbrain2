@@ -374,8 +374,8 @@ sensor:
   # Three-phase total active energy (0x0120 high, 0x0121 low)
   - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
-    name: "Total Active Energy"
-    id: energy_total
+    name: ${name}_${powermeter_name}_total_active_energy
+    id: ${powermeter_name}_total_active_energy
     register_type: holding
     address: 0x0120
     unit_of_measurement: 'kWh'
