@@ -443,3 +443,61 @@ sensor:
     icon: mdi:counter
     filters:
       - multiply: 0.01
+
+
+  # ── Apparent Energy per phase – 32-bit, unit = kVAh (DATA/100) ────────────
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_a_apparent_energy
+    id: ${powermeter_name}_phase_a_apparent_energy
+    register_type: holding
+    address: 0x012A
+    unit_of_measurement: 'kVAh'
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_b_apparent_energy
+    id: ${powermeter_name}_phase_b_apparent_energy
+    register_type: holding
+    address: 0x012C
+    unit_of_measurement: 'kVAh'
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_c_apparent_energy
+    id: ${powermeter_name}_phase_c_apparent_energy
+    register_type: holding
+    address: 0x012E
+    unit_of_measurement: 'kVAh'
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_total_apparent_energy
+    id: ${powermeter_name}_total_apparent_energy
+    register_type: holding
+    address: 0x0130
+    unit_of_measurement: 'kVAh'
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01      
