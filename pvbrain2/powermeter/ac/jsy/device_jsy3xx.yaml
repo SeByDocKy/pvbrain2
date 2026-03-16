@@ -151,5 +151,50 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: U_DWORD      # reads 2 consecutive registers (high word first per manual)
-    accuracy_decimals: 0
-    
+    accuracy_decimals: 1
+
+ # ── Reactive Power (per phase, unit = var) ────────────────────────────────
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_a_reactive_power
+    id: ${powermeter_name}_phase_a_reactive_power
+    register_type: holding
+    address: 0x010B
+    unit_of_measurement: "var"
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_b_reactive_power
+    id: ${powermeter_name}_phase_b_reactive_power
+    register_type: holding
+    address: 0x010C
+    unit_of_measurement: "var"
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_c_reactive_power
+    id: ${powermeter_name}_phase_c_reactive_power
+    register_type: holding
+    address: 0x010D
+    unit_of_measurement: "var"
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 1
+
+  # Three-phase total reactive power – 32-bit (0x010E high, 0x010F low)
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_total_reactive_power
+    id: ${powermeter_name}_total_reactive_power
+    register_type: holding
+    address: 0x010E
+    unit_of_measurement: "var"
+    state_class: measurement
+    value_type: U_DWORD
+    accuracy_decimals: 1
