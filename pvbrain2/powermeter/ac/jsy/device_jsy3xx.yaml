@@ -51,4 +51,48 @@ sensor:
     accuracy_decimals: 1
     icon: mdi:sine-wave
     filters:
-      - multiply: 0.01     # value = DATA / 100   
+      - multiply: 0.01     # value = DATA / 100 
+
+  # ── Currents ──────────────────────────────────────────────────────────────
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_a_current
+    id: ${powermeter_name}_phase_a_current
+    register_type: holding
+    address: 0x0103
+    unit_of_measurement: 'A'
+    device_class: current
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01     # value = DATA / 100
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_b_current
+    id: ${powermeter_name}_phase_b_current
+    register_type: holding
+    address: 0x0104
+    unit_of_measurement: 'A'
+    device_class: current
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_c_current
+    id: ${powermeter_name}_phase_c_current
+    register_type: holding
+    address: 0x0105
+    unit_of_measurement: 'A'
+    device_class: current
+    state_class: measurement
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01      
