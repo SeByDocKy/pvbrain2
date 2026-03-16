@@ -255,7 +255,7 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
     name: ${name}_${powermeter_name}_frequency
-    id: frequency
+    id: ${powermeter_name}_frequency
     register_type: holding
     address: 0x0115
     unit_of_measurement: 'Hz'
