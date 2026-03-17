@@ -285,7 +285,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
-    name: ${name}_${powermeter_name}_phase_v_power_factor
+    name: ${name}_${powermeter_name}_phase_b_power_factor
     id: ${powermeter_name}_phase_b_power_factor
     register_type: holding
     address: 0x0117
