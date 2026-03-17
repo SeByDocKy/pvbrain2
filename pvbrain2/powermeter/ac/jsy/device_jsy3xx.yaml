@@ -739,8 +739,6 @@ sensor:
     filters:
       - multiply: 0.01
 
-
-
   # ── THDu, THDi ───────
   - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
@@ -781,7 +779,7 @@ sensor:
     filters:
       - multiply: 0.01
 
-- platform: modbus_controller
+  - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
     name: ${name}_${powermeter_name}_phase_a_thdi
     id: ${powermeter_name}_phase_a_thdi
