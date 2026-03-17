@@ -501,3 +501,232 @@ sensor:
     icon: mdi:counter
     filters:
       - multiply: 0.01      
+
+
+  # ── Bidirectional active energy (forward / reverse) – 32-bit, kWh ─────────
+  # Forward (import)
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_a_pos_active_energy
+    id: ${powermeter_name}_phase_a_pos_active_energy
+    register_type: holding
+    address: 0x0134
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_b_pos_active_energy
+    id: ${powermeter_name}_phase_b_pos_active_energy
+    register_type: holding
+    address: 0x0136
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_c_pos_active_energy
+    id: ${powermeter_name}_phase_c_pos_active_energy
+    register_type: holding
+    address: 0x0138
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_total_pos_active_energy
+    id: ${powermeter_name}_total_pos_active_energy
+    register_type: holding
+    address: 0x013A
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  # Reverse (export / generation feed-in)
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_a_neg_active_energy
+    id: ${powermeter_name}_phase_a_neg_active_energy
+    register_type: holding
+    address: 0x013C
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_b_neg_active_energy
+    id: ${powermeter_name}_phase_b_neg_active_energy
+    register_type: holding
+    address: 0x013E
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_phase_c_neg_active_energy
+    id: ${powermeter_name}_phase_c_neg_active_energy
+    register_type: holding
+    address: 0x0140
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_total_neg_active_energy
+    id: ${powermeter_name}_total_neg_active_energy
+    register_type: holding
+    address: 0x0142
+    unit_of_measurement: 'kWh'
+    device_class: energy
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01
+
+  # ── Bidirectional reactive energy (forward / reverse) – 32-bit, kWh ───────
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: "Phase A Forward Reactive Energy"
+    id: fwd_react_a
+    register_type: holding
+    address: 0x0144
+    unit_of_measurement: "kvarh"
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: "Phase B Forward Reactive Energy"
+    id: fwd_react_b
+    register_type: holding
+    address: 0x0146
+    unit_of_measurement: "kvarh"
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: "Phase C Forward Reactive Energy"
+    id: fwd_react_c
+    register_type: holding
+    address: 0x0148
+    unit_of_measurement: "kvarh"
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: "Total Forward Reactive Energy"
+    id: fwd_react_total
+    register_type: holding
+    address: 0x014A
+    unit_of_measurement: "kvarh"
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: "Phase A Reverse Reactive Energy"
+    id: rev_react_a
+    register_type: holding
+    address: 0x014C
+    unit_of_measurement: "kvarh"
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: "Phase B Reverse Reactive Energy"
+    id: rev_react_b
+    register_type: holding
+    address: 0x014E
+    unit_of_measurement: "kvarh"
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: "Phase C Reverse Reactive Energy"
+    id: rev_react_c
+    register_type: holding
+    address: 0x0150
+    unit_of_measurement: "kvarh"
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: "Total Reverse Reactive Energy"
+    id: rev_react_total
+    register_type: holding
+    address: 0x0152
+    unit_of_measurement: "kvarh"
+    state_class: total_increasing
+    value_type: U_DWORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
