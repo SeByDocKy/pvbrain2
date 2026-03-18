@@ -59,6 +59,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 10
     icon: mdi:sine-wave
     bitmask: 0xFF00 #(Bits 15-8)
@@ -74,6 +76,8 @@ sensor:
     accuracy_decimals: 0
     icon: mdi:current-dc
     unit_of_measurement: 'A'
+    state_class: measurement
+    device_class: current
     bitmask: 0x00FF #(Bits 7-0)
 
   # - platform: modbus_controller
@@ -135,6 +139,7 @@ sensor:
     bitmask: 0xFF #(Bits 7-0)
     skip_updates: 10
     icon: mdi:numeric
+    state_class: measurement
 
       ################ Controller dynamic information# ##############################
 
@@ -147,6 +152,7 @@ sensor:
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 0
+    state_class: measurement
     icon: mdi:percent
     skip_updates: 1 
 
@@ -159,6 +165,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 2
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1 
     icon: mdi:sine-wave
     filters:
@@ -172,7 +180,9 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 2
+    accuracy_decimals: 1
+    state_class: measurement
+    device_class: current
     icon: mdi:current-dc
     unit_of_measurement: 'A'
     filters:
@@ -183,6 +193,8 @@ sensor:
     name: ${name}_${solar_charger_name}_battery_coefficient
     lambda: |-
       return id(${solar_charger_name}_battery_coefficient);
+    state_class: measurement
+    icon: mdi:numeric
 
   - platform: template
     id: ${solar_charger_name}_charging_power
@@ -190,6 +202,8 @@ sensor:
     accuracy_decimals: 2
     icon: mdi:power
     unit_of_measurement: 'W'
+    device_class: power
+    state_class: measurement
     update_interval: ${solar_charger_template_update}
     lambda: |-
       return id(${solar_charger_name}_charging_current).state*id(${solar_charger_name}_battery_voltage).state;
@@ -200,6 +214,7 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: '%'
     icon: mdi:percent
+    state_class: measurement
     update_interval: ${solar_charger_template_update}
     lambda: |-
       if (id(${solar_charger_name}_pv_power).state != 0.0) {
@@ -214,16 +229,20 @@ sensor:
     name: ${name}_${solar_charger_name}_battery_charging_energy_today
     power_id: ${solar_charger_name}_charging_power
     unit_of_measurement: 'kWh'
+    state_class: total_increasing
+    device_class: energy
     accuracy_decimals: 1
+    icon: mdi:counter
     method: trapezoid
     filters:
       - multiply: 0.001
-    icon: mdi:counter
     
   - platform: template
     name: ${name}_${solar_charger_name}_battery_charging_energy_yesterday
     id: ${solar_charger_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
+    state_class: total_increasing
+    device_class: energy
     accuracy_decimals: 1
     icon: mdi:counter
     update_interval: ${solar_charger_template_update}
@@ -236,10 +255,12 @@ sensor:
     name: ${name}_${solar_charger_name}_device_temperature
     address: 0x103
     unit_of_measurement: '°C'
+    device_class: temperature
+    state_class: measurement
+    icon: mdi:thermometer
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 1
-    icon: mdi:thermometer
     bitmask: 0x7F00 #(Bits 14-8)
 
   - platform: modbus_controller
@@ -307,6 +328,8 @@ sensor:
     unit_of_measurement: 'V'
     skip_updates: 1 
     icon: mdi:sine-wave
+    state_class: measurement
+    device_class: voltage
     filters:
       - multiply: 0.1
 
@@ -321,6 +344,8 @@ sensor:
     accuracy_decimals: 2
     icon: mdi:current-dc
     unit_of_measurement: 'A'
+    state_class: measurement
+    device_class: current
     filters:
       - multiply: 0.01
 
@@ -344,6 +369,8 @@ sensor:
     name: ${name}_${solar_charger_name}_pv_energy_today
     power_id: ${solar_charger_name}_pv_power
     unit_of_measurement: 'kWh'
+    state_class: total_increasing
+    device_class: energy
     accuracy_decimals: 1
     method: trapezoid
     filters:
@@ -357,6 +384,8 @@ sensor:
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     icon: mdi:counter
+    state_class: total_increasing
+    device_class: energy
     update_interval: ${solar_charger_template_update}
     lambda: |-
       return (id( ${solar_charger_name}_pv_energy_yesterday).state = id( ${solar_charger_name}_pv_energy_yesterday_global ));
@@ -382,8 +411,10 @@ sensor:
     address: 0x010B
     register_type: holding
     value_type: U_WORD
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1 
     icon: mdi:sine-wave
     filters:
@@ -398,6 +429,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 2
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1 
     icon: mdi:sine-wave
     filters:
@@ -411,9 +444,11 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:current-dc
     unit_of_measurement: 'A'
+    state_class: measurement
+    device_class: current
     filters:
       - multiply: 0.01
 
@@ -425,9 +460,11 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:current-dc
     unit_of_measurement: 'A'
+    state_class: measurement
+    device_class: current
     filters:
       - multiply: 0.01
       
@@ -439,9 +476,11 @@ sensor:
     register_type: holding
     value_type: U_WORD
     skip_updates: 1 
-    accuracy_decimals: 2
+    accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'W'
+    state_class: measurement
+    device_class: power
  
   - platform: modbus_controller
     modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -454,6 +493,8 @@ sensor:
     accuracy_decimals: 2
     icon: mdi:power
     unit_of_measurement: 'W'
+    state_class: measurement
+    device_class: power
     register_count: 3
 
   - platform: modbus_controller
@@ -467,6 +508,8 @@ sensor:
     accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'kWh'
+    state_class: total_increasing
+    device_class: energy
     filters:
       - multiply: 0.001
     register_count: 2  
@@ -496,6 +539,7 @@ sensor:
     value_type: U_WORD
     skip_updates: 1 
     accuracy_decimals: 0
+    state_class: measurement
     icon: mdi:calendar-today
 
   - platform: modbus_controller
@@ -507,6 +551,7 @@ sensor:
     value_type: U_WORD
     skip_updates: 1 
     accuracy_decimals: 0
+    state_class: measurement
     icon: mdi:flash-alert
 
   - platform: modbus_controller
@@ -518,6 +563,7 @@ sensor:
     value_type: U_WORD
     skip_updates: 1 
     accuracy_decimals: 0
+    state_class: measurement
     icon: mdi:battery-charging-high
 
   - platform: modbus_controller
@@ -529,7 +575,7 @@ sensor:
     value_type: U_DWORD
     skip_updates: 1 
     accuracy_decimals: 0
-    icon: mdi:power
+    icon: mdi:counter
     unit_of_measurement: 'Ah'
     register_count: 4
 
@@ -556,6 +602,8 @@ sensor:
     accuracy_decimals: 1
     icon: mdi:power
     unit_of_measurement: 'kWh'
+    state_class: total_increasing
+    device_class: energy
     filters:
       - multiply: 0.001
     register_count: 5  
@@ -661,6 +709,8 @@ sensor:
     value_type: U_WORD
     unit_of_measurement: 'A'
     icon: mdi:current-dc
+    state_class: measurement
+    device_class: current
     accuracy_decimals: 0
     filters:
       - multiply: 0.01
@@ -673,6 +723,8 @@ sensor:
     register_type: holding
     value_type: U_WORD
     unit_of_measurement: 'Ah'
+    state_class: total_increasing
+    device_class: energy
     icon: mdi:car-battery
     accuracy_decimals: 0
 
@@ -687,6 +739,8 @@ sensor:
     bitmask: 0xFF00 #(Bits 15-8)
     accuracy_decimals: 0
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     icon: mdi:car-battery 
     
   - platform: modbus_controller
@@ -701,6 +755,8 @@ sensor:
     accuracy_decimals: 0
     unit_of_measurement: 'V'
     icon: mdi:car-battery
+    state_class: measurement
+    device_class: voltage
     lambda: |-
       //ESP_LOGD("RegE003 sensor", "raw value (%d)", (int)x);
       id(${solar_charger_name}_battery_reco_global) = (int)x;
@@ -729,6 +785,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -745,6 +803,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -761,6 +821,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -777,6 +839,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -810,6 +874,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -826,6 +892,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -842,6 +910,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -858,6 +928,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -874,6 +946,8 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'V'
+    state_class: measurement
+    device_class: voltage
     skip_updates: 1
     lambda: |-
       return x*0.1*id(${solar_charger_name}_battery_coefficient);  
@@ -890,6 +964,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     unit_of_measurement: 's'
+    state_class: measurement
     icon: mdi:timer-sand
     skip_updates: 1
    
@@ -901,6 +976,7 @@ sensor:
     value_type: U_WORD
     register_type: holding
     unit_of_measurement: 'min'
+    state_class: measurement
     icon: mdi:timer-sand
     accuracy_decimals: 0
     skip_updates: 1
@@ -913,6 +989,7 @@ sensor:
     value_type: U_WORD
     register_type: holding
     unit_of_measurement: 'min'
+    state_class: measurement
     icon: mdi:timer-sand
     accuracy_decimals: 0
     skip_updates: 1
@@ -925,6 +1002,7 @@ sensor:
     value_type: U_WORD
     register_type: holding
     unit_of_measurement: 'day'
+    state_class: measurement
     icon: mdi:timer-sand
     accuracy_decimals: 0
     skip_updates: 1 
@@ -938,6 +1016,7 @@ sensor:
     value_type: U_WORD
     accuracy_decimals: 0
     unit_of_measurement: 'mV/°C/2V'
+    state_class: measurement
     icon: mdi:thermometer
     skip_updates: 1
     filters:
