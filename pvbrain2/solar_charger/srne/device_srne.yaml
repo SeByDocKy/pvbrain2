@@ -335,6 +335,8 @@ sensor:
     accuracy_decimals: 2
     icon: mdi:power
     unit_of_measurement: 'W'
+    state_class: measurement
+    device_class: power
     register_count: 2
 
   - platform: total_daily_energy
