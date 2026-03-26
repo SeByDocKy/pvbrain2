@@ -474,16 +474,16 @@ number:
     address: 109
     value_type: U_WORD
     # accuracy_decimals: 0
-    min_value: 1000
-    max_value: 22000
+    min_value: 1380   # Correspond à 1000 en PWM (6A minimum norme)
+    max_value: 7360   # Correspond à 5333 en PWM (32A max Mono)
     step: 100
     icon: mdi:power
     mode: slider
     unit_of_measurement: 'W'
     lambda: |- 
-      return int(x/1.38f); 
+      return int(x*1.38f); 
     write_lambda: |-
-      return int(x*1.38f);
+      return int(x/1.38f);
       
   
 select:
