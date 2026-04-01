@@ -41,6 +41,9 @@ switch:
     activation: 
       name: ${name}_${offsr_name}_activation
       id: ${offsr_name}_activation
+    output_never_zero:
+      name: ${name}_${offsr_name}_output_never_zero
+      id: ${offsr_name}_output_never_zero  
     manual_override: 
       name: ${name}_${offsr_name}_manual_override
       id: ${offsr_name}_manual_override
