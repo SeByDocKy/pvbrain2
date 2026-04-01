@@ -1162,7 +1162,7 @@ switch:
     bitmask: 0x2000 # 2^13=8192  to target bit 13
     icon: mdi:toggle-switch
 
-  # - platform: modbus_controller          # 326 Toggle Force Generator
+  # - platform: modbus_controller          # 331 ca_lhvrt
   #   use_write_multiple: true
   #   modbus_controller_id: ${inverter_name}_modbus_controller
   #   name: ${name}_${inverter_name}_ca_lhvrt
