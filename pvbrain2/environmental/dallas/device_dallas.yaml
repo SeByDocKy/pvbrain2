@@ -1,5 +1,5 @@
-# Updated : 2024.09.30
-# Version : 1.0.2
+# Updated : 2026.04.11
+# Version : 1.0.3
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
 sensor:
@@ -13,3 +13,7 @@ sensor:
       - filter_out: 85
       - filter_out: 128
       - filter_out: NAN
+      - clamp:
+         min_value: -20
+         max_value: 100
+         ignore_out_of_range: true
