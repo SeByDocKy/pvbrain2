@@ -556,6 +556,7 @@ text_sensor:
         }
 
   - platform: modbus_controller
+    modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_fault_code
     skip_updates: 6
     address: 105
