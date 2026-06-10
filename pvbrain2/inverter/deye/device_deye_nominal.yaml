@@ -803,8 +803,8 @@ sensor:
     value_type: S_WORD
     # filters:
     #   - multiply: -0.01
-     filters:
-      - lambda: return -x * 0.01* ${inverter_factor};  
+    filters:
+      - lambda: return -x * 0.01 * ${inverter_factor};  
       
   - platform: modbus_controller            # 192 Load Frequency
     modbus_controller_id: ${inverter_name}_modbus_controller
