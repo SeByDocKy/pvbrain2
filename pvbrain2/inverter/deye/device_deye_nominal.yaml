@@ -740,8 +740,6 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: U_WORD
-    # filters:
-    #   - lambda: return x * ${inverter_factor};
     
   - platform: modbus_controller            # 187 PV2 Power
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -755,8 +753,6 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: U_WORD
-    # filters:
-    #   - lambda: return x * ${inverter_factor};
     # register_count: 3
 
   - platform: modbus_controller            # 188 PV3 Power
@@ -771,8 +767,6 @@ sensor:
     device_class: power
     state_class: measurement
     value_type: U_WORD
-    # filters:
-    #   - lambda: return x * ${inverter_factor};
     register_count: 2 
     
   - platform: modbus_controller            # 190 Battery Output Power
