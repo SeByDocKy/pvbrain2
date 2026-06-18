@@ -474,7 +474,7 @@ sensor:
     device_class: current
     state_class: measurement
     filters:
-      - lambda: return x * 0.1;
+      - multiply: 0.1
     value_type: U_WORD
 
 
@@ -505,7 +505,7 @@ sensor:
     device_class: current
     state_class: measurement
     filters:
-      - lambda: return x * 0.1;
+      - multiply: 0.1
     value_type: U_WORD
 
   - platform: modbus_controller            # 113 PV3 Voltage
@@ -535,7 +535,7 @@ sensor:
     device_class: current
     state_class: measurement
     filters:
-      - lambda: return x * 0.1;
+      - multiply: 0.1
     value_type: U_WORD   
       
   - platform: modbus_controller            # 150 Grid voltage
