@@ -983,4 +983,4 @@ packages:
   #     offsr_battery_voltage_id: 'smartshunt_battery_voltage'
   #     offsr_output_id: 'lora_fake_output'
   #     offsr_power_id: 'lora_power_received'
-  #     offsr_windows_size: '3'      
+  #     offsr_windows_size: '1'      
