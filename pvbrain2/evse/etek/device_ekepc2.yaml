@@ -388,7 +388,7 @@ text_sensor:
     icon: mdi:list-status
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0: return std::string("0-Fault--1");
         case 1: return std::string("1-Ready");
@@ -418,7 +418,7 @@ text_sensor:
     icon: mdi:lightning-bolt
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0: return std::string("Not selected");
         case 1: return std::string("Normal operation");
@@ -437,7 +437,7 @@ text_sensor:
     icon: mdi:qrcode-scan
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0: return std::string("Not selected");
         case 1: return std::string("IC card not operating");
@@ -456,7 +456,7 @@ text_sensor:
     icon: mdi:lock
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0: return std::string("Not selected");
         case 1: return std::string("Locked");
