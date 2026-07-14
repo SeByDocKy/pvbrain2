@@ -1,0 +1,367 @@
+globals:
+  - id: ${powermeter_name}_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:  
+           - globals.set:
+               id: ${powermeter_name}_energy_yesterday_global
+               value: !lambda return ( id(${powermeter_name}_energy_yesterday_global) =  float( id(${powermeter_name}_energy_today).state) );
+
+
+modbus_controller:
+ - id: ${powermeter_name}_modbus_controller
+   address: ${powermeter_modbus_address}
+   modbus_id: ${powermeter_modbus_id}
+   command_throttle: ${powermeter_command_throttle}
+   setup_priority: -10
+   update_interval: ${powermeter_update_interval}
+
+
+sensor:
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pa_voltage
+    id: ${powermeter_name}_pa_voltage
+    address: 0x0000  
+    register_type: read #read #holding
+    value_type: U_WORD 
+    accuracy_decimals: 1
+    unit_of_measurement: 'V'
+    device_class: 'voltage'
+    icon: mdi:sine-wave
+    filters:
+      - multiply: 0.1
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pb_voltage
+    id: ${powermeter_name}_pb_voltage
+    address: 0x0001  
+    register_type: read #read #holding
+    value_type: U_WORD 
+    accuracy_decimals: 1
+    unit_of_measurement: 'V'
+    device_class: 'voltage'
+    icon: mdi:sine-wave
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pc_voltage
+    id: ${powermeter_name}_pc_voltage
+    address: 0x0002
+    register_type: read #read #holding
+    value_type: U_WORD 
+    accuracy_decimals: 1
+    unit_of_measurement: 'V'
+    device_class: 'voltage'
+    icon: mdi:sine-wave
+    filters:
+      - multiply: 0.1
+
+
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pa_current
+    id: ${powermeter_name}_pa_current
+    address: 0x0003 
+    register_type: read #holding
+    value_type: S_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'A'
+    device_class: 'current'
+    icon: mdi:current-ac
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pb_current
+    id: ${powermeter_name}_pb_current
+    address: 0x0004 
+    register_type: read #holding
+    value_type: S_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'A'
+    device_class: 'current'
+    icon: mdi:current-ac
+    filters:
+      - multiply: 0.1      
+
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pc_current
+    id: ${powermeter_name}_pc_current
+    address: 0x0005 
+    register_type: read #holding
+    value_type: S_WORD
+    accuracy_decimals: 1
+    unit_of_measurement: 'A'
+    device_class: 'current'
+    icon: mdi:current-ac
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pa_active_power
+    id: ${powermeter_name}_pa_active_power
+    address: 0x0008
+    register_type: read #holding
+    value_type: S_WORD #S_DWORD_R
+    accuracy_decimals: 1
+    unit_of_measurement: 'W'
+    device_class: 'power'
+    icon: mdi:power
+    
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pb_active_power
+    id: ${powermeter_name}_pb_active_power
+    address: 0x0009
+    register_type: read #holding
+    value_type: S_WORD #S_DWORD_R
+    accuracy_decimals: 1
+    unit_of_measurement: 'W'
+    device_class: 'power'
+    icon: mdi:power    
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pc_active_power
+    id: ${powermeter_name}_pc_active_power
+    address: 0x000A
+    register_type: read #holding
+    value_type: S_WORD #S_DWORD_R
+    accuracy_decimals: 1
+    unit_of_measurement: 'W'
+    device_class: 'power'
+    icon: mdi:power
+
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pa_pf
+    id: ${powermeter_name}_pa_pf
+    address: 0x0014
+    register_type: read #holding
+    value_type: U_WORD #U_DWORD_R
+    accuracy_decimals: 2
+    #unit_of_measurement: 'W'
+    device_class: 'power_factor'
+    icon: mdi:numeric
+    filters:
+      - multiply: 0.00001
+      
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pb_pf
+    id: ${powermeter_name}_pb_pf
+    address: 0x0015
+    register_type: read #holding
+    value_type: U_WORD #U_DWORD_R
+    accuracy_decimals: 2
+    #unit_of_measurement: 'W'
+    device_class: 'power_factor'
+    icon: mdi:numeric
+    filters:
+      - multiply: 0.00001
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_pc_pf
+    id: ${powermeter_name}_pc_pf
+    address: 0x0016
+    register_type: read #holding
+    value_type: U_WORD #U_DWORD_R
+    accuracy_decimals: 2
+    #unit_of_measurement: 'W'
+    device_class: 'power_factor'
+    icon: mdi:numeric
+    filters:
+      - multiply: 0.00001
+
+
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_frequency
+    id: ${powermeter_name}_frequency
+    address: 0x001A
+    register_type: read #holding
+    value_type: U_WORD #U_DWORD_R
+    accuracy_decimals: 2
+    unit_of_measurement: 'Hz'
+    device_class: 'frequency'
+    icon: mdi:sine-wave
+    filters:
+      - multiply: 0.01
+
+
+  - platform: template
+    name: ${name}_${powermeter_name}_active_power_total
+    id: ${powermeter_name}_active_power_total
+    unit_of_measurement: 'W'
+    accuracy_decimals: 1
+    icon: mdi:power
+    update_interval: ${powermeter_template_update}
+    lambda: |-
+      return (id(${powermeter_name}_pa_active_power).state + id(${powermeter_name}_pb_active_power).state + id(${powermeter_name}_pc_active_power).state);
+
+  - platform: total_daily_energy
+    name: ${name}_${powermeter_name}_energy_today
+    id: ${powermeter_name}_energy_today
+    power_id: ${powermeter_name}_active_power_total
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: right
+    restore: true
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${powermeter_name}_energy_yesterday
+    id: ${powermeter_name}_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: ${powermeter_template_update}
+    lambda: |-
+      return (id(${powermeter_name}_energy_yesterday).state = id(${powermeter_name}_energy_yesterday_global));    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# external_components:    
+  # - source: "github://SeByDocKy/myESPhome/"
+    # components: [st_meter]
+    # refresh: 0s
+
+# globals:
+  # - id: ${powermeter_name}_energy_yesterday_global
+    # type: float
+    # restore_value: yes
+    
+# time:
+  # - platform: homeassistant #sntp
+    # id: !extend my_time
+    # on_time:
+      # - seconds: ${my_second}
+        # minutes: ${my_minute}
+        # hours: ${my_hours}
+        # then:  
+          # - globals.set:
+              # id: ${powermeter_name}_energy_yesterday_global
+              # value: !lambda return ( id(${powermeter_name}_energy_yesterday_global) =  float( id(${powermeter_name}_energy_today).state) );
+              
+                        
+# sensor:
+  # - platform: st_meter
+    # id: ${powermeter_name}_id
+    # modbus_id: ${powermeter_modbus_id}
+    # address: ${powermeter_modbus_address}
+    # phase_a:
+      # current:
+       # name: ${name}_${powermeter_name}_pa_current
+      # voltage:
+       # name: ${name}_${powermeter_name}_pa_voltage
+      # active_power:
+        # name: ${name}_${powermeter_name}_pa_active_power
+        # id: ${powermeter_name}_pa_active_power
+      # power_factor:
+        # name: ${name}_${powermeter_name}_pa_pf
+      # reactive_power:
+        # name: ${name}_${powermeter_name}_pa_reactive_Power
+    # phase_b:
+      # current:
+        # name: ${name}_${powermeter_name}_pb_current
+      # voltage:
+        # name: ${name}_${powermeter_name}_pb_voltage
+      # active_power:
+        # name: ${name}_${powermeter_name}_pb_active_power
+        # id: ${powermeter_name}_pb_active_power
+      # power_factor:
+        # name: ${name}_${powermeter_name}_pb_pf
+      # reactive_power:
+        # name: ${name}_${powermeter_name}_pb_reactive_Power
+    # phase_c:
+      # current:
+        # name: ${name}_${powermeter_name}_pc_current
+      # voltage:
+        # name: ${name}_${powermeter_name}_pc_voltage
+      # active_power:
+        # name: ${name}_${powermeter_name}_pc_active_power
+        # id: ${powermeter_name}_pc_active_power
+      # power_factor:
+        # name: ${name}_${powermeter_name}_pc_pf
+      # reactive_power:
+        # name: ${name}_${powermeter_name}_pc_reactive_Power
+    # frequency:
+      # name: ${name}_${powermeter_name}_frequency
+    # total_active_power:
+      # name: ${name}_${powermeter_name}_active_energy_total
+    # # total_active_electricity_power:
+      # # name: ${name}_${powermeter_name}_electricity_total_activer_energy
+    # total_reactive_power:
+      # name: ${name}_${powermeter_name}_reactive_energy_total
+    # # total_reactive_electricity_power:
+      # # name: ${name}_${powermeter_name}_electricity_reactive_energy_total
+    # update_interval: ${powermeter_update_interval}
+
+
+  # - platform: template
+    # name: ${name}_${powermeter_name}_active_power_total
+    # id: ${powermeter_name}_active_power_total
+    # unit_of_measurement: 'W'
+    # accuracy_decimals: 1
+    # icon: mdi:power
+    # update_interval: ${powermeter_template_update}
+    # lambda: |-
+      # return (id(${powermeter_name}_pa_active_power).state + id(${powermeter_name}_pb_active_power).state + id(${powermeter_name}_pc_active_power).state);
+
+  # - platform: total_daily_energy
+    # name: ${name}_${powermeter_name}_energy_today
+    # id: ${powermeter_name}_energy_today
+    # power_id: ${powermeter_name}_active_power_total
+    # unit_of_measurement: 'kWh'
+    # accuracy_decimals: 1
+    # method: right
+    # restore: true
+    # filters:
+        # # Multiplication factor from W to kW is 0.001
+      # - multiply: 0.001
+    # icon: mdi:counter
+    
+  # - platform: template
+    # name: ${name}_${powermeter_name}_energy_yesterday
+    # id: ${powermeter_name}_energy_yesterday
+    # unit_of_measurement: 'kWh'
+    # accuracy_decimals: 1
+    # icon: mdi:counter
+    # update_interval: ${powermeter_template_update}
+    # lambda: |-
+      # return (id(${powermeter_name}_energy_yesterday).state = id(${powermeter_name}_energy_yesterday_global));    
