@@ -14,6 +14,7 @@ rylr998:
     preamble_length: 12
     network_id: 10
     tx_power: 20
+    air_time: false
     # setup_priority: 1000
     
 packet_transport:
