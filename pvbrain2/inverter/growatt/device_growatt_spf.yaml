@@ -565,7 +565,8 @@ text_sensor:
     entity_category: diagnostic
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      // uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0:  return std::string("No error");
         case 24: return std::string("Auto test failed");
