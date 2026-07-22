@@ -1,0 +1,56 @@
+switch:
+  - platform: template
+    name: ${name}_${automation_name}_offgrid_gridtied_automatic_control
+    id: ${automation_name}_offgrid_gridtied_automatic_control
+    optimistic: true
+    # assumed_state : false
+    restore_mode: 'RESTORE_DEFAULT_OFF'
+    
+
+number:
+ - platform: template
+   name: ${name}_${automation_name}_soc_return_grid_tied
+   id: ${automation_name}_soc_return_grid_tied
+   optimistic: true
+   min_value: 0
+   max_value: 100
+   step: 1
+   initial_value: 10
+   restore_value: true
+   
+   
+ - platform: template
+   name: ${name}_${automation_name}_soc_return_offgrid
+   id: ${automation_name}_soc_return_offgrid
+   optimistic: true
+   min_value: 0
+   max_value: 100
+   step: 1
+   initial_value: 15
+   restore_value: true
+
+
+sensor:
+  - platform: copy
+    source_id: ${automation_soc_id}
+    id: ${automation_name}_soc_copy_id
+    on_value:
+       - if:  ##### if battery SOC < SOC grid tied  => turn on relay to be grid tied  ######
+          condition:
+            and:
+              - switch.is_off: ${automation_grid_control_id}
+              - switch.is_on: ${automation_name}_offgrid_gridtied_automatic_control
+              - lambda: |-
+                 return ( ( float(id(${automation_name}_soc_copy_id).state) < float(id(${automation_name}_soc_return_grid_tied).state) )     );            
+          then:
+            - switch.turn_on: ${automation_grid_control_id}
+ 
+       - if:  ##### if battery SOC > SOC offgrid  => turn off relay to return offgrid    ######
+          condition:
+            and: 
+              - switch.is_on: ${automation_grid_control_id}
+              - switch.is_on: ${automation_name}_offgrid_gridtied_automatic_control
+              - lambda: |-
+                  return ( ( float(id(${automation_name}_soc_copy_id).state) > float(id(${automation_name}_soc_return_offgrid).state) )     );            
+          then:
+            - switch.turn_off: ${automation_grid_control_id}
