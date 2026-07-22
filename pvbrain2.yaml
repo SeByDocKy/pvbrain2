@@ -922,6 +922,13 @@ packages:
   #     fan_control_template_update: '10s'
   #     fan_control_text_update: '10s'
 
+  # grid_tied_control: !include
+  #   file:  pvbrain2/actions/grid_tied_control/action_offgrid_grid_tied_on_soc.yaml
+  #   vars: 
+  #     automation_name: 'grid_tied_control'
+  #     automation_soc_id: 'smartshunt_soc'
+  #     automation_grid_control_id: 'relay_grid'  
+
   ############################# Solar Router ##########
 
 # solar_router_1: !include
