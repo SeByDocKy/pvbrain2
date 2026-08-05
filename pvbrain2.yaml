@@ -209,6 +209,7 @@ packages:
   #     modbus_id: 'modbus_9600_id'
   #     modbus_uart_id: uart_${uart_hub_bus}_3   # uart_${uart_hub_bus}_0 for deye
   #     modbus_send_wait_time: '200ms'
+  #     modbus_turnaround_time: '100ms'
 
   # modbus_19200: !include
   #   # url: ${git_url}
@@ -217,7 +218,8 @@ packages:
   #   vars:
   #     modbus_id: 'modbus_19200_id'
   #     modbus_uart_id: uart_${uart_hub_bus}_2
-  #     modbus_send_wait_time: '200ms'    
+  #     modbus_send_wait_time: '200ms'
+  #     modbus_turnaround_time: '100ms'
 
   # modbus_115200: !include
   #   # url: ${git_url}
@@ -226,7 +228,8 @@ packages:
   #   vars:
   #     modbus_id: 'modbus_115200_id'
   #     modbus_uart_id: uart_${uart_hub_bus}_5
-  #     modbus_send_wait_time: '200ms'    
+  #     modbus_send_wait_time: '200ms'
+  #     modbus_turnaround_time: '100ms'
 
   # modbus_38400: !include
   #   # url: ${git_url}
@@ -236,6 +239,7 @@ packages:
   #     modbus_id: 'modbus_38400_id'
   #     modbus_uart_id: uart_${uart_hub_bus}_1
   #     modbus_send_wait_time: '200ms'
+  #     modbus_turnaround_time: '100ms'
 
 
   ###### End of RS485/modbus intefaces  #####
