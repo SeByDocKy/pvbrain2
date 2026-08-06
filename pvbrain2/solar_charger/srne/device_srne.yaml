@@ -1,7 +1,14 @@
+# Updated : 2026.08.06
+# Version : 1.1.2
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
 esphome:
   on_boot:
-    then:
-      - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
+    # IMPORTANT: the list form (- priority:) is required so this trigger
+    # MERGES with on_boot triggers declared by other packages.
+    - priority: -100.0
+      then:
+        - script.execute: ${solar_charger_name}_write_E005_E00E_registers_script
     
 time:
   - platform: homeassistant #sntp
@@ -42,9 +49,10 @@ modbus_controller:
   - id: ${solar_charger_name}_modbus_controller
     address: ${solar_charger_modbus_address}
     modbus_id: ${solar_charger_modbus_id} #${solar_charger_name}_modbus
-    command_throttle: ${solar_charger_modbus_throttle}
     setup_priority: -10
     update_interval: ${solar_charger_update_interval}
+    max_cmd_retries: 1        # default 4: a dead device would block the bus much longer
+    offline_skip_updates: 5   # re-probe every (5+1) x update_interval
     
 sensor:
 
@@ -254,6 +262,7 @@ sensor:
     id: ${solar_charger_name}_device_temperature
     name: ${name}_${solar_charger_name}_device_temperature
     address: 0x103
+    register_count: 4 # spans unused 0x104-0x106 (BOTH 0x103 sensors must match)
     unit_of_measurement: '°C'
     device_class: temperature
     state_class: measurement
@@ -268,6 +277,7 @@ sensor:
     id: ${solar_charger_name}_battery_temperature
     name: ${name}_${solar_charger_name}_battery_temperature
     address: 0x103
+    register_count: 4 # spans unused 0x104-0x106 (BOTH 0x103 sensors must match)
     unit_of_measurement: '°C'
     register_type: holding
     value_type: U_WORD
@@ -606,7 +616,7 @@ sensor:
     device_class: energy
     filters:
       - multiply: 0.001
-    register_count: 5  
+    register_count: 4 # 4 (not 5) so that register 0x0120 can extend this range
 
   # - platform: modbus_controller
     # modbus_controller_id: ${solar_charger_name}_modbus_controller
@@ -942,6 +952,7 @@ sensor:
     id: ${solar_charger_name}_discharge_limit_voltage
     name: ${name}_${solar_charger_name}_discharge_limit_voltage
     address: 0xE00E
+    register_count: 2 # spans unused 0xE00F to merge with 0xE010
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 1
