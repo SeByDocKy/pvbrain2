@@ -53,7 +53,7 @@ sensor:
     power_id: ${total_power_name}_power
     unit_of_measurement: 'kWh'
     device_class: energy
-    state_class: measurement
+    # state_class: measurement
     accuracy_decimals: 1
     method: trapezoid
     filters:
@@ -66,7 +66,7 @@ sensor:
     id: ${total_power_name}_energy_yesterday
     unit_of_measurement: 'kWh'
     device_class: energy
-    state_class: measurement
+    # state_class: measurement
     accuracy_decimals: 1
     icon: mdi:counter
     update_interval: ${total_power_template_update}
