@@ -41,7 +41,7 @@ sensor:
     id: ${powermeter_name}_battery_charging_power
     unit_of_measurement: 'W'
     device_class: 'power'
-    state_class: measurement
+    # state_class: measurement
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
@@ -58,7 +58,7 @@ sensor:
     power_id: ${powermeter_name}_battery_charging_power
     unit_of_measurement: 'kWh'
     device_class: 'energy'
-    state_class: measurement
+    # state_class: measurement
     accuracy_decimals: 1
     id: ${powermeter_name}_battery_charging_energy_today
     method: trapezoid
@@ -72,7 +72,7 @@ sensor:
     id: ${powermeter_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
     device_class: 'energy'
-    state_class: measurement
+    # state_class: measurement
     accuracy_decimals: 1
     icon: mdi:counter
     update_interval: ${powermeter_template_update}
@@ -101,7 +101,7 @@ sensor:
     power_id: ${powermeter_name}_battery_discharging_power
     unit_of_measurement: 'kWh'
     device_class: 'energy'
-    state_class: measurement
+    # state_class: measurement
     accuracy_decimals: 1
     id: ${powermeter_name}_battery_discharging_energy_today
     method: trapezoid
@@ -115,7 +115,7 @@ sensor:
     id: ${powermeter_name}_battery_discharging_energy_yesterday
     unit_of_measurement: 'kWh'
     device_class: 'energy'
-    state_class: measurement
+    # state_class: measurement
     accuracy_decimals: 1
     icon: mdi:counter
     update_interval: ${powermeter_template_update}
@@ -166,7 +166,7 @@ sensor:
       id: ${powermeter_name}_consumed_amp_hours
       unit_of_measurement: 'Ah'
       device_class: 'energy'
-      state_class: measurement
+      # state_class: measurement
       accuracy_decimals: 1
 
     min_battery_voltage:
@@ -189,7 +189,7 @@ sensor:
         - multiply: 0.001
       unit_of_measurement: 'kWh'
       device_class: 'energy'
-      state_class: measurement
+      # state_class: measurement
       accuracy_decimals: 1
 
     # bmv_alarm_text:
@@ -209,7 +209,7 @@ sensor:
       id: ${powermeter_name}_deepest_discharge
       unit_of_measurement: 'Ah'
       device_class: 'energy_storage'
-      state_class: measurement
+      # state_class: measurement
       accuracy_decimals: 1
 
     last_discharge:
@@ -217,7 +217,7 @@ sensor:
       id: ${powermeter_name}_last_discharge
       unit_of_measurement: 'Ah'
       device_class: 'energy_storage'
-      state_class: measurement
+      # state_class: measurement
       accuracy_decimals: 1
 
     discharged_energy:
@@ -227,7 +227,7 @@ sensor:
         - multiply: 0.001
       unit_of_measurement: 'kWh'
       device_class: 'energy_storage'
-      state_class: measurement
+      # state_class: measurement
       accuracy_decimals: 1
       icon: mdi:counter
 
