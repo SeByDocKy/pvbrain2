@@ -5,6 +5,7 @@ sensor:
     accuracy_decimals: 1
     icon: mdi:percent
     unit_of_measurement: '%'
+    state_class: measurement
     update_interval: ${relative_error_template_update}
     lambda: |-
       if (id(${relative_error_source1}).state != 0.0){
