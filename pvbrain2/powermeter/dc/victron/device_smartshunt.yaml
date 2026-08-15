@@ -41,6 +41,7 @@ sensor:
     id: ${powermeter_name}_battery_charging_power
     unit_of_measurement: 'W'
     device_class: 'power'
+    state_class: measurement
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
@@ -57,6 +58,7 @@ sensor:
     power_id: ${powermeter_name}_battery_charging_power
     unit_of_measurement: 'kWh'
     device_class: 'energy'
+    state_class: measurement
     accuracy_decimals: 1
     id: ${powermeter_name}_battery_charging_energy_today
     method: trapezoid
@@ -70,6 +72,7 @@ sensor:
     id: ${powermeter_name}_battery_charging_energy_yesterday
     unit_of_measurement: 'kWh'
     device_class: 'energy'
+    state_class: measurement
     accuracy_decimals: 1
     icon: mdi:counter
     update_interval: ${powermeter_template_update}
@@ -81,6 +84,7 @@ sensor:
     id: ${powermeter_name}_battery_discharging_power
     unit_of_measurement: 'W'
     device_class: 'power'
+    state_class: measurement
     accuracy_decimals: 1
     update_interval: ${powermeter_template_update}
     icon: mdi:power
@@ -97,6 +101,7 @@ sensor:
     power_id: ${powermeter_name}_battery_discharging_power
     unit_of_measurement: 'kWh'
     device_class: 'energy'
+    state_class: measurement
     accuracy_decimals: 1
     id: ${powermeter_name}_battery_discharging_energy_today
     method: trapezoid
@@ -110,6 +115,7 @@ sensor:
     id: ${powermeter_name}_battery_discharging_energy_yesterday
     unit_of_measurement: 'kWh'
     device_class: 'energy'
+    state_class: measurement
     accuracy_decimals: 1
     icon: mdi:counter
     update_interval: ${powermeter_template_update}
@@ -124,12 +130,17 @@ sensor:
       name: ${name}_${powermeter_name}_battery_voltage
       id: ${powermeter_name}_battery_voltage
       accuracy_decimals: 2
+      device_class: voltage
+      state_class: measurement
+      
 
     battery_current:
       name: ${name}_${powermeter_name}_battery_current
       id: ${powermeter_name}_battery_current
       accuracy_decimals: 2
       icon: mdi:current-dc
+      device_class: current
+      state_class: measurement
 
     # fw_version:
       # name: ${name}_${powermeter_name}_fw_version
@@ -143,6 +154,8 @@ sensor:
       name: ${name}_${powermeter_name}_battery_power
       id: ${powermeter_name}_instantaneous_power
       accuracy_decimals: 2
+      state_class: measurement
+      device_class: power
 
     time_to_go:
       name: ${name}_${powermeter_name}_time_to_go
@@ -153,17 +166,21 @@ sensor:
       id: ${powermeter_name}_consumed_amp_hours
       unit_of_measurement: 'Ah'
       device_class: 'energy'
+      state_class: measurement
       accuracy_decimals: 1
 
     min_battery_voltage:
       name: ${name}_${powermeter_name}_min_battery_voltage
       id: ${powermeter_name}_min_battery_voltage
       accuracy_decimals: 2
+      state_class: measurement
 
     max_battery_voltage:
       name: ${name}_${powermeter_name}_max_battery_voltage
       id: ${powermeter_name}_max_battery_voltage
       accuracy_decimals: 2
+      device_class: voltage
+      state_class: measurement
 
     amount_of_charged:
       name: ${name}_${powermeter_name}_amount_of_charged
@@ -172,6 +189,7 @@ sensor:
         - multiply: 0.001
       unit_of_measurement: 'kWh'
       device_class: 'energy'
+      state_class: measurement
       accuracy_decimals: 1
 
     # bmv_alarm_text:
@@ -191,6 +209,7 @@ sensor:
       id: ${powermeter_name}_deepest_discharge
       unit_of_measurement: 'Ah'
       device_class: 'energy_storage'
+      state_class: measurement
       accuracy_decimals: 1
 
     last_discharge:
@@ -198,6 +217,7 @@ sensor:
       id: ${powermeter_name}_last_discharge
       unit_of_measurement: 'Ah'
       device_class: 'energy_storage'
+      state_class: measurement
       accuracy_decimals: 1
 
     discharged_energy:
@@ -207,9 +227,12 @@ sensor:
         - multiply: 0.001
       unit_of_measurement: 'kWh'
       device_class: 'energy_storage'
+      state_class: measurement
       accuracy_decimals: 1
       icon: mdi:counter
 
     state_of_charge:
       name: ${name}_${powermeter_name}_soc
       id: ${powermeter_name}_soc
+      state_class: measurement
+      device_class: battery
