@@ -1,4 +1,5 @@
 ########## tested with a DTS6619-042. Probably works with the DTS6619-042 #############
+#### Be aware, mobdus pins are (A/B) are inverted versus documentation  ##########
 
 
 
