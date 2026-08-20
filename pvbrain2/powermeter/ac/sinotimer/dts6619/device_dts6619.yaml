@@ -1,3 +1,7 @@
+########## tested with a DTS6619-042. Probably works with the DTS6619-042 #############
+
+
+
 globals:
   - id: ${powermeter_name}_energy_yesterday_global
     type: float
