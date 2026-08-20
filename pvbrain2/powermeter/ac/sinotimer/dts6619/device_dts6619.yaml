@@ -213,6 +213,20 @@ sensor:
     filters:
       - multiply: 0.01
 
+  - platform: modbus_controller
+    modbus_controller_id: ${powermeter_name}_modbus_controller
+    name: ${name}_${powermeter_name}_active_energy_total
+    id: ${powermeter_name}_active_energy_total
+    address: 0x001D
+    register_type: read #holding
+    value_type: U_DWORD #U_DWORD_R
+    accuracy_decimals: 1
+    unit_of_measurement: 'kWh'
+    device_class: 'energy'
+    icon: mdi:counter
+    filters:
+      - multiply: 0.01    
+
 
   - platform: template
     name: ${name}_${powermeter_name}_active_power_total
