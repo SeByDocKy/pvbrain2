@@ -50,6 +50,7 @@ sensor:
       name: ${name}_${inverter_name}_day_number
     battery_current:
       name: ${name}_${inverter_name}_battery_current
+      id: ${inverter_name}_battery_current
     panel_power:
       name: ${name}_${inverter_name}_pv_power
       id: ${inverter_name}_pv_power
