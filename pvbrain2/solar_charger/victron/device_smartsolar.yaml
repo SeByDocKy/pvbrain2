@@ -1,9 +1,10 @@
 external_components:
-  - source: github://KinDR007/VictronMPPT-ESPHOME@main
-    refresh: 0s
-# - source: "github://SeByDocKy/myESPhome/"
-  #   components: [victron]
-  #   refresh: 0s      
+  # - source: github://KinDR007/VictronMPPT-ESPHOME@main
+  #   refresh: 0s
+  
+- source: "github://SeByDocKy/myESPhome/"
+    components: [victron]
+    refresh: 0s      
 
 victron:
   - uart_id: ${solar_charger_uart_id}
