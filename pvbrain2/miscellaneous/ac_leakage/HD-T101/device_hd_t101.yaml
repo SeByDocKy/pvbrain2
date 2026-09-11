@@ -1,0 +1,23 @@
+modbus_controller:
+ - id: ${ac_current_leakage_name}_modbus_controller
+   address: ${ac_current_leakage_modbus_address}
+   modbus_id: ${ac_current_leakage_modbus_id}
+   command_throttle: ${ac_current_leakage_modbus_throttle}
+   setup_priority: -10
+   update_interval: ${ac_current_leakage_update_interval}
+   
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: ${ac_current_leakage_name}_modbus_controller
+    name: ${name}_${ac_current_leakage_name}_ac_current_leakage
+    id: ${ac_current_leakage_name}_ac_current_leakage
+    address: 0x000E
+    register_type: holding
+    value_type: S_WORD
+    accuracy_decimals: 3
+    state_class: measurement
+    device_class: current
+    icon: mdi:current-dc
+    unit_of_measurement: 'mA'
+    filters:
+      - multiply: 0.1
