@@ -841,6 +841,28 @@ packages:
   #     total_power_source2: 'sofar_ac_output_power'
   #     total_power_template_update: '2s'        
 
+# ###################### Solar theoric production   ############
+
+#   solar_production_1: !include
+#     file: pvbrain2/template/sensors/solar_production/device_solar_production.yaml
+#     vars: 
+#       solar_production_name: 'solar_pv_production'
+#       solar_production_template_update: '2s'
+#       solar_production_area_panel: '1.90'   #'1.9981' m²
+#       solar_production_nb_panel: '3' #'12'
+#       solar_production_ratio_panel: '0.225'
+#       solar_production_ratio_mppt: '0.98'
+#       solar_production_pyranometer: 'pyr20_solar_radiation'
+
+#   ac_current_leakage: !include
+#     file: pvbrain2/miscellaneous/ac_leakage/HD-T101/device_hd_t101.yaml
+#     vars:
+#       ac_current_leakage_name: 'ac_leakage'
+#       ac_current_leakage_modbus_id: 'modbus_9600_2'
+#       ac_current_leakage_modbus_address: '6'
+#       ac_current_leakage_modbus_throttle: '00ms'
+#       ac_current_leakage_update_interval: '5s'
+
 
 ########################## statistics ###########
 
