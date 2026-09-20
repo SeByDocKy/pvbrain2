@@ -58,6 +58,13 @@ binary_sensor:
 
 
 sensor:
+  # The 16 cell voltages are served by one Modbus range starting at byte address
+  # 0x1200. The BMS answers with the byte image at that address, so CellVol<n> sits
+  # at byte offset 2n of the response. Inside a range ESPHome derives each sensor's
+  # position from (address - range start) * 2, so the cells are addressed
+  # consecutively 0x1200..0x120F to land on offsets 0, 2, ... 30. Only the range
+  # start reaches the wire; the comment above each sensor gives the BMS byte
+  # address it actually reads.
   # 0x1200    0    UINT16    2    R    CellVol0    mV
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
@@ -65,7 +72,6 @@ sensor:
     address: 0x1200
     register_type: holding
     value_type: U_WORD
-    register_count: 32  # read up to CellVol31
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -77,9 +83,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_2
-    address: 0x1202
+    address: 0x1201
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -91,9 +98,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_3
-    address: 0x1204
+    address: 0x1202
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -105,9 +113,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_4
-    address: 0x1206
+    address: 0x1203
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -119,9 +128,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_5
-    address: 0x1208
+    address: 0x1204
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -133,9 +143,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_6
-    address: 0x120A
+    address: 0x1205
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -147,9 +158,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_7
-    address: 0x120C
+    address: 0x1206
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -161,9 +173,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_8
-    address: 0x120E
+    address: 0x1207
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -175,9 +188,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_9
-    address: 0x1210
+    address: 0x1208
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -189,9 +203,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_10
-    address: 0x1212
+    address: 0x1209
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -203,9 +218,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_11
-    address: 0x1214
+    address: 0x120A
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -217,9 +233,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_12
-    address: 0x1216
+    address: 0x120B
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -231,9 +248,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_13
-    address: 0x1218
+    address: 0x120C
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -245,9 +263,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_14
-    address: 0x121A
+    address: 0x120D
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -259,9 +278,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_15
-    address: 0x121C
+    address: 0x120E
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -273,9 +293,10 @@ sensor:
   - platform: modbus_controller
     modbus_controller_id: ${bms_name}_modbus_controller
     name: ${name}_${bms_name}_cell_voltage_16
-    address: 0x121E
+    address: 0x120F
     register_type: holding
     value_type: U_WORD
+    reuse_previous_range: true
     unit_of_measurement: "V"
     device_class: voltage
     state_class: measurement
@@ -291,7 +312,6 @@ sensor:
     address: 0x1246
     register_type: holding
     value_type: U_WORD
-    register_count: 2
     response_size: 2
     unit_of_measurement: "V"
     device_class: voltage
@@ -701,7 +721,6 @@ sensor:
     address: 0x12A8
     register_type: holding
     value_type: U_DWORD
-    register_count: 4
     response_size: 4
     state_class: measurement
     device_class: energy_storage
