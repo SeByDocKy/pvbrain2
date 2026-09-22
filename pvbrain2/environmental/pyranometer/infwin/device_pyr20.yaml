@@ -18,3 +18,5 @@ sensor:
     icon: mdi:sun-wireless
     skip_updates: 1
     unit_of_measurement: 'W/m²'
+     device_class: 'irradiance' 
+    state_class: 'measurement'
