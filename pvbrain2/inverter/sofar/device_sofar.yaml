@@ -2,7 +2,6 @@ modbus_controller:
   - id: ${inverter_name}_modbus_controller
     address: ${inverter_modbus_address}
     modbus_id: ${inverter_modbus_id}
-    command_throttle: ${inverter_modbus_throttle}
     setup_priority: -10
     update_interval: ${inverter_update_interval}
     
@@ -15,7 +14,7 @@ text_sensor:
     register_type: holding
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0: return std::string("waiting");
         case 1: return std::string("charging check");
