@@ -2,7 +2,6 @@ modbus_controller:
  - id: ${environnemental_name}_modbus_controller
    address: ${environnemental_modbus_address}
    modbus_id: ${environnemental_modbus_id}
-   command_throttle: ${environnemental_modbus_throttle}
    setup_priority: -10
    update_interval: ${environnemental_update_interval}
    
