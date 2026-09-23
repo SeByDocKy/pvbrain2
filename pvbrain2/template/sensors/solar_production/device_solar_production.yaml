@@ -3,7 +3,6 @@ globals:
     type: float
     restore_value: yes
 
-
 time:
   - platform: homeassistant #sntp
     id: !extend my_time
@@ -15,8 +14,6 @@ time:
           - globals.set:
               id: ${solar_production_name}_theoric_energy_yesterday_global
               value: !lambda return ( id(${solar_production_name}_theoric_energy_yesterday_global) =  float( id(${solar_production_name}_theoric_energy_today).state) );
-
-
 
 sensor:
   - platform: template
@@ -38,17 +35,17 @@ sensor:
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: trapezoid
+    icon: mdi:counter
     filters:
        # Multiplication factor from W to kW is 0.001
        - multiply: 0.001
-    icon: mdi:counter
   
   - platform: template
     name: ${name}_${solar_production_name}_theoric_energy_yesterday
     id: ${solar_production_name}_theoric_energy_yesterday
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
-    icon: mdi:power
+    icon: mdi:counter
     update_interval: ${solar_production_template_update}
     lambda: |-
       return ( id(${solar_production_name}_theoric_energy_yesterday).state = id(${solar_production_name}_theoric_energy_yesterday_global) );      
