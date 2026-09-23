@@ -27,6 +27,16 @@
               # id: ${evse_name}_energy_yesterday_global
               # value: !lambda return ( id(${evse_name}_energy_yesterday_global) =  float( id(${evse_name}_energy_today).state) );
 
+esphome:
+  on_boot:
+    # IMPORTANT: the list form (- priority:) is required so this trigger
+    # MERGES with on_boot triggers declared by other packages.
+    - priority: -100.0
+      then:
+        - number.set: 
+            id: ${evse_name}_pwm_control
+            value: ${evse_startup_minimum_pwm}
+
 modbus_controller:
  - id: ${evse_name}_modbus_controller
    address: ${evse_modbus_address}
