@@ -94,6 +94,7 @@ sensor:
     unit_of_measurement: 'W'
     accuracy_decimals: 1
     icon: mdi:power
+    device_class: 'power'
     state_class: 'measurement'
     update_interval: ${evse_template_update}
     lambda: |-
@@ -290,7 +291,8 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    state_class: 'measurement'    
+    state_class: 'measurement'
+    device_class: 'voltage'
     # skip_updates: 1
     filters:
       - multiply:  0.01
@@ -305,7 +307,8 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     icon: mdi:sine-wave
-    state_class: 'measurement'    
+    state_class: 'measurement'
+    device_class: 'voltage'
     # skip_updates: 1
     filters:
       - multiply:  -0.01
@@ -518,10 +521,12 @@ number:
     icon: mdi:power
     mode: slider
     unit_of_measurement: 'W'
-    lambda: |- 
-      return int(x*1.38f); 
-    write_lambda: |-
-      return int(x/1.38f);
+    device_class: 'power'
+    multiply: 1.38
+    # lambda: |- 
+    #   return int(x*1.38f); 
+    # write_lambda: |-
+    #   return int(x/1.38f);
       
       
   # - platform: modbus_controller
