@@ -540,8 +540,8 @@ number:
     address: 109
     value_type: U_WORD
     # accuracy_decimals: 0
-    min_value: 1104   # Correspond à 1000 en PWM (6A minimum norme)
-    max_value: 7360 #7360   # Correspond à 5333 en PWM (32A max Mono)
+    min_value: 1104   # Correspond à 800 en PWM (6A minimum norme)
+    max_value: 7360   # Correspond à 7360 en PWM (32A max Mono)
     step: 50
     # step: 61.18
     icon: mdi:power
@@ -561,8 +561,8 @@ number:
     address: 109
     value_type: U_WORD
     # accuracy_decimals: 0
-    min_value: 5   # Correspond à 1000 en PWM (6A minimum norme)
-    max_value: 32 #7360   # Correspond à 5333 en PWM (32A max Mono)
+    min_value: 5   # Correspond à 800 en PWM (6A minimum norme)
+    max_value: 32  # Correspond à 7360 en PWM (32A max Mono)
     step: 0.1
     # step: 61.18
     icon: mdi:current-ac
