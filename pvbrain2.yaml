@@ -573,7 +573,6 @@ packages:
   #     powermeter_name: 'dds6619'
   #     powermeter_modbus_id: 'modbus_9600_id'
   #     powermeter_modbus_address: '1'
-  #     powermeter_command_throttle: '50ms'
   #     powermeter_update_interval: '2s'
   #     powermeter_template_update: '2s'
 
@@ -755,7 +754,6 @@ packages:
   #     bms_update_interval: '1s'
   #     bms_template_update: '2s'
   #     bms_text_update: '5s'
-  #     bms_modbus_throttle: '100ms'
 
   # bms_9: !include
   #   # url: ${git_url}
@@ -768,7 +766,7 @@ packages:
   #     bms_update_interval: '5s'
   #     bms_template_update: '5s'
   #     bms_text_update: '5s'
-  #     bms_modbus_throttle: '50ms'
+  
   # bms_10: !include
     # # url: ${git_url}
     # # refresh: 0s
