@@ -385,6 +385,14 @@ packages:
   #     environnemental_address: '0x9f3c01f09613re85'
   #     environnemental_update_interval: '5s'
 
+  # environnemental_5: !include
+  # file: pvbrain2/environmental/pyranometer/infwin/device_pyr20.yaml
+  # vars:
+  #   environnemental_name: 'pyr20'
+  #   environnemental_modbus_id: 'modbus_9600_2'
+  #   environnemental_modbus_address: '3'
+  #   environnemental_update_interval: '3s'
+
   ################# Automatic Transfert Switch  ##############
 
   # ats_1: !include
@@ -626,7 +634,6 @@ packages:
   #     solar_charger_update_interval: '1s'
   #     solar_charger_template_update: '2s'
   #     solar_charger_text_update: '5s'
-  #     solar_charger_modbus_throttle: '200ms'
 
   # solar_charger_2: !include
   #   # url: ${git_url}
@@ -639,7 +646,6 @@ packages:
   #     solar_charger_update_interval: '1s'
   #     solar_charger_template_update: '2s'
   #     solar_charger_text_update: '5s'
-  #     solar_charger_modbus_throttle: '200ms'
 
   # solar_charger_3: !include
   #   # url: ${git_url}
@@ -697,7 +703,6 @@ packages:
   #     bms_update_interval: '1s'
   #     bms_template_update: '2s'
   #     bms_text_update: '5s'
-  #     bms_modbus_throttle: '200ms'
 
   # bms_4: !include
   #   # url: ${git_url}
@@ -859,7 +864,6 @@ packages:
 #       ac_current_leakage_name: 'ac_leakage'
 #       ac_current_leakage_modbus_id: 'modbus_9600_2'
 #       ac_current_leakage_modbus_address: '6'
-#       ac_current_leakage_modbus_throttle: '00ms'
 #       ac_current_leakage_update_interval: '5s'
 
 
