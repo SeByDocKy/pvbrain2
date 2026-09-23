@@ -34,7 +34,7 @@ esphome:
         - number.set: 
             id: ${evse_name}_pwm_control
             value: !lambda |-  # ${evse_startup_minimum_pwm}
-              return ${evse_startup_minimum_current}*160   // 160 = 230V/1.4375
+              return ${evse_startup_minimum_current}*160;   // 160 = 230V/1.4375
             
 
 modbus_controller:
