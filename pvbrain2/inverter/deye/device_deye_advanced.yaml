@@ -1,4 +1,17 @@
+# ─────────────────────────────────────────────────────────────
+#  Deye Hybrid Inverter – Advanced TOU settings
+#  Optimised for ESPHome 2026.9.0 modbus_controller
+#   • register_count removed (derived from value_type)
+#   • reuse_previous_range: true bridges address gaps
+#   • multiply: 100 → 0.01 (2026.9.0 semantics change)
+#
+#  Modbus read ranges (holding):
+#   A: 013–014  (2 regs)  firmware versions
+#   B: 248–279  (32 regs) TOU timezones / power / voltage / SoC / charge flags
+# ─────────────────────────────────────────────────────────────
+
 sensor:
+                                                   # ── Range A: 013–014 (2 regs) firmware ──
   - platform: modbus_controller            # 013 Firmware Control Board
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_firmware_control_board
@@ -16,12 +29,14 @@ sensor:
 ############################################# READ SETTINGS #############################################
  
     
+                                                   # ── Range B: 248–279 (32 regs) TOU settings ──
   - platform: modbus_controller          # 250 Settings Timezone1
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_setting_timezone1
     id: ${inverter_name}_setting_timezone1
     register_type: holding
     address: 250
+    reuse_previous_range: true                     # bridge 248→250
     filters: #GOOD
       - lambda: |-
             if (x > 32767) return (x - 65535) /1;
@@ -1017,10 +1032,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    # filters:
-    #   - multiply: 0.01
-    multiply: 100
-    # lambda: "return  x * 100;"
+    multiply: 0.01
 
   - platform: modbus_controller         # 263 Settings Battery voltage Timezone2
     use_write_multiple: true
@@ -1034,10 +1046,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    # filters:
-    #   - multiply: 0.01
-    multiply: 100
-    # lambda: "return  x * 100;"
+    multiply: 0.01
 
   - platform: modbus_controller         # 264 Settings Battery voltage Timezone3
     use_write_multiple: true
@@ -1051,10 +1060,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    # filters:
-    #   - multiply: 0.01
-    multiply: 100
-    # lambda: "return  x * 100;"
+    multiply: 0.01
 
   - platform: modbus_controller         # 265 Settings Battery voltage Timezone4
     use_write_multiple: true
@@ -1068,10 +1074,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    # filters:
-    #   - multiply: 0.01
-    multiply: 100
-    # lambda: "return  x * 100;"
+    multiply: 0.01
 
   - platform: modbus_controller         # 266 Settings Battery voltage Timezone5
     use_write_multiple: true
@@ -1085,10 +1088,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    # filters:
-    #   - multiply: 0.01
-    multiply: 100
-    # lambda: "return  x * 100;"
+    multiply: 0.01
 
   - platform: modbus_controller         # 267 Settings Battery voltage Timezone6
     use_write_multiple: true
@@ -1102,10 +1102,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    # filters:
-    #   - multiply: 0.01
-    multiply: 100
-    # lambda: "return  x * 100;"  
+    multiply: 0.01  
 
     ############ SOC timezone ################
 
@@ -1289,6 +1286,1313 @@ text_sensor:
         }
         char formatted_time[6];
         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
-        return esphome::optional<std::string>(formatted_time);    
+        return esphome::optional<std::string>(formatted_time);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# sensor:
+#   - platform: modbus_controller            # 013 Firmware Control Board
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_firmware_control_board
+#     id: ${inverter_name}_firmware_control_board
+#     register_type: holding
+#     address: 13
+
+#   - platform: modbus_controller            # 014 Firmware Comms Board
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_firmware_comms_board
+#     id: ${inverter_name}_firmware_comms_board
+#     register_type: holding
+#     address: 14
+    
+# ############################################# READ SETTINGS #############################################
+ 
+    
+#   - platform: modbus_controller          # 250 Settings Timezone1
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_timezone1
+#     id: ${inverter_name}_setting_timezone1
+#     register_type: holding
+#     address: 250
+#     filters: #GOOD
+#       - lambda: |-
+#             if (x > 32767) return (x - 65535) /1;
+#             else return (x) /1;
+#     icon: "mdi:clock"
+
+#   - platform: modbus_controller          # 251 Settings Timezone2
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_timezone2
+#     id: ${inverter_name}_setting_timezone2
+#     register_type: holding
+#     address: 251   
+#     filters: #GOOD
+#       - lambda: |-
+#             if (x > 32767) return (x - 65535) /1;
+#             else return (x) /1;
+#     icon: "mdi:clock"
+
+#   - platform: modbus_controller          # 252 Settings Timezone3
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_timezone3
+#     id: ${inverter_name}_setting_timezone3
+#     register_type: holding
+#     address: 252
+#     filters: #GOOD
+#       - lambda: |-
+#             if (x > 32767) return (x - 65535) /1;
+#             else return (x) /1;
+#     icon: "mdi:clock"
+
+#   - platform: modbus_controller          # 253 Settings Timezone4
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_timezone4
+#     id: ${inverter_name}_setting_timezone4
+#     register_type: holding
+#     address: 253
+#     icon: "mdi:clock"
+
+#   - platform: modbus_controller          # 254 Settings Timezone5
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_timezone5
+#     id: ${inverter_name}_setting_timezone5
+#     register_type: holding
+#     address: 254
+#     filters: #GOOD
+#       - lambda: |-
+#             if (x > 32767) return (x - 65535) /1;
+#             else return (x) /1;
+#     icon: "mdi:clock"
+
+#   - platform: modbus_controller          # 255 Settings Timezone6
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_timezone6
+#     id: ${inverter_name}_setting_timezone6
+#     register_type: holding
+#     address: 255
+#     filters: #GOOD
+#       - lambda: |-
+#             if (x > 32767) return (x - 65535) /1;
+#             else return (x) /1;
+#     icon: "mdi:clock"
+
+#   #############################  Power ####################
+  
+#   - platform: modbus_controller          # 256 Power Timezone1
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_power_timezone1
+#     id: ${inverter_name}_power_timezone1
+#     register_type: holding
+#     address: 256
+#     unit_of_measurement: 'W'
+#     accuracy_decimals: 0
+#     icon: mdi:power
+#     filters:
+#       - lambda: return x * ${inverter_factor};
+
+#   - platform: modbus_controller          # 257 Power Timezone2
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_power_timezone2
+#     id: ${inverter_name}_power_timezone2
+#     register_type: holding
+#     address: 257
+#     unit_of_measurement: 'W'
+#     accuracy_decimals: 0
+#     icon: mdi:power
+#     filters:
+#       - lambda: return x * ${inverter_factor};
+
+#   - platform: modbus_controller          # 258 Power Timezone3
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_power_timezone3
+#     id: ${inverter_name}_power_timezone3
+#     register_type: holding
+#     address: 258
+#     unit_of_measurement: 'W'
+#     accuracy_decimals: 0
+#     icon: mdi:power
+#     filters:
+#       - lambda: return x * ${inverter_factor};
+
+#   - platform: modbus_controller          # 259 Power Timezone4
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_power_timezone4
+#     id: ${inverter_name}_power_timezone4
+#     register_type: holding
+#     address: 259
+#     unit_of_measurement: 'W'
+#     accuracy_decimals: 0
+#     icon: mdi:power
+#     filters:
+#       - lambda: return x * ${inverter_factor};
+
+#   - platform: modbus_controller          # 260 Power Timezone5
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_power_timezone5
+#     id: ${inverter_name}_power_timezone5
+#     register_type: holding
+#     address: 260
+#     unit_of_measurement: 'W'
+#     accuracy_decimals: 0
+#     icon: mdi:power
+#     filters:
+#       - lambda: return x * ${inverter_factor};
+
+#   - platform: modbus_controller          # 261 Power Timezone6
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_power_timezone6
+#     id: ${inverter_name}_power_timezone6
+#     register_type: holding
+#     address: 261
+#     unit_of_measurement: 'W'
+#     accuracy_decimals: 0
+#     icon: mdi:power
+#     filters:
+#       - lambda: return x * ${inverter_factor};  
+
+#   #############################  Battery Voltage ####################
+  
+#   - platform: modbus_controller          # 262 Battery Voltage Timezone1
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_battery_voltage_timezone1
+#     id: ${inverter_name}_battery_voltage_timezone1
+#     register_type: holding
+#     address: 262
+#     unit_of_measurement: 'V'
+#     accuracy_decimals: 1
+#     icon: mdi:sine-wave
+#     filters:
+#       - multiply: 0.01
+
+#   - platform: modbus_controller          # 263 Battery Voltage Timezone2
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_battery_voltage_timezone2
+#     id: ${inverter_name}_battery_voltage_timezone2
+#     register_type: holding
+#     address: 263
+#     unit_of_measurement: 'V'
+#     accuracy_decimals: 1
+#     icon: mdi:sine-wave
+#     filters:
+#       - multiply: 0.01
+
+#   - platform: modbus_controller          # 264 Battery Voltage Timezone3
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_battery_voltage_timezone3
+#     id: ${inverter_name}_battery_voltage_timezone3
+#     register_type: holding
+#     address: 264
+#     unit_of_measurement: 'V'
+#     accuracy_decimals: 1
+#     icon: mdi:sine-wave
+#     filters:
+#       - multiply: 0.01
+
+#   - platform: modbus_controller          # 265 Battery Voltage Timezone4
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_battery_voltage_timezone4
+#     id: ${inverter_name}_battery_voltage_timezone4
+#     register_type: holding
+#     address: 265
+#     unit_of_measurement: 'V'
+#     accuracy_decimals: 1
+#     icon: mdi:sine-wave
+#     filters:
+#       - multiply: 0.01
+
+#   - platform: modbus_controller          # 266 Battery Voltage Timezone5
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_battery_voltage_timezone5
+#     id: ${inverter_name}_battery_voltage_timezone5
+#     register_type: holding
+#     address: 266
+#     unit_of_measurement: 'V'
+#     accuracy_decimals: 1
+#     icon: mdi:sine-wave
+#     filters:
+#       - multiply: 0.01
+
+#   - platform: modbus_controller          # 267 Battery Voltage Timezone6
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_battery_voltage_timezone6
+#     id: ${inverter_name}_battery_voltage_timezone6
+#     register_type: holding
+#     address: 267
+#     unit_of_measurement: 'V'
+#     accuracy_decimals: 1
+#     icon: mdi:sine-wave
+#     filters:
+#       - multiply: 0.01
+
+#  #############################  Battery SOC ####################
+
+#   - platform: modbus_controller          # 268 Settings SoC Timezone1
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_soc_timezone1
+#     id: ${inverter_name}_setting_soc_timezone1
+#     register_type: holding
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 268
+#     value_type: U_WORD
+
+#   - platform: modbus_controller          # 269 Settings SoC Timezone2
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_soc_timezone2
+#     id: ${inverter_name}_setting_soc_timezone2
+#     register_type: holding
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 269
+#     value_type: U_WORD
+
+#   - platform: modbus_controller          # 270 Settings SoC Timezone3
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_soc_timezone3
+#     id: ${inverter_name}_setting_soc_timezone3
+#     register_type: holding
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 270
+#     value_type: U_WORD
+
+#   - platform: modbus_controller          # 271 Settings SoC Timezone4
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_soc_timezone4
+#     id: ${inverter_name}_setting_soc_timezone4
+#     register_type: holding
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 271
+#     value_type: U_WORD
+
+#   - platform: modbus_controller          # 272 Settings SoC Timezone5
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_soc_timezone5
+#     id: ${inverter_name}_setting_soc_timezone5
+#     register_type: holding
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 272
+#     value_type: U_WORD
+
+#   - platform: modbus_controller          # 273 Settings SoC Timezone6
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_soc_timezone6
+#     id: ${inverter_name}_setting_soc_timezone6
+#     register_type: holding
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 273
+#     value_type: U_WORD
+
+#   # - platform: modbus_controller          # 274 Settings Grid Charge Timezone1
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_setting_grid_charge_timezone1
+#   #   id: ${inverter_name}_setting_grid_charge_timezone1
+#   #   register_type: holding
+#   #   address: 274
+
+#   # - platform: modbus_controller          # 275 Settings Grid Charge Timezone2
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_setting_grid_charge_timezone2
+#   #   id: ${inverter_name}_setting_grid_charge_timezone2
+#   #   register_type: holding
+#   #   address: 275
+    
+#   # - platform: modbus_controller          # 276 Settings Grid Charge Timezone3
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_setting_grid_charge_timezone3
+#   #   id: ${inverter_name}_setting_grid_charge_timezone3
+#   #   register_type: holding
+#   #   address: 276
+    
+#   # - platform: modbus_controller          # 277 Settings Grid Charge Timezone4
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_setting_grid_charge_timezone4
+#   #   id: ${inverter_name}_setting_grid_charge_timezone4
+#   #   register_type: holding
+#   #   address: 277
+    
+#   # - platform: modbus_controller          # 278 Settings Grid Charge Timezone5
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_setting_grid_charge_timezone5
+#   #   id: ${inverter_name}_setting_grid_charge_timezone5
+#   #   register_type: holding
+#   #   address: 278
+    
+#   # - platform: modbus_controller          # 279 Settings Grid Charge Timezone6
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_setting_grid_charge_timezone6
+#   #   id: ${inverter_name}_setting_grid_charge_timezone6
+#   #   register_type: holding
+#   #   address: 279
+
+# binary_sensor:
+
+#   - platform: modbus_controller          # 274 Settings Grid Charge Timezone1
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_grid_charge_timezone1
+#     id: ${inverter_name}_setting_grid_charge_timezone1
+#     register_type: holding
+#     address: 274
+#     bitmask: 0x01
+
+#   - platform: modbus_controller          # 275 Settings Grid Charge Timezone2
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_grid_charge_timezone2
+#     id: ${inverter_name}_setting_grid_charge_timezone2
+#     register_type: holding
+#     address: 275
+#     bitmask: 0x01
+
+#   - platform: modbus_controller          # 276 Settings Grid Charge Timezone3
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_grid_charge_timezone3
+#     id: ${inverter_name}_setting_grid_charge_timezone3
+#     register_type: holding
+#     address: 276
+#     bitmask: 0x01
+
+#   - platform: modbus_controller          # 277 Settings Grid Charge Timezone4
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_grid_charge_timezone4
+#     id: ${inverter_name}_setting_grid_charge_timezone4
+#     register_type: holding
+#     address: 277
+#     bitmask: 0x01
+
+#   - platform: modbus_controller          # 278 Settings Grid Charge Timezone5
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_grid_charge_timezone5
+#     id: ${inverter_name}_setting_grid_charge_timezone5
+#     register_type: holding
+#     address: 278
+#     bitmask: 0x01
+
+#   - platform: modbus_controller          # 279 Settings Grid Charge Timezone6
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_grid_charge_timezone6
+#     id: ${inverter_name}_setting_grid_charge_timezone6
+#     register_type: holding
+#     address: 279
+#     bitmask: 0x01
+
+
+#   - platform: modbus_controller          # 274 Settings Gen Charge Timezone1
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_gen_charge_timezone1
+#     id: ${inverter_name}_setting_gen_charge_timezone1
+#     register_type: holding
+#     address: 274
+#     bitmask: 0x02
+
+#   - platform: modbus_controller          # 275 Settings Gen Charge Timezone2
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_gen_charge_timezone2
+#     id: ${inverter_name}_setting_gen_charge_timezone2
+#     register_type: holding
+#     address: 275
+#     bitmask: 0x02
+
+#   - platform: modbus_controller          # 276 Settings Gen Charge Timezone3
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_gen_charge_timezone3
+#     id: ${inverter_name}_setting_gen_charge_timezone3
+#     register_type: holding
+#     address: 276
+#     bitmask: 0x02
+
+#   - platform: modbus_controller          # 277 Settings Gen Charge Timezone4
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_gen_charge_timezone4
+#     id: ${inverter_name}_setting_gen_charge_timezone4
+#     register_type: holding
+#     address: 277
+#     bitmask: 0x02
+
+#   - platform: modbus_controller          # 278 Settings Gen Charge Timezone5
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_gen_charge_timezone5
+#     id: ${inverter_name}_setting_gen_charge_timezone5
+#     register_type: holding
+#     address: 278
+#     bitmask: 0x02
+
+#   - platform: modbus_controller          # 279 Settings Gen Charge Timezone6
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_setting_gen_charge_timezone6
+#     id: ${inverter_name}_setting_gen_charge_timezone6
+#     register_type: holding
+#     address: 279
+#     bitmask: 0x02   
+
+
+# select:
+
+#   # REG 248 — Jours TOU (complète le switch ON/OFF existant)
+#   - platform: modbus_controller
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: "${name}_${inverter_name}_tou_jours_semaine"
+#     id: ${inverter_name}_tou_jours_semaine
+#     address: 248
+#     value_type: U_WORD
+#     entity_category: config
+#     icon: "mdi:calendar-clock"
+#     optionsmap:
+#       "❌ Désactivé": 0
+#       "✅ Tous les jours": 255
+#       "Lun – Ven": 63
+#       "Sam – Dim": 193
+
+
+#   - platform: modbus_controller          # 274 Charge type Timezone1
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_select_charge_timezone1
+#     id: ${inverter_name}_select_charge_timezone1
+#     # register_type: holding
+#     address: 274
+#     # bitmask: 0x01
+#     entity_category: config
+#     icon: "mdi:numeric"
+#     optionsmap:
+#       "Grid off, Gen off, GM off, BU off, CH off": 0
+#       "Grid on, Gen off, GM off, BU off, CH off": 1
+#       "Grid off, Gen on, GM off, BU off, CH off": 2
+#       "Grid on, Gen on, GM off, BU off, CH off": 3
+#       "Grid off, Gen off, GM on, BU off, CH off": 4
+#       "Grid on, Gen off, GM on, BU off, CH off": 5
+#       "Grid off, Gen on, GM on, BU off, CH off": 6
+#       "Grid on, Gen on, GM on, BU off, CH off": 7
+#       "Grid off, Gen off, GM off, BU on, CH off": 8
+#       "Grid on, Gen off, GM off, BU on, CH off": 9
+#       "Grid off, Gen on, GM off, BU on, CH off": 10
+#       "Grid on, Gen on, GM off, BU on, CH off": 11
+#       "Grid off, Gen off, GM off, BU off, CH on": 12
+#       "Grid on, Gen off, GM off, BU off, CH on": 13
+#       "Grid off, Gen on, GM off, BU off, CH on": 14
+#       "Grid on, Gen on, GM off, BU off, CH on": 15
+
+#   - platform: modbus_controller          # 275 Charge type Timezone2
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_select_charge_timezone2
+#     id: ${inverter_name}_select_charge_timezone2
+#     # register_type: holding
+#     address: 275
+#     # bitmask: 0x01
+#     entity_category: config
+#     icon: "mdi:numeric"
+#     optionsmap:
+#       "Grid off, Gen off, GM off, BU off, CH off": 0
+#       "Grid on, Gen off, GM off, BU off, CH off": 1
+#       "Grid off, Gen on, GM off, BU off, CH off": 2
+#       "Grid on, Gen on, GM off, BU off, CH off": 3
+#       "Grid off, Gen off, GM on, BU off, CH off": 4
+#       "Grid on, Gen off, GM on, BU off, CH off": 5
+#       "Grid off, Gen on, GM on, BU off, CH off": 6
+#       "Grid on, Gen on, GM on, BU off, CH off": 7
+#       "Grid off, Gen off, GM off, BU on, CH off": 8
+#       "Grid on, Gen off, GM off, BU on, CH off": 9
+#       "Grid off, Gen on, GM off, BU on, CH off": 10
+#       "Grid on, Gen on, GM off, BU on, CH off": 11
+#       "Grid off, Gen off, GM off, BU off, CH on": 12
+#       "Grid on, Gen off, GM off, BU off, CH on": 13
+#       "Grid off, Gen on, GM off, BU off, CH on": 14
+#       "Grid on, Gen on, GM off, BU off, CH on": 15
+
+
+#   - platform: modbus_controller          # 276 Charge type Timezone3
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_select_charge_timezone3
+#     id: ${inverter_name}_select_charge_timezone3
+#     # register_type: holding
+#     address: 276
+#     # bitmask: 0x01
+#     entity_category: config
+#     icon: "mdi:numeric"
+#     optionsmap:
+#       "Grid off, Gen off, GM off, BU off, CH off": 0
+#       "Grid on, Gen off, GM off, BU off, CH off": 1
+#       "Grid off, Gen on, GM off, BU off, CH off": 2
+#       "Grid on, Gen on, GM off, BU off, CH off": 3
+#       "Grid off, Gen off, GM on, BU off, CH off": 4
+#       "Grid on, Gen off, GM on, BU off, CH off": 5
+#       "Grid off, Gen on, GM on, BU off, CH off": 6
+#       "Grid on, Gen on, GM on, BU off, CH off": 7
+#       "Grid off, Gen off, GM off, BU on, CH off": 8
+#       "Grid on, Gen off, GM off, BU on, CH off": 9
+#       "Grid off, Gen on, GM off, BU on, CH off": 10
+#       "Grid on, Gen on, GM off, BU on, CH off": 11
+#       "Grid off, Gen off, GM off, BU off, CH on": 12
+#       "Grid on, Gen off, GM off, BU off, CH on": 13
+#       "Grid off, Gen on, GM off, BU off, CH on": 14
+#       "Grid on, Gen on, GM off, BU off, CH on": 15
+
+#   - platform: modbus_controller          # 277 Charge type Timezone4
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_select_charge_timezone4
+#     id: ${inverter_name}_select_charge_timezone4
+#     # register_type: holding
+#     address: 277
+#     # bitmask: 0x01
+#     entity_category: config
+#     icon: "mdi:numeric"
+#     optionsmap:
+#       "Grid off, Gen off, GM off, BU off, CH off": 0
+#       "Grid on, Gen off, GM off, BU off, CH off": 1
+#       "Grid off, Gen on, GM off, BU off, CH off": 2
+#       "Grid on, Gen on, GM off, BU off, CH off": 3
+#       "Grid off, Gen off, GM on, BU off, CH off": 4
+#       "Grid on, Gen off, GM on, BU off, CH off": 5
+#       "Grid off, Gen on, GM on, BU off, CH off": 6
+#       "Grid on, Gen on, GM on, BU off, CH off": 7
+#       "Grid off, Gen off, GM off, BU on, CH off": 8
+#       "Grid on, Gen off, GM off, BU on, CH off": 9
+#       "Grid off, Gen on, GM off, BU on, CH off": 10
+#       "Grid on, Gen on, GM off, BU on, CH off": 11
+#       "Grid off, Gen off, GM off, BU off, CH on": 12
+#       "Grid on, Gen off, GM off, BU off, CH on": 13
+#       "Grid off, Gen on, GM off, BU off, CH on": 14
+#       "Grid on, Gen on, GM off, BU off, CH on": 15
+
+
+#   - platform: modbus_controller          # 278 Charge type Timezone5
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_select_charge_timezone5
+#     id: ${inverter_name}_select_charge_timezone5
+#     # register_type: holding
+#     address: 278
+#     # bitmask: 0x01
+#     entity_category: config
+#     icon: "mdi:numeric"
+#     optionsmap:
+#       "Grid off, Gen off, GM off, BU off, CH off": 0
+#       "Grid on, Gen off, GM off, BU off, CH off": 1
+#       "Grid off, Gen on, GM off, BU off, CH off": 2
+#       "Grid on, Gen on, GM off, BU off, CH off": 3
+#       "Grid off, Gen off, GM on, BU off, CH off": 4
+#       "Grid on, Gen off, GM on, BU off, CH off": 5
+#       "Grid off, Gen on, GM on, BU off, CH off": 6
+#       "Grid on, Gen on, GM on, BU off, CH off": 7
+#       "Grid off, Gen off, GM off, BU on, CH off": 8
+#       "Grid on, Gen off, GM off, BU on, CH off": 9
+#       "Grid off, Gen on, GM off, BU on, CH off": 10
+#       "Grid on, Gen on, GM off, BU on, CH off": 11
+#       "Grid off, Gen off, GM off, BU off, CH on": 12
+#       "Grid on, Gen off, GM off, BU off, CH on": 13
+#       "Grid off, Gen on, GM off, BU off, CH on": 14
+#       "Grid on, Gen on, GM off, BU off, CH on": 15
+
+
+#   - platform: modbus_controller          # 279 Charge type Timezone6
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_select_charge_timezone6
+#     id: ${inverter_name}_select_charge_timezone6
+#     # register_type: holding
+#     address: 279
+#     # bitmask: 0x01
+#     entity_category: config
+#     icon: "mdi:numeric"
+#     optionsmap:
+#       "Grid off, Gen off, GM off, BU off, CH off": 0
+#       "Grid on, Gen off, GM off, BU off, CH off": 1
+#       "Grid off, Gen on, GM off, BU off, CH off": 2
+#       "Grid on, Gen on, GM off, BU off, CH off": 3
+#       "Grid off, Gen off, GM on, BU off, CH off": 4
+#       "Grid on, Gen off, GM on, BU off, CH off": 5
+#       "Grid off, Gen on, GM on, BU off, CH off": 6
+#       "Grid on, Gen on, GM on, BU off, CH off": 7
+#       "Grid off, Gen off, GM off, BU on, CH off": 8
+#       "Grid on, Gen off, GM off, BU on, CH off": 9
+#       "Grid off, Gen on, GM off, BU on, CH off": 10
+#       "Grid on, Gen on, GM off, BU on, CH off": 11
+#       "Grid off, Gen off, GM off, BU off, CH on": 12
+#       "Grid on, Gen off, GM off, BU off, CH on": 13
+#       "Grid off, Gen on, GM off, BU off, CH on": 14
+#       "Grid on, Gen on, GM off, BU off, CH on": 15      
+
+
+# switch:
+
+#   - platform: modbus_controller          # 248 Toggle System Timer
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_toggle_system_timer
+#     id: ${inverter_name}_toggle_system_timer
+#     register_type: holding
+#     address: 248
+#     bitmask: 0x01
+#     entity_category: config
+#     icon: "mdi:toggle-switch"
+    
+#   # - platform: modbus_controller          # 274 Toggle Grid Charge Timezone1
+#   #   # use_write_multiple: true
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone1
+#   #   id: ${inverter_name}_toggle_grid_charge_timezone1
+#   #   register_type: holding
+#   #   address: 274
+#   #   bitmask: 0x01
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 275 Toggle Grid Charge Timezone2
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone2
+#   #   id: ${inverter_name}_toggle_grid_charge_timezone2
+#   #   register_type: holding
+#   #   address: 275
+#   #   bitmask: 0x01
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 276 Toggle Grid Charge Timezone3
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone3
+#   #   id: ${inverter_name}_toggle_grid_charge_timezone3
+#   #   register_type: holding
+#   #   address: 276
+#   #   bitmask: 0x01
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 277 Toggle Grid Charge Timezone4
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone4
+#   #   id: ${inverter_name}_toggle_grid_charge_timezone4
+#   #   register_type: holding
+#   #   address: 277
+#   #   bitmask: 0x01
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 278 Toggle Grid Charge Timezone5
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone5
+#   #   id: ${inverter_name}_toggle_grid_charge_timezone5
+#   #   register_type: holding
+#   #   address: 278
+#   #   bitmask: 0x01
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 279 Toggle Grid Charge Timezone6
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_grid_charge_timezone6
+#   #   id: ${inverter_name}_toggle_grid_charge_timezone6
+#   #   register_type: holding
+#   #   address: 279
+#   #   bitmask: 0x01
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+
+#   # - platform: modbus_controller          # 274 Toggle Gen Charge Timezone1
+#   #   # use_write_multiple: true
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone1
+#   #   id: ${inverter_name}_toggle_gen_charge_timezone1
+#   #   register_type: holding
+#   #   address: 274
+#   #   bitmask: 0x02
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 275 Toggle Gen Charge Timezone2
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone2
+#   #   id: ${inverter_name}_toggle_gen_charge_timezone2
+#   #   register_type: holding
+#   #   address: 275
+#   #   bitmask: 0x02
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 276 Toggle Gen Charge Timezone3
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone3
+#   #   id: ${inverter_name}_toggle_gen_charge_timezone3
+#   #   register_type: holding
+#   #   address: 276
+#   #   bitmask: 0x02
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 277 Toggle Gen Charge Timezone4
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone4
+#   #   id: ${inverter_name}_toggle_gen_charge_timezone4
+#   #   register_type: holding
+#   #   address: 277
+#   #   bitmask: 0x02
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 278 Toggle Gen Charge Timezone5
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone5
+#   #   id: ${inverter_name}_toggle_gen_charge_timezone5
+#   #   register_type: holding
+#   #   address: 278
+#   #   bitmask: 0x02
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 279 Toggle Gen Charge Timezone6
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gen_charge_timezone6
+#   #   id: ${inverter_name}_toggle_gen_charge_timezone6
+#   #   register_type: holding
+#   #   address: 279
+#   #   bitmask: 0x02
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+
+#   # - platform: modbus_controller          # 274 Toggle GM Timezone1
+#   #   # use_write_multiple: true
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   name: ${name}_${inverter_name}_toggle_gm_timezone1
+#   #   id: ${inverter_name}_toggle_gm_timezone1
+#   #   register_type: holding
+#   #   address: 274
+#   #   bitmask: 0x04
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 275 Toggle GM Timezone2
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gm_timezone2
+#   #   id: ${inverter_name}_toggle_gm_timezone2
+#   #   register_type: holding
+#   #   address: 275
+#   #   bitmask: 0x04
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 276 Toggle GM Timezone3
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gm_timezone3
+#   #   id: ${inverter_name}_toggle_gm_timezone3
+#   #   register_type: holding
+#   #   address: 276
+#   #   bitmask: 0x04
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 277 Toggle GM Timezone4
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gm_timezone4
+#   #   id: ${inverter_name}_toggle_gm_timezone4
+#   #   register_type: holding
+#   #   address: 277
+#   #   bitmask: 0x04
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 278 Toggle GM Timezone5
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gm_timezone5
+#   #   id: ${inverter_name}_toggle_gm_timezone5
+#   #   register_type: holding
+#   #   address: 278
+#   #   bitmask: 0x04
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+
+#   # - platform: modbus_controller          # 279 Toggle GM Timezone6
+#   #   modbus_controller_id: ${inverter_name}_modbus_controller
+#   #   # use_write_multiple: true
+#   #   name: ${name}_${inverter_name}_toggle_gm_timezone6
+#   #   id: ${inverter_name}_toggle_gm_timezone6
+#   #   register_type: holding
+#   #   address: 279
+#   #   bitmask: 0x04
+#   #   entity_category: config
+#   #   icon: "mdi:toggle-switch"
+    
+
+# number:
+
+#   # REG 250-255 — Écriture heures de début (HHMM)
+#   - platform: modbus_controller
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: "${name}_${inverter_name}_set_timezone1"
+#     id: ${inverter_name}_set_timezone1
+#     address: 250
+#     value_type: U_WORD
+#     min_value: 0
+#     max_value: 2359
+#     step: 1
+#     mode: box
+#     icon: "mdi:clock-edit"
+
+#   - platform: modbus_controller
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: "${name}_${inverter_name}_set_timezone2"
+#     id: ${inverter_name}_set_timezone2
+#     address: 251
+#     value_type: U_WORD
+#     min_value: 0
+#     max_value: 2359
+#     step: 1
+#     mode: box
+#     icon: "mdi:clock-edit"
+
+#   - platform: modbus_controller
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: "${name}_${inverter_name}_set_timezone3"
+#     id: ${inverter_name}_set_timezone3
+#     address: 252
+#     value_type: U_WORD
+#     min_value: 0
+#     max_value: 2359
+#     step: 1
+#     mode: box
+#     icon: "mdi:clock-edit"
+
+#   - platform: modbus_controller
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: "${name}_${inverter_name}_set_timezone4"
+#     id: ${inverter_name}_set_timezone4
+#     address: 253
+#     value_type: U_WORD
+#     min_value: 0
+#     max_value: 2359
+#     step: 1
+#     mode: box
+#     icon: "mdi:clock-edit"
+
+#   - platform: modbus_controller
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: "${name}_${inverter_name}_set_timezone5"
+#     id: ${inverter_name}_set_timezone5
+#     address: 254
+#     value_type: U_WORD
+#     min_value: 0
+#     max_value: 2359
+#     step: 1
+#     mode: box
+#     icon: "mdi:clock-edit"
+
+#   - platform: modbus_controller
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: "${name}_${inverter_name}_set_timezone6"
+#     id: ${inverter_name}_set_timezone6
+#     address: 255
+#     value_type: U_WORD
+#     min_value: 0
+#     max_value: 2359
+#     step: 1
+#     mode: box
+#     icon: "mdi:clock-edit"
+
+
+#     ################  power  ############
+
+#   - platform: modbus_controller         # 256 Settings Power Timezone1
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_power_timezone1
+#     id: ${inverter_name}_set_power_timezone1
+#     unit_of_measurement: 'W'
+#     icon: mdi:power
+#     address: 256
+#     min_value: 0
+#     max_value: 8000
+#     step: 100
+#     value_type: U_WORD
+
+#   - platform: modbus_controller         # 257 Settings Power Timezone2
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_power_timezone2
+#     id: ${inverter_name}_set_power_timezone2
+#     unit_of_measurement: 'W'
+#     icon: mdi:power
+#     address: 257
+#     min_value: 0
+#     max_value: 8000
+#     step: 100
+#     value_type: U_WORD
+
+#   - platform: modbus_controller         # 258 Settings Power Timezone3
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_power_timezone3
+#     id: ${inverter_name}_set_power_timezone3
+#     unit_of_measurement: 'W'
+#     icon: mdi:power
+#     address: 258
+#     min_value: 0
+#     max_value: 8000
+#     step: 100
+#     value_type: U_WORD 
+
+#   - platform: modbus_controller         # 259 Settings Power Timezone4
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_power_timezone4
+#     id: ${inverter_name}_set_power_timezone4
+#     unit_of_measurement: 'W'
+#     icon: mdi:power
+#     address: 259
+#     min_value: 0
+#     max_value: 8000
+#     step: 100
+#     value_type: U_WORD
+
+#   - platform: modbus_controller         # 260 Settings Power Timezone5
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_power_timezone5
+#     id: ${inverter_name}_set_power_timezone5
+#     unit_of_measurement: 'W'
+#     icon: mdi:power
+#     address: 260
+#     min_value: 0
+#     max_value: 8000
+#     step: 100
+#     value_type: U_WORD
+
+#   - platform: modbus_controller         # 261 Settings Power Timezone6
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_power_timezone6
+#     id: ${inverter_name}_set_power_timezone6
+#     unit_of_measurement: 'W'
+#     icon: mdi:power
+#     address: 261
+#     min_value: 0
+#     max_value: 8000
+#     step: 100
+#     value_type: U_WORD 
+
+#     ################  Voltage  ############
+    
+#   - platform: modbus_controller         # 262 Settings Battery voltage Timezone1
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_battery_voltage_timezone1
+#     id: ${inverter_name}_set_battery_voltage_timezone1
+#     unit_of_measurement: 'V'
+#     icon: mdi:sine-wave
+#     address: 262
+#     min_value: 45.0
+#     max_value: 63.0
+#     step: 0.1
+#     value_type: U_WORD
+#     # filters:
+#     #   - multiply: 0.01
+#     multiply: 100
+#     # lambda: "return  x * 100;"
+
+#   - platform: modbus_controller         # 263 Settings Battery voltage Timezone2
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_battery_voltage_timezone2
+#     id: ${inverter_name}_set_battery_voltage_timezone2
+#     unit_of_measurement: 'V'
+#     icon: mdi:sine-wave
+#     address: 263
+#     min_value: 45.0
+#     max_value: 63.0
+#     step: 0.1
+#     value_type: U_WORD
+#     # filters:
+#     #   - multiply: 0.01
+#     multiply: 100
+#     # lambda: "return  x * 100;"
+
+#   - platform: modbus_controller         # 264 Settings Battery voltage Timezone3
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_battery_voltage_timezone3
+#     id: ${inverter_name}_set_battery_voltage_timezone3
+#     unit_of_measurement: 'V'
+#     icon: mdi:sine-wave
+#     address: 264
+#     min_value: 45.0
+#     max_value: 63.0
+#     step: 0.1
+#     value_type: U_WORD
+#     # filters:
+#     #   - multiply: 0.01
+#     multiply: 100
+#     # lambda: "return  x * 100;"
+
+#   - platform: modbus_controller         # 265 Settings Battery voltage Timezone4
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_battery_voltage_timezone4
+#     id: ${inverter_name}_set_battery_voltage_timezone4
+#     unit_of_measurement: 'V'
+#     icon: mdi:sine-wave
+#     address: 265
+#     min_value: 45.0
+#     max_value: 63.0
+#     step: 0.1
+#     value_type: U_WORD
+#     # filters:
+#     #   - multiply: 0.01
+#     multiply: 100
+#     # lambda: "return  x * 100;"
+
+#   - platform: modbus_controller         # 266 Settings Battery voltage Timezone5
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_battery_voltage_timezone5
+#     id: ${inverter_name}_set_battery_voltage_timezone5
+#     unit_of_measurement: 'V'
+#     icon: mdi:sine-wave
+#     address: 266
+#     min_value: 45.0
+#     max_value: 63.0
+#     step: 0.1
+#     value_type: U_WORD
+#     # filters:
+#     #   - multiply: 0.01
+#     multiply: 100
+#     # lambda: "return  x * 100;"
+
+#   - platform: modbus_controller         # 267 Settings Battery voltage Timezone6
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_battery_voltage_timezone6
+#     id: ${inverter_name}_set_battery_voltage_timezone6
+#     unit_of_measurement: 'V'
+#     icon: mdi:sine-wave
+#     address: 267
+#     min_value: 45.0
+#     max_value: 63.0
+#     step: 0.1
+#     value_type: U_WORD
+#     # filters:
+#     #   - multiply: 0.01
+#     multiply: 100
+#     # lambda: "return  x * 100;"  
+
+#     ############ SOC timezone ################
+
+#   - platform: modbus_controller         # 268 Settings SoC Timezone1
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_soc_timezone1
+#     id: ${inverter_name}_set_soc_timezone1
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 268
+#     min_value: 0
+#     max_value: 100
+#     step: 5
+#     value_type: U_WORD  
+
+#   - platform: modbus_controller         # 269 Settings SoC Timezone2
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_soc_timezone2
+#     id: ${inverter_name}_set_soc_timezone2
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 269
+#     min_value: 0
+#     max_value: 100
+#     step: 5
+#     value_type: U_WORD  
+
+#   - platform: modbus_controller         # 270 Settings SoC Timezone3
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_soc_timezone3
+#     id: ${inverter_name}_set_soc_timezone3
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 270
+#     min_value: 0
+#     max_value: 100
+#     step: 5
+#     value_type: U_WORD  
+
+#   - platform: modbus_controller         # 271 Settings SoC Timezone4
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_soc_timezone4
+#     id: ${inverter_name}_set_soc_timezone4
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 271
+#     min_value: 0
+#     max_value: 100
+#     step: 5
+#     value_type: U_WORD  
+
+#   - platform: modbus_controller         # 272 Settings SoC Timezone5
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_soc_timezone5
+#     id: ${inverter_name}_set_soc_timezone5
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 272
+#     min_value: 0
+#     max_value: 100
+#     step: 5
+#     value_type: U_WORD  
+
+#   - platform: modbus_controller         # 273 Settings SoC Timezone6
+#     use_write_multiple: true
+#     modbus_controller_id: ${inverter_name}_modbus_controller
+#     name: ${name}_${inverter_name}_set_soc_timezone6
+#     id: ${inverter_name}_set_soc_timezone6
+#     unit_of_measurement: '%'
+#     icon: mdi:percent
+#     address: 273
+#     min_value: 0
+#     max_value: 100
+#     step: 5
+#     value_type: U_WORD
+
+# text_sensor:
+
+#   - platform: template
+#     name: ${name}_${inverter_name}_time_slot_1
+#     id: ${inverter_name}_time_slot_1
+#     icon: mdi:clock
+#     lambda: |-
+#         unsigned int minutes, hours;
+#         if (id(${inverter_name}_setting_timezone1).state) {
+#         minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone1).state) % 100;
+#         hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone1).state) / 100);
+#         } else {
+#           minutes = 0;
+#           hours = 0;
+#         }
+#         char formatted_time[6];
+#         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
+#         return esphome::optional<std::string>(formatted_time);
+  
+#   - platform: template
+#     name: ${name}_${inverter_name}_time_slot_2
+#     id: ${inverter_name}_time_slot_2
+#     icon: mdi:clock
+#     lambda: |-
+#         unsigned int minutes, hours;
+#         if (id(${inverter_name}_setting_timezone2).state) {
+#         minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone2).state) % 100;
+#         hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone2).state) / 100);
+#         } else {
+#           minutes = 0;
+#           hours = 0;
+#         }
+#         char formatted_time[6];
+#         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
+#         return esphome::optional<std::string>(formatted_time);
+  
+#   - platform: template
+#     name: ${name}_${inverter_name}_time_slot_3
+#     id: ${inverter_name}_time_slot_3
+#     icon: mdi:clock
+#     lambda: |-
+#         unsigned int minutes, hours;
+#         if (id(${inverter_name}_setting_timezone3).state) {
+#         minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone3).state) % 100;
+#         hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone3).state) / 100);
+#         } else {
+#           minutes = 0;
+#           hours = 0;
+#         }
+#         char formatted_time[6];
+#         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
+#         return esphome::optional<std::string>(formatted_time);
+  
+#   - platform: template
+#     name: ${name}_${inverter_name}_time_slot_4
+#     id: ${inverter_name}_time_slot_4
+#     icon: mdi:clock
+#     lambda: |-
+#         unsigned int minutes, hours;
+#         if (id(${inverter_name}_setting_timezone4).state) {
+#         minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone4).state) % 100;
+#         hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone4).state) / 100);
+#         } else {
+#           minutes = 0;
+#           hours = 0;
+#         }
+#         char formatted_time[6];
+#         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
+#         return esphome::optional<std::string>(formatted_time);
+  
+#   - platform: template
+#     name: ${name}_${inverter_name}_time_slot_5
+#     id: ${inverter_name}_time_slot_5
+#     icon: mdi:clock
+#     lambda: |-
+#         unsigned int minutes, hours;
+#         if (id(${inverter_name}_setting_timezone5).state) {
+#         minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone5).state) % 100;
+#         hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone5).state) / 100);
+#         } else {
+#           minutes = 0;
+#           hours = 0;
+#         }
+#         char formatted_time[6];
+#         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
+#         return esphome::optional<std::string>(formatted_time);
+  
+#   - platform: template
+#     name: ${name}_${inverter_name}_time_slot_6
+#     id: ${inverter_name}_time_slot_6
+#     icon: mdi:clock
+#     lambda: |-
+#         unsigned int minutes, hours;
+#         if (id(${inverter_name}_setting_timezone6).state) {
+#         minutes = static_cast<unsigned int>(id(${inverter_name}_setting_timezone6).state) % 100;
+#         hours = static_cast<unsigned int> ((id(${inverter_name}_setting_timezone6).state) / 100);
+#         } else {
+#           minutes = 0;
+#           hours = 0;
+#         }
+#         char formatted_time[6];
+#         snprintf(formatted_time, sizeof(formatted_time), "%02u:%02u", hours, minutes);
+#         return esphome::optional<std::string>(formatted_time);    
 
 
