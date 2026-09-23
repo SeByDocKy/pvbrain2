@@ -1021,3 +1021,38 @@ packages:
   #     offsr_output_id: 'lora_fake_output'
   #     offsr_power_id: 'lora_power_received'
   #     offsr_windows_size: '1'      
+
+
+  ######################## EVSE #################
+
+
+  # evse_1:
+  #   url: https://github.com/SeByDocKy/pvbrain2/
+  #   ref: main
+  #   refresh: 0s
+  #   files: 
+  #     - path: 'pvbrain2/evse/etek/device_ekepc2.yaml'
+  #       vars:
+  #         evse_name: 'evse'
+  #         evse_modbus_id: 'modbus_9600_2'
+  #         evse_modbus_address: '4'
+  #         evse_update_interval: '2s'
+  #         evse_template_update: '2s'
+  #         evse_startup_minimum_pwm: 800
+
+
+  # solar_router_5:
+  #   url: https://github.com/SeByDocKy/pvbrain2/
+  #   ref: main
+  #   refresh: 0s
+  #   files: 
+  #     - path: 'pvbrain2/solar_router/device_offsr_basic.yaml'
+  #       vars:
+  #         offsr_name: 'evsesr'
+  #         offsr_id: 'evse_id'
+  #         offsr_battery_current_id: 'smartshunt_battery_current'
+  #         offsr_battery_voltage_id: 'smartshunt_battery_voltage'
+  #         offsr_output_id: 'evse_output'
+  #         offsr_windows_size: '5'          
+
+  
