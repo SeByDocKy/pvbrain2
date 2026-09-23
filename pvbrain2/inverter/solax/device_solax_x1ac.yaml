@@ -2,12 +2,10 @@ modbus_controller:
  - id: ${inverter_name}_modbus_controller
    address: ${inverter_modbus_address}
    modbus_id: ${inverter_modbus_id}
-   command_throttle: ${inverter_modbus_throttle}
    setup_priority: -10
    update_interval: ${inverter_update_interval}
    
 sensor:
-
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_battery_backup_voltage
@@ -546,7 +544,7 @@ text_sensor:
     # value_type: U_WORD
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0: return std::string("On Grid");
         case 1: return std::string("Off Grid");
@@ -563,7 +561,7 @@ text_sensor:
     # value_type: U_WORD
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0: return std::string("Waiting");
         case 1: return std::string("Checking");
@@ -589,7 +587,7 @@ text_sensor:
     # value_type: U_WORD
     raw_encode: HEXBYTES
     lambda: |-
-      uint16_t value = modbus_controller::word_from_hex_str(x, 0);
+      uint16_t value = modbus::helpers::word_from_hex_str(x, 0);
       switch (value) {
         case 0: return std::string("Self Use Mode");
         case 1: return std::string("Force Time Use");
