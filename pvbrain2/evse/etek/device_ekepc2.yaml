@@ -529,7 +529,7 @@ number:
     min_value: 800   # Correspond à 1000 en PWM (6A minimum norme)
     max_value: 5333 #7360   # Correspond à 5333 en PWM (32A max Mono)
     # step: 100
-    step: 100
+    step: 50
     icon: mdi:numeric
     mode: slider
     unit_of_measurement: ''
@@ -544,7 +544,7 @@ number:
     # accuracy_decimals: 0
     min_value: 1104   # Correspond à 1000 en PWM (6A minimum norme)
     max_value: 7360 #7360   # Correspond à 5333 en PWM (32A max Mono)
-    step: 100
+    step: 50
     # step: 61.18
     icon: mdi:power
     mode: slider
