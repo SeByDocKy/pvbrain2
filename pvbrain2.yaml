@@ -1038,7 +1038,7 @@ packages:
   #         evse_modbus_address: '4'
   #         evse_update_interval: '2s'
   #         evse_template_update: '2s'
-  #         evse_startup_minimum_pwm: 800
+  #         evse_startup_minimum_current: 5
 
 
   # solar_router_5:
