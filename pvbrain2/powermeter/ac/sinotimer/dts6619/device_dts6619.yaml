@@ -25,7 +25,6 @@ modbus_controller:
  - id: ${powermeter_name}_modbus_controller
    address: ${powermeter_modbus_address}
    modbus_id: ${powermeter_modbus_id}
-   command_throttle: ${powermeter_command_throttle}
    setup_priority: -10
    update_interval: ${powermeter_update_interval}
 
@@ -53,6 +52,7 @@ sensor:
     address: 0x0001  
     register_type: read #read #holding
     value_type: U_WORD 
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     device_class: 'voltage'
@@ -67,6 +67,7 @@ sensor:
     address: 0x0002
     register_type: read #read #holding
     value_type: U_WORD 
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     device_class: 'voltage'
@@ -83,6 +84,7 @@ sensor:
     address: 0x0003 
     register_type: read #holding
     value_type: S_WORD
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'A'
     device_class: 'current'
@@ -97,6 +99,7 @@ sensor:
     address: 0x0004 
     register_type: read #holding
     value_type: S_WORD
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'A'
     device_class: 'current'
@@ -112,6 +115,7 @@ sensor:
     address: 0x0005 
     register_type: read #holding
     value_type: S_WORD
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'A'
     device_class: 'current'
@@ -126,6 +130,7 @@ sensor:
     address: 0x0008
     register_type: read #holding
     value_type: S_WORD #S_DWORD_R
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     device_class: 'power'
@@ -138,6 +143,7 @@ sensor:
     address: 0x0009
     register_type: read #holding
     value_type: S_WORD #S_DWORD_R
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     device_class: 'power'
@@ -150,6 +156,7 @@ sensor:
     address: 0x000A
     register_type: read #holding
     value_type: S_WORD #S_DWORD_R
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     device_class: 'power'
@@ -163,6 +170,7 @@ sensor:
     address: 0x0014
     register_type: read #holding
     value_type: U_WORD #U_DWORD_R
+    reuse_previous_range: true
     accuracy_decimals: 2
     #unit_of_measurement: 'W'
     device_class: 'power_factor'
@@ -177,6 +185,7 @@ sensor:
     address: 0x0015
     register_type: read #holding
     value_type: U_WORD #U_DWORD_R
+    reuse_previous_range: true
     accuracy_decimals: 2
     #unit_of_measurement: 'W'
     device_class: 'power_factor'
@@ -191,6 +200,7 @@ sensor:
     address: 0x0016
     register_type: read #holding
     value_type: U_WORD #U_DWORD_R
+    reuse_previous_range: true
     accuracy_decimals: 2
     #unit_of_measurement: 'W'
     device_class: 'power_factor'
@@ -206,6 +216,7 @@ sensor:
     address: 0x001A
     register_type: read #holding
     value_type: U_WORD #U_DWORD_R
+    reuse_previous_range: true
     accuracy_decimals: 2
     unit_of_measurement: 'Hz'
     device_class: 'frequency'
@@ -220,6 +231,7 @@ sensor:
     address: 0x001D
     register_type: read #holding
     value_type: U_DWORD #U_DWORD_R
+    reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'kWh'
     device_class: 'energy'
@@ -260,17 +272,6 @@ sensor:
     update_interval: ${powermeter_template_update}
     lambda: |-
       return (id(${powermeter_name}_energy_yesterday).state = id(${powermeter_name}_energy_yesterday_global));    
-
-
-
-
-
-
-
-
-
-
-
 
 
 
