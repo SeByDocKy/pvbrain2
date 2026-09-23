@@ -307,7 +307,7 @@ packages:
   # ac_dimmer_1: !include
   #   # url: ${git_url}
   #   # refresh: 0s
-  #   file: pvbrain2/ac_dimmer/device_robotdyn.yaml
+  #   file: pvbrain2/dimmer/ac_dimmer/device_robotdyn.yaml
   #   vars:
   #     ac_dimmer_name: 'ac_dimmer'
   #     ac_dimmer_gate_gpio: GPIO07
@@ -316,7 +316,7 @@ packages:
   # ac_dimmer_2: !include
   #   # url: ${git_url}
   #   # refresh: 0s
-  #   file: pvbrain2/ac_dimmer/device_robotdyn.yaml
+  #   file: pvbrain2/dimmer/ac_dimmer/device_robotdyn.yaml
   #   vars:
   #     ac_dimmer_name: 'ac_dimmer'
   #     ac_dimmer_gate_gpio: GPIO03
@@ -325,7 +325,7 @@ packages:
   # lsa_sx1509_1: !include
   #   # url: ${git_url}
   #   # refresh: 0s
-  #   file: pvbrain2/ac_dimmer/device_lsa_sx1509.yaml
+  #   file: pvbrain2/dimmer/ac_dimmer/device_lsa_sx1509.yaml
   #   vars:
   #     lsa_sx1509_name: 'lsa1'
   #     lsa_sx1509_hub: 'sx1509_hub1'
@@ -334,7 +334,7 @@ packages:
   # lsa_gp8403_1: !include
   #   # url: ${git_url}
   #   # refresh: 0s
-  #   file: pvbrain2/ac_dimmer/device_lsa_gp8403.yaml
+  #   file: pvbrain2/dimmer/ac_dimmer/device_lsa_gp8403.yaml
   #   vars:
   #     lsa_gp8403_name: 'lsa1'
   #     lsa_gp8403_channel: '0'
