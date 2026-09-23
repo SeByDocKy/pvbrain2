@@ -539,7 +539,7 @@ number:
     mode: slider
     unit_of_measurement: 'W'
     device_class: 'power'
-    multiply: 1.38
+    multiply: 0.7246 #1.38
     # lambda: |- 
     #   return int(x*1.38f); 
     # write_lambda: |-
