@@ -510,6 +510,22 @@ number:
 
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
+    name: ${name}_${evse_name}_pwm_control
+    id: ${evse_name}_pwm_control
+    address: 109
+    value_type: U_WORD
+    # accuracy_decimals: 0
+    min_value: 800   # Correspond à 1000 en PWM (6A minimum norme)
+    max_value: 5333 #7360   # Correspond à 5333 en PWM (32A max Mono)
+    # step: 100
+    step: 100
+    icon: mdi:power
+    mode: slider
+    unit_of_measurement: ''
+    device_class: 'diagnostic'
+
+  - platform: modbus_controller
+    modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_power_control
     id: ${evse_name}_power_control
     address: 109
@@ -517,8 +533,8 @@ number:
     # accuracy_decimals: 0
     min_value: 1242   # Correspond à 1000 en PWM (6A minimum norme)
     max_value: 7360 #7360   # Correspond à 5333 en PWM (32A max Mono)
-    # step: 100
-    step: 61.18
+    step: 100
+    # step: 61.18
     icon: mdi:power
     mode: slider
     unit_of_measurement: 'W'
