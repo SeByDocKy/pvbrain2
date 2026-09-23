@@ -2,7 +2,6 @@ modbus_controller:
   - id: ${inverter_name}_modbus_controller
     address: ${inverter_modbus_address}
     modbus_id: ${inverter_modbus_id}
-    command_throttle: ${inverter_modbus_throttle}
     setup_priority: -10
     update_interval: ${inverter_update_interval}
     
