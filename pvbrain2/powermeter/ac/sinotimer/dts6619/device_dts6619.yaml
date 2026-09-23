@@ -52,7 +52,7 @@ sensor:
     address: 0x0001  
     register_type: read #read #holding
     value_type: U_WORD 
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     device_class: 'voltage'
@@ -67,15 +67,13 @@ sensor:
     address: 0x0002
     register_type: read #read #holding
     value_type: U_WORD 
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     device_class: 'voltage'
     icon: mdi:sine-wave
     filters:
       - multiply: 0.1
-
-
 
   - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
@@ -84,7 +82,7 @@ sensor:
     address: 0x0003 
     register_type: read #holding
     value_type: S_WORD
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'A'
     device_class: 'current'
@@ -99,14 +97,13 @@ sensor:
     address: 0x0004 
     register_type: read #holding
     value_type: S_WORD
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'A'
     device_class: 'current'
     icon: mdi:current-ac
     filters:
       - multiply: 0.1      
-
 
   - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
@@ -115,7 +112,7 @@ sensor:
     address: 0x0005 
     register_type: read #holding
     value_type: S_WORD
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'A'
     device_class: 'current'
@@ -130,7 +127,7 @@ sensor:
     address: 0x0008
     register_type: read #holding
     value_type: S_WORD #S_DWORD_R
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     device_class: 'power'
@@ -143,7 +140,7 @@ sensor:
     address: 0x0009
     register_type: read #holding
     value_type: S_WORD #S_DWORD_R
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     device_class: 'power'
@@ -156,12 +153,11 @@ sensor:
     address: 0x000A
     register_type: read #holding
     value_type: S_WORD #S_DWORD_R
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     device_class: 'power'
     icon: mdi:power
-
 
   - platform: modbus_controller
     modbus_controller_id: ${powermeter_name}_modbus_controller
@@ -170,7 +166,7 @@ sensor:
     address: 0x0014
     register_type: read #holding
     value_type: U_WORD #U_DWORD_R
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 2
     #unit_of_measurement: 'W'
     device_class: 'power_factor'
@@ -185,7 +181,7 @@ sensor:
     address: 0x0015
     register_type: read #holding
     value_type: U_WORD #U_DWORD_R
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 2
     #unit_of_measurement: 'W'
     device_class: 'power_factor'
@@ -200,7 +196,7 @@ sensor:
     address: 0x0016
     register_type: read #holding
     value_type: U_WORD #U_DWORD_R
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 2
     #unit_of_measurement: 'W'
     device_class: 'power_factor'
@@ -216,7 +212,7 @@ sensor:
     address: 0x001A
     register_type: read #holding
     value_type: U_WORD #U_DWORD_R
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 2
     unit_of_measurement: 'Hz'
     device_class: 'frequency'
@@ -231,14 +227,13 @@ sensor:
     address: 0x001D
     register_type: read #holding
     value_type: U_DWORD #U_DWORD_R
-    reuse_previous_range: true
+    # reuse_previous_range: true
     accuracy_decimals: 1
     unit_of_measurement: 'kWh'
     device_class: 'energy'
     icon: mdi:counter
     filters:
       - multiply: 0.01    
-
 
   - platform: template
     name: ${name}_${powermeter_name}_active_power_total
