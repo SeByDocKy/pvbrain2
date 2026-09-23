@@ -70,38 +70,75 @@ switch:
         - lambda: |-
             if(id(${fan_control_name}_automatic_control).state){
               if(id(${fan_control_name}_working).state){
+                /*
                 if(!id(${fan_control_relay0_id}).state){
                   id(${fan_control_relay0_id}).turn_on();
                 }
+                */
                 if(!id(${fan_control_relay1_id}).state){
                   id(${fan_control_relay1_id}).turn_on();
                 }
+                /*
                 if(!id(${fan_control_relay2_id}).state){
                   id(${fan_control_relay2_id}).turn_on();
                 }
+                */
                 if(!id(${fan_control_relay3_id}).state){
                   id(${fan_control_relay3_id}).turn_on();
                 }
+                id(${fan_control_dc_dimmer1_id}_output).set_level(id(${fan_control_name}_${fan_control_dc_dimmer1_id}_max).state*0.01);
+                id(${fan_control_dc_dimmer1_id}_command).make_call().set_speed(id(${fan_control_name}_${fan_control_dc_dimmer1_id}_max).state).perform();
+                id(${fan_control_dc_dimmer1_id}_command).turn_on().perform();
+                
+                id(${fan_control_dc_dimmer2_id}_output).set_level(id(${fan_control_name}_${fan_control_dc_dimmer2_id}_max).state*0.01);
+                id(${fan_control_dc_dimmer2_id}_command).make_call().set_speed(id(${fan_control_name}_${fan_control_dc_dimmer2_id}_max).state).perform();
+                id(${fan_control_dc_dimmer2_id}_command).turn_on().perform();
+                
+                id(${fan_control_dc_dimmer3_id}_output).set_level(id(${fan_control_name}_${fan_control_dc_dimmer3_id}_max).state*0.01);
+                id(${fan_control_dc_dimmer3_id}_command).make_call().set_speed(id(${fan_control_name}_${fan_control_dc_dimmer3_id}_max).state).perform();
+                id(${fan_control_dc_dimmer3_id}_command).turn_on().perform();
+                
+                id(${fan_control_dc_dimmer4_id}_output).set_level(id(${fan_control_name}_${fan_control_dc_dimmer4_id}_max).state*0.01);
+                id(${fan_control_dc_dimmer4_id}_command).make_call().set_speed(id(${fan_control_name}_${fan_control_dc_dimmer4_id}_max).state).perform();
+                id(${fan_control_dc_dimmer4_id}_command).turn_on().perform();      
                }
             }               
     on_turn_off:
       then:
         - lambda: |-
             if(id(${fan_control_name}_automatic_control).state){
-            
+              /*
               if(!id(${fan_control_relay0_id}).state){
                   id(${fan_control_relay0_id}).turn_on();
                 }
+              */  
               if(!id(${fan_control_relay1_id}).state){
                   id(${fan_control_relay1_id}).turn_on();
                 }
+              /*  
               if(!id(${fan_control_relay2_id}).state){
                   id(${fan_control_relay2_id}).turn_on();
                 }
-              
+              */  
               if(id(${fan_control_relay3_id}).state){
                 id(${fan_control_relay3_id}).turn_off();
               }
+              id(${fan_control_dc_dimmer1_id}_output).set_level(id(${fan_control_name}_${fan_control_dc_dimmer1_id}_min).state*0.01);
+              id(${fan_control_dc_dimmer1_id}_command).make_call().set_speed(id(${fan_control_name}_${fan_control_dc_dimmer1_id}_min).state).perform();
+              id(${fan_control_dc_dimmer1_id}_command).turn_on().perform();
+              
+              id(${fan_control_dc_dimmer2_id}_output).set_level(id(${fan_control_name}_${fan_control_dc_dimmer2_id}_min).state*0.01);
+              id(${fan_control_dc_dimmer2_id}_command).make_call().set_speed(id(${fan_control_name}_${fan_control_dc_dimmer2_id}_min).state).perform();
+              id(${fan_control_dc_dimmer2_id}_command).turn_on().perform();
+              
+              id(${fan_control_dc_dimmer3_id}_output).set_level(id(${fan_control_name}_${fan_control_dc_dimmer3_id}_min).state*0.01);
+              id(${fan_control_dc_dimmer3_id}_command).make_call().set_speed(id(${fan_control_name}_${fan_control_dc_dimmer3_id}_min).state).perform();
+              id(${fan_control_dc_dimmer3_id}_command).turn_on().perform();
+                      
+              id(${fan_control_dc_dimmer4_id}_output).set_level(id(${fan_control_name}_${fan_control_dc_dimmer4_id}_min).state*0.01);
+              id(${fan_control_dc_dimmer4_id}_command).make_call().set_speed(id(${fan_control_name}_${fan_control_dc_dimmer4_id}_min).state).perform();
+              id(${fan_control_dc_dimmer4_id}_command).turn_on().perform();
+
             }        
 text_sensor:
   
@@ -116,8 +153,8 @@ text_sensor:
       int sunrise_min = sunrise.value().hour * 60 + sunrise.value().minute + int(id(${fan_control_name}_offset_sunrise).state);
       unsigned sunrise_hour = int(sunrise_min / 60);
       unsigned sunrise_minute = sunrise_min % 60;
-      ESP_LOGD("sun_shift", "Sunrise  is      %02i:%02i", sunrise.value().hour , sunrise.value().minute);
-      ESP_LOGD("sun_shift", "Sunrise shift is %02i:%02i", sunrise_hour , sunrise_minute);
+      ESP_LOGVV("sun_shift", "Sunrise  is      %02i:%02i", sunrise.value().hour , sunrise.value().minute);
+      ESP_LOGVV("sun_shift", "Sunrise shift is %02i:%02i", sunrise_hour , sunrise_minute);
       auto time = id(my_time).now();
       int time_min = time.hour * 60 + time.minute;
       if (sunrise_min < time_min){
@@ -157,8 +194,8 @@ text_sensor:
       int sunset_min = sunset.value().hour * 60 + sunset.value().minute + int(id(${fan_control_name}_offset_sunset).state);
       unsigned int sunset_hour = int(sunset_min / 60);
       unsigned int sunset_minute = sunset_min % 60;
-      ESP_LOGD("sun_shift", "Sunset  is      %02i:%02i", sunset.value().hour , sunset.value().minute);
-      ESP_LOGD("sun_shift", "Sunset shift is %02i:%02i", sunset_hour , sunset_minute);
+      ESP_LOGVV("sun_shift", "Sunset  is      %02i:%02i", sunset.value().hour , sunset.value().minute);
+      ESP_LOGVV("sun_shift", "Sunset shift is %02i:%02i", sunset_hour , sunset_minute);
       auto time = id(my_time).now();
       int time_min = time.hour * 60 + time.minute;
       if (sunset_min > time_min){
@@ -212,4 +249,327 @@ number:
     step: 10
     initial_value: -30
     restore_value: true
-    mode: 'slider'  
+    mode: 'slider'
+
+  - platform: template
+    name: ${name}_${fan_control_name}_${fan_control_dc_dimmer1_id}_min
+    id: ${fan_control_name}_${fan_control_dc_dimmer1_id}_min
+    optimistic: true
+    unit_of_measurement: '%'
+    icon: mdi:percent
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 50
+    restore_value: true
+    mode: 'slider'
+
+  - platform: template
+    name: ${name}_${fan_control_name}_${fan_control_dc_dimmer1_id}_max
+    id: ${fan_control_name}_${fan_control_dc_dimmer1_id}_max
+    optimistic: true
+    unit_of_measurement: '%'
+    icon: mdi:percent
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 90
+    restore_value: true
+    mode: 'slider'
+
+  - platform: template
+    name: ${name}_${fan_control_name}_${fan_control_dc_dimmer2_id}_min
+    id: ${fan_control_name}_${fan_control_dc_dimmer2_id}_min
+    optimistic: true
+    unit_of_measurement: '%'
+    icon: mdi:percent
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 25
+    restore_value: true
+    mode: 'slider'
+
+  - platform: template
+    name: ${name}_${fan_control_name}_${fan_control_dc_dimmer2_id}_max
+    id: ${fan_control_name}_${fan_control_dc_dimmer2_id}_max
+    optimistic: true
+    unit_of_measurement: '%'
+    icon: mdi:percent
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 50
+    restore_value: true
+    mode: 'slider'
+
+  - platform: template
+    name: ${name}_${fan_control_name}_${fan_control_dc_dimmer3_id}_min
+    id: ${fan_control_name}_${fan_control_dc_dimmer3_id}_min
+    optimistic: true
+    unit_of_measurement: '%'
+    icon: mdi:percent
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 40
+    restore_value: true
+    mode: 'slider'
+
+  - platform: template
+    name: ${name}_${fan_control_name}_${fan_control_dc_dimmer3_id}_max
+    id: ${fan_control_name}_${fan_control_dc_dimmer3_id}_max
+    optimistic: true
+    unit_of_measurement: '%'
+    icon: mdi:percent
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 60
+    restore_value: true
+    mode: 'slider'
+
+  - platform: template
+    name: ${name}_${fan_control_name}_${fan_control_dc_dimmer4_id}_min
+    id: ${fan_control_name}_${fan_control_dc_dimmer4_id}_min
+    optimistic: true
+    unit_of_measurement: '%'
+    icon: mdi:percent
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 30
+    restore_value: true
+    mode: 'slider'
+
+  - platform: template
+    name: ${name}_${fan_control_name}_${fan_control_dc_dimmer4_id}_max
+    id: ${fan_control_name}_${fan_control_dc_dimmer4_id}_max
+    optimistic: true
+    unit_of_measurement: '%'
+    icon: mdi:percent
+    min_value: 0
+    max_value: 100
+    step: 1
+    initial_value: 65
+    restore_value: true
+    mode: 'slider'    
+
+
+
+
+# sun:
+#   latitude: !secret esphome_lat
+#   longitude: !secret esphome_long
+#   id: my_sun
+  
+# time:
+#   - platform: homeassistant #sntp
+#     id: !extend my_time
+
+# switch:
+#   - platform: template
+#     name: ${name}_${fan_control_name}_automatic_control
+#     id: ${fan_control_name}_automatic_control
+#     optimistic: true
+#     restore_mode: ALWAYS_ON 
+
+# # binary_sensor:
+#   - platform: template
+#     name: ${name}_${fan_control_name}_after_sunrise
+#     id: ${fan_control_name}_after_sunrise
+#     optimistic: true
+#     on_turn_on:
+#       then:
+#         - lambda: |-
+#             if( (id(${fan_control_name}_after_sunrise).state) && (id(${fan_control_name}_before_sunset).state) ){
+#               id(${fan_control_name}_working).publish_state(true);
+#             }
+#             else{
+#               id(${fan_control_name}_working).publish_state(false);
+#             }
+#     on_turn_off:
+#       then:
+#         - lambda: |-
+#             if( (id(${fan_control_name}_after_sunrise).state) && (id(${fan_control_name}_before_sunset).state) ){
+#               id(${fan_control_name}_working).publish_state(true);
+#             }
+#             else{
+#               id(${fan_control_name}_working).publish_state(false);
+#             }        
+    
+#   - platform: template
+#     name: ${name}_${fan_control_name}_before_sunset
+#     id: ${fan_control_name}_before_sunset
+#     optimistic: true
+#     on_turn_on:
+#       then:
+#         - lambda: |-
+#             if( (id(${fan_control_name}_after_sunrise).state) && (id(${fan_control_name}_before_sunset).state) ){
+#               id(${fan_control_name}_working).publish_state(true);
+#             }
+#             else{
+#               id(${fan_control_name}_working).publish_state(false);
+#             }
+#     on_turn_off:
+#       then:
+#         - lambda: |-
+#             if( (id(${fan_control_name}_after_sunrise).state) && (id(${fan_control_name}_before_sunset).state) ){
+#               id(${fan_control_name}_working).publish_state(true);
+#             }
+#             else{
+#               id(${fan_control_name}_working).publish_state(false);
+#             }
+    
+#   - platform: template
+#     name: ${name}_${fan_control_name}_working
+#     id: ${fan_control_name}_working
+#     optimistic: true
+#     on_turn_on:
+#       then:
+#         - lambda: |-
+#             if(id(${fan_control_name}_automatic_control).state){
+#               if(id(${fan_control_name}_working).state){
+#                 if(!id(${fan_control_relay0_id}).state){
+#                   id(${fan_control_relay0_id}).turn_on();
+#                 }
+#                 if(!id(${fan_control_relay1_id}).state){
+#                   id(${fan_control_relay1_id}).turn_on();
+#                 }
+#                 if(!id(${fan_control_relay2_id}).state){
+#                   id(${fan_control_relay2_id}).turn_on();
+#                 }
+#                 if(!id(${fan_control_relay3_id}).state){
+#                   id(${fan_control_relay3_id}).turn_on();
+#                 }
+#                }
+#             }               
+#     on_turn_off:
+#       then:
+#         - lambda: |-
+#             if(id(${fan_control_name}_automatic_control).state){
+            
+#               if(!id(${fan_control_relay0_id}).state){
+#                   id(${fan_control_relay0_id}).turn_on();
+#                 }
+#               if(!id(${fan_control_relay1_id}).state){
+#                   id(${fan_control_relay1_id}).turn_on();
+#                 }
+#               if(!id(${fan_control_relay2_id}).state){
+#                   id(${fan_control_relay2_id}).turn_on();
+#                 }
+              
+#               if(id(${fan_control_relay3_id}).state){
+#                 id(${fan_control_relay3_id}).turn_off();
+#               }
+#             }        
+# text_sensor:
+  
+#   - platform: template
+#     name: ${name}_${fan_control_name}_sunrise_offset_time
+#     id: ${fan_control_name}_sunrise_offset_time
+#     update_interval: ${fan_control_text_update}
+#     lambda: |-
+#       auto sunrise = id(my_sun).sunrise(-0.833);
+#       if (!sunrise.has_value())
+#         return {"NaN"};
+#       int sunrise_min = sunrise.value().hour * 60 + sunrise.value().minute + int(id(${fan_control_name}_offset_sunrise).state);
+#       unsigned sunrise_hour = int(sunrise_min / 60);
+#       unsigned sunrise_minute = sunrise_min % 60;
+#       ESP_LOGD("sun_shift", "Sunrise  is      %02i:%02i", sunrise.value().hour , sunrise.value().minute);
+#       ESP_LOGD("sun_shift", "Sunrise shift is %02i:%02i", sunrise_hour , sunrise_minute);
+#       auto time = id(my_time).now();
+#       int time_min = time.hour * 60 + time.minute;
+#       if (sunrise_min < time_min){
+#         id(${fan_control_name}_after_sunrise).publish_state(true);
+#       }
+#       else{
+#         id(${fan_control_name}_after_sunrise).publish_state(false);
+#       }
+#       /*
+#       if((sunrise_hour == time.hour) and (sunrise_minute == time.minute)){
+#         if(id(${fan_control_name}_automatic_control).state){
+#           if(!id(${fan_control_relay0_id}).state){
+#             id(${fan_control_relay0_id}).turn_on();
+#           }
+#           if(!id(${fan_control_relay1_id}).state){
+#             id(${fan_control_relay1_id}).turn_on();
+#           }
+#           if(!id(${fan_control_relay2_id}).state){
+#             id(${fan_control_relay2_id}).turn_on();
+#           }
+#         }
+#       }
+#       */
+#       char buffer[8];
+#       sprintf(buffer,"%02i:%02i", sunrise_hour , sunrise_minute);
+#       return {buffer};
+  
+#   - platform: template
+#     name: ${name}_${fan_control_name}_sunset_offset_time
+#     id: ${fan_control_name}_sunset_offset_time
+#     update_interval: ${fan_control_template_update}
+#     lambda: |-
+#       auto sunset = id(my_sun).sunset(-0.833);
+#       if (!sunset.has_value()){
+#         return {"NaN"};
+#       }
+#       int sunset_min = sunset.value().hour * 60 + sunset.value().minute + int(id(${fan_control_name}_offset_sunset).state);
+#       unsigned int sunset_hour = int(sunset_min / 60);
+#       unsigned int sunset_minute = sunset_min % 60;
+#       ESP_LOGD("sun_shift", "Sunset  is      %02i:%02i", sunset.value().hour , sunset.value().minute);
+#       ESP_LOGD("sun_shift", "Sunset shift is %02i:%02i", sunset_hour , sunset_minute);
+#       auto time = id(my_time).now();
+#       int time_min = time.hour * 60 + time.minute;
+#       if (sunset_min > time_min){
+#         id(${fan_control_name}_before_sunset).publish_state(true);
+#       }
+#       else{
+#         id(${fan_control_name}_before_sunset).publish_state(false);
+#       }
+#       /*
+#       if((sunset_hour == time.hour) and (sunset_minute == time.minute)){
+#         if(id(${fan_control_name}_automatic_control).state){
+#           if(id(${fan_control_relay0_id}).state){
+#             id(${fan_control_relay0_id}).turn_off();
+#           }
+#           if(id(${fan_control_relay1_id}).state){
+#             id(${fan_control_relay1_id}).turn_off();
+#           }
+#           if(id(${fan_control_relay2_id}).state){
+#             id(${fan_control_relay2_id}).turn_off();
+#           }
+#         }
+#       }
+#       */
+#       char buffer[8];
+#       sprintf(buffer,"%02i:%02i", sunset_hour , sunset_minute);
+#       return {buffer};
+      
+# number:
+    
+#   - platform: template
+#     name: ${name}_${fan_control_name}_offset_sunrise
+#     id: ${fan_control_name}_offset_sunrise
+#     optimistic: true
+#     unit_of_measurement: 'min'
+#     icon: mdi:timer-sand
+#     min_value: -240
+#     max_value: 240
+#     step: 10
+#     initial_value: 30
+#     restore_value: true
+#     mode: 'slider'
+    
+#   - platform: template
+#     name: ${name}_${fan_control_name}_offset_sunset
+#     id: ${fan_control_name}_offset_sunset
+#     optimistic: true
+#     unit_of_measurement: 'min'
+#     icon: mdi:timer-sand
+#     min_value: -240
+#     max_value: 240
+#     step: 10
+#     initial_value: -30
+#     restore_value: true
+#     mode: 'slider'  
