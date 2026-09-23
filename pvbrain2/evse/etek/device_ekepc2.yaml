@@ -29,13 +29,13 @@
 
 esphome:
   on_boot:
-    # IMPORTANT: the list form (- priority:) is required so this trigger
-    # MERGES with on_boot triggers declared by other packages.
     - priority: -100.0
       then:
         - number.set: 
             id: ${evse_name}_pwm_control
-            value: ${evse_startup_minimum_pwm}
+            value: !lambda |-  # ${evse_startup_minimum_pwm}
+              return ${evse_startup_minimum_current}*160   // 160 = 230V/1.4375
+            
 
 modbus_controller:
  - id: ${evse_name}_modbus_controller
@@ -114,7 +114,7 @@ sensor:
       // if (index.has_value()) {
         // nbphase = (2*index.value()+1);
       // }
-      return ((id(${evse_name}_current_pwm).state*id(${evse_name}_phase_number).state*1.38f));
+      return ((id(${evse_name}_current_pwm).state*id(${evse_name}_phase_number).state*1.4375f));
 
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -160,7 +160,6 @@ sensor:
     icon: mdi:cable-data
     state_class: 'measurement'
     
-    
     # skip_updates: 50
     
   - platform: modbus_controller
@@ -191,8 +190,7 @@ sensor:
       else{
        return 3;
       }
-    
-    
+       
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_software_version
@@ -550,11 +548,11 @@ number:
     mode: slider
     unit_of_measurement: 'W'
     device_class: 'power'
-    multiply: 0.7246 #1.38
+    multiply: 0.6957 #1.0/1.4375
     # lambda: |- 
-    #   return int(x*1.38f); 
+    #   return int(x*0.6957f); 
     # write_lambda: |-
-    #   return int(x/1.38f);
+    #   return int(x/0.6957f);
       
       
   # - platform: modbus_controller
