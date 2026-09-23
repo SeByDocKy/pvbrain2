@@ -102,7 +102,7 @@ sensor:
     id: ${powermeter_name}_current
     address: 0x0003 
     register_type: read
-    reuse_previous_range: true #holding
+    # reuse_previous_range: true #holding
     value_type: S_WORD
     accuracy_decimals: 1
     unit_of_measurement: 'A'
@@ -117,8 +117,8 @@ sensor:
     id: ${powermeter_name}_power
     address: 0x0008
     register_type: read
-    reuse_previous_range: true #holding
     value_type: S_WORD #S_DWORD_R
+    # reuse_previous_range: true #holding
     accuracy_decimals: 1
     unit_of_measurement: 'W'
     device_class: 'power'
@@ -132,8 +132,8 @@ sensor:
     id: ${powermeter_name}_power_factor
     address: 0x0014
     register_type: read
-    reuse_previous_range: true #holding
     value_type: U_WORD #U_DWORD_R
+    # reuse_previous_range: true #holding
     accuracy_decimals: 2
     #unit_of_measurement: 'W'
     device_class: 'power_factor'
@@ -147,8 +147,8 @@ sensor:
     id: ${powermeter_name}_frequency
     address: 0x001A
     register_type: read
-    reuse_previous_range: true #holding
     value_type: U_WORD #U_DWORD_R
+    # reuse_previous_range: true #holding
     accuracy_decimals: 2
     unit_of_measurement: 'Hz'
     device_class: 'frequency'
@@ -162,8 +162,8 @@ sensor:
     id: ${powermeter_name}_energy_total
     address: 0x001D
     register_type: read
-    reuse_previous_range: true #holding
     value_type: U_DWORD
+    # reuse_previous_range: true #holding
     accuracy_decimals: 1
     unit_of_measurement: 'kWh'
     device_class: 'energy'
