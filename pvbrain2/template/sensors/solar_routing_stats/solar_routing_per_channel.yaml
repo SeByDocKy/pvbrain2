@@ -73,7 +73,7 @@ sensor:
     update_interval: ${solar_routing_template_update}
     lambda: |-
       float power = 0.0f;
-      if (id(${solar_routing_channel2_activation})){
+      if (id(${solar_routing_channel2_activation}).state){
         power = id(${solar_routing_power}).state;
       }
       return power;
