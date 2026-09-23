@@ -1,0 +1,18 @@
+output:
+  - platform: sx1509
+    sx1509_id: ${d4184_sx1509_hub}
+    id: ${d4184_sx1509_name}_output
+    pin: ${d4184_sx1509_pin}
+    inverted: true
+
+# light:
+  # - platform: monochromatic
+    # name: ${name}_${d4184_sx1509_name}_command
+    # id: ${d4184_sx1509_name}_command
+    # output: ${d4184_sx1509_name}_output
+    
+fan:
+  - platform: speed
+    name: ${name}_${d4184_sx1509_name}_command
+    id: ${d4184_sx1509_name}_command
+    output: ${d4184_sx1509_name}_output   

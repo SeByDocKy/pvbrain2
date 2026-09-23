@@ -1,0 +1,23 @@
+output:
+  - platform: sx1509
+    sx1509_id: ${lsa_sx1509_hub}
+    id: ${lsa_sx1509_name}_output
+    pin: ${lsa_sx1509_pin}
+    inverted: true
+    # min_power: 0.12
+    # max_power: 0.84
+
+############ Power diverter controlled by SSR with a fan or light object #########"
+    
+    
+# light:
+  # - platform: monochromatic
+    # id: ${ssr_name}_diverter_command
+    # name: ${name}_${ssr_name}_command
+    # output: ${ssr_name}_output
+    
+fan:
+  - platform: speed
+    id: ${lsa_sx1509_name}_command
+    name: ${name}_${lsa_sx1509_name}_command
+    output: ${lsa_sx1509_name}_output  
