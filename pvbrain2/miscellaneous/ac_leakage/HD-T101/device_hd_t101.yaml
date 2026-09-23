@@ -2,7 +2,6 @@ modbus_controller:
  - id: ${ac_current_leakage_name}_modbus_controller
    address: ${ac_current_leakage_modbus_address}
    modbus_id: ${ac_current_leakage_modbus_id}
-   command_throttle: ${ac_current_leakage_modbus_throttle}
    setup_priority: -10
    update_interval: ${ac_current_leakage_update_interval}
    
