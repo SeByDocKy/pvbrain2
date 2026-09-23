@@ -41,7 +41,8 @@ output:
     address: 109   #0x6D
     register_type: holding
     value_type: U_WORD
-    multiply: 0.0001
+    # multiply: 0.0001
+    multiply: 10000
     
 fan:
   - platform: speed
