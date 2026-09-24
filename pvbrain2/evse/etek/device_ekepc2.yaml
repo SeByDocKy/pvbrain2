@@ -569,7 +569,7 @@ number:
     mode: slider
     unit_of_measurement: 'A'
     device_class: 'current'
-    multiply: 0.0063 #1.0/160    
+    multiply: 160 #1.0/160    
       
       
   # - platform: modbus_controller
