@@ -36,7 +36,7 @@ sensor:
     name: ${name}_${powermeter_name}_pa_voltage
     id: ${powermeter_name}_pa_voltage
     address: 0x0000  
-    register_type: read #read #holding
+    register_type: input  #read #holding
     value_type: U_WORD 
     accuracy_decimals: 1
     unit_of_measurement: 'V'
@@ -50,7 +50,7 @@ sensor:
     name: ${name}_${powermeter_name}_pb_voltage
     id: ${powermeter_name}_pb_voltage
     address: 0x0001  
-    register_type: read #read #holding
+    register_type: input  #read #holding
     value_type: U_WORD 
     # reuse_previous_range: true
     accuracy_decimals: 1
@@ -65,7 +65,7 @@ sensor:
     name: ${name}_${powermeter_name}_pc_voltage
     id: ${powermeter_name}_pc_voltage
     address: 0x0002
-    register_type: read #read #holding
+    register_type: input  #read #holding
     value_type: U_WORD 
     # reuse_previous_range: true
     accuracy_decimals: 1
@@ -80,7 +80,7 @@ sensor:
     name: ${name}_${powermeter_name}_pa_current
     id: ${powermeter_name}_pa_current
     address: 0x0003 
-    register_type: read #holding
+    register_type: input  #holding
     value_type: S_WORD
     # reuse_previous_range: true
     accuracy_decimals: 1
@@ -95,7 +95,7 @@ sensor:
     name: ${name}_${powermeter_name}_pb_current
     id: ${powermeter_name}_pb_current
     address: 0x0004 
-    register_type: read #holding
+    register_type: input  #holding
     value_type: S_WORD
     # reuse_previous_range: true
     accuracy_decimals: 1
@@ -110,7 +110,7 @@ sensor:
     name: ${name}_${powermeter_name}_pc_current
     id: ${powermeter_name}_pc_current
     address: 0x0005 
-    register_type: read #holding
+    register_type: input  #holding
     value_type: S_WORD
     # reuse_previous_range: true
     accuracy_decimals: 1
@@ -125,7 +125,7 @@ sensor:
     name: ${name}_${powermeter_name}_pa_active_power
     id: ${powermeter_name}_pa_active_power
     address: 0x0008
-    register_type: read #holding
+    register_type: input  #holding
     value_type: S_WORD #S_DWORD_R
     # reuse_previous_range: true
     accuracy_decimals: 1
@@ -138,7 +138,7 @@ sensor:
     name: ${name}_${powermeter_name}_pb_active_power
     id: ${powermeter_name}_pb_active_power
     address: 0x0009
-    register_type: read #holding
+    register_type: input  #holding
     value_type: S_WORD #S_DWORD_R
     # reuse_previous_range: true
     accuracy_decimals: 1
@@ -151,7 +151,7 @@ sensor:
     name: ${name}_${powermeter_name}_pc_active_power
     id: ${powermeter_name}_pc_active_power
     address: 0x000A
-    register_type: read #holding
+    register_type: input  #holding
     value_type: S_WORD #S_DWORD_R
     # reuse_previous_range: true
     accuracy_decimals: 1
@@ -164,7 +164,7 @@ sensor:
     name: ${name}_${powermeter_name}_pa_pf
     id: ${powermeter_name}_pa_pf
     address: 0x0014
-    register_type: read #holding
+    register_type: input  #holding
     value_type: U_WORD #U_DWORD_R
     # reuse_previous_range: true
     accuracy_decimals: 2
@@ -179,7 +179,7 @@ sensor:
     name: ${name}_${powermeter_name}_pb_pf
     id: ${powermeter_name}_pb_pf
     address: 0x0015
-    register_type: read #holding
+    register_type: input  #holding
     value_type: U_WORD #U_DWORD_R
     # reuse_previous_range: true
     accuracy_decimals: 2
@@ -194,7 +194,7 @@ sensor:
     name: ${name}_${powermeter_name}_pc_pf
     id: ${powermeter_name}_pc_pf
     address: 0x0016
-    register_type: read #holding
+    register_type: input  #holding
     value_type: U_WORD #U_DWORD_R
     # reuse_previous_range: true
     accuracy_decimals: 2
@@ -210,7 +210,7 @@ sensor:
     name: ${name}_${powermeter_name}_frequency
     id: ${powermeter_name}_frequency
     address: 0x001A
-    register_type: read #holding
+    register_type: input  #holding
     value_type: U_WORD #U_DWORD_R
     # reuse_previous_range: true
     accuracy_decimals: 2
@@ -225,7 +225,7 @@ sensor:
     name: ${name}_${powermeter_name}_active_energy_total
     id: ${powermeter_name}_active_energy_total
     address: 0x001D
-    register_type: read #holding
+    register_type: input  #holding
     value_type: U_DWORD #U_DWORD_R
     # reuse_previous_range: true
     accuracy_decimals: 1
