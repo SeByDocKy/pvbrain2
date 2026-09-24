@@ -6,6 +6,7 @@ sensor:
     icon: mdi:counter
     unit_of_measurement: 'kWh'
     device_class: energy
+    state_class: total_increasing
     update_interval: ${total_energy_template_update}
     lambda: |-
       float energy = 0.0f;
