@@ -260,7 +260,6 @@ sensor:
     icon: mdi:battery-80
       
 
-
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_ac_power
@@ -272,6 +271,7 @@ sensor:
     unit_of_measurement: 'W'
     device_class: power
     state_class: measurement
+    icon: mdi:power
 
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -284,7 +284,8 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'kWh'
     device_class: energy
-    state_class: measurement    
+    state_class: measurement
+    icon: mdi:counter
     filters:
       - multiply: 0.01
 
@@ -299,7 +300,8 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'kWh'
     device_class: energy
-    state_class: measurement    
+    state_class: measurement   
+    icon: mdi:counter
     filters:
       - multiply: 0.01
 
@@ -313,7 +315,8 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     device_class: voltage
-    state_class: measurement    
+    state_class: measurement  
+    icon: mdi:sine-wave
     filters:
       - multiply: 0.1
 
@@ -328,7 +331,8 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'A'
     device_class: current
-    state_class: measurement    
+    state_class: measurement
+    icon: mdicurrent-ac
     filters:
       - multiply: 0.1
 
@@ -344,6 +348,7 @@ sensor:
     unit_of_measurement: 'W'
     device_class: power
     state_class: measurement
+    icon: mdi:power
 
   - platform: modbus_controller
     modbus_controller_id: ${inverter_name}_modbus_controller
@@ -357,6 +362,7 @@ sensor:
     unit_of_measurement: 'Hz'
     device_class: frequency
     state_class: measurement
+    icon: mdi:metronome
     filters:
       - multiply: 0.01
 
@@ -370,7 +376,8 @@ sensor:
     accuracy_decimals: 1
     unit_of_measurement: 'V'
     device_class: voltage
-    state_class: measurement  
+    state_class: measurement
+    icon: mdi:sine-wave
     filters:
       - multiply: 0.1
 
@@ -386,6 +393,7 @@ sensor:
     unit_of_measurement: 'A'
     device_class: current
     state_class: measurement
+    icon: mdi:current-dc
     filters:
       - multiply: 0.1
 
@@ -401,6 +409,7 @@ sensor:
     unit_of_measurement: 'A'
     device_class: current
     state_class: measurement
+    icon: mdi:current-dc
     filters:
       - multiply: 0.1 
 
@@ -412,9 +421,10 @@ sensor:
     register_type: holding
     value_type: U_WORD
     accuracy_decimals: 1
-    unit_of_measurement: V
+    unit_of_measurement: 'V'
     device_class: voltage
     state_class: measurement
+    icon: mdi:sine-wave
     filters:
       - multiply: 0.1
       
