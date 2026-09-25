@@ -13,13 +13,16 @@ uart:
     tx_pin: GPIO43
     rx_pin: GPIO44
     baud_rate: ${uart_esp0_baudrate}
+    # clock_source: XTAL
 
   - id: uart_esp_1
     tx_pin: GPIO17
     rx_pin: GPIO18
     baud_rate: ${uart_esp1_baudrate}
+    # clock_source: XTAL
     
   - id: uart_esp_2
     tx_pin: GPIO15
     rx_pin: GPIO16
     baud_rate: ${uart_esp2_baudrate}
+    # clock_source: XTAL
