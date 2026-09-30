@@ -746,8 +746,8 @@ sensor:
     address: 0x129C
     register_type: holding
     value_type: S_WORD
-    register_count: 2
-    response_size: 2
+    # register_count: 2
+    # response_size: 2
     unit_of_measurement: "°C"
     device_class: temperature
     state_class: measurement
@@ -762,8 +762,8 @@ sensor:
     address: 0x129E
     register_type: holding
     value_type: S_WORD
-    register_count: 2
-    response_size: 2
+    # register_count: 2
+    # response_size: 2
     unit_of_measurement: "°C"
     device_class: temperature
     state_class: measurement
