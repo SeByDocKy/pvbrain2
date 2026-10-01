@@ -111,7 +111,6 @@ sensor:
       id: ${name}_${bms_name}_total_voltage
     power:
       name: ${name}_${bms_name}_power 
-         
     current:
       name: ${name}_${bms_name}_current
       id: ${bms_name}_current
@@ -145,6 +144,8 @@ sensor:
       # name: ${name}_${bms_name}_operation_mode_bitmask
     # battery_strings:
       # name: ${name}_${bms_name}_battery_strings
+    state_of_charge:
+      name: ${name}_${bms_name}_battery_soc  
   
   - platform: template
     name: ${name}_${bms_name}_battery_charging_current
