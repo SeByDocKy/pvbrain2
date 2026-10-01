@@ -25,6 +25,7 @@ sensor:
     icon: mdi:power
     unit_of_measurement: 'W'
     device_class: power
+    state_class: 'measurement'
     update_interval: ${total_power_template_update}
     lambda: |-
       float power = 0.0f;
