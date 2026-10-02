@@ -188,7 +188,8 @@ sensor:
     on_value:
       then:
         - lambda: |-
-            const float ph = id(${evse_name}_power_control).state;   // 1 ou 3
+            auto *n = id(${evse_name}_power_control);
+            const float ph = x;   // 1 ou 3
             n->traits.set_min_value(1104.0f * ph);
             n->traits.set_max_value(7360.0f * ph);
             n->traits.set_step(50.0f * ph);
