@@ -193,7 +193,10 @@ sensor:
       then:
         - if:
             condition:
-              lambda: 'return static_cast<int>(x) != id(${evse_name}_last_phase);'
+              lambda: |-
+                const bool charging = id(${evse_name}_status).has_state() &&
+                                      id(${evse_name}_status).state == 5;
+                return !charging && static_cast<int>(x) != id(${evse_name}_last_phase);
             then:
               - lambda: |-
                   const int ph = static_cast<int>(x);
