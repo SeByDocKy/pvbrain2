@@ -184,12 +184,17 @@ sensor:
     icon: mdi:numeric
     state_class: 'measurement'
     lambda: |-
-      if (x==0) { 
-        return 1;
-      }
-      else{
-       return 3;
-      }
+      return (x == 0) ? 1 : 3;
+    on_value:
+      then:
+        - lambda: |-
+            const float ph = id(${evse_name}_power_control).state;   // 1 ou 3
+            n->traits.set_min_value(1104.0f * ph);
+            n->traits.set_max_value(7360.0f * ph);
+            n->traits.set_step(50.0f * ph);
+            // republier la valeur à partir du courant réel
+            if (id(${evse_name}_current_pwm).has_state())
+              n->publish_state(id(${evse_name}_current_pwm).state * 1.4375f * ph);  
        
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -548,12 +553,14 @@ number:
     mode: slider
     unit_of_measurement: 'W'
     device_class: 'power'
-    multiply: 0.6957 #1.0/1.4375
-    # lambda: |- 
-    #   return int(x*0.6957f); 
-    # write_lambda: |-
-    #   return int(x/0.6957f);
-
+    # multiply: 0.6957 #1.0/1.4375
+    lambda: |-
+      float ph = id(${evse_name}_phase_number).has_state() ? id(${evse_name}_phase_number).state : 1.0f;
+      return x * 1.4375f * ph;
+    write_lambda: |-
+      float ph = id(${evse_name}_phase_number).has_state() ? id(${evse_name}_phase_number).state : 1.0f;
+      return x / (1.4375f * ph);
+    
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
     name: ${name}_${evse_name}_current_control
