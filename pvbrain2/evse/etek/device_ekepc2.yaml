@@ -573,11 +573,11 @@ number:
     # multiply: 0.6957 #1.0/1.4375
     lambda: |-
       float ph = id(${evse_name}_phase_number).has_state() ? id(${evse_name}_phase_number).state : 1.0f;
-      return x * 1.4375f * ph;
+      return roundf(x * 1.4375f * ph);
     write_lambda: |-
       float ph = id(${evse_name}_phase_number).has_state() ? id(${evse_name}_phase_number).state : 1.0f;
       float p = std::max(1104.0f * ph, std::min(x, 7360.0f * ph));
-      return p / (1.4375f * ph);
+      return roundf(p / (1.4375f * ph));
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -594,7 +594,14 @@ number:
     mode: slider
     unit_of_measurement: 'A'
     device_class: 'current'
-    multiply: 160 #1.0/160    
+    # multiply: 160 #1.0/160    
+
+    lambda: |-
+      // raw register / 160 = amperes, rounded to 1 decimal
+      return roundf(x / 160.0f * 10.0f) / 10.0f;
+    write_lambda: |-
+      // amperes * 160 = raw register value
+      return roundf(x * 160.0f);
       
       
   # - platform: modbus_controller
