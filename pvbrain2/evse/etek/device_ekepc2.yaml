@@ -196,6 +196,10 @@ sensor:
             // republier la valeur à partir du courant réel
             if (id(${evse_name}_current_pwm).has_state())
               n->publish_state(id(${evse_name}_current_pwm).state * 1.4375f * ph);  
+         # Force HA to re-read entity metadata (min/max/step)
+        - wifi.disable:
+        - delay: 2s
+        - wifi.enable:              
        
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
