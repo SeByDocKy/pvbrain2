@@ -560,7 +560,8 @@ number:
       return x * 1.4375f * ph;
     write_lambda: |-
       float ph = id(${evse_name}_phase_number).has_state() ? id(${evse_name}_phase_number).state : 1.0f;
-      return x / (1.4375f * ph);
+      float p = std::max(1104.0f * ph, std::min(x, 7360.0f * ph));
+      return p / (1.4375f * ph);
     
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
