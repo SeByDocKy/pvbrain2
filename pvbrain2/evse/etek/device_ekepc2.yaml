@@ -36,6 +36,10 @@ esphome:
             value: !lambda |-  # ${evse_startup_minimum_pwm}
               return ${evse_startup_minimum_current}*160;   // 160 = 230V/1.4375
             
+globals:
+  - id: ${evse_name}_last_phase
+    type: float
+    initial_value: '0'
 
 modbus_controller:
  - id: ${evse_name}_modbus_controller
@@ -187,19 +191,23 @@ sensor:
       return (x == 0) ? 1 : 3;
     on_value:
       then:
-        - lambda: |-
-            auto *n = id(${evse_name}_power_control);
-            const float ph = x;   // 1 ou 3
-            n->traits.set_min_value(1104.0f * ph);
-            n->traits.set_max_value(7360.0f * ph);
-            n->traits.set_step(50.0f * ph);
-            // republier la valeur à partir du courant réel
-            if (id(${evse_name}_current_pwm).has_state())
-              n->publish_state(id(${evse_name}_current_pwm).state * 1.4375f * ph);  
-         # Force HA to re-read entity metadata (min/max/step)
-        - wifi.disable:
-        - delay: 2s
-        - wifi.enable:              
+        - if:
+            condition:
+              lambda: 'return x != id(${evse_name}_last_phase);'
+            then:
+              - lambda: |-
+                  id(${evse_name}_last_phase) = x;
+                  auto *n = id(${evse_name}_power_control);
+                  n->traits.set_min_value(1104.0f * x);
+                  n->traits.set_max_value(7360.0f * x);
+                  n->traits.set_step(50.0f * x);
+                  // Republish the displayed value from the real current
+                  if (id(${evse_name}_current_pwm).has_state())
+                    n->publish_state(id(${evse_name}_current_pwm).state * 1.4375f * x);
+              # Force HA to re-read entity metadata (min/max/step)
+              - wifi.disable:
+              - delay: 2s
+              - wifi.enable:              
        
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
