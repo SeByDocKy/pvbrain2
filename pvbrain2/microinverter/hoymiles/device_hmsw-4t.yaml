@@ -1,0 +1,174 @@
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [hmsw]
+    refresh: 10s 
+
+globals:
+  - id: ${hmsw_name}_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+time:
+  - platform: sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:  
+          - globals.set:
+              id: ${hmsw_name}_energy_yesterday_global
+              value: !lambda return ( id(${hmsw_name}_energy_yesterday_global) =  float( id(${hmsw_name}_energy_today).state) );
+    
+hmsw:
+  - id: ${hmsw_id}
+    ip_address: ${hmsw_ip_address}
+    ip_port: ${hmsw_ip_port}
+    poll_interval: ${hmsw_poll_interval}
+    heartbeat_interval: ${hmsw_heartbeat_interval}
+    data_source: ${hmsw_data_source}
+    alarm_poll_interval: ${hmsw_alarm_poll_interval}
+    stale_data_reboot_threshold: ${hmsw_data_reboot_threshold}
+    stale_data_metric: ${hmsw_stale_data_metric}
+
+sensor:
+  
+  - platform: hmsw
+    hmsw_id: ${hmsw_id}
+    dc_channels:
+      - pv0:
+          power: 
+            name: ${name}_${hmsw_name}_pv0_power
+          current: 
+            name: ${name}_${hmsw_name}_pv0_current
+          voltage: 
+            name: ${name}_${hmsw_name}_pv0_voltage
+          temperature:
+            name: ${name}_${hmsw_name}_pv0_temperature          
+          energy_today: 
+            name: ${name}_${hmsw_name}_pv0_energy_today
+          energy_total: 
+            name: ${name}_${hmsw_name}_pv0_energy_total
+            
+      - pv1:
+          power: 
+            name: ${name}_${hmsw_name}_pv1_power
+          current: 
+            name: ${name}_${hmsw_name}_pv1_current
+          voltage: 
+            name: ${name}_${hmsw_name}_pv1_voltage
+          temperature:
+            name: ${name}_${hmsw_name}_pv1_temperature          
+          energy_today: 
+            name: ${name}_${hmsw_name}_pv1_energy_today
+          energy_total: 
+            name: ${name}_${hmsw_name}_pv1_energy_total
+
+      - pv2:
+          power: 
+            name: ${name}_${hmsw_name}_pv2_power
+          current: 
+            name: ${name}_${hmsw_name}_pv2_current
+          voltage: 
+            name: ${name}_${hmsw_name}_pv2_voltage
+          temperature:
+            name: ${name}_${hmsw_name}_pv2_temperature          
+          energy_today: 
+            name: ${name}_${hmsw_name}_pv2_energy_today
+          energy_total: 
+            name: ${name}_${hmsw_name}_pv2_energy_total
+            
+      - pv3:
+          power: 
+            name: ${name}_${hmsw_name}_pv3_power
+          current: 
+            name: ${name}_${hmsw_name}_pv3_current
+          voltage: 
+            name: ${name}_${hmsw_name}_pv3_voltage
+          temperature:
+            name: ${name}_${hmsw_name}_pv3_temperature          
+          energy_today: 
+            name: ${name}_${hmsw_name}_pv3_energy_today
+          energy_total: 
+            name: ${name}_${hmsw_name}_pv3_energy_total            
+    ac:
+      voltage: 
+        name: ${name}_${hmsw_name}_ac_voltage
+      current: 
+        name: ${name}_${hmsw_name}_ac_current
+      power: 
+        name: ${name}_${hmsw_name}_ac_power
+        id: ${hmsw_name}_ac_power
+      frequency: 
+        name: ${name}_${hmsw_name}_ac_frequency
+      power_factor: 
+        name: ${name}_${hmsw_name}_ac_power_factor
+      reactive_power: 
+        name: ${name}_${hmsw_name}_ac_reactive_power
+        
+    rssi: 
+      name: ${name}_${hmsw_name}_rssi
+
+  - platform: total_daily_energy
+    name: ${name}_${hmsw_name}_energy_today
+    id: ${hmsw_name}_energy_today
+    power_id: ${hmsw_name}_ac_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: right
+    restore: true
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${hmsw_name}_energy_yesterday
+    id: ${hmsw_name}_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    # update_interval: ${hm_inverter_template_update}
+    lambda: |-
+      return (id(${hmsw_name}_energy_yesterday).state = id(${hmsw_name}_energy_yesterday_global));
+         
+binary_sensor:
+
+  - platform: hmsw
+    hmsw_id: ${hmsw_id}
+    reachable:
+      name: ${name}_${hmsw_name}_reachable
+      id: ${hmsw_name}_reachable
+            
+number:
+
+  - platform: hmsw
+    hmsw_id: ${hmsw_id}
+    persistent_power_percent: 
+      name: ${name}_${hmsw_name}_persistent_power_percent
+      
+      
+output:
+  - platform: hmsw
+    hmsw_id: ${hmsw_id}
+    persistent_power_percent:
+      id: ${hmsw_name}_persistent_power_percent
+
+fan:
+  - platform: speed
+    id: ${hmsw_name}_output_command
+    name: ${name}_${hmsw_name}_output_command
+    output: ${hmsw_name}_persistent_power_percent     
+    
+button:
+  - platform: hmsw
+    hmsw_id: ${hmsw_id}
+    reset_hmsw:
+      name: ${name}_${hmsw_name}_reset_hmsw
+      id: ${hmsw_name}_reset_hmsw
+
+text_sensor:
+  - platform: hmsw
+    hmsw_id: ${hmsw_id}
+    active_warnings:
+      name: ${name}_${hmsw_name}_active_warnings      
