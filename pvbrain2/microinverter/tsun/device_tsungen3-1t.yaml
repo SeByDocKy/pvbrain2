@@ -1,0 +1,112 @@
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [tsungen3]
+    refresh: 10s 
+
+globals:
+  - id: ${tsungen3_name}_energy_yesterday_global
+    type: float
+    restore_value: yes
+    
+time:
+  - platform: sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:  
+          - globals.set:
+              id: ${tsungen3_name}_energy_yesterday_global
+              value: !lambda return ( id(${tsungen3_name}_energy_yesterday_global) =  float( id(${tsungen3_name}_energy_today).state) );
+            
+tsungen3:
+  - id: ${tsungen3_id}
+    ip_address: ${tsungen3_ip_address}
+    ip_port: ${tsungen3_ip_port}
+    sn: ${tsungen3_sn}
+    poll_interval: ${tsungen3_poll_interval}
+    modbus_address: ${tsungen3_modbus_address}
+
+sensor:
+  
+  - platform: tsungen3
+    tsungen3_id: ${tsungen3_id}
+    dc_channels:
+      - pv0:
+          voltage:
+            name: ${name}_${tsungen3_name}_pv0_voltage
+          current:
+            name: ${name}_${tsungen3_name}_pv0_current
+          power:
+            name: ${name}_${tsungen3_name}_pv0_power
+    ac:
+      voltage:
+        name: ${name}_${tsungen3_name}_grid_voltage
+      current:
+        name: ${name}_${tsungen3_name}_grid_current
+      frequency:
+        name: ${name}_${tsungen3_name}_grid_frequency
+      power:
+        name: ${name}_${tsungen3_name}_power
+        id: ${tsungen3_name}_power
+      energy_today:
+        name: ${name}_${tsungen3_name}_ac_energy_today
+      energy_total:
+        name: ${name}_${tsungen3_name}_ac_energy_total
+    inverter:
+      temperature:
+        name: ${name}_${tsungen3_name}_temperature
+      rated_power:
+        name: ${name}_${tsungen3_name}_rated_power
+
+  - platform: total_daily_energy
+    name: ${name}_${tsungen3_name}_energy_today
+    id: ${tsungen3_name}_energy_today
+    power_id: ${tsungen3_name}_power
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    method: right
+    restore: true
+    filters:
+        # Multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    icon: mdi:counter
+    
+  - platform: template
+    name: ${name}_${tsungen3_name}_energy_yesterday
+    id: ${tsungen3_name}_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    # update_interval: ${hms_inverter_template_update}
+    lambda: |-
+      return (id(${tsungen3_name}_energy_yesterday).state = id(${tsungen3_name}_energy_yesterday_global));
+      
+text_sensor:
+  - platform: tsungen3
+    tsungen3_id: ${tsungen3_id}
+    inverter_status:
+      name: ${name}_${tsungen3_name}_inverter_status
+    event_alarms:
+      name: ${name}_${tsungen3_name}_event_alarms
+    event_faults:
+      name: ${name}_${tsungen3_name}_event_faults
+
+number:
+  - platform: tsungen3
+    tsungen3_id: ${tsungen3_id}
+    power_percent:
+      name: ${name}_${tsungen3_name}_power_percent
+
+output:
+  - platform: tsungen3
+    tsungen3_id: ${tsungen3_id}
+    power_percent:
+      id: ${name}_${tsungen3_name}_power_percent_output
+
+button:
+  - platform: tsungen3
+    tsungen3_id: ${tsungen3_id}
+    reset_tsungen3:
+      name: ${name}_${tsungen3_name}_reset_tsungen3
