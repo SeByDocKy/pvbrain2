@@ -1025,7 +1025,6 @@ packages:
 
   ######################## EVSE #################
 
-
   # evse_1:
   #   url: https://github.com/SeByDocKy/pvbrain2/
   #   ref: main
@@ -1054,5 +1053,55 @@ packages:
   #         offsr_battery_voltage_id: 'smartshunt_battery_voltage'
   #         offsr_output_id: 'evse_output'
   #         offsr_windows_size: '5'          
+
+  ######################## Micro inverters #################
+
+  # hmsw1:
+  #   url: https://github.com/SeByDocKy/myESPhome/
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: 'pvbrain2/microinverter/hoymiles/device_hmsw-1t.yaml'
+  #       vars:
+  #         hmsw_id: 'hmsw1'
+  #         hmsw_name: 'hmsw1'
+  #         hmsw_ip_address: '192.168.1.50'
+  #         hmsw_ip_port: 10081
+  #         hmsw_poll_interval: '30s'
+  #         hmsw_heartbeat_interval: '60s'
+  #         hmsw_data_source: 'real_data_new'
+  #         hmsw_alarm_poll_interval: '10min'
+  #         hmsw_data_reboot_threshold: 10
+  #         hmsw_stale_data_metric: 'ac_voltage'
+
+  # sun1000g3:
+  #   url: https://github.com/SeByDocKy/myESPhome/
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: 'pvbrain2/microinverter/deye/device_deyemi-2t.yaml'
+  #       vars:
+  #         deyemi_id: 'sun1000g3'
+  #         deyemi_name: 'sun1000g3'
+  #         deyemi_ip_address: '192.168.1.50'
+  #         deyemi_ip_port: 8899
+  #         deyemi_modbus_address: 1
+  #         deyemi_sn: !secret sun1000g3_sn1 
+  #         deyemi_poll_interval: '3s'
+
+  # mx1000:
+  #   url: https://github.com/SeByDocKy/myESPhome/
+  #   ref: main
+  #   refresh: 0s
+  #   files:
+  #     - path: 'pvbrain2/microinverter/tsun/device_tsungen3-2t.yaml'
+  #       vars:
+  #         tsungen3_id: 'mx1000'
+  #         tsungen3_name: 'mx1000'
+  #         tsungen3_ip_address: '192.168.1.81'
+  #         tsungen3_ip_port: 8899
+  #         tsungen3_modbus_address: 1
+  #         tsungen3_sn: !secret mx1000_sn1 
+  #         tsungen3_poll_interval: '3s'
 
   
