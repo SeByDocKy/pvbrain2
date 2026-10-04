@@ -3,7 +3,7 @@ external_components:
   #   refresh: 0s
   
   - source: "github://SeByDocKy/myESPhome/"
-    components: [jk_bms, jk_modus]
+    components: [jk_bms, jk_modbus]
     refresh: 10s
     
 jk_modbus:
