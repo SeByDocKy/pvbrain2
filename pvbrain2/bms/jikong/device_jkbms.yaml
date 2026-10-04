@@ -1,8 +1,7 @@
 external_components:
   # - source: github://syssi/esphome-jk-bms@main
   #   refresh: 0s
-
-external_components:
+  
   - source: "github://SeByDocKy/myESPhome/"
     components: [jk_bms, jk_modus]
     refresh: 10s
