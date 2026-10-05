@@ -1,6 +1,13 @@
 # Updated : 2024.09.30
-# Version : 1.0.2
+# Version : 1.0.3
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
+# New booster weika components
+
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [weikai, weikai_spi, weikai_i2c]
+    refresh: 10s
+
 
 spi:
   - id: spi0_bus
