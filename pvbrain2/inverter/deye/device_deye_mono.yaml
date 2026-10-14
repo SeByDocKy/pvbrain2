@@ -1,0 +1,480 @@
+# packages:
+  # deye_nominal: !include device_deye_nominal.yaml
+  # deye_advanced: !include device_deye_advanced.yaml
+    
+external_components:
+  - source: "github://SeByDocKy/myESPhome/"
+    components: [deye_mono]
+    refresh: 10s  
+   
+globals:  
+  - id: ${inverter_name}_pv_energy_total_yesterday_global
+    type: float
+    restore_value: yes    
+  - id: ${inverter_name}_ac_output_energy_yesterday_global
+    type: float
+    restore_value: yes
+  - id: ${inverter_name}_battery_charging_energy_yesterday_global
+    type: float
+    restore_value: yes
+  - id: ${inverter_name}_battery_discharging_energy_yesterday_global
+    type: float
+    restore_value: yes
+
+time:
+  - platform: homeassistant #sntp
+    id: !extend my_time
+    on_time:
+      - seconds: ${my_second}
+        minutes: ${my_minute}
+        hours: ${my_hours}
+        then:           
+          - globals.set:
+              id: ${inverter_name}_pv_energy_total_yesterday_global
+              value: !lambda return ( id(${inverter_name}_pv_energy_total_yesterday_global) =  float( id(${inverter_name}_pv_energy_total_today).state) );                    
+          - globals.set:
+              id: ${inverter_name}_ac_output_energy_yesterday_global
+              value: !lambda return ( id(${inverter_name}_ac_output_energy_yesterday_global) =  float( id(${inverter_name}_ac_output_energy_today).state) );
+          - globals.set:
+              id: ${inverter_name}_battery_charging_energy_yesterday_global
+              value: !lambda return ( id(${inverter_name}_battery_charging_energy_yesterday_global) =  float( id(${inverter_name}_battery_charging_energy_today).state) );                 
+          - globals.set:
+              id: ${inverter_name}_battery_discharging_energy_yesterday_global
+              value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesterday_global) =  float( id(${inverter_name}_battery_discharging_energy_today).state) );  
+
+modbus_controller:
+ - id: ${inverter_name}_modbus_controller
+   address: ${inverter_modbus_address}
+   modbus_id: ${inverter_modbus_id}
+   setup_priority: -10
+   update_interval: ${inverter_update_interval}
+   
+deye_mono:
+  - id: ${inverter_name}_id
+    modbus_controller_id: ${inverter_name}_modbus_controller
+    inverter_factor: ${inverter_factor} # multiplier of every power value (was ${inverter_factor})
+    # use_write_multiple: true    # write with function 0x10 (default) or 0x06
+    # write_hold: 5s              # values read back are ignored this long after a write   
+
+
+sensor:
+
+  - platform: deye_mono
+    deye_mono_id: ${inverter_name}_id
+    modbus_address:
+      name: ${name}_${inverter_name}_modbus_address
+    limiter:
+      name: ${name}_${inverter_name}_limiter
+    gen_energy_today:
+      name: ${name}_${inverter_name}_gen_energy_today
+    battery_charging_energy_today:
+      name: ${name}_${inverter_name}_battery_charging_energy_today
+      id: ${inverter_name}_battery_charging_energy_today
+    battery_discharging_energy_today:
+      name: ${name}_battery_discharging_energy_today
+      id: ${inverter_name}_battery_discharging_energy_today
+    battery_charging_total:
+      name: ${name}_${inverter_name}_battery_charging_total
+    battery_discharging_total:
+      name: ${name}_${inverter_name}_battery_discharging_total
+    grid_energy_imported_today:
+      name: ${name}_${inverter_name}_grid_energy_imported_today
+    grid_energy_exported_today:
+      name: ${name}_${inverter_name}_grid_energy_exported_today
+    grid_energy_imported_total:
+      name: ${name}_${inverter_name}_grid_energy_imported_total
+    grid_frequency:
+      name: ${name}_${inverter_name}_grid_frequency
+    grid_energy_exported_total:
+      name: ${name}_${inverter_name}_grid_energy_exported_total
+    load_energy_today:
+      name: ${name}_${inverter_name}_load_energy_today
+    load_energy_total:
+      name: ${name}_${inverter_name}_load_energy_total
+      id: ${inverter_name}_load_energy_total
+    dc_transformer_temperature:
+      name: ${name}_${inverter_name}_dc_transformer_temperature
+    dc_radiator_temperature:
+      name: ${name}_${inverter_name}_dc_radiator_temperature
+    pv_energy_total:
+      name: ${name}_${inverter_name}_pv_energy_total
+    pv_energy_today:
+      name: ${name}_${inverter_name}_pv_energy_today
+    pv1_voltage:
+      name: ${name}_${inverter_name}_pv1_voltage
+    pv1_current:
+      name: ${name}_${inverter_name}_pv1_current
+    pv2_voltage:
+      name: ${name}_${inverter_name}_pv2_voltage
+    pv2_current:
+      name: ${name}_${inverter_name}_pv2_current
+    pv3_voltage:
+      name: ${name}_${inverter_name}_pv3_voltage
+    pv3_current:
+      name: ${name}_${inverter_name}_pv3_current
+    grid_voltage:
+      name: ${name}_${inverter_name}_grid_voltage
+    ac_output_voltage:
+      name: ${name}_${inverter_name}_ac_output_voltage
+    ac_output_current:
+      name: ${name}_${inverter_name}_ac_output_current
+    aux_output_power:
+      name: ${name}_${inverter_name}_aux_output_power
+    grid_power_167:
+      name: ${name}_${inverter_name}_grid_power_167
+    grid_power:
+      name: ${name}_${inverter_name}_grid_power
+    grid_external_power:
+      name: ${name}_${inverter_name}_grid_external_power
+    ac_output_power:
+      name: ${name}_${inverter_name}_ac_output_power
+      id: ${inverter_name}_ac_output_power
+    load_power:
+      name: ${name}_${inverter_name}_load_power
+    battery_temperature:
+      name: ${name}_${inverter_name}_battery_temperature
+    battery_voltage:
+      name: ${name}_${inverter_name}_battery_voltage
+    battery_soc:
+      name: ${name}_${inverter_name}_battery_soc
+    pv1_power:
+      name: ${name}_${inverter_name}_pv1_power
+      id: ${inverter_name}_pv1_power
+    pv2_power:
+      name: ${name}_${inverter_name}_pv2_power
+      id: ${inverter_name}_pv2_power
+    pv3_power:
+      name: ${name}_${inverter_name}_pv3_power
+      id: ${inverter_name}_pv3_power
+    battery_power:
+      name: ${name}_${inverter_name}_battery_power
+    battery_current:
+      name: ${name}_${inverter_name}_battery_current
+    load_frequency:
+      name: ${name}_${inverter_name}_load_frequency
+    ac_output_frequency:
+      name: ${name}_${inverter_name}_ac_output_frequency
+    grid_connexion:
+      name: ${name}_${inverter_name}_grid_connexion
+    battery_equalization_voltage:
+      name: ${name}_${inverter_name}_battery_equalization_voltage
+    battery_absorption_voltage:
+      name: ${name}_${inverter_name}_battery_absorption_voltage
+    battery_float_voltage:
+      name: ${name}_${inverter_name}_battery_float_voltage
+    battery_max_charge_current:
+      name: ${name}_${inverter_name}_battery_max_charge_current
+    battery_max_discharge_current:
+      name: ${name}_${inverter_name}_battery_max_discharge_current
+    battery_capacity_shutdown:
+      name: ${name}_${inverter_name}_battery_capacity_shutdown
+    battery_shutdown_voltage:
+      name: ${name}_${inverter_name}_battery_shutdown_voltage
+    battery_restart_voltage:
+      name: ${name}_${inverter_name}_battery_restart_voltage
+    battery_low_voltage:
+      name: ${name}_${inverter_name}_battery_low_voltage
+    grid_charge_battery_current:
+      name: ${name}_${inverter_name}_grid_charge_battery_current
+    grid_peak_shaving_power:
+      name: ${name}_${inverter_name}_grid_peak_shaving_power
+    firmware_control_board:
+      name: ${name}_${inverter_name}_firmware_control_board
+    firmware_comms_board:
+      name: ${name}_${inverter_name}_firmware_comms_board
+    setting_timezone1:
+      name: ${name}_${inverter_name}_setting_timezone1
+    setting_timezone2:
+      name: ${name}_${inverter_name}_setting_timezone2
+    setting_timezone3:
+      name: ${name}_${inverter_name}_setting_timezone3
+    setting_timezone4:
+      name: ${name}_${inverter_name}_setting_timezone4
+    setting_timezone5:
+      name: ${name}_${inverter_name}_setting_timezone5
+    setting_timezone6:
+      name: ${name}_${inverter_name}_setting_timezone6
+    power_timezone1:
+      name: ${name}_${inverter_name}_power_timezone1
+    power_timezone2:
+      name: ${name}_${inverter_name}_power_timezone2
+    power_timezone3:
+      name: ${name}_${inverter_name}_power_timezone3
+    power_timezone4:
+      name: ${name}_${inverter_name}_power_timezone4
+    power_timezone5:
+      name: ${name}_${inverter_name}_power_timezone5
+    power_timezone6:
+      name: ${name}_${inverter_name}_power_timezone6
+    battery_voltage_timezone1:
+      name: ${name}_${inverter_name}_battery_voltage_timezone1
+    battery_voltage_timezone2:
+      name: ${name}_${inverter_name}_battery_voltage_timezone2
+    battery_voltage_timezone3:
+      name: ${name}_${inverter_name}_battery_voltage_timezone3
+    battery_voltage_timezone4:
+      name: ${name}_${inverter_name}_battery_voltage_timezone4
+    battery_voltage_timezone5:
+      name: ${name}_${inverter_name}_battery_voltage_timezone5
+    battery_voltage_timezone6:
+      name: ${name}_${inverter_name}_battery_voltage_timezone6
+    setting_soc_timezone1:
+      name: ${name}_${inverter_name}_setting_soc_timezone1
+    setting_soc_timezone2:
+      name: ${name}_${inverter_name}_setting_soc_timezone2
+    setting_soc_timezone3:
+      name: ${name}_${inverter_name}_setting_soc_timezone3
+    setting_soc_timezone4:
+      name: ${name}_${inverter_name}_setting_soc_timezone4
+    setting_soc_timezone5:
+      name: ${name}_${inverter_name}_setting_soc_timezone5
+    setting_soc_timezone6:
+      name: ${name}_${inverter_name}_setting_soc_timezone6
+    battery_charging_current:
+      name: ${name}_${inverter_name}_battery_charging_current
+    battery_discharging_current:
+      name: ${name}_${inverter_name}_battery_discharging_current
+    battery_charging_power:
+      name: ${name}_${inverter_name}_battery_charging_power
+    battery_discharging_power:
+      name: ${name}_${inverter_name}_battery_discharging_power
+    pv_power_total:
+      name: ${name}_${inverter_name}_pv_power_total
+      id: ${inverter_name}_pv_power_total
+    essential_power:
+      name: ${name}_${inverter_name}_essential_power
+    essential_power_1:
+      name: ${name}_${inverter_name}_essential_power_1
+    nonessential_power:
+      name: ${name}_${inverter_name}_nonessential_power
+    nonessential_power_1:
+      name: ${name}_${inverter_name}_nonessential_power_1
+
+  # ---- Total energy part (unchanged, stays in YAML) ----
+  - platform: total_daily_energy
+    name: ${name}_${inverter_name}_pv_energy_total_today
+    id: ${inverter_name}_pv_energy_total_today
+    power_id: ${inverter_name}_pv_power_total
+    unit_of_measurement: 'kWh'
+    icon: mdi:counter
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+      - multiply: 0.001
+
+  - platform: total_daily_energy
+    name: ${name}_${inverter_name}_ac_output_energy_today
+    id: ${inverter_name}_ac_output_energy_today
+    power_id: ${inverter_name}_ac_output_power
+    unit_of_measurement: 'kWh'
+    icon: mdi:counter
+    accuracy_decimals: 1
+    method: trapezoid
+    filters:
+      - multiply: 0.001
+
+  - platform: template
+    name: ${name}_${inverter_name}_pv_energy_total_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: 60s
+    lambda: return id(${inverter_name}_pv_energy_total_yesterday_global);
+
+  - platform: template
+    name: ${name}_${inverter_name}_ac_output_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: 60s
+    lambda: return id(${inverter_name}_ac_output_energy_yesterday_global);
+
+  - platform: template
+    name: ${name}_${inverter_name}_battery_charging_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: 60s
+    lambda: return id(${inverter_name}_battery_charging_energy_yesterday_global);
+
+  - platform: template
+    name: ${name}_${inverter_name}_battery_discharging_energy_yesterday
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 1
+    icon: mdi:counter
+    update_interval: 60s
+    lambda: return id(${inverter_name}_battery_discharging_energy_yesterday_global);
+
+binary_sensor:
+  - platform: deye_mono
+    deye_mono_id: ${inverter_name}_id
+    mppt_multipoint_scanning:
+      name: ${name}_${inverter_name}_mppt_multipoint_scanning
+    switch_on_off:
+      name: ${name}_${inverter_name}_switch_on_off
+    island_protection_mode:
+      name: ${name}_${inverter_name}_island_protection_mode
+    mppt_number:
+      name: ${name}_${inverter_name}_mppt_number
+    GFDI_mode:
+      name: ${name}_${inverter_name}_GFDI_mode
+    grid_connected_status:
+      name: ${name}_${inverter_name}_grid_connected_status
+    setting_grid_charge_timezone1:
+      name: ${name}_${inverter_name}_setting_grid_charge_timezone1
+    setting_grid_charge_timezone2:
+      name: ${name}_${inverter_name}_setting_grid_charge_timezone2
+    setting_grid_charge_timezone3:
+      name: ${name}_${inverter_name}_setting_grid_charge_timezone3
+    setting_grid_charge_timezone4:
+      name: ${name}_${inverter_name}_setting_grid_charge_timezone4
+    setting_grid_charge_timezone5:
+      name: ${name}_${inverter_name}_setting_grid_charge_timezone5
+    setting_grid_charge_timezone6:
+      name: ${name}_${inverter_name}_setting_grid_charge_timezone6
+    setting_gen_charge_timezone1:
+      name: ${name}_${inverter_name}_setting_gen_charge_timezone1
+    setting_gen_charge_timezone2:
+      name: ${name}_${inverter_name}_setting_gen_charge_timezone2
+    setting_gen_charge_timezone3:
+      name: ${name}_${inverter_name}_setting_gen_charge_timezone3
+    setting_gen_charge_timezone4:
+      name: ${name}_${inverter_name}_setting_gen_charge_timezone4
+    setting_gen_charge_timezone5:
+      name: ${name}_${inverter_name}_setting_gen_charge_timezone5
+    setting_gen_charge_timezone6:
+      name: ${name}_${inverter_name}_setting_gen_charge_timezone6
+
+switch:
+  - platform: deye_mono
+    deye_mono_id: ${inverter_name}_id
+    low_power_mode:
+      name: ${name}_${inverter_name}_low_power_mode
+    mppt_multipoint_scanning:
+      name: ${name}_${inverter_name}_mppt_multipoint_scanning
+    low_noise_mode:
+      name: ${name}_${inverter_name}_low_noise_mode
+    toggle_solar_sell:
+      name: ${name}_${inverter_name}_toggle_solar_sell
+    toggle_force_generator:
+      name: ${name}_${inverter_name}_toggle_force_generator
+    toggle_system_timer:
+      name: ${name}_${inverter_name}_toggle_system_timer
+
+number:
+  - platform: deye_mono
+    deye_mono_id: ${inverter_name}_id
+    battery_equalization_voltage:
+      name: ${name}_${inverter_name}_battery_equalization_voltage
+    battery_absorption_voltage:
+      name: ${name}_${inverter_name}_battery_absorption_voltage
+    battery_float_voltage:
+      name: ${name}_${inverter_name}_battery_float_voltage
+    battery_shuntdown_voltage:
+      name: ${name}_${inverter_name}_battery_shuntdown_voltage
+    battery_low_voltage:
+      name: ${name}_${inverter_name}_battery_low_voltage
+    battery_max_charge_current:
+      name: ${name}_${inverter_name}_battery_max_charge_current
+    battery_max_discharge_current:
+      name: ${name}_${inverter_name}_battery_max_discharge_current
+    grid_charge_battery_current:
+      name: ${name}_${inverter_name}_grid_charge_battery_current
+    max_sell_power:
+      name: ${name}_${inverter_name}_max_sell_power
+    grid_peak_shaving_power:
+      name: ${name}_${inverter_name}_grid_peak_shaving_power
+    set_timezone1:
+      name: ${name}_${inverter_name}_set_timezone1
+    set_timezone2:
+      name: ${name}_${inverter_name}_set_timezone2
+    set_timezone3:
+      name: ${name}_${inverter_name}_set_timezone3
+    set_timezone4:
+      name: ${name}_${inverter_name}_set_timezone4
+    set_timezone5:
+      name: ${name}_${inverter_name}_set_timezone5
+    set_timezone6:
+      name: ${name}_${inverter_name}_set_timezone6
+    set_power_timezone1:
+      name: ${name}_${inverter_name}_set_power_timezone1
+    set_power_timezone2:
+      name: ${name}_${inverter_name}_set_power_timezone2
+    set_power_timezone3:
+      name: ${name}_${inverter_name}_set_power_timezone3
+    set_power_timezone4:
+      name: ${name}_${inverter_name}_set_power_timezone4
+    set_power_timezone5:
+      name: ${name}_${inverter_name}_set_power_timezone5
+    set_power_timezone6:
+      name: ${name}_${inverter_name}_set_power_timezone6
+    set_battery_voltage_timezone1:
+      name: ${name}_${inverter_name}_set_battery_voltage_timezone1
+    set_battery_voltage_timezone2:
+      name: ${name}_${inverter_name}_set_battery_voltage_timezone2
+    set_battery_voltage_timezone3:
+      name: ${name}_${inverter_name}_set_battery_voltage_timezone3
+    set_battery_voltage_timezone4:
+      name: ${name}_${inverter_name}_set_battery_voltage_timezone4
+    set_battery_voltage_timezone5:
+      name: ${name}_${inverter_name}_set_battery_voltage_timezone5
+    set_battery_voltage_timezone6:
+      name: ${name}_${inverter_name}_set_battery_voltage_timezone6
+    set_soc_timezone1:
+      name: ${name}_${inverter_name}_set_soc_timezone1
+    set_soc_timezone2:
+      name: ${name}_${inverter_name}_set_soc_timezone2
+    set_soc_timezone3:
+      name: ${name}_${inverter_name}_set_soc_timezone3
+    set_soc_timezone4:
+      name: ${name}_${inverter_name}_set_soc_timezone4
+    set_soc_timezone5:
+      name: ${name}_${inverter_name}_set_soc_timezone5
+    set_soc_timezone6:
+      name: ${name}_${inverter_name}_set_soc_timezone6
+
+select:
+  - platform: deye_mono
+    deye_mono_id: ${inverter_name}_id
+    switch_on_off:
+      name: ${name}_${inverter_name}_switch_on_off
+    battery_operate:
+      name: ${name}_${inverter_name}_battery_operate
+    energy_pattern:
+      name: ${name}_${inverter_name}_energy_pattern
+    work_mode:
+      name: ${name}_${inverter_name}_work_mode
+    grid_peak_shaving:
+      name: ${name}_${inverter_name}_grid_peak_shaving
+    tou_jours_semaine:
+      name: ${name}_${inverter_name}_tou_jours_semaine
+    select_charge_timezone1:
+      name: ${name}_${inverter_name}_select_charge_timezone1
+    select_charge_timezone2:
+      name: ${name}_${inverter_name}_select_charge_timezone2
+    select_charge_timezone3:
+      name: ${name}_${inverter_name}_select_charge_timezone3
+    select_charge_timezone4:
+      name: ${name}_${inverter_name}_select_charge_timezone4
+    select_charge_timezone5:
+      name: ${name}_${inverter_name}_select_charge_timezone5
+    select_charge_timezone6:
+      name: ${name}_${inverter_name}_select_charge_timezone6
+
+text_sensor:
+  - platform: deye_mono
+    deye_mono_id: ${inverter_name}_id
+    overall_state:
+      name: ${name}_${inverter_name}_overall_state
+    time_slot_1:
+      name: ${name}_${inverter_name}_time_slot_1
+    time_slot_2:
+      name: ${name}_${inverter_name}_time_slot_2
+    time_slot_3:
+      name: ${name}_${inverter_name}_time_slot_3
+    time_slot_4:
+      name: ${name}_${inverter_name}_time_slot_4
+    time_slot_5:
+      name: ${name}_${inverter_name}_time_slot_5
+    time_slot_6:
+      name: ${name}_${inverter_name}_time_slot_6
