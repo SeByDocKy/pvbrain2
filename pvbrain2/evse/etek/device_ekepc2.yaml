@@ -35,6 +35,11 @@ esphome:
             id: ${evse_name}_pwm_control
             value: !lambda |-  # ${evse_startup_minimum_pwm}
               return ${evse_startup_minimum_current}*160;   // 160 = 230V/1.4375
+
+external_components:
+  - source: github://SeByDocKy/myESPhome@main
+    components: [api_resync]
+    refresh: 10s              
             
 globals:
   - id: ${evse_name}_last_phase
@@ -189,29 +194,29 @@ sensor:
     state_class: 'measurement'
     lambda: |-
       return (x == 0) ? 1 : 3;
-    on_value:
-      then:
-        - if:
-            condition:
-              lambda: |-
-                const bool charging = id(${evse_name}_status).has_state() &&
-                                      id(${evse_name}_status).state == 5;
-                return !charging && static_cast<int>(x) != id(${evse_name}_last_phase);
-            then:
-              - lambda: |-
-                  const int ph = static_cast<int>(x);
-                  id(${evse_name}_last_phase) = ph;
-                  auto *n = id(${evse_name}_power_control);
-                  n->traits.set_min_value(1104.0f * ph);
-                  n->traits.set_max_value(7360.0f * ph);
-                  n->traits.set_step(50.0f * ph);
-                  // Republish the displayed value from the real current
-                  if (id(${evse_name}_current_pwm).has_state())
-                    n->publish_state(id(${evse_name}_current_pwm).state * 1.4375f * ph);
-              # Force HA to re-read entity metadata (min/max/step)
-              - wifi.disable:
-              - delay: 2s
-              - wifi.enable:              
+    # on_value:
+    #   then:
+    #     - if:
+    #         condition:
+    #           lambda: |-
+    #             const bool charging = id(${evse_name}_status).has_state() &&
+    #                                   id(${evse_name}_status).state == 5;
+    #             return !charging && static_cast<int>(x) != id(${evse_name}_last_phase);
+    #         then:
+    #           - lambda: |-
+    #               const int ph = static_cast<int>(x);
+    #               id(${evse_name}_last_phase) = ph;
+    #               auto *n = id(${evse_name}_power_control);
+    #               n->traits.set_min_value(1104.0f * ph);
+    #               n->traits.set_max_value(7360.0f * ph);
+    #               n->traits.set_step(50.0f * ph);
+    #               // Republish the displayed value from the real current
+    #               if (id(${evse_name}_current_pwm).has_state())
+    #                 n->publish_state(id(${evse_name}_current_pwm).state * 1.4375f * ph);
+    #           # Force HA to re-read entity metadata (min/max/step)
+    #           - wifi.disable:
+    #           - delay: 2s
+    #           - wifi.enable:              
        
   - platform: modbus_controller
     modbus_controller_id: ${evse_name}_modbus_controller
@@ -733,6 +738,12 @@ select:
     optionsmap:
       "1P": 0
       "3P": 1
+    on_value:
+      then:
+        - api_resync.set_number_range:
+            number_id: ${evse_name}_power_control
+            min_value: !lambda return (i == 0) ? 1380.0f : 4140.0f;
+            max_value: !lambda return (i == 0) ? 3680.0f : 11040.0f;  
     # on_value:
       # then:
         # - lambda: |-
