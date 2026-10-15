@@ -40,6 +40,11 @@ external_components:
   - source: github://SeByDocKy/myESPhome@main
     components: [api_resync]
     refresh: 10s              
+
+
+api_resync:
+  min_interval: 5s
+  delay: 500ms
             
 globals:
   - id: ${evse_name}_last_phase
