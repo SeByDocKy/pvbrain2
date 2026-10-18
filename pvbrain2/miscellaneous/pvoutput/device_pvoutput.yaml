@@ -11,7 +11,7 @@ time:
         then:
           - http_request.post:
               url: "https://pvoutput.org/service/r2/addstatus.jsp"
-              headers:
+              request_headers:
                 X-Pvoutput-Apikey: "${pvoutput_apikey}"
                 X-Pvoutput-SystemId: "${pvoutput_systemid}"
                 Content-Type: "application/x-www-form-urlencoded"
