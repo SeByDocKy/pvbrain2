@@ -1,11 +1,6 @@
 http_request:
-  id: ${pvoutput_id}
-  user_agent: ESPHome-PVOutput-Client
+  useragent: ESPHome-PVOutput-Client
   timeout: 5s
-  headers:
-    X-Pvoutput-Apikey: ${pvoutput_apikey}
-    X-Pvoutput-SystemId: ${pvoutput_systemid}
-    Content-Type: "application/x-www-form-urlencoded"
 
 time:
   - platform: sntp
@@ -16,6 +11,10 @@ time:
         then:
           - http_request.post:
               url: "https://pvoutput.org/service/r2/addstatus.jsp"
+              headers:
+                X-Pvoutput-Apikey: "${pvoutput_apikey}"
+                X-Pvoutput-SystemId: "${pvoutput_systemid}"
+                Content-Type: "application/x-www-form-urlencoded"
               body: !lambda |-
                 // 1. Récupération de la date/heure courante depuis l'horloge
                 auto time_now = id(time_${pvoutput_id}).now();
@@ -25,13 +24,12 @@ time:
                 time_now.strftime(time_str, sizeof(time_str), "%H:%M");
 
                 // 2. Récupération des valeurs des capteurs ESPHome
-                // (Remplacez les id par le nom exact de vos ID de capteurs dans ESPHome)
                 float v1_energy_today = id(${pvoutput_energy_today}).state * 1000.0f; // Wh
-                float v2_pv_power     = id(${pvoutput_total_pv_power}).state;                   // W
+                float v2_pv_power     = id(${pvoutput_total_pv_power}).state;             // W
                 float v3_grid_energy_import  = id(${pvoutput_grid_energy_import}).state * 1000.0f; // Wh
                 float v4_grid_power   = id(${pvoutput_grid_power}).state;                      // W
                 float v5_temp         = id(${pvoutput_temperature}).state; // °C
-                float v6_voltage      = id(${pvoutput_voltage}).state;                   // V
+                float v6_voltage      = id(${pvoutput_voltage}).state;                     // V
 
                 // 3. Construction du corps de la requête POST (form-urlencoded)
                 char body_buffer[300];
@@ -52,9 +50,7 @@ time:
                 then:
                   - lambda: |-
                       if (response->status_code == 200) {
-                        ESP_LOGI("pvoutput", "Send successfullu to PVOutput!");
+                        ESP_LOGI("pvoutput", "Send successfully to PVOutput!");
                       } else {
                         ESP_LOGW("pvoutput", "Fail to send to PVOutput, code HTTP: %d", response->status_code);
                       }
-                      
-                      
