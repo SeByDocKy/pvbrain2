@@ -1,11 +1,11 @@
 http_request:
-  - id: ${pvoutput_id}
-    user_agent: ESPHome-PVOutput-Client
-    timeout: 5s
-    headers:
-      X-Pvoutput-Apikey: ${pvoutput_apikey}
-      X-Pvoutput-SystemId: ${pvoutput_systemid}
-      Content-Type: "application/x-www-form-urlencoded"
+  id: ${pvoutput_id}
+  user_agent: ESPHome-PVOutput-Client
+  timeout: 5s
+  headers:
+    X-Pvoutput-Apikey: ${pvoutput_apikey}
+    X-Pvoutput-SystemId: ${pvoutput_systemid}
+    Content-Type: "application/x-www-form-urlencoded"
 
 time:
   - platform: sntp
