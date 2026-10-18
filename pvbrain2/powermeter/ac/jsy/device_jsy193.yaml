@@ -140,6 +140,7 @@ sensor:
       accuracy_decimals: 2
     voltage1:
       name: ${name}_${powermeter_name}_voltage_${powermeter_suffix1}
+      id: ${powermeter_name}_voltage_${powermeter_suffix1}
       accuracy_decimals: 2
     power1:
       name: ${name}_${powermeter_name}_power_${powermeter_suffix1}
@@ -162,6 +163,7 @@ sensor:
       accuracy_decimals: 2
     voltage2:
       name: ${name}_${powermeter_name}_voltage_${powermeter_suffix2}
+      id: ${powermeter_name}_voltage_${powermeter_suffix2}
       accuracy_decimals: 2
     power2:
       name: ${name}_${powermeter_name}_power_${powermeter_suffix2}
