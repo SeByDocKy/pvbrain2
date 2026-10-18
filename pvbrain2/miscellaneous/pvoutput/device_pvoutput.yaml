@@ -1,4 +1,5 @@
 http_request:
+  id: ${pvoutput_id}
   useragent: ESPHome-PVOutput-Client
   timeout: 5s
 
