@@ -3,7 +3,7 @@
 #  ESPHome 2026.9.0 modbus_controller
 #   • register_count removed (derived from value_type)
 #   • reuse_previous_range: true bridges address gaps
-#   • multiply: 100 → 0.01 (2026.9.0 semantics)
+#   • number voltages: multiply: 100 (raw 5310 -> 53.1 V); sensors keep filter multiply: 0.01
 #
 #  Single-phase -> three-phase mapping (offset -102, same as
 #  device_deye_tri_nominal.yaml: 201->99, 243->141, 247->145, 293->191):
@@ -626,7 +626,7 @@ number:
     icon: mdi:power
     address: 154
     min_value: 0
-    max_value: 8000
+    max_value: 16000
     step: 100
     value_type: U_WORD
 
@@ -639,7 +639,7 @@ number:
     icon: mdi:power
     address: 155
     min_value: 0
-    max_value: 8000
+    max_value: 16000
     step: 100
     value_type: U_WORD
 
@@ -652,7 +652,7 @@ number:
     icon: mdi:power
     address: 156
     min_value: 0
-    max_value: 8000
+    max_value: 16000
     step: 100
     value_type: U_WORD
 
@@ -665,7 +665,7 @@ number:
     icon: mdi:power
     address: 157
     min_value: 0
-    max_value: 8000
+    max_value: 16000
     step: 100
     value_type: U_WORD
 
@@ -678,7 +678,7 @@ number:
     icon: mdi:power
     address: 158
     min_value: 0
-    max_value: 8000
+    max_value: 16000
     step: 100
     value_type: U_WORD
 
@@ -691,7 +691,7 @@ number:
     icon: mdi:power
     address: 159
     min_value: 0
-    max_value: 8000
+    max_value: 16000
     step: 100
     value_type: U_WORD
 
@@ -709,7 +709,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    multiply: 0.01
+    multiply: 100
 
   - platform: modbus_controller         # 161 Settings Battery voltage Timezone2
     use_write_multiple: true
@@ -723,7 +723,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    multiply: 0.01
+    multiply: 100
 
   - platform: modbus_controller         # 162 Settings Battery voltage Timezone3
     use_write_multiple: true
@@ -737,7 +737,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    multiply: 0.01
+    multiply: 100
 
   - platform: modbus_controller         # 163 Settings Battery voltage Timezone4
     use_write_multiple: true
@@ -751,7 +751,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    multiply: 0.01
+    multiply: 100
 
   - platform: modbus_controller         # 164 Settings Battery voltage Timezone5
     use_write_multiple: true
@@ -765,7 +765,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    multiply: 0.01
+    multiply: 100
 
   - platform: modbus_controller         # 165 Settings Battery voltage Timezone6
     use_write_multiple: true
@@ -779,7 +779,7 @@ number:
     max_value: 63.0
     step: 0.1
     value_type: U_WORD
-    multiply: 0.01
+    multiply: 100
 
   ############ SOC timezone ################
 
