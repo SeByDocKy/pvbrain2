@@ -564,7 +564,7 @@ sensor:
     address: 609
     reuse_previous_range: true
     unit_of_measurement: 'Hz'
-    icon: mdi:sine-wave
+    icon: mdi:metronome
     accuracy_decimals: 2
     filters:
       - multiply: 0.01
