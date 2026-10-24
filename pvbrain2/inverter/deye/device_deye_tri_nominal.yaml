@@ -83,15 +83,6 @@ binary_sensor:
     # address: 46
     # # skip: 10
     
-  - platform: modbus_controller          # 84 MPPT number 
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_mppt_number
-    id: ${name}_${inverter_name}_mppt_number
-    register_type: holding
-    # value_type: U_WORD
-    address: 84
-    reuse_previous_range: true
-
   - platform: modbus_controller          # 85 GFDI mode
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_GFDI_mode
@@ -677,20 +668,6 @@ sensor:
     state_class: measurement
     value_type: S_WORD    
     
-  - platform: modbus_controller            # 172 Grid External Power
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    name: ${name}_${inverter_name}_grid_external_power
-    id: ${inverter_name}_grid_external_power
-    register_type: holding
-    address: 172
-    reuse_previous_range: true
-    unit_of_measurement: 'W'
-    icon: mdi:power
-    accuracy_decimals: 2
-    device_class: power
-    state_class: measurement
-    value_type: S_WORD
-          
   - platform: modbus_controller        # 255 Grid Peak Shaving raw register value
     modbus_controller_id: ${inverter_name}_modbus_controller
     id: ${inverter_name}_grid_peak_shaving_raw
@@ -1501,7 +1478,7 @@ select:
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_battery_operate
     id: ${inverter_name}_battery_operate
-    address: 213
+    address: 111
     value_type: U_WORD
     optionsmap:
       "According to the voltage": 0
