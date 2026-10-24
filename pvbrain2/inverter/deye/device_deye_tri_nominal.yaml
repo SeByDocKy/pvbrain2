@@ -102,13 +102,13 @@ binary_sensor:
     reuse_previous_range: true
     # skip: 10
     
-  - platform: modbus_controller            # 194 Grid Connected Status
+  - platform: modbus_controller            # 552 AC relay status, bit2 = grid relay (V105.4 three-phase doc)
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_grid_connected_status
     id: ${inverter_name}_grid_connected_status
     register_type: holding
-    address: 194  
-    reuse_previous_range: true
+    address: 552
+    bitmask: 0x04
 
 sensor:
 
