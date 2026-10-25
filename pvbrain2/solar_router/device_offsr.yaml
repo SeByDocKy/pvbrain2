@@ -81,5 +81,11 @@ number:
     output_restart: 
       name: ${name}_${offsr_name}_output_restart
 
+select:
+  - platform: offsr
+    offsr_id: ${offsr_id}
+    coeff_multiplier:
+      name: ${name}_${offsr_name}_coeff_multiplier      
+
 
 
