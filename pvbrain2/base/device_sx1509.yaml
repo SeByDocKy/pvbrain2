@@ -1,3 +1,13 @@
+external_components:
+  # - source: "github://SeByDocKy/myESPhome/"
+    # components: [ sx1509 ]
+    # refresh: 0s
+    
+  - source: github://pr#20285
+    components: [sx1509]
+    refresh: '10s'
+
+
 sx1509:
   - id: sx1509_hub0
     address: 0x3E
