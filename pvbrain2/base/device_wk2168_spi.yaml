@@ -4,9 +4,16 @@
 # New booster weika components
 
 external_components:
-  - source: "github://SeByDocKy/myESPhome/"
+  - source:
+      type: git
+      url: https://github.com/SeByDocKy/esphome
+      ref: weika_7E1 #weikai-change-baud #weikai-drain-wait #weikai-tx-room
     components: [weikai, weikai_spi, weikai_i2c]
-    refresh: 10s
+    refresh: 0s
+
+  # - source: "github://SeByDocKy/myESPhome/"
+  #   components: [weikai, weikai_spi, weikai_i2c]
+  #   refresh: 10s
 
 
 spi:
