@@ -2,7 +2,7 @@ substitutions:
    offset_select: '2'
 
 external_components:
-  - source: "github://SeByDocKy/myESPhome/"
+  - source: github://SeByDocKy/myESPhome@main
     components: [jsy194]
     refresh: 0s
     
