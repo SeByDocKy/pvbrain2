@@ -1,7 +1,7 @@
 external_components:
 #  - source: github://KinDR007/VictronSmartShunt-ESPHOME@main
 #    refresh: 0s
-  - source: "github://SeByDocKy/myESPhome/"
+  - source: github://SeByDocKy/myESPhome@main
     components: [victron_smart_shunt]
     refresh: 0s  
 
