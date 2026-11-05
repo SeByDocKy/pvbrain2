@@ -52,14 +52,13 @@ modbus_controller:
     modbus_id: ${inverter_modbus_id}
     setup_priority: -10
     update_interval: ${inverter_update_interval_fast}
-    
+
   - id: ${inverter_name}_modbus_controller_slow
     address: ${inverter_modbus_address}
     modbus_id: ${inverter_modbus_id}
     setup_priority: -10
     update_interval: ${inverter_update_interval_slow}   
    
-
 # ---------------------------------------------------------------------------
 # The inverter: every entity below comes from the component. Remove the lines you do not need.
 # An entity goes in `deyelvhy_fast` or in `deyelvhy_slow` (any key can go in either): that decides the controller,
@@ -118,10 +117,13 @@ sensor:
       name: ${name}_${inverter_name}_battery_soc
     pv1_power:
       name: ${name}_${inverter_name}_pv1_power
+      id: ${inverter_name}_pv1_power 
     pv2_power:
       name: ${name}_${inverter_name}_pv2_power
+      id: ${inverter_name}_pv2_power
     pv3_power:
       name: ${name}_${inverter_name}_pv3_power
+      id: ${inverter_name}_pv3_power
     battery_power:
       name: ${name}_${inverter_name}_battery_power
     battery_current:
@@ -178,8 +180,10 @@ sensor:
       name: ${name}_${inverter_name}_grid_energy_exported_total
     load_energy_today:
       name: ${name}_${inverter_name}_load_energy_today
+      id: ${inverter_name}_load_energy_today
     load_energy_total:
       name: ${name}_${inverter_name}_load_energy_total
+      id: ${inverter_name}_load_energy_total
     dc_transformer_temperature:
       name: ${name}_${inverter_name}_dc_transformer_temperature
     dc_radiator_temperature:
