@@ -68,7 +68,7 @@ time:
 # ---------------------------------------------------------------------------
 deyelvhy:
   - id: ${inverter_name}_id
-    phase: ${inverter_phase}                       # 1p single-phase, 3p three-phase
+    phase: 1                       # 1p single-phase, 3p three-phase
     fast_modbus_controller_id: ${inverter_name}_modbus_controller_fast
     slow_modbus_controller_id: ${inverter_name}_modbus_controller_slow     # optional: without it everything is polled by the fast one
     inverter_factor: ${inverter_factor}            # multiplier of every power value
