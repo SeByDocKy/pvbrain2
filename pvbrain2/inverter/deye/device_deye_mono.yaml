@@ -3,10 +3,11 @@
   # deye_advanced: !include device_deye_advanced.yaml
     
 external_components:
-  - source: "github://SeByDocKy/myESPhome/"
-    components: [deye_mono]
-    refresh: 10s  
-   
+
+  - source: "github://SeByDocKy/myESPhome"
+    components: [deyelvhy, deyelvhy_fast, deyelvhy_slow]
+    refresh: 10s
+
 globals:  
   - id: ${inverter_name}_pv_energy_total_yesterday_global
     type: float
@@ -40,66 +41,47 @@ time:
               value: !lambda return ( id(${inverter_name}_battery_charging_energy_yesterday_global) =  float( id(${inverter_name}_battery_charging_energy_today).state) );                 
           - globals.set:
               id: ${inverter_name}_battery_discharging_energy_yesterday_global
-              value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesterday_global) =  float( id(${inverter_name}_battery_discharging_energy_today).state) );  
+              value: !lambda return ( id(${inverter_name}_battery_discharging_energy_yesterday_global) =  float( id(${inverter_name}_battery_discharging_energy_today).state) ); 
 
-modbus_controller:
- - id: ${inverter_name}_modbus_controller
+# ---------------------------------------------------------------------------
+# Modbus: the bus, and the controllers (so the update_intervals) that poll the inverter
+# ---------------------------------------------------------------------------
+
+ modbus_controller:
+ - id: ${inverter_name}_modbus_controller_fast
    address: ${inverter_modbus_address}
    modbus_id: ${inverter_modbus_id}
    setup_priority: -10
-   update_interval: ${inverter_update_interval}
-   
-deye_mono:
-  - id: ${inverter_name}_id
-    modbus_controller_id: ${inverter_name}_modbus_controller
-    inverter_factor: ${inverter_factor} # multiplier of every power value (was ${inverter_factor})
-    # use_write_multiple: true    # write with function 0x10 (default) or 0x06
-    # write_hold: 5s              # values read back are ignored this long after a write   
+   update_interval: ${inverter_update_interval_fast}
 
+ - id: ${inverter_name}_modbus_controller_slow
+   address: ${inverter_modbus_address}
+   modbus_id: ${inverter_modbus_id}
+   setup_priority: -10
+   update_interval: ${inverter_update_interval_slow}   
+   
+
+# ---------------------------------------------------------------------------
+# The inverter: every entity below comes from the component. Remove the lines you do not need.
+# An entity goes in `deyelvhy_fast` or in `deyelvhy_slow` (any key can go in either): that decides the controller,
+# so the speed, that polls it. Writes always go out at once.
+# ---------------------------------------------------------------------------
+deyelvhy:
+  - id: ${inverter_name}_id
+    phase: ${inverter_phase}                       # 1p single-phase, 3p three-phase
+    fast_modbus_controller_id: ${inverter_name}_modbus_controller_fast
+    slow_modbus_controller_id: ${inverter_name}_modbus_controller_slow     # optional: without it everything is polled by the fast one
+    inverter_factor: ${inverter_factor}            # multiplier of every power value
+    # use_write_multiple: true      # write with function 0x10 (default) or 0x06
+    # write_hold: 5s                # values read back are ignored this long after a write
 
 sensor:
-
-  - platform: deye_mono
-    deye_mono_id: ${inverter_name}_id
-    modbus_address:
-      name: ${name}_${inverter_name}_modbus_address
+  - platform: deyelvhy_fast
+    deyelvhy_id: ${inverter_name}_id
     limiter:
       name: ${name}_${inverter_name}_limiter
-    gen_energy_today:
-      name: ${name}_${inverter_name}_gen_energy_today
-    battery_charging_energy_today:
-      name: ${name}_${inverter_name}_battery_charging_energy_today
-      id: ${inverter_name}_battery_charging_energy_today
-    battery_discharging_energy_today:
-      name: ${name}_battery_discharging_energy_today
-      id: ${inverter_name}_battery_discharging_energy_today
-    battery_charging_total:
-      name: ${name}_${inverter_name}_battery_charging_total
-    battery_discharging_total:
-      name: ${name}_${inverter_name}_battery_discharging_total
-    grid_energy_imported_today:
-      name: ${name}_${inverter_name}_grid_energy_imported_today
-    grid_energy_exported_today:
-      name: ${name}_${inverter_name}_grid_energy_exported_today
-    grid_energy_imported_total:
-      name: ${name}_${inverter_name}_grid_energy_imported_total
     grid_frequency:
       name: ${name}_${inverter_name}_grid_frequency
-    grid_energy_exported_total:
-      name: ${name}_${inverter_name}_grid_energy_exported_total
-    load_energy_today:
-      name: ${name}_${inverter_name}_load_energy_today
-    load_energy_total:
-      name: ${name}_${inverter_name}_load_energy_total
-      id: ${inverter_name}_load_energy_total
-    dc_transformer_temperature:
-      name: ${name}_${inverter_name}_dc_transformer_temperature
-    dc_radiator_temperature:
-      name: ${name}_${inverter_name}_dc_radiator_temperature
-    pv_energy_total:
-      name: ${name}_${inverter_name}_pv_energy_total
-    pv_energy_today:
-      name: ${name}_${inverter_name}_pv_energy_today
     pv1_voltage:
       name: ${name}_${inverter_name}_pv1_voltage
     pv1_current:
@@ -131,21 +113,16 @@ sensor:
       id: ${inverter_name}_ac_output_power
     load_power:
       name: ${name}_${inverter_name}_load_power
-    battery_temperature:
-      name: ${name}_${inverter_name}_battery_temperature
     battery_voltage:
       name: ${name}_${inverter_name}_battery_voltage
     battery_soc:
       name: ${name}_${inverter_name}_battery_soc
     pv1_power:
       name: ${name}_${inverter_name}_pv1_power
-      id: ${inverter_name}_pv1_power
     pv2_power:
       name: ${name}_${inverter_name}_pv2_power
-      id: ${inverter_name}_pv2_power
     pv3_power:
       name: ${name}_${inverter_name}_pv3_power
-      id: ${inverter_name}_pv3_power
     battery_power:
       name: ${name}_${inverter_name}_battery_power
     battery_current:
@@ -156,6 +133,64 @@ sensor:
       name: ${name}_${inverter_name}_ac_output_frequency
     grid_connexion:
       name: ${name}_${inverter_name}_grid_connexion
+    battery_charging_current:
+      name: ${name}_${inverter_name}_battery_charging_current
+    battery_discharging_current:
+      name: ${name}_${inverter_name}_battery_discharging_current
+    battery_charging_power:
+      name: ${name}_${inverter_name}_battery_charging_power
+    battery_discharging_power:
+      name: ${name}_${inverter_name}_battery_discharging_power
+    pv_power_total:
+      name: ${name}_${inverter_name}_pv_power_total
+      id: ${inverter_name}_pv_power_total
+    essential_power:
+      name: ${name}_${inverter_name}_essential_power
+    essential_power_1:
+      name: ${name}_${inverter_name}_essential_power_1
+    nonessential_power:
+      name: ${name}_${inverter_name}_nonessential_power
+    nonessential_power_1:
+      name: ${name}_${inverter_name}_nonessential_power_1
+
+  - platform: deyelvhy_slow
+    deyelvhy_id: ${inverter_name}_id
+    modbus_address:
+      name: ${name}_${inverter_name}_modbus_address
+    gen_energy_today:
+      name: ${name}_${inverter_name}_gen_energy_today
+    battery_charging_energy_today:
+      name: ${name}_${inverter_name}_battery_charging_energy_today
+      id: ${inverter_name}_battery_charging_energy_today
+    battery_discharging_energy_today:
+      name: ${name}_${inverter_name}_battery_discharging_energy_today
+      id: ${inverter_name}_battery_discharging_energy_today
+    battery_charging_total:
+      name: ${name}_${inverter_name}_battery_charging_total
+    battery_discharging_total:
+      name: ${name}_${inverter_name}_battery_discharging_total
+    grid_energy_imported_today:
+      name: ${name}_${inverter_name}_grid_energy_imported_today
+    grid_energy_exported_today:
+      name: ${name}_${inverter_name}_grid_energy_exported_today
+    grid_energy_imported_total:
+      name: ${name}_${inverter_name}_grid_energy_imported_total
+    grid_energy_exported_total:
+      name: ${name}_${inverter_name}_grid_energy_exported_total
+    load_energy_today:
+      name: ${name}_${inverter_name}_load_energy_today
+    load_energy_total:
+      name: ${name}_${inverter_name}_load_energy_total
+    dc_transformer_temperature:
+      name: ${name}_${inverter_name}_dc_transformer_temperature
+    dc_radiator_temperature:
+      name: ${name}_${inverter_name}_dc_radiator_temperature
+    pv_energy_total:
+      name: ${name}_${inverter_name}_pv_energy_total
+    pv_energy_today:
+      name: ${name}_${inverter_name}_pv_energy_today
+    battery_temperature:
+      name: ${name}_${inverter_name}_battery_temperature
     battery_equalization_voltage:
       name: ${name}_${inverter_name}_battery_equalization_voltage
     battery_absorption_voltage:
@@ -230,25 +265,6 @@ sensor:
       name: ${name}_${inverter_name}_setting_soc_timezone5
     setting_soc_timezone6:
       name: ${name}_${inverter_name}_setting_soc_timezone6
-    battery_charging_current:
-      name: ${name}_${inverter_name}_battery_charging_current
-    battery_discharging_current:
-      name: ${name}_${inverter_name}_battery_discharging_current
-    battery_charging_power:
-      name: ${name}_${inverter_name}_battery_charging_power
-    battery_discharging_power:
-      name: ${name}_${inverter_name}_battery_discharging_power
-    pv_power_total:
-      name: ${name}_${inverter_name}_pv_power_total
-      id: ${inverter_name}_pv_power_total
-    essential_power:
-      name: ${name}_${inverter_name}_essential_power
-    essential_power_1:
-      name: ${name}_${inverter_name}_essential_power_1
-    nonessential_power:
-      name: ${name}_${inverter_name}_nonessential_power
-    nonessential_power_1:
-      name: ${name}_${inverter_name}_nonessential_power_1
 
   # ---- Total energy part (unchanged, stays in YAML) ----
   - platform: total_daily_energy
@@ -306,20 +322,23 @@ sensor:
     lambda: return id(${inverter_name}_battery_discharging_energy_yesterday_global);
 
 binary_sensor:
-  - platform: deye_mono
-    deye_mono_id: ${inverter_name}_id
-    mppt_multipoint_scanning:
-      name: ${name}_${inverter_name}_mppt_multipoint_scanning
+  - platform: deyelvhy_fast
+    deyelvhy_id: ${inverter_name}_id
     switch_on_off:
       name: ${name}_${inverter_name}_switch_on_off
     island_protection_mode:
       name: ${name}_${inverter_name}_island_protection_mode
+    grid_connected_status:
+      name: ${name}_${inverter_name}_grid_connected_status
+
+  - platform: deyelvhy_slow
+    deyelvhy_id: ${inverter_name}_id
+    mppt_multipoint_scanning:
+      name: ${name}_${inverter_name}_mppt_multipoint_scanning
     mppt_number:
       name: ${name}_${inverter_name}_mppt_number
     GFDI_mode:
       name: ${name}_${inverter_name}_GFDI_mode
-    grid_connected_status:
-      name: ${name}_${inverter_name}_grid_connected_status
     setting_grid_charge_timezone1:
       name: ${name}_${inverter_name}_setting_grid_charge_timezone1
     setting_grid_charge_timezone2:
@@ -346,8 +365,8 @@ binary_sensor:
       name: ${name}_${inverter_name}_setting_gen_charge_timezone6
 
 switch:
-  - platform: deye_mono
-    deye_mono_id: ${inverter_name}_id
+  - platform: deyelvhy_slow
+    deyelvhy_id: ${inverter_name}_id
     low_power_mode:
       name: ${name}_${inverter_name}_low_power_mode
     mppt_multipoint_scanning:
@@ -362,8 +381,8 @@ switch:
       name: ${name}_${inverter_name}_toggle_system_timer
 
 number:
-  - platform: deye_mono
-    deye_mono_id: ${inverter_name}_id
+  - platform: deyelvhy_slow
+    deyelvhy_id: ${inverter_name}_id
     battery_equalization_voltage:
       name: ${name}_${inverter_name}_battery_equalization_voltage
     battery_absorption_voltage:
@@ -434,8 +453,8 @@ number:
       name: ${name}_${inverter_name}_set_soc_timezone6
 
 select:
-  - platform: deye_mono
-    deye_mono_id: ${inverter_name}_id
+  - platform: deyelvhy_slow
+    deyelvhy_id: ${inverter_name}_id
     switch_on_off:
       name: ${name}_${inverter_name}_switch_on_off
     battery_operate:
@@ -462,10 +481,13 @@ select:
       name: ${name}_${inverter_name}_select_charge_timezone6
 
 text_sensor:
-  - platform: deye_mono
-    deye_mono_id: ${inverter_name}_id
+  - platform: deyelvhy_fast
+    deyelvhy_id: ${inverter_name}_id
     overall_state:
       name: ${name}_${inverter_name}_overall_state
+
+  - platform: deyelvhy_slow
+    deyelvhy_id: ${inverter_name}_id
     time_slot_1:
       name: ${name}_${inverter_name}_time_slot_1
     time_slot_2:
