@@ -680,7 +680,7 @@ sensor:
     modbus_controller_id: ${inverter_name}_modbus_controller
     name: ${name}_${inverter_name}_grid_peak_shaving_power
     id: ${inverter_name}_grid_peak_shaving_power
-    address: 293
+    address: 191
     reuse_previous_range: true
     register_type: holding
     value_type: U_WORD
