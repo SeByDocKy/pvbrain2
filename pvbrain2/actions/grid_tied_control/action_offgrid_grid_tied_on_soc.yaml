@@ -38,7 +38,7 @@ sensor:
        - if:  ##### if battery SOC < SOC grid tied  => turn on relay to be grid tied  ######
           condition:
             and:
-              - switch.is_off: ${automation_grid_control_id}
+              # - switch.is_off: ${automation_grid_control_id}
               - switch.is_on: ${automation_name}_offgrid_gridtied_automatic_control
               - lambda: |-
                  return ( ( float(id(${automation_frequency_sensor_id}).state) < 0.1 )     );
@@ -50,7 +50,7 @@ sensor:
        - if:  ##### if battery SOC > SOC offgrid  => turn off relay to return offgrid    ######
           condition:
             and: 
-              - switch.is_on: ${automation_grid_control_id}
+              # - switch.is_on: ${automation_grid_control_id}
               - switch.is_on: ${automation_name}_offgrid_gridtied_automatic_control
               - lambda: |-
                  return ( ( float(id(${automation_frequency_sensor_id}).state) > 40 )     );
