@@ -55,6 +55,12 @@ output:
     write_action:
       - lambda: 'return;'
 
+fan:
+  - platform: speed
+    id: command
+    name: ${name}_${rylr998_name}_command
+    output: ${rylr998_fake_output_id}      
+
 number:
   - platform: rylr998
     tx_power:
