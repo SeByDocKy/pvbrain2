@@ -52,8 +52,8 @@ packet_transport:
 sensor:
   - platform: packet_transport
     provider: ${rylr998_controller}
-    name: ${name}_${rylr998_name}_power_received
-    id: ${rylr998_name}_power_received
+    name: ${name}_${rylr998_name}_power
+    id: ${rylr998_name}_power
     internal: false
     remote_id: ${rylr998_remote_id}
     accuracy_decimals: 1
@@ -73,7 +73,7 @@ sensor:
   - platform: total_daily_energy
     name: ${name}_${rylr998_name}_energy_today
     id: ${rylr998_name}_energy_today
-    power_id: ${rylr998_name}_power_received
+    power_id: ${rylr998_name}_power
     unit_of_measurement: 'kWh'
     accuracy_decimals: 1
     method: right
