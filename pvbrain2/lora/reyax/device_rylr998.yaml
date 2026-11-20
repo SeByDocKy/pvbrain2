@@ -66,6 +66,6 @@ number:
 
 button:
   - platform: rylr998
-    rylr998_id: ${rylr998_fake_output_id}
+    rylr998_id: ${rylr998_id}
     reset:
       name: ${name}_${rylr998_name}_reset
