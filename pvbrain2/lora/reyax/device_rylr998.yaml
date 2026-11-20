@@ -36,8 +36,8 @@ sensor:
   - platform: packet_transport
     provider: ${rylr998_controller}
     name: ${name}_${rylr998_name}_power_received
-    internal: false
     id: ${rylr998_name}_power_received
+    internal: false
     remote_id: ${rylr998_remote_id}
     accuracy_decimals: 1
     device_class: power
