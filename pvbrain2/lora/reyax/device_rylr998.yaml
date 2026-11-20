@@ -63,3 +63,9 @@ number:
   - platform: rylr998
     tx_power:
       name: ${name}_${rylr998_name}_tx_power      
+
+button:
+  - platform: rylr998
+    rylr998_id: ${rylr998_fake_output_id}
+    reset:
+      name: ${name}_${rylr998_name}_reset
