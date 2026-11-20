@@ -17,7 +17,7 @@ time:
         hours: 23
         then:  
           - globals.set:
-              id: energy_yesterday_global
+              id: ${rylr998_name}_energy_yesterday_global
               value: !lambda return ( id(${rylr998_name}_energy_yesterday_global) =  float( id(${rylr998_name}_energy_today).state) );
     
 uart:
