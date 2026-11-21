@@ -45,7 +45,7 @@ packet_transport:
   encryption: !secret encryption_key
   sensors:
     - ${rylr998_sensor_output_id}
-  binary_sensor:
+  binary_sensors:
     - ${rylr998_name}_manual_ovverride
   providers:
     - name: ${rylr998_controller}
