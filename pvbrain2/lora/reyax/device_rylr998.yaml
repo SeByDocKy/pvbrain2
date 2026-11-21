@@ -108,7 +108,7 @@ output:
 
 fan:
   - platform: speed
-    output: ${rylr998_sensor_output_id}
+    output: ${rylr998_fake_output_id}
     name: ${name}_${rylr998_name}_control      
 
 number:
