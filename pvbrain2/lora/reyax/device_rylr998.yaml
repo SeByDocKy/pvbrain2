@@ -126,14 +126,32 @@ button:
   - platform: copy
     source_id: ${rylr998_manual_override_id}
     id: ${rylr998_name}_manual_ovverride
-    on_turn_on:
-      - binary_sensor.template.publish:
-         id: ${rylr998_name}_manual_ovverride
-         state: ON
-    on_turn_off:
-      - binary_sensor.template.publish:
-         id: ${rylr998_name}_manual_ovverride
-         state: OFF
+    on_state:
+      - if:
+          condition:
+            switch.is_on: ${rylr998_name}_manual_ovverride
+          then:
+            - binary_sensor.template.publish:
+                id: ${rylr998_name}_manual_ovverride
+                state: ON
+     - if:
+          condition:
+            switch.is_off: ${rylr998_name}_manual_ovverride
+          then:
+            - binary_sensor.template.publish:
+                id: ${rylr998_name}_manual_ovverride
+                state: OFF          
+          
+
+            
+    # on_turn_on:
+    #   - binary_sensor.template.publish:
+    #      id: ${rylr998_name}_manual_ovverride
+    #      state: ON
+    # on_turn_off:
+    #   - binary_sensor.template.publish:
+    #      id: ${rylr998_name}_manual_ovverride
+    #      state: OFF
     
 
     # name: "Copy of source_switch"
