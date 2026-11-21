@@ -1,6 +1,6 @@
-# Updated : 2025.01.08
-# Version : 1.1.3
-# GitHub  : https://github.com/txubelaxu/esphome-jk-bms
+# Updated : 2026.11.20
+# Version : 1.2.0
+# GitHub  : https://github.com/Sleeper85/esphome-jk-rs485-bms
 
 # YamBMS ( Yet another multi-BMS Merging Solution )
 
@@ -25,13 +25,12 @@ logger:
 # +--------------------------------------+
 
 external_components:
-  - source: github://SeByDocKy/myESPhome@main #github://Sleeper85/esphome-components@main
+  - source: github://Sleeper85/esphome-jk-rs485-bms@main
     refresh: 0s
     components: [ jk_rs485_sniffer , jk_rs485_bms ]
 
 jk_rs485_sniffer:
   - id: ${sniffer_name}_jkpb
-    protocol_version: ${sniffer_protocol}
     rx_timeout: 500ms
     uart_id: ${sniffer_uart_id}
 
@@ -44,7 +43,7 @@ switch:
     name: ${name}_${sniffer_name}_broadcasting_jkpb_settings_to_all_bms
     id: ${sniffer_name}_broadcasting_jkpb_settings_to_all_bms
     icon: mdi:cast
-    restore_mode: RESTORE_DEFAULT_OFF
+    restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
     entity_category: config
     turn_on_action:
