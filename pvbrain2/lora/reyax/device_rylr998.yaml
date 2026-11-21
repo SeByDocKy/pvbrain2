@@ -108,6 +108,11 @@ output:
     write_action:
       - lambda: 'return;'
 
+fan:
+  - platform: speed
+    output: ${rylr998_fake_output_id}
+    name: ${name}_${rylr998_name}_control      
+
 number:
   - platform: rylr998
     rylr998_id: ${rylr998_id}
