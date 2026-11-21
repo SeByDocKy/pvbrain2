@@ -43,8 +43,11 @@ packet_transport:
   rylr998_id: ${rylr998_id}
   update_interval: ${rylr998_update_interval}
   encryption: !secret encryption_key
+  # sensors:
+  #   - ${rylr998_sensor_output_id}
   sensors:
-    - ${rylr998_sensor_output_id}
+    - id: ${rylr998_name}_output_value
+      broadcast_id: ${rylr998_sensor_output_id}   # le récepteur reçoit toujours "offlora_output"  
   binary_sensors:
     - ${rylr998_name}_manual_override
   providers:
@@ -92,7 +95,14 @@ sensor:
     icon: mdi:counter
     update_interval: '2s'
     lambda: |-
-      return (id(${rylr998_name}_energy_yesterday).state = id(${rylr998_name}_energy_yesterday_global));    
+      return (id(${rylr998_name}_energy_yesterday).state = id(${rylr998_name}_energy_yesterday_global)); 
+
+  - platform: template
+    id: ${rylr998_name}_output_value
+    internal: true
+    accuracy_decimals: 2
+    filters:
+      - delta: 0.01          # évite une trame LoRa à chaque petite variation du PID    
 
 binary_sensor:
   - platform: template
@@ -103,8 +113,12 @@ output:
   - platform: template
     id: ${rylr998_fake_output_id}
     type: float
+    # write_action:
+    #   - lambda: 'return;'
     write_action:
-      - lambda: 'return;'
+      - sensor.template.publish:
+          id: ${rylr998_name}_output_value
+          state: !lambda 'return state;'  
 
 fan:
   - platform: speed
