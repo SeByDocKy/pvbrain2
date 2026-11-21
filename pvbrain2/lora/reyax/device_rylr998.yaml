@@ -128,7 +128,7 @@ switch:
 
   - platform: copy
     source_id: ${rylr998_manual_override_id}
-    id: ${rylr998_name}_manual_ovverride
+    id: ${rylr998_name}_manual_ovverride_switch
     # on_state:
     #   - if:
     #       condition:
