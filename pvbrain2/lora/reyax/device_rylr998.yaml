@@ -134,7 +134,7 @@ button:
             - binary_sensor.template.publish:
                 id: ${rylr998_name}_manual_ovverride
                 state: ON
-     - if:
+      - if:
           condition:
             switch.is_off: ${rylr998_name}_manual_ovverride
           then:
