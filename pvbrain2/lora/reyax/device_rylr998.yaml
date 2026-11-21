@@ -94,8 +94,8 @@ sensor:
 
 binary_sensor:
   - platform: template
-    name: ${name}_${rylr998_name}_manual_activation
-    id: ${rylr998_name}_manual_activation
+    name: ${name}_${rylr998_name}_manual_ovverride
+    id: ${rylr998_name}_manual_ovverride
     optimistic: true
 
 
@@ -119,15 +119,15 @@ button:
       name: ${name}_${rylr998_name}_reset
 
 - platform: copy
-    source_id: ${rylr998_manual_activation_id}
-    id: ${rylr998_name}_manual_activation
+    source_id: ${rylr998_manual_override_id}
+    id: ${rylr998_name}_manual_ovverride
     on_turn_on:
       - binary_sensor.template.publish:
-         id: ${rylr998_name}_manual_activation
+         id: ${rylr998_name}_manual_ovverride
          state: ON
     on_turn_off:
       - binary_sensor.template.publish:
-         id: ${rylr998_name}_manual_activation
+         id: ${rylr998_name}_manual_ovverride
          state: OFF
     
 
