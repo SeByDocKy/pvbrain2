@@ -125,7 +125,7 @@ button:
     reset:
       name: ${name}_${rylr998_name}_reset
 
-- platform: copy
+  - platform: copy
     source_id: ${rylr998_manual_override_id}
     id: ${rylr998_name}_manual_ovverride
     on_turn_on:
