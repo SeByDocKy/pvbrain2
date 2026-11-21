@@ -149,11 +149,11 @@ switch:
             
     on_turn_on:
     - binary_sensor.template.publish:
-        id: ${rylr998_name}_manual_ovverride
+        id: ${rylr998_name}_manual_override
         state: ON
     on_turn_off:
     - binary_sensor.template.publish:
-        id: ${rylr998_name}_manual_ovverride
+        id: ${rylr998_name}_manual_override
         state: OFF
     
 
