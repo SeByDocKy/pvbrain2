@@ -20,14 +20,18 @@ wk2168_spi:
       - id: uart_spi_8
         channel: 0
         baud_rate: ${uart8_baudrate}
+        restore_baud_rate: true
         #parity: even
       - id: uart_spi_9
         channel: 1
         baud_rate: ${uart9_baudrate}
+        restore_baud_rate: true
       - id: uart_spi_10
         channel: 2
         baud_rate: ${uart10_baudrate}
+        restore_baud_rate: true
         #parity: even
       - id: uart_spi_11
         channel: 3
         baud_rate: ${uart11_baudrate}
+        restore_baud_rate: true
