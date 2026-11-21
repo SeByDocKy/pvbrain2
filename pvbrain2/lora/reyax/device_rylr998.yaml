@@ -98,9 +98,7 @@ binary_sensor:
   - platform: template
     name: ${name}_${rylr998_name}_manual_ovverride
     id: ${rylr998_name}_manual_ovverride
-    optimistic: true
-
-
+    
 output:    
   - platform: template
     id: ${rylr998_fake_output_id}
