@@ -127,28 +127,6 @@ switch:
   - platform: copy
     source_id: ${rylr998_manual_override_id}
     id: ${rylr998_name}_manual_override_switch
-    # filters:
-    #   - throttle: 5s
-
-    
-    # on_state:
-    #   - if:
-    #       condition:
-    #         switch.is_on: ${rylr998_name}_manual_ovverride
-    #       then:
-    #         - binary_sensor.template.publish:
-    #             id: ${rylr998_name}_manual_ovverride
-    #             state: ON
-    #   - if:
-    #       condition:
-    #         switch.is_off: ${rylr998_name}_manual_ovverride
-    #       then:
-    #         - binary_sensor.template.publish:
-    #             id: ${rylr998_name}_manual_ovverride
-    #             state: OFF          
-          
-
-            
     on_turn_on:
     - binary_sensor.template.publish:
         id: ${rylr998_name}_manual_override
