@@ -124,13 +124,13 @@ button:
       name: ${name}_${rylr998_name}_reset
 
 switch:
-      
-
   - platform: copy
     source_id: ${rylr998_manual_override_id}
-    id: ${rylr998_name}_manual_ovverride_switch
-    filters:
-      - throttle: 10s
+    id: ${rylr998_name}_manual_override_switch
+    # filters:
+    #   - throttle: 5s
+
+    
     # on_state:
     #   - if:
     #       condition:
