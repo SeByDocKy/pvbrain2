@@ -46,7 +46,7 @@ packet_transport:
   sensors:
     - ${rylr998_sensor_output_id}
   binary_sensors:
-    - ${rylr998_name}_manual_ovverride
+    - ${rylr998_name}_manual_override
   providers:
     - name: ${rylr998_controller}
       encryption: !secret encryption_key 
@@ -96,8 +96,8 @@ sensor:
 
 binary_sensor:
   - platform: template
-    name: ${name}_${rylr998_name}_manual_ovverride
-    id: ${rylr998_name}_manual_ovverride
+    name: ${name}_${rylr998_name}_manual_override
+    id: ${rylr998_name}_manual_override
     
 output:    
   - platform: template
