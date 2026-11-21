@@ -92,6 +92,13 @@ sensor:
     lambda: |-
       return (id(${rylr998_name}_energy_yesterday).state = id(${rylr998_name}_energy_yesterday_global));    
 
+binary_sensor:
+  - platform: template
+    name: ${name}_${rylr998_name}_manual_activation
+    id: ${rylr998_name}_manual_activation
+    optimistic: true
+
+
 output:    
   - platform: template
     id: ${rylr998_fake_output_id}
@@ -110,3 +117,19 @@ button:
     rylr998_id: ${rylr998_id}
     reset:
       name: ${name}_${rylr998_name}_reset
+
+- platform: copy
+    source_id: ${rylr998_manual_activation_id}
+    id: ${rylr998_name}_manual_activation
+    on_turn_on:
+      - binary_sensor.template.publish:
+         id: ${rylr998_name}_manual_activation
+         state: ON
+    on_turn_off:
+      - binary_sensor.template.publish:
+         id: ${rylr998_name}_manual_activation
+         state: OFF
+    
+
+    # name: "Copy of source_switch"
+      
