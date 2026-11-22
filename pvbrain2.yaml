@@ -1007,7 +1007,7 @@ packages:
   #     rylr998_address: '1'
   #     rylr998_update_interval: '2500ms'
   #     rylr998_sensor_output_id: 'offlora_output'
-  #     rylr998_manual_override_id: 'offlora_manual_override'
+  ##     rylr998_manual_override_id: 'offlora_manual_override'
   #     rylr998_fake_output_id: 'lora_fake_output'
   #     rylr998_controller: 'lora_router'
   #     rylr998_remote_id: 'power'
