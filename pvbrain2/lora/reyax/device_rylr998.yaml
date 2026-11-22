@@ -48,8 +48,8 @@ packet_transport:
   sensors:
     - id: ${rylr998_name}_output_value
       broadcast_id: ${rylr998_sensor_output_id}   # le récepteur reçoit toujours "offlora_output"  
-  binary_sensors:
-    - ${rylr998_name}_manual_override
+  # binary_sensors:
+  #   - ${rylr998_name}_manual_override
   providers:
     - name: ${rylr998_controller}
       encryption: !secret encryption_key 
@@ -101,13 +101,13 @@ sensor:
     id: ${rylr998_name}_output_value
     internal: true
     accuracy_decimals: 2
-    filters:
-      - delta: 0.01          # évite une trame LoRa à chaque petite variation du PID    
+    # filters:
+    #   - delta: 0.01          # évite une trame LoRa à chaque petite variation du PID    
 
-binary_sensor:
-  - platform: template
-    name: ${name}_${rylr998_name}_manual_override
-    id: ${rylr998_name}_manual_override
+# binary_sensor:
+#   - platform: template
+#     name: ${name}_${rylr998_name}_manual_override
+#     id: ${rylr998_name}_manual_override
     
 output:    
   - platform: template
@@ -137,19 +137,16 @@ button:
     reset:
       name: ${name}_${rylr998_name}_reset
 
-switch:
-  - platform: copy
-    source_id: ${rylr998_manual_override_id}
-    id: ${rylr998_name}_manual_override_switch
-    on_turn_on:
-    - binary_sensor.template.publish:
-        id: ${rylr998_name}_manual_override
-        state: ON
-    on_turn_off:
-    - binary_sensor.template.publish:
-        id: ${rylr998_name}_manual_override
-        state: OFF
+# switch:
+#   - platform: copy
+#     source_id: ${rylr998_manual_override_id}
+#     id: ${rylr998_name}_manual_override_switch
+#     on_turn_on:
+#     - binary_sensor.template.publish:
+#         id: ${rylr998_name}_manual_override
+#         state: ON
+#     on_turn_off:
+#     - binary_sensor.template.publish:
+#         id: ${rylr998_name}_manual_override
+#         state: OFF
     
-
-    # name: "Copy of source_switch"
-      
