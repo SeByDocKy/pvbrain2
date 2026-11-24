@@ -272,6 +272,7 @@ sensor:
     device_class: power
   # Tension Moyenne, phase 1
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "UMOY1"
     name: ${name}_${linky_name}_tension_moyenne
     unit_of_measurement: V
