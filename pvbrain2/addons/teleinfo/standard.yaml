@@ -3,6 +3,12 @@
 # GitHub  : https://github.com/Dackara/
 
 # https://esphome.io/components/sensor/teleinfo.html
+
+uart:
+  - id: !extend ${linky_uartid}              # ID of the UART to modify; Here for Linky.
+    parity: EVEN                        # Is requiered for Teleinfo
+    data_bits: 7                        # Is requiered for Teleinfo
+
 teleinfo:
   - uart_id: ${linky_uartid}
     id: ${linky_name}
