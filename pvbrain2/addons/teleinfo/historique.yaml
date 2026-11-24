@@ -21,6 +21,7 @@ teleinfo:
 sensor:
   # Intensité souscrite
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "ISOUSC"
     name: ${name}_${linky_name}_intensité_souscrite
     unit_of_measurement: A
@@ -28,6 +29,7 @@ sensor:
     state_class: measurement
   # Avertissement de Dépassement De Puissance Souscrite
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "ADPS"
     name: ${name}_${linky_name}_intensité_instantanée_dépassement
     unit_of_measurement: A
@@ -35,6 +37,7 @@ sensor:
     state_class: measurement
   # Puissance apparente
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "PAPP"
     name: ${name}_${linky_name}_puissance_apparente
     unit_of_measurement: VA
@@ -43,6 +46,7 @@ sensor:
     icon: mdi:flash
   # Puissance maximale atteinte
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "PMAX"
     name: ${name}_${linky_name}_puissance_maximale
     unit_of_measurement: W
@@ -55,6 +59,7 @@ sensor:
 
   # Index option Base
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "BASE"
     name: ${name}_${linky_name}_index_base
     unit_of_measurement: kWh
@@ -71,6 +76,7 @@ sensor:
 
   # Index HC
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "HCHC"
     name: ${name}_${linky_name}_index_hc
     unit_of_measurement: kWh
@@ -82,6 +88,7 @@ sensor:
       - multiply: 0.001
   # Index HP
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "HCHP"
     name: ${name}_${linky_name}_index_hp
     unit_of_measurement: kWh
@@ -98,6 +105,7 @@ sensor:
 
   # Index EJP Normal
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "EJPHN"
     name: ${name}_${linky_name}_index_ejp_normal
     unit_of_measurement: kWh
@@ -109,6 +117,7 @@ sensor:
       - multiply: 0.001
   # Index EJP Pointe
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "EJPHPM"
     name: ${name}_${linky_name}_index_ejp_pointe
     unit_of_measurement: kWh
@@ -125,6 +134,7 @@ sensor:
 
   # Index Tempo Jour Bleu HC
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "BBRHCJB"
     name: ${name}_${linky_name}_index_tempo_bleu_hc
     unit_of_measurement: kWh
@@ -136,6 +146,7 @@ sensor:
       - multiply: 0.001
   # Index Tempo Jour Bleu HP
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "BBRHPJB"
     name: ${name}_${linky_name}_index_tempo_bleu_hp
     unit_of_measurement: kWh
@@ -147,6 +158,7 @@ sensor:
       - multiply: 0.001
   # Index Tempo Jour Blanc HC
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "BBRHCJW"
     name: ${name}_${linky_name}_index_tempo_blanc_hc
     unit_of_measurement: kWh
@@ -158,6 +170,7 @@ sensor:
       - multiply: 0.001
   # Index Tempo Jour Blanc HP
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "BBRHPJW"
     name: ${name}_${linky_name}_index_tempo_blanc_hp
     unit_of_measurement: kWh
@@ -169,6 +182,7 @@ sensor:
       - multiply: 0.001
   # Index Tempo Jour Rouge HC
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "BBRHCJR"
     name: ${name}_${linky_name}_index_tempo_rouge_hc
     unit_of_measurement: kWh
@@ -180,6 +194,7 @@ sensor:
       - multiply: 0.001
   # Index Tempo Jour Rouge HP
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "BBRHPJR"
     name: ${name}_${linky_name}_index_tempo_rouge_hp
     unit_of_measurement: kWh
@@ -196,6 +211,7 @@ sensor:
 
   # Intensité Instantanée (monophasé)
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "IINST"
     name: ${name}_${linky_name}_intensité_instantanée
     unit_of_measurement: A
@@ -204,6 +220,7 @@ sensor:
     icon: mdi:current-ac
   # Intensité maximale appelée (monophasé)
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "IMAX"
     name: ${name}_${linky_name}_intensité_maximale
     unit_of_measurement: A
@@ -216,6 +233,7 @@ sensor:
 
   # Intensité Instantanée, (triphasé) phase 1
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "IINST1"
     name: ${name}_${linky_name}_intensité_instantanée_phase_1
     unit_of_measurement: A
@@ -224,6 +242,7 @@ sensor:
     icon: mdi:current-ac
   # Intensité Instantanée, (triphasé) phase 2
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "IINST2"
     name: ${name}_${linky_name}_intensité_instantanée_phase_2
     unit_of_measurement: A
@@ -232,6 +251,7 @@ sensor:
     icon: mdi:current-ac
   # Intensité Instantanée, (triphasé) phase 3
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "IINST3"
     name: ${name}_${linky_name}_intensité_instantanée_phase_3
     unit_of_measurement: A
@@ -240,6 +260,7 @@ sensor:
     icon: mdi:current-ac
   # Intensité maximale appelée, (triphasé) phase 1
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "IMAX1"
     name: ${name}_${linky_name}_intensité_maximale_phase_1
     unit_of_measurement: A
@@ -247,6 +268,7 @@ sensor:
     state_class: measurement
   # Intensité maximale appelée, (triphasé) phase 2
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "IMAX2"
     name: ${name}_${linky_name}_intensité_maximale_phase_2
     unit_of_measurement: A
@@ -254,6 +276,7 @@ sensor:
     state_class: measurement
   # Intensité maximale appelée, (triphasé) phase 3
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "IMAX3"
     name: ${name}_${linky_name}_intensité_maximale_phase_3
     unit_of_measurement: A
@@ -264,33 +287,40 @@ sensor:
 text_sensor:
   # Adresse du compteur
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "ADCO"
     name: ${name}_${linky_name}_adresse
   # Option tarifaire choisie
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "OPTARIF"
     name: ${name}_${linky_name}_option_tarifaire
   # Période Tarifaire en cours
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "PTEC"
     name: ${name}_${linky_name}_période_tarifaire
     icon: mdi:clock-time-nine-outline
   # Mot d'état du compteur
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "MOTDETAT"
     name: ${name}_${linky_name}_mot_d_état
   # Présence des potentiels
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "PPOT"
     name: ${name}_${linky_name}_présence_potentiels
     
   # Préavis Début EJP (30 min)
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "PEJP"
     name: ${name}_${linky_name}_préavis_ejp
   
   # Couleur du lendemain
   - platform: teleinfo
+    teleinfo_id: ${linky_name}
     tag_name: "DEMAIN"
     name: ${name}_${linky_name}_couleur_demain
     
