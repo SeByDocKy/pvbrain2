@@ -1,7 +1,3 @@
-# packages:
-  # deye_nominal: !include device_deye_nominal.yaml
-  # deye_advanced: !include device_deye_advanced.yaml
-    
 external_components:
   - source: github://SeByDocKy/myESPhome@main
     components: [deyelvhy, deyelvhy_fast, deyelvhy_slow]
