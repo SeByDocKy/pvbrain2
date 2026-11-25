@@ -118,6 +118,7 @@ sensor:
       name: ${name}_${inverter_name}_battery_discharging_current
     battery_charging_power:
       name: ${name}_${inverter_name}_battery_charging_power
+      id: ${inverter_name}_battery_charging_powe
     battery_discharging_power:
       name: ${name}_${inverter_name}_battery_discharging_power
     pv_power_total:
