@@ -93,6 +93,7 @@ sensor:
       id: ${inverter_name}_ac_output_power
     load_power:
       name: ${name}_${inverter_name}_load_power
+      id: ${inverter_name}_load_power
     battery_voltage:
       name: ${name}_${inverter_name}_battery_voltage
     battery_soc:
@@ -197,6 +198,7 @@ sensor:
       name: ${name}_${inverter_name}_battery_equalization_voltage
     battery_absorption_voltage:
       name: ${name}_${inverter_name}_battery_absorption_voltage
+      id: ${inverter_name}_battery_absorption_voltage
     battery_float_voltage:
       name: ${name}_${inverter_name}_battery_float_voltage
     battery_max_charge_current:
