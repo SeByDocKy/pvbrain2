@@ -1,6 +1,6 @@
-# Updated : 2025.01.07
-# Version : 1.1.2
-# GitHub  : https://github.com/txubelaxu/esphome-jk-bms
+# Updated : 2026.11.20
+# Version : 1.2.0
+# GitHub  : https://github.com/Sleeper85/esphome-jk-rs485-bms
 
 # YamBMS ( Yet another multi-BMS Merging Solution )
 
@@ -34,8 +34,6 @@ jk_rs485_bms:
 switch:
   - platform: jk_rs485_bms
     jk_rs485_bms_id: ${bms_name}_id
-    precharging:
-      name: ${name}_${bms_name}_precharging
     charging:
       name: ${name}_${bms_name}_charging
     discharging:
@@ -362,10 +360,6 @@ text_sensor:
     jk_rs485_bms_id: ${bms_name}_id
     errors:
       name: ${name}_${bms_name}_errors
-    operation_status:
-      name: ${name}_${bms_name}_operation_status
-    battery_type:
-      name: ${name}_${bms_name}_battery_type
     total_runtime_formatted:
       name: ${name}_${bms_name}_total_runtime_formatted
     info_vendorid:

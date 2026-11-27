@@ -4,13 +4,13 @@
 # ██╔═══╝░░╚████╔╝░██╔══██╗██╔══██╗██╔══██║██║██║╚████║██╔══╝░░
 # ██║░░░░░░░╚██╔╝░░██████╦╝██║░░██║██║░░██║██║██║░╚███║███████╗
 # ╚═╝░░░░░░░░╚═╝░░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝╚═╝╚═╝░░╚══╝╚══════╝
-# Updated : 2026.09.23
-# Version : 1.0.7
+# Updated : 2026.11.20
+# Version : 1.0.8
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 
 substitutions:
   name: 'pvbrain2'
-  pvbrain2_version: '1.0.7'
+  pvbrain2_version: '1.0.8'
   git_url: 'https://github.com/SeByDocKy/pvbrain2@main'
 
   ###### For builtin ESP32 S3 UART ports ######
@@ -792,7 +792,6 @@ packages:
     # file: pvbrain2/bms/jikong/device_JK-PB_RS485_sniffer.yaml
     # vars:
      # sniffer_name: 'sniffer1'
-     # sniffer_protocol: 'JK02_32S'
      # sniffer_uart_id: uart_${uart_hub_bus}_3   
 
 
@@ -800,7 +799,7 @@ packages:
     # file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
     # vars:
       # bms_id: '1' # must be a number
-      # bms_name: 'jkpbbms1'
+      # bms_name: 'jkbms1'
       # bms_sniffer_id: 'sniffer1_jkpb'
       # bms_address: '0x01' # BMS 1 DIP switch
       # bms_update_interval: '3s' # going below '3s' can cause problems     
@@ -809,18 +808,18 @@ packages:
   #   file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
   #   vars:
   #     bms_id: '2' # must be a number
-  #     bms_name: 'JK-BMS 2'
+  #     bms_name: 'jkbms2'
   #     bms_sniffer_id: 'sniffer1_jkpb'
-  #     bms_address: '0x01' # BMS 2 DIP switch
+  #     bms_address: '0x02' # BMS 2 DIP switch
   #     bms_update_interval: '3s' # going below '3s' can cause problems
 
   # bms3: !include
   #   file: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
   #   vars:
   #     bms_id: '3' # must be a number
-  #     bms_name: 'JK-BMS 3' 
+  #     bms_name: 'jkbms3'
   #     bms_sniffer_id: 'sniffer1_jkpb'
-  #     bms_address: '0x02' # BMS 3 DIP switch
+  #     bms_address: '0x03' # BMS 3 DIP switch
   #     bms_update_interval: '3s' # going below '3s' can cause problems
 
    ################# TEMPLATE SENSORS  ##############

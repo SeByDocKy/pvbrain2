@@ -1,5 +1,5 @@
-# Updated : 2025.07.30
-# Version : 1.1.3
+# Updated : 2026.11.20
+# Version : 1.1.4
 # GitHub  : https://github.com/SeByDocKy/pvbrain2
 # GitHub  : https://github.com/Sleeper85/pvbrain2
 
@@ -16,7 +16,7 @@ substitutions:
   friendly_name : 'PVbrain2' # Prefix added in front of the `entity display name`, also used to classify them.
   hostname: 'pvbrain2' # Name of your ESPHome node registered on the IP network (DNS name, must be unique) and prefix added in front of the `entity id`.
   name: '' # This name can be added as a second prefix, both for the `entity display name` and the `entity id`, you can leave it blank.
-  pvbrain2_version: '1.1.3'
+  pvbrain2_version: '1.1.4'
   esphome_min_version: '2025.6.0'
   # PVbrain2 settings
   my_second: '59'
@@ -773,7 +773,7 @@ packages:
   #     # JK RS485 sniffer
   #     - path: pvbrain2/bms/jikong/device_JK-PB_RS485_sniffer.yaml
   #       vars:
-  #         sniffer_protocol: 'JK02_32S'
+  #         sniffer_name: 'sniffer1'
   #         sniffer_uart_id: uart_${uart_hub_bus}_4
   #     # Mode1 : configure the DIP switches of your BMS from 0x00 to 0x0F (max 16 BMS)
   #     # Mode2 : configure the DIP switches of your BMS from 0x01 to 0x0F (don't use the 0x00 address, maximum 15 BMS)
@@ -781,21 +781,24 @@ packages:
   #     - path: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
   #       vars:
   #         bms_id: '1' # must be a number
-  #         bms_name: 'JK-BMS 1'
+  #         bms_name: 'jkbms1'
+  #         bms_sniffer_id: 'sniffer1_jkpb'
   #         bms_address: '0x00' # BMS 1 DIP switch
   #         bms_update_interval: '3s' # going below '3s' can cause problems
   #     # JK-BMS 2
   #     - path: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
   #       vars:
   #         bms_id: '2' # must be a number
-  #         bms_name: 'JK-BMS 2'
+  #         bms_name: 'jkbms2'
+  #         bms_sniffer_id: 'sniffer1_jkpb'
   #         bms_address: '0x01' # BMS 2 DIP switch
   #         bms_update_interval: '3s' # going below '3s' can cause problems
   #     # JK-BMS 3
   #     - path: pvbrain2/bms/jikong/device_JK-PB_RS485_entities.yaml
   #       vars:
   #         bms_id: '3' # must be a number
-  #         bms_name: 'JK-BMS 3'
+  #         bms_name: 'jkbms3'
+  #         bms_sniffer_id: 'sniffer1_jkpb'
   #         bms_address: '0x02' # BMS 3 DIP switch
   #         bms_update_interval: '3s' # going below '3s' can cause problems
 
