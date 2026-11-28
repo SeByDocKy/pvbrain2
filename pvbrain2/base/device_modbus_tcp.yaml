@@ -1,0 +1,26 @@
+# Updated : 2026.11.28
+# Version : 1.0.0
+# GitHub  : https://github.com/SeByDocKy/pvbrain2
+
+external_components:
+  - source: github://pr#20061
+    components: [modbus_tcp_uart]
+    refresh: 10s
+  - source: github://pr#20198
+    components: [ble_nus, tcp_uart, uart, usb_cdc_acm, usb_uart]
+    refresh: 10s
+
+tcp_uart:
+  - id: ${modbus_id}_link
+    host: ${modbus_ip_address}
+    port: ${modbus_ip_port}
+
+modbus_tcp_uart:
+  - id: ${modbus_id}_uart
+    tcp_uart_id: ${modbus_id}_link
+
+modbus:
+  - id: ${modbus_id}
+    uart_id: ${modbus_id}_uart
+    send_wait_time: ${modbus_send_wait_time}
+    turnaround_time: ${modbus_turnaround_time}
