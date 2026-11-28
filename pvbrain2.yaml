@@ -426,6 +426,10 @@ packages:
   #     inverter_update_interval: '3s'
   #     inverter_template_update: '5s'
   #     inverter_text_update: '5s'    
+
+  ######  for deye inverter ###
+
+  #### original package ####
   
   # inverter_3: !include
   #   # url: ${git_url}
@@ -439,6 +443,39 @@ packages:
   #     inverter_template_update: '2s'
   #     inverter_text_update: '5s'
   #     inverter_factor: '1'  #1 for non-3 mppt models, 10 for 3 mppt variant
+
+  #### new native package monophased ####
+
+  # inverter_3:
+  #     url: https://github.com/SeByDocKy/pvbrain2/
+  #     ref: main
+  #     refresh: 0s
+  #     files: 
+  #       - path: pvbrain2/inverter/deye/device_deye_lv_mono.yaml
+  #         vars:
+  #           inverter_name: 'deye'
+  #           inverter_modbus_id: 'modbus_9600_3'
+  #           inverter_modbus_address: '1'
+  #           inverter_update_interval_fast: '2s'
+  #           inverter_update_interval_slow: '10s'
+  #           inverter_factor: 'auto'   
+
+  #### new native package triphased ####
+
+  # inverter_3:
+  #   url: https://github.com/SeByDocKy/pvbrain2/
+  #   ref: main
+  #   refresh: 0s
+  #   files: 
+  #     - path: pvbrain2/inverter/deye/device_deye_lv_tri.yaml
+  #       vars:
+  #         inverter_name: 'deye'
+  #         inverter_modbus_id: 'modbus_9600_3'
+  #         inverter_modbus_address: '1'
+  #         inverter_update_interval_fast: '2s'
+  #         inverter_update_interval_slow: '10s'
+  #         inverter_factor: 'auto' 
+
 
   # inverter_4: !include
   #   # url: ${git_url}
